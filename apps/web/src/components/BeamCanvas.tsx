@@ -47,6 +47,7 @@ export function BeamCanvas({ isPlaybackMode = false, sceneId, localProgress = 1 
     <div ref={containerRef} style={{ width: '100%', height: '300px', overflow: 'hidden', padding: '0 0 20px 0', position: 'relative' }}>
       
       <svg 
+        className="beam-canvas-svg"
         width={width} 
         height={300} 
         style={{ display: 'block', pointerEvents: isPlaybackMode ? 'none' : 'auto' }}
