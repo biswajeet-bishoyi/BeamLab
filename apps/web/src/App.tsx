@@ -10,6 +10,7 @@ import { AIEngineeringStudio } from './components/AIEngineeringStudio';
 import { EnvironmentLayer } from './components/environments/EnvironmentLayer';
 import { EnvironmentGallery } from './components/environments/EnvironmentGallery';
 import { PresentationMode } from './components/presentation/PresentationMode';
+import { ExportStudio } from './components/export/ExportStudio';
 import { Dashboard } from './components/Dashboard';
 import { PerformanceOverlay } from './components/PerformanceOverlay';
 import { Gallery } from './components/Gallery';
@@ -38,6 +39,8 @@ export default function App() {
   const currentView = useStore((state) => state.currentView);
   const setView = useStore((state) => state.setView);
   const activeEnvironment = useStore((state) => state.activeEnvironment);
+  const exportStudioOpen = useStore((state) => state.exportStudioOpen);
+  const setExportStudioOpen = useStore((state) => state.setExportStudioOpen);
   
   useEffect(() => {
     if (theme === 'dark') {
@@ -137,7 +140,10 @@ export default function App() {
           >
             <Clock size={18} /> Time Machine
           </button>
-          <button className="px-6 py-2 bg-slate-800 hover:bg-slate-900 text-white dark:bg-white dark:hover:bg-slate-100 dark:text-slate-900 rounded-xl transition-colors font-medium flex items-center gap-2">
+          <button 
+            onClick={() => setExportStudioOpen(true)}
+            className="px-6 py-2 bg-slate-800 hover:bg-slate-900 text-white dark:bg-white dark:hover:bg-slate-100 dark:text-slate-900 rounded-xl transition-colors font-medium flex items-center gap-2"
+          >
             <Printer size={18} /> Export
           </button>
         </div>
@@ -208,6 +214,13 @@ export default function App() {
       <AnimatePresence>
         {presentationMode && (
           <PresentationMode onClose={() => setPresentationMode(false)} />
+        )}
+      </AnimatePresence>
+
+      {/* EXPORT STUDIO OVERLAY */}
+      <AnimatePresence>
+        {exportStudioOpen && (
+          <ExportStudio onClose={() => setExportStudioOpen(false)} />
         )}
       </AnimatePresence>
 

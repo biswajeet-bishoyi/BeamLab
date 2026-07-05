@@ -29,6 +29,7 @@ interface BeamworksState {
   aiUserLevel: AIUserLevel | null;
   activeEnvironment: EnvironmentId;
   performanceMonitorOpen: boolean;
+  exportStudioOpen: boolean;
   
   dispatchCommand: (cmd: StructuralCommand) => void;
   previewCommand: (cmd: StructuralCommand) => void;
@@ -43,6 +44,7 @@ interface BeamworksState {
   setAiUserLevel: (level: AIUserLevel) => void;
   setEnvironment: (id: EnvironmentId) => void;
   setPerformanceMonitorOpen: (open: boolean) => void;
+  setExportStudioOpen: (open: boolean) => void;
 }
 
 export const initialModel: StructuralModel = {
@@ -142,6 +144,7 @@ export const useStore = create<BeamworksState>((set, get) => {
     aiUserLevel: null,
     activeEnvironment: 'none',
     performanceMonitorOpen: false,
+  exportStudioOpen: false,
     
     dispatchCommand: (cmd: StructuralCommand) => {
       const state = get();
@@ -171,6 +174,7 @@ export const useStore = create<BeamworksState>((set, get) => {
     setAiUserLevel: (level) => set({ aiUserLevel: level }),
     setEnvironment: (id) => set({ activeEnvironment: id }),
     setPerformanceMonitorOpen: (open) => set({ performanceMonitorOpen: open }),
+    setExportStudioOpen: (open) => set({ exportStudioOpen: open }),
     
     loadPreset: (model) => {
       engineInstance.calculate(model, false);
