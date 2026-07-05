@@ -45,7 +45,7 @@ interface BeamworksState {
   setPerformanceMonitorOpen: (open: boolean) => void;
 }
 
-const initialModel: StructuralModel = {
+export const initialModel: StructuralModel = {
   span: toLength(10),
   supports: [
     { id: 's1', type: 'pin', position: toLength(0) },

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useStore } from '../store';
+import { useStore, initialModel } from '../store';
 import { 
   Plus, 
   FolderOpen, 
@@ -221,7 +221,10 @@ Respond with ONLY valid JSON. Do not include markdown formatting like \`\`\`json
             desc="Start a blank canvas" 
             color="bg-yellow-400" 
             textColor="text-slate-900"
-            onClick={() => setView('gallery')}
+            onClick={() => {
+              loadPreset(initialModel);
+              setView('workspace');
+            }}
             primary
           />
           <ActionCard 
