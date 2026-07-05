@@ -391,6 +391,11 @@ Respond with ONLY valid JSON. Do not include markdown formatting like \`\`\`json
 
         </motion.section>
 
+        {/* FOOTER */}
+        <div className="flex justify-center items-center pt-8 pb-4 text-slate-500 dark:text-slate-400 font-medium">
+          made by biswajeet ❤️
+        </div>
+
       </div>
     </div>
   );
