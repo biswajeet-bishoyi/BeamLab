@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useStore, initialModel } from '../store';
+import { PRESETS } from './Gallery';
 import { 
   Plus, 
   FolderOpen, 
@@ -264,7 +265,10 @@ Respond with ONLY valid JSON. Do not include markdown formatting like \`\`\`json
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
               <Library className="text-blue-500" /> Featured Examples
             </h2>
-            <button className="text-blue-600 dark:text-blue-400 font-medium hover:underline flex items-center gap-1 text-sm">
+            <button 
+              onClick={() => setView('gallery')}
+              className="text-blue-600 dark:text-blue-400 font-medium hover:underline flex items-center gap-1 text-sm"
+            >
               View All Examples <ArrowRight size={16} />
             </button>
           </div>
@@ -274,7 +278,10 @@ Respond with ONLY valid JSON. Do not include markdown formatting like \`\`\`json
               title="Simply Supported Beam"
               desc="A classic 10m beam with a central point load."
               difficulty="Beginner"
-              onClick={() => setView('workspace')}
+              onClick={() => {
+                loadPreset(PRESETS[0].model);
+                setView('workspace');
+              }}
               svg={
                 <svg viewBox="0 0 100 40" className="w-full h-full text-slate-800 dark:text-slate-200">
                   <path d="M 20 20 L 80 20" stroke="currentColor" strokeWidth="4" />
@@ -288,7 +295,10 @@ Respond with ONLY valid JSON. Do not include markdown formatting like \`\`\`json
               title="Cantilever Overhang"
               desc="Fixed support on the left, with an overhang UDL."
               difficulty="Intermediate"
-              onClick={() => setView('workspace')}
+              onClick={() => {
+                loadPreset(PRESETS[3].model);
+                setView('workspace');
+              }}
               svg={
                 <svg viewBox="0 0 100 40" className="w-full h-full text-slate-800 dark:text-slate-200">
                   <path d="M 20 20 L 80 20" stroke="currentColor" strokeWidth="4" />
@@ -301,7 +311,10 @@ Respond with ONLY valid JSON. Do not include markdown formatting like \`\`\`json
               title="Bridge Girder Design"
               desc="Complex multiple spans with varying loads."
               difficulty="Advanced"
-              onClick={() => setView('workspace')}
+              onClick={() => {
+                loadPreset(PRESETS[2].model);
+                setView('workspace');
+              }}
               svg={
                 <svg viewBox="0 0 100 40" className="w-full h-full text-slate-800 dark:text-slate-200">
                   <path d="M 10 20 L 90 20" stroke="currentColor" strokeWidth="4" />

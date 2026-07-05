@@ -10,7 +10,7 @@ import {
 import { toLength, toForce, toForcePerLength } from '@beamworks/core-engine/units/brands';
 
 // Smart Presets Data
-const PRESETS = [
+export const PRESETS = [
   {
     id: 'residential-floor',
     category: 'Residential',
