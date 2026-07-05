@@ -8,7 +8,6 @@ import {
   Settings,
   HardHat,
   ArrowRight,
-  AlertCircle,
   Sparkles 
 } from 'lucide-react';
 import { useState } from 'react';
@@ -19,7 +18,6 @@ export function Dashboard() {
   const setView = useStore(state => state.setView);
   const setAiStudioOpen = useStore(state => state.setAiStudioOpen);
   const loadPreset = useStore(state => state.loadPreset);
-  const [showRestore, setShowRestore] = useState(true);
   
   const [aiPrompt, setAiPrompt] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
@@ -106,26 +104,6 @@ Respond with ONLY valid JSON. Do not include markdown formatting like \`\`\`json
       {/* Background Subtle Engineering Grid */}
       <div className="fixed inset-0 bg-blueprint opacity-40 dark:opacity-20 pointer-events-none" style={{ backgroundSize: '60px 60px' }}></div>
       <div className="fixed inset-0 bg-gradient-to-b from-transparent to-white/80 dark:to-[#0A0F1C]/90 pointer-events-none"></div>
-
-      {/* SESSION RESTORE BANNER */}
-      {showRestore && (
-        <motion.div 
-          initial={{ y: -50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          className="relative z-50 bg-indigo-600 text-white px-6 py-3 flex items-center justify-between"
-        >
-          <div className="flex items-center gap-3">
-            <AlertCircle size={18} className="text-indigo-200" />
-            <span className="font-medium text-sm">We found an unsaved session in your browser. Restore your previous workspace?</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <button onClick={() => setShowRestore(false)} className="text-sm text-indigo-200 hover:text-white transition-colors">Discard</button>
-            <button onClick={() => { setShowRestore(false); setView('workspace'); }} className="text-sm font-bold bg-white text-indigo-900 px-4 py-1.5 rounded-full hover:scale-105 transition-transform shadow-sm">
-              Restore Session
-            </button>
-          </div>
-        </motion.div>
-      )}
 
       {/* EXPANDED TOP NAVIGATION */}
       <header className="relative z-40 border-b border-slate-200/50 dark:border-slate-800/50 bg-white/50 dark:bg-slate-900/30 backdrop-blur-md px-8 py-4 flex items-center justify-between">
