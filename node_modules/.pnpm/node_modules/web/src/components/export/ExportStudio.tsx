@@ -1,4 +1,8 @@
 import { useState } from 'react';
+import { useStore } from '../../store';
+import { exportEngineeringData } from '../../utils/export/dataExport';
+import { exportBeamProject } from '../../utils/export/projectExport';
+import { exportCanvasImage } from '../../utils/export/imageExport';
 import { motion } from 'framer-motion';
 import { 
   X, FileText, Image as ImageIcon, FileCode2, Presentation, 
@@ -20,24 +24,52 @@ const CATEGORIES: { id: ExportCategory; title: string; icon: React.ReactNode; de
 ];
 
 export function ExportStudio({ onClose }: { onClose: () => void }) {
+  const model = useStore(s => s.model);
+  const analysisResult = useStore(s => s.analysisResult);
+
   const [activeTab, setActiveTab] = useState<ExportCategory>('pdf');
   const [isExporting, setIsExporting] = useState(false);
   const [exportProgress, setExportProgress] = useState(0);
 
-  // Mock export process
-  const handleExport = () => {
+  const handleExport = async () => {
     setIsExporting(true);
     setExportProgress(0);
-    const interval = setInterval(() => {
-      setExportProgress(p => {
-        if (p >= 100) {
-          clearInterval(interval);
-          setTimeout(() => setIsExporting(false), 1000);
-          return 100;
-        }
-        return p + 5;
-      });
-    }, 100);
+
+    try {
+      if (activeTab === 'data') {
+        // Mock progress
+        setExportProgress(50);
+        await exportEngineeringData(model, analysisResult);
+        setExportProgress(100);
+      } else if (activeTab === 'project') {
+        setExportProgress(50);
+        await exportBeamProject(model);
+        setExportProgress(100);
+      } else if (activeTab === 'image') {
+        setExportProgress(50);
+        await exportCanvasImage('png');
+        setExportProgress(100);
+      } else {
+        // Fallback for mocked categories (PDF, PPTX, Cinema)
+        await new Promise<void>(resolve => {
+          const interval = setInterval(() => {
+            setExportProgress(p => {
+              if (p >= 100) {
+                clearInterval(interval);
+                resolve();
+                return 100;
+              }
+              return p + 10;
+            });
+          }, 100);
+        });
+      }
+    } catch (e) {
+      console.error("Export failed:", e);
+      alert("Export failed. Make sure you are viewing a valid beam.");
+    } finally {
+      setTimeout(() => setIsExporting(false), 1000);
+    }
   };
 
   return (
