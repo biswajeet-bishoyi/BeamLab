@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useStore } from '../../store';
+import type { StructuralModel } from '@beamworks/core-engine/model/types';
+import type { AnalysisResult } from '@beamworks/core-engine/solver/reactions';
 import { exportEngineeringData } from '../../utils/export/dataExport';
 import { exportBeamProject } from '../../utils/export/projectExport';
 import { exportCanvasImage } from '../../utils/export/imageExport';
@@ -142,23 +144,8 @@ export function ExportStudio({ onClose }: { onClose: () => void }) {
             </button>
           </div>
 
-          {/* MOCK PREVIEW WINDOW */}
-          <div className="w-full max-w-4xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl overflow-hidden min-h-[500px] flex flex-col relative">
-            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
-            
-            <div className="flex-1 flex flex-col items-center justify-center p-12 text-center relative z-10">
-              <div className="w-24 h-24 bg-blue-100 dark:bg-blue-900/30 text-blue-500 rounded-full flex items-center justify-center mb-6">
-                {CATEGORIES.find(c => c.id === activeTab)?.icon}
-              </div>
-              <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200 mb-2">
-                {CATEGORIES.find(c => c.id === activeTab)?.title} Preview
-              </h3>
-              <p className="text-slate-500 max-w-md mx-auto">
-                This is a structural mock of the Export Studio preview window. 
-                Full generation logic for {activeTab.toUpperCase()} files will be wired up here.
-              </p>
-            </div>
-          </div>
+          {/* PREVIEW WINDOW */}
+          <PreviewWindow activeTab={activeTab} model={model} analysisResult={analysisResult} />
         </div>
 
         {/* RIGHT SIDEBAR - ANALYZER & QUEUE */}
@@ -220,5 +207,101 @@ export function ExportStudio({ onClose }: { onClose: () => void }) {
 
       </div>
     </motion.div>
+  );
+}
+
+// Subcomponents
+
+function PreviewWindow({ activeTab, model, analysisResult }: { activeTab: ExportCategory, model: StructuralModel, analysisResult: AnalysisResult | null }) {
+  const [svgContent, setSvgContent] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (activeTab === 'image') {
+      const canvas = document.querySelector('.beam-canvas-svg');
+      if (canvas) {
+        setSvgContent(canvas.outerHTML);
+      }
+    }
+  }, [activeTab]);
+
+  if (activeTab === 'data') {
+    return (
+      <div className="w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-2xl shadow-xl overflow-hidden min-h-[500px] flex flex-col">
+        <div className="flex flex-col flex-1 overflow-auto custom-scrollbar bg-slate-900">
+          <div className="bg-slate-800 px-4 py-2 text-xs font-bold text-slate-400 flex justify-between shrink-0">
+            <span>beam_structural_data.json</span>
+            <span>JSON</span>
+          </div>
+          <pre className="p-6 text-sm text-green-400">
+            {JSON.stringify(model, null, 2)}
+          </pre>
+          
+          <div className="bg-slate-800 px-4 py-2 text-xs font-bold text-slate-400 flex justify-between shrink-0 border-t border-slate-700">
+            <span>analysis_results.json</span>
+            <span>JSON</span>
+          </div>
+          <pre className="p-6 text-sm text-emerald-400">
+            {JSON.stringify(analysisResult, null, 2)}
+          </pre>
+        </div>
+      </div>
+    );
+  }
+
+  if (activeTab === 'project') {
+    const packageData = {
+      version: '1.0.0',
+      type: 'BeamLabProject',
+      timestamp: new Date().toISOString(),
+      model: model
+    };
+    return (
+      <div className="w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-2xl shadow-xl overflow-hidden min-h-[500px] flex flex-col">
+        <div className="bg-slate-800 px-4 py-2 text-xs font-bold text-slate-400 flex justify-between">
+          <span>my_project.beam</span>
+          <span>BEAM PACKAGE</span>
+        </div>
+        <pre className="p-6 text-sm text-blue-400 overflow-auto custom-scrollbar flex-1 max-h-[600px]">
+          {JSON.stringify(packageData, null, 2)}
+        </pre>
+      </div>
+    );
+  }
+
+  if (activeTab === 'image') {
+    return (
+      <div className="w-full max-w-4xl bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden min-h-[500px] flex flex-col relative">
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+        <div className="flex-1 p-8 flex items-center justify-center relative z-10 pointer-events-none">
+          {svgContent ? (
+            <div 
+              className="w-full border border-slate-200 rounded-xl shadow-sm bg-slate-50 p-4"
+              dangerouslySetInnerHTML={{ __html: svgContent }} 
+            />
+          ) : (
+            <p className="text-slate-500">Could not grab canvas image.</p>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // Fallback for mocked tabs
+  return (
+    <div className="w-full max-w-4xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl overflow-hidden min-h-[500px] flex flex-col relative">
+      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+      
+      <div className="flex-1 flex flex-col items-center justify-center p-12 text-center relative z-10">
+        <div className="w-24 h-24 bg-blue-100 dark:bg-blue-900/30 text-blue-500 rounded-full flex items-center justify-center mb-6">
+          {CATEGORIES.find(c => c.id === activeTab)?.icon}
+        </div>
+        <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200 mb-2">
+          {CATEGORIES.find(c => c.id === activeTab)?.title} Preview
+        </h3>
+        <p className="text-slate-500 max-w-md mx-auto">
+          This feature is currently in development. Heavy rendering logic (like PDF and MP4 generation) will be dynamically loaded here to ensure BeamLab stays blazing fast.
+        </p>
+      </div>
+    </div>
   );
 }
