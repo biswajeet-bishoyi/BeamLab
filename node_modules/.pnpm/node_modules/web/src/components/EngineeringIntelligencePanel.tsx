@@ -128,6 +128,11 @@ Briefly explain why this is structurally unstable or problematic, and concisely 
         })
       });
 
+      if (!response.ok) {
+        const errData = await response.json();
+        throw new Error(errData.error?.message || `HTTP Error ${response.status}`);
+      }
+
       if (!response.body) throw new Error("No response body");
 
       const reader = response.body.getReader();
@@ -145,17 +150,20 @@ Briefly explain why this is structurally unstable or problematic, and concisely 
         const lines = chunk.split('\n');
         for (const line of lines) {
           if (line.includes('"text":')) {
-            const match = line.match(/"text":\s*"([^"]+)"/);
+            const match = line.match(/"text":\s*"((?:[^"\\]|\\.)*)"/);
             if (match && match[1]) {
-              const textChunk = match[1].replace(/\\n/g, '\n').replace(/\\"/g, '"');
+              const textChunk = match[1].replace(/\\n/g, '\n').replace(/\\"/g, '"').replace(/\\\\/g, '\\');
               setDisplayedText(prev => prev + textChunk);
             }
           }
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      setDisplayedText("Sorry, I encountered an error connecting to my brain. Check the console for details.");
+      const errMsg = error.message?.includes('HTTP Error') || error.message?.includes('Quota') 
+        ? `API Error: ${error.message}` 
+        : 'Sorry, I encountered an error connecting to my brain. Check the console for details.';
+      setDisplayedText(errMsg);
     } finally {
       setIsAiLoading(false);
     }
