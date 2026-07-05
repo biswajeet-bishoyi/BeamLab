@@ -384,13 +384,15 @@ export function Gallery() {
 
       {/* Header & Navigation */}
       <header className="relative z-40 border-b border-slate-200/50 dark:border-slate-800/50 bg-white/50 dark:bg-slate-900/30 backdrop-blur-md px-8 py-4 flex items-center justify-between sticky top-0">
-        <div className="flex items-center gap-4">
-          <button 
-            onClick={() => setView('dashboard')}
+        <button 
+          onClick={() => setView('dashboard')}
+          className="flex items-center gap-4 hover:opacity-80 transition-opacity text-left"
+        >
+          <div 
             className="p-2 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded-xl transition-colors text-slate-700 dark:text-slate-200"
           >
             <Home size={20} />
-          </button>
+          </div>
           <div className="w-px h-6 bg-slate-300 dark:bg-slate-600"></div>
           <div className="bg-yellow-400 p-2 rounded-xl text-black">
             <HardHat size={24} />
@@ -398,7 +400,7 @@ export function Gallery() {
           <h1 className="text-xl font-bold tracking-tight text-slate-800 dark:text-slate-100">
             BeamLab Gallery
           </h1>
-        </div>
+        </button>
       </header>
 
       <div className="relative z-10 max-w-7xl mx-auto px-8 py-12 flex flex-col gap-12 w-full">

@@ -89,14 +89,16 @@ export default function App() {
         animate={{ y: 0, opacity: 1 }}
         className="absolute top-4 left-4 right-4 z-50 flex items-center justify-between glass-panel rounded-2xl px-6 py-3 border border-slate-200 dark:border-slate-800 shadow-sm"
       >
-        <div className="flex items-center gap-4">
-          <button 
-            onClick={() => setView('dashboard')}
+        <button 
+          onClick={() => setView('dashboard')}
+          className="flex items-center gap-4 hover:opacity-80 transition-opacity text-left"
+        >
+          <div 
             className="p-2 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded-xl transition-colors text-slate-700 dark:text-slate-200"
             title="Back to Dashboard"
           >
             <Home size={20} />
-          </button>
+          </div>
           <div className="w-px h-6 bg-slate-300 dark:bg-slate-600"></div>
           <div className="bg-yellow-400 p-2 rounded-xl text-black">
             <HardHat size={24} />
@@ -104,7 +106,7 @@ export default function App() {
           <h1 className="text-xl font-bold tracking-tight text-slate-800 dark:text-slate-100">
             BeamLab
           </h1>
-        </div>
+        </button>
         
         <div className="flex items-center gap-4">
           <button 

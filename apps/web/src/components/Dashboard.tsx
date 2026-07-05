@@ -107,14 +107,17 @@ Respond with ONLY valid JSON. Do not include markdown formatting like \`\`\`json
 
       {/* EXPANDED TOP NAVIGATION */}
       <header className="relative z-40 border-b border-slate-200/50 dark:border-slate-800/50 bg-white/50 dark:bg-slate-900/30 backdrop-blur-md px-8 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
+        <button 
+          onClick={() => setView('dashboard')}
+          className="flex items-center gap-3 hover:opacity-80 transition-opacity text-left"
+        >
           <div className="bg-yellow-400 p-2 rounded-xl text-slate-900 shadow-inner">
             <HardHat size={24} />
           </div>
           <h1 className="text-xl font-black tracking-tight text-slate-800 dark:text-slate-100">
             BeamLab
           </h1>
-        </div>
+        </button>
         <nav className="hidden xl:flex items-center gap-1">
           <button onClick={() => setView('workspace')} className="px-4 py-2 rounded-full text-sm font-medium transition-colors bg-slate-800 text-white dark:bg-slate-100 dark:text-slate-900 shadow-md">
             Beam Analysis
