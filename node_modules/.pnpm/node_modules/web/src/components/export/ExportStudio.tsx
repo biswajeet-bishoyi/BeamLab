@@ -219,7 +219,11 @@ function PreviewWindow({ activeTab, model, analysisResult }: { activeTab: Export
     if (activeTab === 'image') {
       const canvas = document.querySelector('.beam-canvas-svg');
       if (canvas) {
-        setSvgContent(canvas.outerHTML);
+        // Strip out the hardcoded pixel widths and replace with 100% to fill preview container
+        let html = canvas.outerHTML;
+        html = html.replace(/width="[^"]+"/, 'width="100%"');
+        html = html.replace(/height="[^"]+"/, 'height="100%"');
+        setSvgContent(html);
       }
     }
   }, [activeTab]);

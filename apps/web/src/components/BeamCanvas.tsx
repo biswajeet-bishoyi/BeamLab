@@ -50,6 +50,7 @@ export function BeamCanvas({ isPlaybackMode = false, sceneId, localProgress = 1 
         className="beam-canvas-svg"
         width={width} 
         height={300} 
+        viewBox={`0 0 ${width} 300`}
         style={{ display: 'block', pointerEvents: isPlaybackMode ? 'none' : 'auto' }}
         onPointerDown={() => selectObject(null)}
         onPointerMove={(e) => {
