@@ -1,0 +1,14 @@
+{
+  "name": "@beamlab/events",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@beamlab/config": "workspace:*",
+    "@beamlab/types": "workspace:*",
+    "typescript": "^5.3.3"
+  }
+}
