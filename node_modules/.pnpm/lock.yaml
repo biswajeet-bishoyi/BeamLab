@@ -51,6 +51,9 @@ importers:
         specifier: ^9.0.0
         version: 9.0.0
     devDependencies:
+      '@beamlab/config':
+        specifier: workspace:*
+        version: link:../../packages/config
       '@types/cors':
         specifier: ^2.8.17
         version: 2.8.19
@@ -156,6 +159,34 @@ importers:
       typescript:
         specifier: ^5.3.3
         version: 5.9.3
+
+  packages/tool-registry:
+    dependencies:
+      '@beamlab/events':
+        specifier: workspace:*
+        version: link:../events
+      '@beamlab/types':
+        specifier: workspace:*
+        version: link:../types
+      '@beamlab/utils':
+        specifier: workspace:*
+        version: link:../utils
+      '@beamlab/validation':
+        specifier: workspace:*
+        version: link:../validation
+      zod:
+        specifier: ^3.22.4
+        version: 3.25.76
+    devDependencies:
+      '@beamlab/config':
+        specifier: workspace:*
+        version: link:../config
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vitest:
+        specifier: ^1.2.2
+        version: 1.6.1(@types/node@24.13.2)(lightningcss@1.32.0)
 
   packages/types:
     devDependencies:

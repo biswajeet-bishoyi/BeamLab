@@ -1,0 +1,22 @@
+{
+  "name": "@beamlab/tool-registry",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@beamlab/utils": "workspace:*",
+    "@beamlab/types": "workspace:*",
+    "@beamlab/validation": "workspace:*",
+    "@beamlab/events": "workspace:*",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@beamlab/config": "workspace:*",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.2"
+  }
+}
