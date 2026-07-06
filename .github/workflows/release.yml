@@ -13,11 +13,18 @@ jobs:
           fetch-depth: 0
       - uses: pnpm/action-setup@v3
         with:
-          version: 8
+          version: 11.8.0
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           cache: 'pnpm'
+          
+      - name: Diagnostics
+        run: |
+          pwd
+          ls -la
+          node --version
+          pnpm --version
           
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
