@@ -17,7 +17,8 @@
     "@beamlab/context-engine": "workspace:*",
     "@beamlab/tool-registry": "workspace:*",
     "@beamlab/utils": "workspace:*",
-    "@beamlab/planning-engine": "workspace:*"
+    "@beamlab/planning-engine": "workspace:*",
+    "@beamlab/execution-graph": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^24.13.2",
