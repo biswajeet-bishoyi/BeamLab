@@ -18,7 +18,8 @@
     "@beamlab/tool-registry": "workspace:*",
     "@beamlab/utils": "workspace:*",
     "@beamlab/planning-engine": "workspace:*",
-    "@beamlab/execution-graph": "workspace:*"
+    "@beamlab/execution-graph": "workspace:*",
+    "@beamlab/task-scheduler": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^24.13.2",
