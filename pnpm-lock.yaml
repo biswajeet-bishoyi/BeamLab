@@ -130,6 +130,9 @@ importers:
       '@beamlab/context-engine':
         specifier: workspace:*
         version: link:../context-engine
+      '@beamlab/planning-engine':
+        specifier: workspace:*
+        version: link:../planning-engine
       '@beamlab/tool-registry':
         specifier: workspace:*
         version: link:../tool-registry
@@ -209,6 +212,31 @@ importers:
       typescript:
         specifier: ^5.3.3
         version: 5.9.3
+
+  packages/planning-engine:
+    dependencies:
+      '@beamlab/context-engine':
+        specifier: workspace:*
+        version: link:../context-engine
+      '@beamlab/tool-registry':
+        specifier: workspace:*
+        version: link:../tool-registry
+      '@beamlab/utils':
+        specifier: workspace:*
+        version: link:../utils
+    devDependencies:
+      '@types/node':
+        specifier: ^24.13.2
+        version: 24.13.2
+      rimraf:
+        specifier: ^5.0.5
+        version: 5.0.10
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
+      vitest:
+        specifier: ^1.6.1
+        version: 1.6.1(@types/node@24.13.2)(lightningcss@1.32.0)
 
   packages/runtime-gateway:
     dependencies:

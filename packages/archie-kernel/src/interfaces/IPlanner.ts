@@ -1,15 +1,5 @@
-export interface IPlan {
-  id: string;
-  steps: IPlanStep[];
-}
-
-export interface IPlanStep {
-  id: string;
-  action: string;
-  arguments: Record<string, any>;
-  dependencies: string[];
-}
+import { ExecutionPlan } from '@beamlab/planning-engine';
 
 export interface IPlanner {
-  generatePlan(context: any, request: string): Promise<IPlan>;
+  generatePlan(context: any, request: string): Promise<ExecutionPlan>;
 }

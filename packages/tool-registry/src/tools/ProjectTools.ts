@@ -1,7 +1,7 @@
 import { BaseTool } from '../interfaces/BaseTool';
 import { z } from 'zod';
 
-export const saveProjectTool: BaseTool<{ projectId: string, payload: any }, { success: boolean, version: number }> = {
+export const saveProjectTool: BaseTool<{ projectId: string, payload?: any }, { success: boolean, version: number }> = {
   metadata: { id: 'saveProject', name: 'Save Project', category: 'Projects', description: 'Persists project state', version: '1.0.0' },
   schemas: {
     input: z.object({ projectId: z.string(), payload: z.any() }),

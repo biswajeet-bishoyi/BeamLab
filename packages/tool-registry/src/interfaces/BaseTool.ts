@@ -58,7 +58,7 @@ export interface BaseTool<Input, Output> {
     supportsUndo: boolean;
   };
   
-  events: {
+  events?: {
     onStart?: string;
     onSuccess?: string;
     onFailure?: string;
