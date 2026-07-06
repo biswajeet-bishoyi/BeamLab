@@ -1,0 +1,16 @@
+{
+  "name": "@beamlab/config",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.js",
+  "files": [
+    "eslint-preset.js",
+    "tsconfig.base.json",
+    ".prettierrc"
+  ],
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3"
+  }
+}

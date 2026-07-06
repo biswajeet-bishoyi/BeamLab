@@ -1,14 +1,32 @@
 {
   "name": "beamworks-workspace",
   "private": true,
+  "packageManager": "pnpm@11.8.0",
   "engines": {
     "node": ">=18"
   },
   "scripts": {
-    "dev": "pnpm -r --parallel dev",
-    "build": "pnpm -r build",
-    "test": "pnpm -r test",
-    "lint": "pnpm -r lint",
-    "typecheck": "pnpm -r typecheck"
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,jsx,json,md}": [
+      "prettier --write"
+    ],
+    "*.{js,ts,tsx,jsx}": [
+      "eslint --fix"
+    ]
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.31.0",
+    "@types/node": "^24.13.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.8",
+    "turbo": "^2.10.3",
+    "typescript": "^6.0.3"
   }
 }

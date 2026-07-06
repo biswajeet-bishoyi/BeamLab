@@ -1,0 +1,3 @@
+$ tsc
+tsconfig.json(2,14): error TS6053: File '@beamlab/config/tsconfig.base.json' not found.
+[ELIFECYCLE] Command failed with exit code 2.
