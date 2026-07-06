@@ -1,0 +1,27 @@
+{
+  "name": "@beamlab/planning-engine",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Planning Engine Core for Archie",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src/ --ext .ts",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "@beamlab/context-engine": "workspace:*",
+    "@beamlab/tool-registry": "workspace:*",
+    "@beamlab/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.2",
+    "typescript": "^6.0.3",
+    "vitest": "^1.6.1",
+    "rimraf": "^5.0.5"
+  }
+}
