@@ -84,6 +84,12 @@ importers:
       '@beamlab/policy-engine':
         specifier: workspace:*
         version: link:../../packages/policy-engine
+      '@beamlab/resource-client':
+        specifier: workspace:*
+        version: link:../../packages/resource-client
+      '@beamlab/resource-manager':
+        specifier: workspace:*
+        version: link:../../packages/resource-manager
       '@beamlab/workspace-runtime':
         specifier: workspace:*
         version: link:../../packages/workspace-runtime
@@ -461,6 +467,34 @@ importers:
         version: 5.9.3
       vitest:
         specifier: ^1.1.3
+        version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
+
+  packages/resource-client:
+    dependencies:
+      '@beamlab/resource-manager':
+        specifier: workspace:*
+        version: link:../resource-manager
+    devDependencies:
+      tsup:
+        specifier: ^8.0.2
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.16)(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.4.5
+        version: 5.9.3
+      vitest:
+        specifier: ^1.5.0
+        version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
+
+  packages/resource-manager:
+    devDependencies:
+      tsup:
+        specifier: ^8.0.2
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.16)(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.4.5
+        version: 5.9.3
+      vitest:
+        specifier: ^1.5.0
         version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
 
   packages/runtime-gateway:

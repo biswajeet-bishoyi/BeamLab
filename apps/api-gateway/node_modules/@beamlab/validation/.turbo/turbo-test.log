@@ -2,10 +2,10 @@ $ vitest run
 
 [7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mC:/kanha/college/projects/BeamLab/packages/validation[39m
 
- [32m✓[39m src/index.test.ts [2m ([22m[2m1 test[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/index.test.ts [2m ([22m[2m1 test[22m[2m)[22m[90m 5[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
 [2m      Tests [22m [1m[32m1 passed[39m[22m[90m (1)[39m
-[2m   Start at [22m 16:43:08
-[2m   Duration [22m 2.33s[2m (transform 367ms, setup 0ms, collect 452ms, tests 7ms, environment 0ms, prepare 658ms)[22m
+[2m   Start at [22m 17:18:47
+[2m   Duration [22m 1.88s[2m (transform 305ms, setup 1ms, collect 378ms, tests 5ms, environment 0ms, prepare 542ms)[22m
 

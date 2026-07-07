@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Shield, Database, X, Terminal } from 'lucide-react';
+import { Shield, Database, X, Terminal, Layers } from 'lucide-react';
 import { KnowledgeExplorer } from './KnowledgeExplorer';
 import { PolicyExplorer } from './PolicyExplorer';
+import { ResourceExplorer } from './ResourceExplorer';
 
 export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-  const [activeTab, setActiveTab] = useState<'policy' | 'knowledge'>('policy');
+  const [activeTab, setActiveTab] = useState<'policy' | 'knowledge' | 'resource'>('policy');
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-8">
@@ -34,6 +35,13 @@ export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) 
               <Database className="w-3.5 h-3.5" />
               Knowledge Explorer
             </button>
+            <button 
+              onClick={() => setActiveTab('resource')}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition-colors ${activeTab === 'resource' ? 'bg-primary/10 text-primary border border-primary/20' : 'text-muted hover:text-white border border-transparent'}`}
+            >
+              <Layers className="w-3.5 h-3.5" />
+              Resource Explorer
+            </button>
             <div className="w-px h-4 bg-subtle mx-2" />
             <button 
               onClick={onClose}
@@ -48,6 +56,7 @@ export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) 
         <div className="flex-1 overflow-hidden relative">
           {activeTab === 'policy' && <PolicyExplorer />}
           {activeTab === 'knowledge' && <KnowledgeExplorer onClose={onClose} isEmbedded={true} />}
+          {activeTab === 'resource' && <ResourceExplorer />}
         </div>
       </div>
     </div>
