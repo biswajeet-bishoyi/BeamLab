@@ -1,0 +1,23 @@
+{
+  "name": "@beamlab/runtime-gateway",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@beamlab/utils": "workspace:*",
+    "@beamlab/types": "workspace:*",
+    "@beamlab/events": "workspace:*",
+    "@beamlab/context-engine": "workspace:*",
+    "@beamlab/tool-registry": "workspace:*",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@beamlab/config": "workspace:*",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.2"
+  }
+}
