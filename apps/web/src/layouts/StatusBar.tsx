@@ -1,10 +1,12 @@
 
 import React, { useEffect, useState } from 'react';
-import { CheckCircle2, Cpu, GitBranch, Share2, AlertTriangle, XCircle } from 'lucide-react';
+import { CheckCircle2, Cpu, GitBranch, Share2, AlertTriangle, XCircle, Database } from 'lucide-react';
 import { workspace, type HealthState } from '@beamlab/workspace-runtime';
+import { KnowledgeExplorer } from '../features/developer/KnowledgeExplorer';
 
 export const StatusBar: React.FC = () => {
   const [health, setHealth] = useState<HealthState>(workspace.health.getState());
+  const [showKnowledgeExplorer, setShowKnowledgeExplorer] = useState(false);
 
   useEffect(() => {
     return workspace.on('HealthUpdated', (event: any) => {
@@ -43,10 +45,18 @@ export const StatusBar: React.FC = () => {
           <Share2 className="w-3.5 h-3.5" />
           <span>Runtime: Connected</span>
         </div>
+        <div className="flex items-center gap-1.5 cursor-pointer hover:text-primary transition-colors" onClick={() => setShowKnowledgeExplorer(true)}>
+          <Database className="w-3.5 h-3.5" />
+          <span>EKP Dev</span>
+        </div>
         <div>
           <span>Metric (m, kN, MPa)</span>
         </div>
       </div>
+      
+      {showKnowledgeExplorer && (
+        <KnowledgeExplorer onClose={() => setShowKnowledgeExplorer(false)} />
+      )}
     </footer>
   );
 };

@@ -11,8 +11,9 @@
   },
   "dependencies": {
     "@beamlab/archie-client": "workspace:*",
-    "@beamlab/workspace-runtime": "workspace:*",
     "@beamlab/execution-graph": "workspace:*",
+    "@beamlab/knowledge-client": "workspace:*",
+    "@beamlab/workspace-runtime": "workspace:*",
     "@beamworks/core-engine": "workspace:*",
     "@beamworks/design-system": "workspace:*",
     "@tailwindcss/vite": "^4.3.2",
