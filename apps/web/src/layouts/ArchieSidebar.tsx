@@ -4,7 +4,7 @@ import { MessageSquare, ListTodo, PlayCircle, Database, History } from 'lucide-r
 import { ArchieProvider, ArchieClient, LocalRuntimeTransport } from '@beamlab/archie-client';
 import { ChatTab } from '../features/archie/ChatTab';
 import { PlanTab } from '../features/archie/PlanTab';
-import { ExecutionTab } from '../features/archie/ExecutionTab';
+import { ExecutionGraphTab } from '../features/execution-graph/components/ExecutionGraphTab';
 import { ContextTab } from '../features/archie/ContextTab';
 import { HistoryTab } from '../features/archie/HistoryTab';
 import { TimelinePanel } from '../features/timeline/components/TimelinePanel';
@@ -51,7 +51,7 @@ export const ArchieSidebar: React.FC = () => {
         <div className="flex-1 overflow-hidden relative">
           {activeArchieTab === 'chat' && <ChatTab />}
           {activeArchieTab === 'plan' && <PlanTab />}
-          {activeArchieTab === 'exec' && <ExecutionTab />}
+          {activeArchieTab === 'exec' && <ExecutionGraphTab />}
           {activeArchieTab === 'ctx' && <ContextTab />}
           {activeArchieTab === 'hist' && <HistoryTab />}
         </div>

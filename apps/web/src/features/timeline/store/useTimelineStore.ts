@@ -11,10 +11,24 @@ interface TimelineState {
   contextSnapshot: any | null;
   rawEvents: TimelineEvent[];
   
+  // Replay State
+  isReplaying: boolean;
+  replayIndex: number;
+  playbackSpeed: number;
+  
   // Actions
   toggleExpanded: () => void;
   setHeight: (height: number) => void;
   setPaused: (paused: boolean) => void;
+  
+  // Replay Actions
+  startReplay: () => void;
+  stopReplay: () => void;
+  play: () => void;
+  pause: () => void;
+  stepForward: () => void;
+  stepBack: () => void;
+  setSpeed: (speed: number) => void;
   
   // Event Processing
   reset: () => void;
@@ -44,9 +58,21 @@ export const useTimelineStore = create<TimelineState>((set, get) => ({
   contextSnapshot: null,
   rawEvents: [],
   
+  isReplaying: false,
+  replayIndex: 0,
+  playbackSpeed: 1,
+  
   toggleExpanded: () => set(state => ({ isExpanded: !state.isExpanded })),
   setHeight: (height) => set({ panelHeight: height }),
   setPaused: (paused) => set({ isPaused: paused }),
+
+  startReplay: () => set({ isReplaying: true, replayIndex: 0, isPaused: false }),
+  stopReplay: () => set({ isReplaying: false }),
+  play: () => set({ isPaused: false }),
+  pause: () => set({ isPaused: true }),
+  stepForward: () => set(state => ({ replayIndex: Math.min(state.replayIndex + 1, state.rawEvents.length) })),
+  stepBack: () => set(state => ({ replayIndex: Math.max(state.replayIndex - 1, 0) })),
+  setSpeed: (speed) => set({ playbackSpeed: speed }),
   
   reset: () => set({
     stages: INITIAL_STAGES.map(s => ({ ...s, status: 'pending', progress: 0, events: [], startTime: undefined, endTime: undefined, durationMs: undefined })),

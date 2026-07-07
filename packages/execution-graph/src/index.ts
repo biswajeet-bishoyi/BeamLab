@@ -6,3 +6,6 @@ export * from './core/GraphValidator';
 export * from './core/GraphOptimizer';
 export * from './core/GraphSerializer';
 export * from './core/GraphInspector';
+
+export * from './renderer/IGraphRenderer';
+export * from './renderer/ReactFlowRenderer';
