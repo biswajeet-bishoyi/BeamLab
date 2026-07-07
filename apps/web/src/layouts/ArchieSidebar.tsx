@@ -7,6 +7,7 @@ import { PlanTab } from '../features/archie/PlanTab';
 import { ExecutionTab } from '../features/archie/ExecutionTab';
 import { ContextTab } from '../features/archie/ContextTab';
 import { HistoryTab } from '../features/archie/HistoryTab';
+import { TimelinePanel } from '../features/timeline/components/TimelinePanel';
 
 export const ArchieSidebar: React.FC = () => {
   const { activeArchieTab, setActiveArchieTab } = useWorkspaceStore();
@@ -27,7 +28,7 @@ export const ArchieSidebar: React.FC = () => {
 
   return (
     <ArchieProvider client={client}>
-      <div className="flex flex-col h-full bg-app border-l border-subtle overflow-hidden">
+      <div className="flex flex-col h-full bg-app border-l border-subtle overflow-hidden relative pb-[48px]">
         {/* Archie Tabs */}
         <div className="flex items-center border-b border-subtle bg-panel overflow-x-auto shrink-0">
           {tabs.map(tab => (
@@ -54,6 +55,9 @@ export const ArchieSidebar: React.FC = () => {
           {activeArchieTab === 'ctx' && <ContextTab />}
           {activeArchieTab === 'hist' && <HistoryTab />}
         </div>
+        
+        {/* Persistent Timeline Panel */}
+        <TimelinePanel />
       </div>
     </ArchieProvider>
   );

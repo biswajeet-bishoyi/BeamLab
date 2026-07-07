@@ -14,7 +14,7 @@ export class ArchieClient {
   private plan: ArchiePlanStep[] = [];
   private execution: ArchieExecutionTask[] = [];
   
-  private listeners: Set<() => void> = new Set();
+  private listeners: Set<(event?: any) => void> = new Set();
   
   // Expose the current context from the backend
   public contextData: any = null;
@@ -57,13 +57,13 @@ export class ArchieClient {
     this.emit();
   }
 
-  public subscribe(callback: () => void): () => void {
+  public subscribe(callback: (event?: any) => void): () => void {
     this.listeners.add(callback);
     return () => this.listeners.delete(callback);
   }
 
-  private emit() {
-    this.listeners.forEach(cb => cb());
+  private emit(event?: any) {
+    this.listeners.forEach(cb => cb(event));
   }
 
   // Internal Event Handler
@@ -195,6 +195,6 @@ export class ArchieClient {
         break;
     }
     
-    this.emit();
+    this.emit(event);
   }
 }
