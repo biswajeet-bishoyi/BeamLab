@@ -1,0 +1,26 @@
+{
+  "id": "agent-report",
+  "name": "Engineering Report Agent",
+  "version": "1.0.0",
+  "description": "Produces traceable, explainable, professional engineering documentation.",
+  "capabilities": [
+    "EvidenceCollection",
+    "TemplateResolution",
+    "DocumentAssembly",
+    "CitationManagement",
+    "ReportRendering",
+    "EngineeringReview"
+  ],
+  "events": [
+    "ReportRequested",
+    "EvidenceCollected",
+    "TemplateSelected",
+    "SectionGenerated",
+    "NarrativeCompleted",
+    "CitationGenerated",
+    "ReportReviewed",
+    "ReportRendered",
+    "ReportExported",
+    "ReportCompleted"
+  ]
+}

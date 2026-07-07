@@ -1,0 +1,9 @@
+{
+  "extends": "@beamlab/config/tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src"
+  },
+  "include": ["src", "tests", "agent.manifest.json"],
+  "exclude": ["node_modules", "dist"]
+}

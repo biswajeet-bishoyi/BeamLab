@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Shield, Database, X, Terminal, Layers, Cpu, Activity, Network, PenTool, Target } from 'lucide-react';
+import { Shield, Database, X, Terminal, Layers, Cpu, Activity, Network, PenTool, Target, BookOpen } from 'lucide-react';
 import { KnowledgeExplorer } from './KnowledgeExplorer';
 import { PolicyExplorer } from './PolicyExplorer';
 import { ResourceExplorer } from './ResourceExplorer';
@@ -11,9 +11,10 @@ import { ReasoningExplorer } from './ReasoningExplorer';
 import { DesignExplorer } from './DesignExplorer';
 import { OptimizationExplorer } from './OptimizationExplorer';
 import { ComplianceExplorer } from './ComplianceExplorer';
+import { ReportExplorer } from './ReportExplorer';
 
 export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-  const [activeTab, setActiveTab] = useState<'policy' | 'knowledge' | 'resource' | 'agent' | 'memory' | 'analysis' | 'solver' | 'reasoning' | 'design' | 'optimization' | 'compliance'>('agent');
+  const [activeTab, setActiveTab] = useState<'policy' | 'knowledge' | 'resource' | 'agent' | 'memory' | 'analysis' | 'solver' | 'reasoning' | 'design' | 'optimization' | 'compliance' | 'report'>('agent');
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-8">
@@ -106,6 +107,13 @@ export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) 
               <Shield className="w-3.5 h-3.5" />
               Compliance
             </button>
+            <button 
+              onClick={() => setActiveTab('report')}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition-colors ${activeTab === 'report' ? 'bg-primary/10 text-primary border border-primary/20' : 'text-muted hover:text-white border border-transparent'}`}
+            >
+              <BookOpen className="w-3.5 h-3.5" />
+              Report
+            </button>
             <div className="w-px h-4 bg-subtle mx-2" />
             <button 
               onClick={onClose}
@@ -129,6 +137,7 @@ export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) 
           {activeTab === 'reasoning' && <ReasoningExplorer />}
           {activeTab === 'optimization' && <OptimizationExplorer />}
           {activeTab === 'compliance' && <ComplianceExplorer />}
+          {activeTab === 'report' && <ReportExplorer />}
         </div>
       </div>
     </div>
