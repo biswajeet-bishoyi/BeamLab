@@ -2,15 +2,21 @@
 import React from 'react';
 import { Layers, Search, Bell, Settings, User } from 'lucide-react';
 import { Button } from '@beamworks/design-system';
+import { useStore } from '../store';
 
 export const TopNav: React.FC = () => {
+  const setView = useStore(state => state.setView);
+
   return (
     <header className="h-14 border-b border-subtle bg-panel flex items-center justify-between px-4 shrink-0">
       <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2 text-accent font-bold text-lg">
+        <button 
+          onClick={() => setView('dashboard')}
+          className="flex items-center gap-2 text-accent font-bold text-lg hover:opacity-80 transition-opacity"
+        >
           <Layers className="w-6 h-6" />
           <span>BeamLab</span>
-        </div>
+        </button>
         <div className="h-6 w-px bg-subtle mx-2" />
         <span className="text-sm text-primary font-medium">New Project</span>
       </div>
