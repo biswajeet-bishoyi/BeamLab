@@ -5,7 +5,7 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/BeamLab/',
+  base: process.env.VERCEL ? '/' : '/BeamLab/',
   plugins: [
     react(),
     tailwindcss(),
