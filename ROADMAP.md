@@ -5,16 +5,29 @@
 - [x] Context Engine & Graph Storage
 - [x] Runtime Gateway & Streaming Pipeline
 - [x] Tool Registry & Interfaces
+- [x] Workspace Runtime
+- [x] Developer Studio Foundation
 
-## Phase 2: Intelligence & Planning (In Progress)
-- [x] **Milestone 5A & 5B**: Archie Kernel - Core OS and Session Management
-- [x] **Milestone 6A**: Planning Engine Core - Immutable Plans, Intent Classification, and Rule Planners
-- [x] **Milestone 6B**: Execution Graph Engine - Immutable DAGs, Dependency Resolution
-- [x] **Milestone 6C**: Task Scheduler - Execution orchestration
-- [ ] **Milestone 7**: Strategy Planner - LLM Planning & Agents
-- [ ] **Milestone 7**: Agent Orchestrator & Skills
+## Phase 2: Intelligence & Planning (Completed)
+- [x] **Milestone 5**: Archie Kernel & Session Management
+- [x] **Milestone 6A**: Planning Engine Core
+- [x] **Milestone 6B**: Execution Graph Engine
+- [x] **Milestone 6C**: Task Scheduler
+- [x] **Milestone 7**: Knowledge Platform & Policy Engine
+- [x] **Milestone 8**: Agent Runtime, Resource Manager & Memory System
+- [x] **Milestone 9.1**: Structural Analysis Agent & Engineering Reasoning
 
-## Phase 3: Web Client (Upcoming)
-- [ ] UI Architecture & Design System
-- [ ] Streaming Interface & Graph Visualization
+## Phase 3: Advanced Agents & Collaboration (Upcoming)
+- [ ] **A9.2** — Solver Integration Framework
+- [ ] **A9.3** — Engineering Intelligence
+- [ ] **A10** — Structural Design Agent
+- [ ] **A11** — Optimization Agent
+- [ ] **A12** — Code Compliance Agent
+- [ ] **A13** — Report Generation Agent
+- [ ] **A14** — Multi-Agent Collaboration
+
+## Phase 4: Web Client (In Progress)
+- [x] UI Architecture & Design System
+- [x] Streaming Interface & Graph Visualization
+- [x] Developer Studio & Workspace Shell
 - [ ] Authentication & User Roles
