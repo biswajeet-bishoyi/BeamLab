@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Shield, Database, X, Terminal, Layers } from 'lucide-react';
+import { Shield, Database, X, Terminal, Layers, Cpu } from 'lucide-react';
 import { KnowledgeExplorer } from './KnowledgeExplorer';
 import { PolicyExplorer } from './PolicyExplorer';
 import { ResourceExplorer } from './ResourceExplorer';
+import { AgentDiagnostics } from './AgentDiagnostics';
 
 export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-  const [activeTab, setActiveTab] = useState<'policy' | 'knowledge' | 'resource'>('policy');
+  const [activeTab, setActiveTab] = useState<'policy' | 'knowledge' | 'resource' | 'agent'>('agent');
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-8">
@@ -21,6 +22,13 @@ export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) 
           </div>
           
           <div className="flex items-center gap-2">
+            <button 
+              onClick={() => setActiveTab('agent')}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition-colors ${activeTab === 'agent' ? 'bg-primary/10 text-primary border border-primary/20' : 'text-muted hover:text-white border border-transparent'}`}
+            >
+              <Cpu className="w-3.5 h-3.5" />
+              Agent Diagnostics
+            </button>
             <button 
               onClick={() => setActiveTab('policy')}
               className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition-colors ${activeTab === 'policy' ? 'bg-primary/10 text-primary border border-primary/20' : 'text-muted hover:text-white border border-transparent'}`}
@@ -54,6 +62,7 @@ export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) 
 
         {/* Content Area */}
         <div className="flex-1 overflow-hidden relative">
+          {activeTab === 'agent' && <AgentDiagnostics />}
           {activeTab === 'policy' && <PolicyExplorer />}
           {activeTab === 'knowledge' && <KnowledgeExplorer onClose={onClose} isEmbedded={true} />}
           {activeTab === 'resource' && <ResourceExplorer />}
