@@ -30,12 +30,13 @@ export const WorkspaceLayout: React.FC = () => {
           {!leftPanelCollapsed && (
             <>
               <Panel 
-                defaultSize={leftPanelSize} 
+                defaultSize={leftPanelSize || 20} 
                 minSize={15} 
                 maxSize={40}
                 onResize={(size) => {
-                  setLeftPanelSize(size.asPercentage);
-                  if (size.asPercentage === 0) setLeftPanelCollapsed(true);
+                  const s = size as unknown as number;
+                  setLeftPanelSize(s);
+                  if (s === 0) setLeftPanelCollapsed(true);
                 }}
                 collapsible={true}
                 className="transition-all duration-200 ease-in-out bg-[#111111]"
@@ -64,12 +65,13 @@ export const WorkspaceLayout: React.FC = () => {
             <>
               <PanelResizeHandle className="w-1 bg-subtle hover:bg-accent hover:w-1.5 transition-all active:bg-accent cursor-col-resize z-10" />
               <Panel 
-                defaultSize={rightPanelSize} 
+                defaultSize={rightPanelSize || 25} 
                 minSize={20} 
                 maxSize={50}
                 onResize={(size) => {
-                  setRightPanelSize(size.asPercentage);
-                  if (size.asPercentage === 0) setRightPanelCollapsed(true);
+                  const s = size as unknown as number;
+                  setRightPanelSize(s);
+                  if (s === 0) setRightPanelCollapsed(true);
                 }}
                 collapsible={true}
                 className="transition-all duration-200 ease-in-out"
