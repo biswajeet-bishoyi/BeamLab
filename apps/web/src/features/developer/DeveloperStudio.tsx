@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Shield, Database, X, Terminal, Layers, Cpu, Activity, Network, PenTool } from 'lucide-react';
+import { Shield, Database, X, Terminal, Layers, Cpu, Activity, Network, PenTool, Target } from 'lucide-react';
 import { KnowledgeExplorer } from './KnowledgeExplorer';
 import { PolicyExplorer } from './PolicyExplorer';
 import { ResourceExplorer } from './ResourceExplorer';
@@ -9,9 +9,10 @@ import { StructuralAnalysisExplorer } from './StructuralAnalysisExplorer';
 import { SolverExplorer } from './SolverExplorer';
 import { ReasoningExplorer } from './ReasoningExplorer';
 import { DesignExplorer } from './DesignExplorer';
+import { OptimizationExplorer } from './OptimizationExplorer';
 
 export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-  const [activeTab, setActiveTab] = useState<'policy' | 'knowledge' | 'resource' | 'agent' | 'memory' | 'analysis' | 'solver' | 'reasoning' | 'design'>('agent');
+  const [activeTab, setActiveTab] = useState<'policy' | 'knowledge' | 'resource' | 'agent' | 'memory' | 'analysis' | 'solver' | 'reasoning' | 'design' | 'optimization'>('agent');
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-8">
@@ -90,6 +91,13 @@ export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) 
               <Network className="w-3.5 h-3.5" />
               Reasoning
             </button>
+            <button 
+              onClick={() => setActiveTab('optimization')}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition-colors ${activeTab === 'optimization' ? 'bg-primary/10 text-primary border border-primary/20' : 'text-muted hover:text-white border border-transparent'}`}
+            >
+              <Target className="w-3.5 h-3.5" />
+              Optimization
+            </button>
             <div className="w-px h-4 bg-subtle mx-2" />
             <button 
               onClick={onClose}
@@ -111,6 +119,7 @@ export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) 
           {activeTab === 'analysis' && <StructuralAnalysisExplorer />}
           {activeTab === 'solver' && <SolverExplorer />}
           {activeTab === 'reasoning' && <ReasoningExplorer />}
+          {activeTab === 'optimization' && <OptimizationExplorer />}
         </div>
       </div>
     </div>

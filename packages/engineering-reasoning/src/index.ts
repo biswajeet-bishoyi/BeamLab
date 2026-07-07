@@ -14,3 +14,4 @@ export * from './recommendation/RecommendationEngine';
 export * from './justification/EngineeringJustificationEngine';
 export * from './analysis/BehaviorAnalysisEngine';
 export * from './analysis/CriticalMemberDetector';
+export * from './decision';

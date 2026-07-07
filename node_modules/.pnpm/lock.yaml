@@ -217,6 +217,34 @@ importers:
         specifier: ^1.5.0
         version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
 
+  packages/agent-optimization:
+    dependencies:
+      '@beamlab/agent-framework':
+        specifier: workspace:*
+        version: link:../agent-framework
+      '@beamlab/engineering-reasoning':
+        specifier: workspace:*
+        version: link:../engineering-reasoning
+      '@beamlab/events':
+        specifier: workspace:*
+        version: link:../events
+      '@beamlab/workspace-runtime':
+        specifier: workspace:*
+        version: link:../workspace-runtime
+    devDependencies:
+      '@beamlab/config':
+        specifier: workspace:*
+        version: link:../config
+      '@beamlab/types':
+        specifier: workspace:*
+        version: link:../types
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vitest:
+        specifier: ^1.2.2
+        version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
+
   packages/agent-structural-analysis:
     dependencies:
       '@beamlab/agent-framework':

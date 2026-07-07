@@ -1,0 +1,25 @@
+{
+  "id": "agent-optimization",
+  "name": "Engineering Optimization Agent",
+  "version": "0.1.0",
+  "description": "Evaluates engineering alternatives, balances competing objectives, and recommends optimized solutions.",
+  "type": "engineering",
+  "capabilities": [
+    "optimization-planning",
+    "alternative-generation",
+    "trade-off-analysis"
+  ],
+  "events": [
+    "OptimizationRequested",
+    "ObjectivesDefined",
+    "ConstraintsCollected",
+    "CandidateGenerated",
+    "CandidateRejected",
+    "CandidateAccepted",
+    "AlternativeEvaluated",
+    "TradeOffCompleted",
+    "OptimizationRecommendationGenerated",
+    "OptimizationCompleted",
+    "OptimizationFailed"
+  ]
+}

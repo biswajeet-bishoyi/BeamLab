@@ -1,0 +1,22 @@
+{
+  "name": "@beamlab/agent-optimization",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@beamlab/agent-framework": "workspace:*",
+    "@beamlab/events": "workspace:*",
+    "@beamlab/engineering-reasoning": "workspace:*",
+    "@beamlab/workspace-runtime": "workspace:*"
+  },
+  "devDependencies": {
+    "@beamlab/config": "workspace:*",
+    "@beamlab/types": "workspace:*",
+    "vitest": "^1.2.2",
+    "typescript": "^5.3.3"
+  }
+}
