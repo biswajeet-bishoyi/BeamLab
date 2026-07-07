@@ -36,6 +36,7 @@ export class ArchieKernel implements IArchieKernel {
     // We can use the actual SolverRuntime and AgentRuntime if imported
     // For now, mock to satisfy compilation without deep importing complex structures
     const solverRuntime = new MockService();
+    const engineeringReasoning = new MockService();
     const agentRuntime = new MockService();
 
     // Register
@@ -46,6 +47,7 @@ export class ArchieKernel implements IArchieKernel {
     this.serviceRegistry.register('MemorySystem', memorySystem);
     this.serviceRegistry.register('ToolRegistry', toolRegistry);
     this.serviceRegistry.register('SolverRuntime', solverRuntime);
+    this.serviceRegistry.register('EngineeringReasoning', engineeringReasoning);
     this.serviceRegistry.register('AgentRuntime', agentRuntime);
 
     // Initialize in specific order
@@ -69,6 +71,9 @@ export class ArchieKernel implements IArchieKernel {
     
     console.log('[ArchieKernel] Initializing Solver Runtime...');
     await solverRuntime.start();
+
+    console.log('[ArchieKernel] Initializing Engineering Reasoning...');
+    await engineeringReasoning.start();
     
     console.log('[ArchieKernel] Initializing Agent Runtime...');
     await agentRuntime.start();

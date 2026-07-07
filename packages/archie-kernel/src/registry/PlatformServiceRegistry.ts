@@ -6,6 +6,7 @@ export type PlatformServiceType =
   | 'MemorySystem'
   | 'ToolRegistry'
   | 'SolverRuntime'
+  | 'EngineeringReasoning'
   | 'AgentRuntime';
 
 export class PlatformServiceRegistry {

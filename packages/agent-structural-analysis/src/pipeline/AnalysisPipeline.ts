@@ -2,38 +2,28 @@ import { AnalysisPlanner } from '../planning/AnalysisPlanner';
 import { ModelValidator } from '../validation/ModelValidator';
 import { ValidationRuleRegistry } from '../validation/ValidationRuleRegistry';
 import { ISolverService, ISolverRequest } from '@beamlab/solver-client';
-import { ResultInterpreter } from '../reasoning/ResultInterpreter';
-import { EngineeringReasoner } from '../reasoning/EngineeringReasoner';
-import { ReasoningRegistry } from '../reasoning/ReasoningRegistry';
-import { RecommendationGenerator } from '../recommendations/RecommendationGenerator';
-import { ExplanationBuilder, ExplanationResponse } from '../explanation/ExplanationBuilder';
 import { ExecutionContext } from '@beamlab/agent-framework';
+import { StructuralReasoningStrategy } from '../intelligence/StructuralReasoningStrategy';
 
 export class AnalysisPipeline {
   private planner = new AnalysisPlanner();
   private validator: ModelValidator;
-  private interpreter = new ResultInterpreter();
-  private reasoner: EngineeringReasoner;
-  private recommendationGen = new RecommendationGenerator();
-  private explainer = new ExplanationBuilder();
+  private reasoningStrategy = new StructuralReasoningStrategy();
 
   constructor(
     private solverService: ISolverService,
-    validationRegistry: ValidationRuleRegistry,
-    reasoningRegistry: ReasoningRegistry
+    validationRegistry: ValidationRuleRegistry
   ) {
     this.validator = new ModelValidator(validationRegistry);
-    this.reasoner = new EngineeringReasoner(reasoningRegistry);
   }
 
-  public async execute(request: any, context: ExecutionContext): Promise<ExplanationResponse> {
+  public async execute(request: any, context: ExecutionContext): Promise<any> {
     console.log('[AnalysisPipeline] Starting Engineering Reasoning Pipeline...');
     
     // 1. Context Collection & Validation
     const validation = await this.validator.validateModel(request.model);
     if (!validation.isValid) {
       console.warn('[AnalysisPipeline] Validation failed', validation.issues);
-      // Depending on policy, we might fail early. Here we proceed to show how explanation handles it.
     }
 
     // 2. Planning
@@ -57,24 +47,23 @@ export class AnalysisPipeline {
       throw new Error(`Solver failed: ${solverResult.errors?.join(', ')}`);
     }
 
-    // 4. Result Interpretation
-    const interpretedResults = this.interpreter.interpret(solverResult);
+    // 4. Engineering Intelligence & Reasoning
+    // Instead of piecemeal interpretation, we hand off to the EISR strategy
+    await this.reasoningStrategy.analyze(context, solverResult);
+    await this.reasoningStrategy.reason();
+    
+    const narrative = await this.reasoningStrategy.explain();
+    const recommendations = await this.reasoningStrategy.recommend();
+    const justification = await this.reasoningStrategy.justify();
 
-    // 5. Engineering Reasoning
-    const reasoningSummary = await this.reasoner.reason(interpretedResults);
-
-    // 6. Recommendation Generation
-    const recommendations = this.recommendationGen.generate(reasoningSummary.insights);
-
-    // 7. Explanation Building
-    const explanation = this.explainer.build(
+    // 5. Final Explanation
+    return {
       plan,
       validation,
-      interpretedResults,
-      reasoningSummary,
-      recommendations
-    );
-
-    return explanation;
+      solverResult,
+      narrative,
+      recommendations,
+      justification
+    };
   }
 }

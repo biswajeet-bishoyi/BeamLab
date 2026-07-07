@@ -25,6 +25,7 @@
     "@beamlab/resource-manager": "workspace:*",
     "@beamlab/memory-system": "workspace:*",
     "@beamlab/solver-runtime": "workspace:*",
+    "@beamlab/engineering-reasoning": "workspace:*",
     "@beamlab/agent-framework": "workspace:*"
   },
   "devDependencies": {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Shield, Database, X, Terminal, Layers, Cpu, Activity } from 'lucide-react';
+import { Shield, Database, X, Terminal, Layers, Cpu, Activity, Network } from 'lucide-react';
 import { KnowledgeExplorer } from './KnowledgeExplorer';
 import { PolicyExplorer } from './PolicyExplorer';
 import { ResourceExplorer } from './ResourceExplorer';
@@ -7,9 +7,10 @@ import { AgentDiagnostics } from './AgentDiagnostics';
 import { MemoryExplorer } from './MemoryExplorer';
 import { StructuralAnalysisExplorer } from './StructuralAnalysisExplorer';
 import { SolverExplorer } from './SolverExplorer';
+import { ReasoningExplorer } from './ReasoningExplorer';
 
 export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-  const [activeTab, setActiveTab] = useState<'policy' | 'knowledge' | 'resource' | 'agent' | 'memory' | 'analysis' | 'solver'>('agent');
+  const [activeTab, setActiveTab] = useState<'policy' | 'knowledge' | 'resource' | 'agent' | 'memory' | 'analysis' | 'solver' | 'reasoning'>('agent');
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-8">
@@ -74,6 +75,13 @@ export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) 
               <Activity className="w-3.5 h-3.5" />
               Solver Runtime
             </button>
+            <button 
+              onClick={() => setActiveTab('reasoning')}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition-colors ${activeTab === 'reasoning' ? 'bg-primary/10 text-primary border border-primary/20' : 'text-muted hover:text-white border border-transparent'}`}
+            >
+              <Network className="w-3.5 h-3.5" />
+              Reasoning
+            </button>
             <div className="w-px h-4 bg-subtle mx-2" />
             <button 
               onClick={onClose}
@@ -93,6 +101,7 @@ export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) 
           {activeTab === 'memory' && <MemoryExplorer />}
           {activeTab === 'analysis' && <StructuralAnalysisExplorer />}
           {activeTab === 'solver' && <SolverExplorer />}
+          {activeTab === 'reasoning' && <ReasoningExplorer />}
         </div>
       </div>
     </div>
