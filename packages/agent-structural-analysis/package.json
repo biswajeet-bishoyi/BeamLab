@@ -1,6 +1,7 @@
 {
   "name": "@beamlab/agent-structural-analysis",
   "version": "1.0.0",
+  "private": true,
   "description": "BeamLab Structural Analysis Engineering Agent",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
