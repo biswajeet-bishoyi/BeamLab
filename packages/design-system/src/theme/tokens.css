@@ -1,0 +1,16 @@
+
+@theme {
+  --color-bg-app: #0C0C0C;
+  --color-bg-panel: #1A1A1A;
+  --color-border-subtle: #2A2A2A;
+  --color-text-primary: #EDEDED;
+  --color-text-muted: #888888;
+  --color-accent: #2563EB;
+  --color-accent-foreground: #FFFFFF;
+}
+
+:root {
+  color-scheme: dark;
+  background-color: var(--color-bg-app);
+  color: var(--color-text-primary);
+}
