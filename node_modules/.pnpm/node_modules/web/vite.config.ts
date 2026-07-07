@@ -11,6 +11,7 @@ export default defineConfig({
     tailwindcss(),
   ],
   resolve: {
+    dedupe: ['react', 'react-dom'],
     alias: {
       '@beamworks': path.resolve(__dirname, '../../packages')
     }
