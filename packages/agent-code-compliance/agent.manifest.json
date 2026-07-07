@@ -1,0 +1,24 @@
+{
+  "id": "agent-code-compliance",
+  "name": "Engineering Code Compliance Agent",
+  "version": "1.0.0",
+  "description": "Evaluates designs against standard codes, detects violations, and recommends actions.",
+  "capabilities": [
+    "StandardResolution",
+    "ClauseMatching",
+    "RuleEvaluation",
+    "ViolationDetection",
+    "ComplianceReasoning",
+    "EngineeringReview"
+  ],
+  "events": [
+    "ComplianceRequested",
+    "StandardResolved",
+    "ClauseMatched",
+    "RuleEvaluated",
+    "ViolationDetected",
+    "RecommendationGenerated",
+    "ComplianceCompleted",
+    "ComplianceFailed"
+  ]
+}

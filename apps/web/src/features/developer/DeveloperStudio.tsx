@@ -10,9 +10,10 @@ import { SolverExplorer } from './SolverExplorer';
 import { ReasoningExplorer } from './ReasoningExplorer';
 import { DesignExplorer } from './DesignExplorer';
 import { OptimizationExplorer } from './OptimizationExplorer';
+import { ComplianceExplorer } from './ComplianceExplorer';
 
 export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-  const [activeTab, setActiveTab] = useState<'policy' | 'knowledge' | 'resource' | 'agent' | 'memory' | 'analysis' | 'solver' | 'reasoning' | 'design' | 'optimization'>('agent');
+  const [activeTab, setActiveTab] = useState<'policy' | 'knowledge' | 'resource' | 'agent' | 'memory' | 'analysis' | 'solver' | 'reasoning' | 'design' | 'optimization' | 'compliance'>('agent');
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-8">
@@ -98,6 +99,13 @@ export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) 
               <Target className="w-3.5 h-3.5" />
               Optimization
             </button>
+            <button 
+              onClick={() => setActiveTab('compliance')}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition-colors ${activeTab === 'compliance' ? 'bg-primary/10 text-primary border border-primary/20' : 'text-muted hover:text-white border border-transparent'}`}
+            >
+              <Shield className="w-3.5 h-3.5" />
+              Compliance
+            </button>
             <div className="w-px h-4 bg-subtle mx-2" />
             <button 
               onClick={onClose}
@@ -120,6 +128,7 @@ export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) 
           {activeTab === 'solver' && <SolverExplorer />}
           {activeTab === 'reasoning' && <ReasoningExplorer />}
           {activeTab === 'optimization' && <OptimizationExplorer />}
+          {activeTab === 'compliance' && <ComplianceExplorer />}
         </div>
       </div>
     </div>
