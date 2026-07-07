@@ -1,8 +1,30 @@
 import { selectionService } from '../selection/SelectionService';
 import { focusEngine } from '../focus/FocusEngine';
 import { workspaceEventBus } from '../events/WorkspaceEventBus';
+import { CommandRegistry } from '../commands/CommandRegistry';
+import { NotificationService } from '../notifications/NotificationService';
+import { WorkspaceHealthService } from '../health/WorkspaceHealth';
+import { LocalStorageAdapter, WorkspacePersistence } from '../session/WorkspacePersistence';
+import { ProfileManager } from '../session/WorkspaceProfiles';
 
 export class WorkspaceAPI {
+  public commands: CommandRegistry;
+  public notifications: NotificationService;
+  public health: WorkspaceHealthService;
+  public session: WorkspacePersistence;
+  public profiles: ProfileManager;
+
+  constructor() {
+    this.commands = new CommandRegistry(workspaceEventBus);
+    this.notifications = new NotificationService(workspaceEventBus);
+    this.health = new WorkspaceHealthService(workspaceEventBus);
+    this.session = new LocalStorageAdapter();
+    this.profiles = new ProfileManager();
+    
+    // Start monitoring health
+    this.health.startMonitoring();
+  }
+
   // Selection
   select(entityIds: string[], metadata?: Record<string, any>): void {
     selectionService.select(entityIds, 'api', metadata);

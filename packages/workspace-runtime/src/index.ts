@@ -4,3 +4,8 @@ export * from './selection/SelectionService';
 export * from './focus/FocusEngine';
 export * from './recommendations/RecommendationProvider';
 export * from './types/index';
+export * from './session/WorkspacePersistence';
+export * from './session/WorkspaceProfiles';
+export * from './health/WorkspaceHealth';
+export * from './notifications/NotificationService';
+export * from './commands/CommandRegistry';

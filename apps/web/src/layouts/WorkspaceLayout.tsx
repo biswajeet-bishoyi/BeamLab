@@ -6,6 +6,8 @@ import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
 import { TopNav } from './TopNav';
 import { StatusBar } from './StatusBar';
 import { ProjectExplorer } from './ProjectExplorer';
+import { LivePropertyInspector } from '../features/inspector/LivePropertyInspector';
+import { NotificationCenter } from '../features/notifications/NotificationCenter';
 import { ArchieSidebar } from './ArchieSidebar';
 import { CenterWorkspace } from './CenterWorkspace';
 
@@ -36,9 +38,17 @@ export const WorkspaceLayout: React.FC = () => {
                   if (size.asPercentage === 0) setLeftPanelCollapsed(true);
                 }}
                 collapsible={true}
-                className="transition-all duration-200 ease-in-out"
+                className="transition-all duration-200 ease-in-out bg-[#111111]"
               >
-                <ProjectExplorer />
+                <PanelGroup orientation="vertical">
+                  <Panel defaultSize={50} minSize={20}>
+                    <ProjectExplorer />
+                  </Panel>
+                  <PanelResizeHandle className="h-1 bg-subtle hover:bg-accent hover:h-1.5 transition-all active:bg-accent cursor-row-resize z-10" />
+                  <Panel defaultSize={50} minSize={20}>
+                    <LivePropertyInspector />
+                  </Panel>
+                </PanelGroup>
               </Panel>
               <PanelResizeHandle className="w-1 bg-subtle hover:bg-accent hover:w-1.5 transition-all active:bg-accent cursor-col-resize z-10" />
             </>
@@ -72,6 +82,7 @@ export const WorkspaceLayout: React.FC = () => {
         </PanelGroup>
       </div>
 
+      <NotificationCenter />
       <StatusBar />
     </div>
   );
