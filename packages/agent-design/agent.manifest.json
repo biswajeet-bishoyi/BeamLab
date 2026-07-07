@@ -1,0 +1,8 @@
+{
+  "id": "agent-structural-design",
+  "name": "Structural Design Agent",
+  "version": "1.0.0",
+  "description": "Assists engineers in developing safe, efficient, and standards-aware structural designs.",
+  "capabilities": ["structural-design", "intent-analysis", "alternative-generation"],
+  "entrypoint": "dist/index.js"
+}

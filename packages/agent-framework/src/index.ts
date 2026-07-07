@@ -25,4 +25,7 @@ export * from './orchestration/OrchestrationInterfaces';
 
 // Agent Core
 export * from './agent/IAgent';
+
+export * from './agent/IEngineeringPipeline';
+export * from './agent/IEngineeringWorkflowCoordinator';
 export * from './registry/AgentRegistry';

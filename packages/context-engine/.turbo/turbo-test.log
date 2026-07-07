@@ -2,13 +2,13 @@ $ vitest run
 
 [7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mC:/kanha/college/projects/BeamLab/packages/context-engine[39m
 
-{"level":30,"time":1783429703028,"pid":7480,"hostname":"Miracle","projectId":"test_proj","durationMs":0,"nodeCount":1,"msg":"Context Graph rebuilt"}
-{"level":30,"time":1783429703030,"pid":7480,"hostname":"Miracle","projectId":"test_proj","durationMs":0,"nodeCount":1,"msg":"Context Graph rebuilt"}
-{"level":30,"time":1783429703031,"pid":7480,"hostname":"Miracle","projectId":"test_proj","durationMs":0,"nodeCount":1,"msg":"Context Graph rebuilt"}
- [32m✓[39m src/index.test.ts [2m ([22m[2m3 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+{"level":30,"time":1783431062766,"pid":2984,"hostname":"Miracle","projectId":"test_proj","durationMs":1,"nodeCount":1,"msg":"Context Graph rebuilt"}
+{"level":30,"time":1783431062769,"pid":2984,"hostname":"Miracle","projectId":"test_proj","durationMs":0,"nodeCount":1,"msg":"Context Graph rebuilt"}
+{"level":30,"time":1783431062770,"pid":2984,"hostname":"Miracle","projectId":"test_proj","durationMs":0,"nodeCount":1,"msg":"Context Graph rebuilt"}
+ [32m✓[39m src/index.test.ts [2m ([22m[2m3 tests[22m[2m)[22m[90m 8[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
 [2m      Tests [22m [1m[32m3 passed[39m[22m[90m (3)[39m
-[2m   Start at [22m 18:38:20
-[2m   Duration [22m 2.69s[2m (transform 716ms, setup 0ms, collect 901ms, tests 7ms, environment 0ms, prepare 354ms)[22m
+[2m   Start at [22m 19:00:59
+[2m   Duration [22m 3.17s[2m (transform 870ms, setup 0ms, collect 1.07s, tests 8ms, environment 0ms, prepare 577ms)[22m
 

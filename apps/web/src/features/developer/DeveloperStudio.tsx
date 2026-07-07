@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Shield, Database, X, Terminal, Layers, Cpu, Activity, Network } from 'lucide-react';
+import { Shield, Database, X, Terminal, Layers, Cpu, Activity, Network, PenTool } from 'lucide-react';
 import { KnowledgeExplorer } from './KnowledgeExplorer';
 import { PolicyExplorer } from './PolicyExplorer';
 import { ResourceExplorer } from './ResourceExplorer';
@@ -8,9 +8,10 @@ import { MemoryExplorer } from './MemoryExplorer';
 import { StructuralAnalysisExplorer } from './StructuralAnalysisExplorer';
 import { SolverExplorer } from './SolverExplorer';
 import { ReasoningExplorer } from './ReasoningExplorer';
+import { DesignExplorer } from './DesignExplorer';
 
 export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-  const [activeTab, setActiveTab] = useState<'policy' | 'knowledge' | 'resource' | 'agent' | 'memory' | 'analysis' | 'solver' | 'reasoning'>('agent');
+  const [activeTab, setActiveTab] = useState<'policy' | 'knowledge' | 'resource' | 'agent' | 'memory' | 'analysis' | 'solver' | 'reasoning' | 'design'>('agent');
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-8">
@@ -62,11 +63,18 @@ export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) 
               Memory Explorer
             </button>
             <button 
+              onClick={() => setActiveTab('design')}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition-colors ${activeTab === 'design' ? 'bg-primary/10 text-primary border border-primary/20' : 'text-muted hover:text-white border border-transparent'}`}
+            >
+              <PenTool className="w-3.5 h-3.5" />
+              Design
+            </button>
+            <button 
               onClick={() => setActiveTab('analysis')}
               className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition-colors ${activeTab === 'analysis' ? 'bg-primary/10 text-primary border border-primary/20' : 'text-muted hover:text-white border border-transparent'}`}
             >
               <Terminal className="w-3.5 h-3.5" />
-              Analysis Agent
+              Analysis
             </button>
             <button 
               onClick={() => setActiveTab('solver')}
@@ -99,6 +107,7 @@ export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) 
           {activeTab === 'knowledge' && <KnowledgeExplorer onClose={onClose} isEmbedded={true} />}
           {activeTab === 'resource' && <ResourceExplorer />}
           {activeTab === 'memory' && <MemoryExplorer />}
+          {activeTab === 'design' && <DesignExplorer />}
           {activeTab === 'analysis' && <StructuralAnalysisExplorer />}
           {activeTab === 'solver' && <SolverExplorer />}
           {activeTab === 'reasoning' && <ReasoningExplorer />}

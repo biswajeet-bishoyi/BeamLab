@@ -7,7 +7,8 @@ export type PlatformServiceType =
   | 'ToolRegistry'
   | 'SolverRuntime'
   | 'EngineeringReasoning'
-  | 'AgentRuntime';
+  | 'AgentRuntime'
+  | 'DesignAgent';
 
 export class PlatformServiceRegistry {
   private services: Map<PlatformServiceType, any> = new Map();

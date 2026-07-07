@@ -38,6 +38,7 @@ export class ArchieKernel implements IArchieKernel {
     const solverRuntime = new MockService();
     const engineeringReasoning = new MockService();
     const agentRuntime = new MockService();
+    const designAgent = new MockService();
 
     // Register
     this.serviceRegistry.register('ContextEngine', contextEngine);
@@ -49,6 +50,7 @@ export class ArchieKernel implements IArchieKernel {
     this.serviceRegistry.register('SolverRuntime', solverRuntime);
     this.serviceRegistry.register('EngineeringReasoning', engineeringReasoning);
     this.serviceRegistry.register('AgentRuntime', agentRuntime);
+    this.serviceRegistry.register('DesignAgent', designAgent);
 
     // Initialize in specific order
     console.log('[ArchieKernel] Initializing Context Engine...');
@@ -77,6 +79,9 @@ export class ArchieKernel implements IArchieKernel {
     
     console.log('[ArchieKernel] Initializing Agent Runtime...');
     await agentRuntime.start();
+
+    console.log('[ArchieKernel] Initializing Design Agent...');
+    await designAgent.start();
 
     console.log('[ArchieKernel] Initializing Core RuntimeManager...');
     await this.runtimeManager.start();

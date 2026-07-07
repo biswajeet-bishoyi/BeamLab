@@ -1,6 +1,10 @@
 packages:
   - "apps/*"
   - "packages/*"
+  - 'packages/agent-framework'
+  - 'packages/agent-structural-analysis'
+  - 'packages/agent-design'
+  - 'packages/knowledge-platform'
 
 allowBuilds:
   esbuild: true
