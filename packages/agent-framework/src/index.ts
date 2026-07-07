@@ -22,3 +22,7 @@ export * from './diagnostics/ExecutionTraceTracker';
 
 // Orchestration
 export * from './orchestration/OrchestrationInterfaces';
+
+// Agent Core
+export * from './agent/IAgent';
+export * from './registry/AgentRegistry';

@@ -1,0 +1,25 @@
+{
+  "id": "structural-analysis",
+  "name": "Structural Analysis Agent",
+  "version": "1.0.0",
+  "author": "BeamLab",
+  "capabilities": {
+    "analysis": true,
+    "validation": true,
+    "interpretation": true
+  },
+  "permissions": [
+    "workspace:read",
+    "knowledge:read",
+    "policy:read",
+    "resource:read"
+  ],
+  "dependencies": [
+    "knowledge-platform",
+    "policy-engine",
+    "resource-manager",
+    "workspace-runtime"
+  ],
+  "supportedBeamLabVersion": ">=1.0.0",
+  "requiredRuntimeVersion": ">=1.0.0"
+}
