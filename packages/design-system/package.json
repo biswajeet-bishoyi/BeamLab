@@ -25,6 +25,7 @@
     "@testing-library/react": "^16.0.1",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
+    "jsdom": "^29.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "storybook": "^8.4.2",
