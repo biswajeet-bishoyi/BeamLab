@@ -3,7 +3,18 @@ export type StreamEvent =
   | { type: 'tool_start'; payload: { toolId: string } }
   | { type: 'tool_end'; payload: { toolId: string; result: any } }
   | { type: 'error'; payload: { message: string } }
-  | { type: 'approval_required'; payload: { toolId: string; details: any } };
+  | { type: 'approval_required'; payload: { toolId: string; details: any } }
+  | { type: 'message_started'; payload: { prompt: string } }
+  | { type: 'planning_started'; payload: {} }
+  | { type: 'planning_completed'; payload: { plan: any } }
+  | { type: 'context_updated'; payload: { contextData: any } }
+  | { type: 'execution_graph_built'; payload: { graph?: any } }
+  | { type: 'scheduler_started'; payload: {} }
+  | { type: 'tool_failed'; payload: { toolId: string; error: string } }
+  | { type: 'streaming_started'; payload: {} }
+  | { type: 'streaming_completed'; payload: {} }
+  | { type: 'conversation_completed'; payload: {} }
+  | { type: 'conversation_failed'; payload: { error: string } };
 
 export class StreamingEngine {
   /**

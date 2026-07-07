@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useWorkspaceStore } from '../store/workspace';
 import { MessageSquare, ListTodo, PlayCircle, Database, History } from 'lucide-react';
-import { ArchieProvider, MockArchieClient } from '@beamlab/archie-client';
+import { ArchieProvider, ArchieClient, LocalRuntimeTransport } from '@beamlab/archie-client';
 import { ChatTab } from '../features/archie/ChatTab';
 import { PlanTab } from '../features/archie/PlanTab';
 import { ExecutionTab } from '../features/archie/ExecutionTab';
@@ -11,8 +11,11 @@ import { HistoryTab } from '../features/archie/HistoryTab';
 export const ArchieSidebar: React.FC = () => {
   const { activeArchieTab, setActiveArchieTab } = useWorkspaceStore();
   
-  // Instantiate the mock client once per session
-  const client = useMemo(() => new MockArchieClient(), []);
+  // Instantiate the client once per session
+  const client = useMemo(() => {
+    const transport = new LocalRuntimeTransport();
+    return new ArchieClient(transport);
+  }, []);
 
   const tabs = [
     { id: 'chat', icon: MessageSquare, label: 'Chat' },

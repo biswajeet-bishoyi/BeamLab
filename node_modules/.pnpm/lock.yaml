@@ -139,6 +139,9 @@ importers:
 
   packages/archie-client:
     dependencies:
+      '@beamlab/runtime-gateway':
+        specifier: workspace:*
+        version: link:../runtime-gateway
       zustand:
         specifier: ^5.0.0
         version: 5.0.14(@types/react@18.3.31)(react@18.3.1)

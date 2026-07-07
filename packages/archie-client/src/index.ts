@@ -1,5 +1,6 @@
-
+export * from './client/ArchieClient';
+export * from './transport/ITransport';
+export * from './transport/LocalRuntimeTransport';
+export * from './providers/ArchieProvider';
 export * from './types';
-export * from './interfaces';
-export * from './providers/MockArchieClient';
-export * from './react/ArchieProvider';
+

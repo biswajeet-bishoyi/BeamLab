@@ -18,9 +18,13 @@ export class RequestPipeline {
   public async *processStream(payload: RequestPayload, traceId: string, signal?: AbortSignal): AsyncGenerator<StreamEvent, void, unknown> {
     const startTime = Date.now();
     try {
+      yield { type: 'message_started', payload: { prompt: payload.prompt } };
+      
       // 1. Planner Phase
+      yield { type: 'planning_started', payload: {} };
       const plan = planner.analyzeIntent(payload.prompt);
       metrics.logPipelinePhase(traceId, 'planner', Date.now() - startTime, { plan });
+      yield { type: 'planning_completed', payload: { plan } };
       
       // 2. Context Phase
       let systemPrompt = "You are Archie, the intelligent cursor of structural engineering.";
@@ -29,6 +33,7 @@ export class RequestPipeline {
         const contextData = await contextIntegrator.getOptimizedContext(payload.projectId, 4000);
         systemPrompt += `\n\nWorkspace Context:\n${contextData}`;
         metrics.logPipelinePhase(traceId, 'context', Date.now() - cStartTime);
+        yield { type: 'context_updated', payload: { contextData } };
       }
 
       // 3. Provider Request Formulation
@@ -39,6 +44,7 @@ export class RequestPipeline {
       };
 
       // 4. LLM Execution Phase (Streaming)
+      yield { type: 'streaming_started', payload: {} };
       const providerStream = this.provider.stream(llmRequest, signal);
       
       for await (const chunk of providerStream) {
@@ -46,12 +52,15 @@ export class RequestPipeline {
           yield { type: 'text', payload: chunk.text };
         }
       }
+      yield { type: 'streaming_completed', payload: {} };
 
       // Handle non-streaming mock for tool execution 
       // (in reality, provider.stream would yield toolCalls directly, but we use provider.generate for simplicity here to mock the tool call logic)
       const fullResponse = await this.provider.generate(llmRequest, signal);
       
       if (fullResponse.toolCalls) {
+        yield { type: 'execution_graph_built', payload: { graph: fullResponse.toolCalls } };
+        yield { type: 'scheduler_started', payload: {} };
         for (const call of fullResponse.toolCalls) {
           if (signal?.aborted) throw new Error('AbortError');
           
@@ -72,15 +81,16 @@ export class RequestPipeline {
             if (e.message.toLowerCase().includes('approval')) {
                yield { type: 'approval_required', payload: { toolId: call.name, details: e.message } };
             } else {
-               yield { type: 'error', payload: { message: `Tool failed: ${e.message}` } };
+               yield { type: 'tool_failed', payload: { toolId: call.name, error: e.message } };
             }
           }
         }
       }
+      yield { type: 'conversation_completed', payload: {} };
       
     } catch (error: any) {
       metrics.logError(traceId, 'execution', error);
-      yield { type: 'error', payload: { message: error.message } };
+      yield { type: 'conversation_failed', payload: { error: error.message } };
     }
   }
 }

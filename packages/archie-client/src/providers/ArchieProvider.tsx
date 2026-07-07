@@ -1,19 +1,20 @@
 
 import React, { createContext, useContext, useEffect, useState, useMemo } from 'react';
-import { IArchieClient } from '../interfaces';
+import { ArchieClient } from '../client/ArchieClient';
 import { ArchieConversationState, ArchieMessage, ArchiePlanStep, ArchieExecutionTask } from '../types';
 
 interface ArchieContextValue {
-  client: IArchieClient;
+  client: ArchieClient;
   state: ArchieConversationState;
   messages: ArchieMessage[];
   plan: ArchiePlanStep[];
   execution: ArchieExecutionTask[];
+  contextData?: any;
 }
 
 const ArchieContext = createContext<ArchieContextValue | null>(null);
 
-export const ArchieProvider: React.FC<{ client: IArchieClient, children: React.ReactNode }> = ({ client, children }) => {
+export const ArchieProvider: React.FC<{ client: ArchieClient, children: React.ReactNode }> = ({ client, children }) => {
   const [tick, setTick] = useState(0);
 
   useEffect(() => {
@@ -25,7 +26,8 @@ export const ArchieProvider: React.FC<{ client: IArchieClient, children: React.R
     state: client.getState(),
     messages: client.getMessages(),
     plan: client.getPlan(),
-    execution: client.getExecution()
+    execution: client.getExecution(),
+    contextData: client.contextData
   }), [client, tick]);
 
   return <ArchieContext.Provider value={value}>{children}</ArchieContext.Provider>;

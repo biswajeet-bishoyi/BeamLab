@@ -16,7 +16,8 @@ describe('Archie Runtime Gateway (ARG)', () => {
     
     expect(chunks.length).toBeGreaterThan(0);
     // SSE formatting check
-    expect(chunks[0]).toContain('data: {"type":"text"');
+    expect(chunks[0]).toContain('data: {"type":"message_started"');
+    expect(chunks.some(c => c.includes('"type":"text"'))).toBe(true);
   });
 
   it('triggers tool execution and handles approvals for destructive actions', async () => {
