@@ -1,10 +1,18 @@
 {
   "name": "@beamlab/agent-design",
   "version": "1.0.0",
+  "private": true,
   "description": "BeamLab Structural Design Agent",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
