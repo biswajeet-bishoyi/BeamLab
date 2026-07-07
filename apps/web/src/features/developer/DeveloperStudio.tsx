@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Shield, Database, X, Terminal, Layers, Cpu, Activity, Network, PenTool, Target, BookOpen } from 'lucide-react';
+import { Shield, Database, X, Terminal, Layers, Cpu, Activity, Network, PenTool, Target, BookOpen, GitBranch } from 'lucide-react';
 import { KnowledgeExplorer } from './KnowledgeExplorer';
 import { PolicyExplorer } from './PolicyExplorer';
 import { ResourceExplorer } from './ResourceExplorer';
@@ -12,9 +12,10 @@ import { DesignExplorer } from './DesignExplorer';
 import { OptimizationExplorer } from './OptimizationExplorer';
 import { ComplianceExplorer } from './ComplianceExplorer';
 import { ReportExplorer } from './ReportExplorer';
+import { WorkflowExplorer } from './WorkflowExplorer';
 
 export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-  const [activeTab, setActiveTab] = useState<'policy' | 'knowledge' | 'resource' | 'agent' | 'memory' | 'analysis' | 'solver' | 'reasoning' | 'design' | 'optimization' | 'compliance' | 'report'>('agent');
+  const [activeTab, setActiveTab] = useState<'policy' | 'knowledge' | 'resource' | 'agent' | 'memory' | 'analysis' | 'solver' | 'reasoning' | 'design' | 'optimization' | 'compliance' | 'report' | 'workflow'>('agent');
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-8">
@@ -29,7 +30,7 @@ export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) 
             </div>
           </div>
           
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
             <button 
               onClick={() => setActiveTab('agent')}
               className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition-colors ${activeTab === 'agent' ? 'bg-primary/10 text-primary border border-primary/20' : 'text-muted hover:text-white border border-transparent'}`}
@@ -64,6 +65,13 @@ export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) 
             >
               <Database className="w-3.5 h-3.5" />
               Memory Explorer
+            </button>
+            <button 
+              onClick={() => setActiveTab('workflow')}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition-colors ${activeTab === 'workflow' ? 'bg-primary/10 text-primary border border-primary/20' : 'text-muted hover:text-white border border-transparent'}`}
+            >
+              <GitBranch className="w-3.5 h-3.5" />
+              Workflow
             </button>
             <button 
               onClick={() => setActiveTab('design')}
@@ -138,6 +146,7 @@ export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) 
           {activeTab === 'optimization' && <OptimizationExplorer />}
           {activeTab === 'compliance' && <ComplianceExplorer />}
           {activeTab === 'report' && <ReportExplorer />}
+          {activeTab === 'workflow' && <WorkflowExplorer />}
         </div>
       </div>
     </div>
