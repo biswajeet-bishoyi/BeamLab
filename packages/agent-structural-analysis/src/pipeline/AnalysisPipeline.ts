@@ -1,7 +1,7 @@
 import { AnalysisPlanner } from '../planning/AnalysisPlanner';
 import { ModelValidator } from '../validation/ModelValidator';
 import { ValidationRuleRegistry } from '../validation/ValidationRuleRegistry';
-import { ISolverAdapter } from '../solver/ISolverAdapter';
+import { ISolverService, ISolverRequest } from '@beamlab/solver-client';
 import { ResultInterpreter } from '../reasoning/ResultInterpreter';
 import { EngineeringReasoner } from '../reasoning/EngineeringReasoner';
 import { ReasoningRegistry } from '../reasoning/ReasoningRegistry';
@@ -18,7 +18,7 @@ export class AnalysisPipeline {
   private explainer = new ExplanationBuilder();
 
   constructor(
-    private solver: ISolverAdapter,
+    private solverService: ISolverService,
     validationRegistry: ValidationRuleRegistry,
     reasoningRegistry: ReasoningRegistry
   ) {
@@ -40,18 +40,25 @@ export class AnalysisPipeline {
     const plan = this.planner.planAnalysis(request, context);
 
     // 3. Solver Execution
-    const solverResponse = await this.solver.solve({
-      strategyId: plan.requiredSolver,
-      modelPayload: request.model,
-      parameters: {}
-    });
+    const solverRequest: ISolverRequest = {
+      id: crypto.randomUUID(),
+      projectId: (context as any).sessionData?.projectId || 'unknown',
+      analysisType: plan.requiredSolver,
+      units: 'metric',
+      analysisParameters: { solverId: plan.requiredSolver, ...request.parameters },
+      requestedOutputs: plan.expectedOutputs,
+      executionMetadata: {}
+    };
 
-    if (!solverResponse.success) {
-      throw new Error(`Solver failed: ${solverResponse.errors?.join(', ')}`);
+    const job = await this.solverService.submitJob(solverRequest);
+    const solverResult = await this.solverService.waitForJobCompletion(job.id);
+
+    if (solverResult.status === 'failed') {
+      throw new Error(`Solver failed: ${solverResult.errors?.join(', ')}`);
     }
 
     // 4. Result Interpretation
-    const interpretedResults = this.interpreter.interpret(solverResponse);
+    const interpretedResults = this.interpreter.interpret(solverResult);
 
     // 5. Engineering Reasoning
     const reasoningSummary = await this.reasoner.reason(interpretedResults);

@@ -1,4 +1,4 @@
-import { SolverResponse } from '../solver/SolverTypes';
+import { ISolverResult } from '@beamlab/solver-client';
 
 export interface InterpretedResults {
   maxDeflection: number;
@@ -13,8 +13,8 @@ export interface InterpretedResults {
 }
 
 export class ResultInterpreter {
-  public interpret(response: SolverResponse): InterpretedResults {
-    const raw = response.results || {};
+  public interpret(result: ISolverResult): InterpretedResults {
+    const raw = result.results || {};
     
     return {
       maxDeflection: raw.maxDeflection || 0,
@@ -24,7 +24,7 @@ export class ResultInterpreter {
       supportReactions: raw.reactions || {},
       criticalMembers: raw.criticalMembers || [],
       potentialInstability: raw.maxDeflection > 100, // naive check
-      warnings: response.warnings || [],
+      warnings: result.warnings || [],
       engineeringAssumptions: [
         'Linear elastic material behavior',
         'Small deformations',

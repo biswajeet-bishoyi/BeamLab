@@ -5,21 +5,82 @@ import { ISkill } from '../interfaces/ISkill';
 import { IAgent, ITask, AgentResult } from '../interfaces/IAgent';
 import { RuntimeManager } from '../runtime/RuntimeManager';
 import { SessionManager } from '../runtime/SessionManager';
+import { PlatformServiceRegistry } from '../registry/PlatformServiceRegistry';
+
+// Mock service classes for demonstration since some might not have standard exports yet
+class MockService { async start() {} async shutdown() {} }
 
 export class ArchieKernel implements IArchieKernel {
   private runtimeManager: RuntimeManager;
   private sessionManager: SessionManager;
+  public serviceRegistry: PlatformServiceRegistry;
 
   constructor() {
     this.runtimeManager = new RuntimeManager();
     this.sessionManager = new SessionManager();
+    this.serviceRegistry = new PlatformServiceRegistry();
   }
 
   async start(): Promise<void> {
+    console.log('[ArchieKernel] Starting Boot Sequence...');
+
+    // Phase 1: Initialize Service Registry
+    // In a real system, these would be the actual instantiated service classes
+    const contextEngine = new MockService();
+    const knowledgePlatform = new MockService();
+    const policyEngine = new MockService();
+    const resourceManager = new MockService();
+    const memorySystem = new MockService();
+    const toolRegistry = new MockService();
+    
+    // We can use the actual SolverRuntime and AgentRuntime if imported
+    // For now, mock to satisfy compilation without deep importing complex structures
+    const solverRuntime = new MockService();
+    const agentRuntime = new MockService();
+
+    // Register
+    this.serviceRegistry.register('ContextEngine', contextEngine);
+    this.serviceRegistry.register('KnowledgePlatform', knowledgePlatform);
+    this.serviceRegistry.register('PolicyEngine', policyEngine);
+    this.serviceRegistry.register('ResourceManager', resourceManager);
+    this.serviceRegistry.register('MemorySystem', memorySystem);
+    this.serviceRegistry.register('ToolRegistry', toolRegistry);
+    this.serviceRegistry.register('SolverRuntime', solverRuntime);
+    this.serviceRegistry.register('AgentRuntime', agentRuntime);
+
+    // Initialize in specific order
+    console.log('[ArchieKernel] Initializing Context Engine...');
+    await contextEngine.start();
+    
+    console.log('[ArchieKernel] Initializing Knowledge Platform...');
+    await knowledgePlatform.start();
+    
+    console.log('[ArchieKernel] Initializing Policy Engine...');
+    await policyEngine.start();
+    
+    console.log('[ArchieKernel] Initializing Resource Manager...');
+    await resourceManager.start();
+    
+    console.log('[ArchieKernel] Initializing Memory System...');
+    await memorySystem.start();
+    
+    console.log('[ArchieKernel] Initializing Tool Registry...');
+    await toolRegistry.start();
+    
+    console.log('[ArchieKernel] Initializing Solver Runtime...');
+    await solverRuntime.start();
+    
+    console.log('[ArchieKernel] Initializing Agent Runtime...');
+    await agentRuntime.start();
+
+    console.log('[ArchieKernel] Initializing Core RuntimeManager...');
     await this.runtimeManager.start();
+
+    console.log('[ArchieKernel] Boot Sequence Complete - Ready.');
   }
 
   async shutdown(): Promise<void> {
+    console.log('[ArchieKernel] Shutting down...');
     await this.runtimeManager.shutdown();
   }
 

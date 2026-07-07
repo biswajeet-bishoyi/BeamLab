@@ -19,7 +19,13 @@
     "@beamlab/utils": "workspace:*",
     "@beamlab/planning-engine": "workspace:*",
     "@beamlab/execution-graph": "workspace:*",
-    "@beamlab/task-scheduler": "workspace:*"
+    "@beamlab/task-scheduler": "workspace:*",
+    "@beamlab/knowledge-platform": "workspace:*",
+    "@beamlab/policy-engine": "workspace:*",
+    "@beamlab/resource-manager": "workspace:*",
+    "@beamlab/memory-system": "workspace:*",
+    "@beamlab/solver-runtime": "workspace:*",
+    "@beamlab/agent-framework": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^24.13.2",

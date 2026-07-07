@@ -27,7 +27,8 @@
     "@beamlab/workspace-runtime": "workspace:*",
     "@beamlab/knowledge-platform": "workspace:*",
     "@beamlab/policy-engine": "workspace:*",
-    "@beamlab/resource-manager": "workspace:*"
+    "@beamlab/resource-manager": "workspace:*",
+    "@beamlab/solver-client": "workspace:*"
   },
   "devDependencies": {
     "@beamlab/config": "workspace:*",
