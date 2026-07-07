@@ -28,6 +28,9 @@ interface BeamworksState {
   aiStudioOpen: boolean;
   aiUserLevel: AIUserLevel | null;
   activeEnvironment: EnvironmentId;
+  envGalleryOpen: boolean;
+  playbackMode: boolean;
+  presentationMode: boolean;
   performanceMonitorOpen: boolean;
   exportStudioOpen: boolean;
   
@@ -43,6 +46,9 @@ interface BeamworksState {
   setAiStudioOpen: (open: boolean) => void;
   setAiUserLevel: (level: AIUserLevel) => void;
   setEnvironment: (id: EnvironmentId) => void;
+  setEnvGalleryOpen: (open: boolean) => void;
+  setPlaybackMode: (open: boolean) => void;
+  setPresentationMode: (open: boolean) => void;
   setPerformanceMonitorOpen: (open: boolean) => void;
   setExportStudioOpen: (open: boolean) => void;
 }
@@ -143,8 +149,11 @@ export const useStore = create<BeamworksState>((set, get) => {
     aiStudioOpen: false,
     aiUserLevel: null,
     activeEnvironment: 'none',
+    envGalleryOpen: false,
+    playbackMode: false,
+    presentationMode: false,
     performanceMonitorOpen: false,
-  exportStudioOpen: false,
+    exportStudioOpen: false,
     
     dispatchCommand: (cmd: StructuralCommand) => {
       const state = get();
@@ -173,6 +182,9 @@ export const useStore = create<BeamworksState>((set, get) => {
     setAiStudioOpen: (open) => set({ aiStudioOpen: open }),
     setAiUserLevel: (level) => set({ aiUserLevel: level }),
     setEnvironment: (id) => set({ activeEnvironment: id }),
+    setEnvGalleryOpen: (open) => set({ envGalleryOpen: open }),
+    setPlaybackMode: (open) => set({ playbackMode: open }),
+    setPresentationMode: (open) => set({ presentationMode: open }),
     setPerformanceMonitorOpen: (open) => set({ performanceMonitorOpen: open }),
     setExportStudioOpen: (open) => set({ exportStudioOpen: open }),
     

@@ -1,7 +1,7 @@
-
 import React from 'react';
 import { Group as PanelGroup, Panel, Separator as PanelResizeHandle } from 'react-resizable-panels';
 import { useWorkspaceStore } from '../store/workspace';
+import { useStore } from '../store';
 import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
 import { TopNav } from './TopNav';
 import { StatusBar } from './StatusBar';
@@ -11,6 +11,15 @@ import { NotificationCenter } from '../features/notifications/NotificationCenter
 import { ArchieSidebar } from './ArchieSidebar';
 import { CenterWorkspace } from './CenterWorkspace';
 
+// Overlays
+import { EnvironmentGallery } from '../components/environments/EnvironmentGallery';
+import { AIEngineeringStudio } from '../components/AIEngineeringStudio';
+import { TimeMachineOverlay } from '../components/replay/TimeMachineOverlay';
+import { PresentationMode } from '../components/presentation/PresentationMode';
+import { ExportStudio } from '../components/export/ExportStudio';
+import { PerformanceOverlay } from '../components/PerformanceOverlay';
+import { AnimatePresence } from 'framer-motion';
+
 export const WorkspaceLayout: React.FC = () => {
   useKeyboardShortcuts();
 
@@ -19,11 +28,35 @@ export const WorkspaceLayout: React.FC = () => {
     rightPanelCollapsed, rightPanelSize, setRightPanelSize, setRightPanelCollapsed
   } = useWorkspaceStore();
 
+  const {
+    envGalleryOpen,
+    setEnvGalleryOpen,
+    aiStudioMode,
+    setAiStudioOpen,
+    playbackMode,
+    setPlaybackMode,
+    presentationMode,
+    setPresentationMode,
+    exportStudioOpen,
+    setExportStudioOpen,
+  } = useStore(state => ({
+    envGalleryOpen: state.envGalleryOpen,
+    setEnvGalleryOpen: state.setEnvGalleryOpen,
+    aiStudioMode: state.aiStudioOpen,
+    setAiStudioOpen: state.setAiStudioOpen,
+    playbackMode: state.playbackMode,
+    setPlaybackMode: state.setPlaybackMode,
+    presentationMode: state.presentationMode,
+    setPresentationMode: state.setPresentationMode,
+    exportStudioOpen: state.exportStudioOpen,
+    setExportStudioOpen: state.setExportStudioOpen,
+  }));
+
   return (
     <div className="flex flex-col h-screen w-screen bg-app text-primary overflow-hidden">
       <TopNav />
       
-      <div className="flex-1 overflow-hidden">
+      <div className="flex-1 overflow-hidden relative">
         <PanelGroup orientation="horizontal">
           
           {/* Left Panel: Project Explorer */}
@@ -82,6 +115,39 @@ export const WorkspaceLayout: React.FC = () => {
           )}
 
         </PanelGroup>
+
+        {/* OVERLAYS */}
+        <AnimatePresence>
+          {envGalleryOpen && (
+            <EnvironmentGallery onClose={() => setEnvGalleryOpen(false)} />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {aiStudioMode && (
+            <AIEngineeringStudio onClose={() => setAiStudioOpen(false)} />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {playbackMode && (
+            <TimeMachineOverlay onClose={() => setPlaybackMode(false)} />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {presentationMode && (
+            <PresentationMode onClose={() => setPresentationMode(false)} />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {exportStudioOpen && (
+            <ExportStudio onClose={() => setExportStudioOpen(false)} />
+          )}
+        </AnimatePresence>
+
+        <PerformanceOverlay />
       </div>
 
       <NotificationCenter />
