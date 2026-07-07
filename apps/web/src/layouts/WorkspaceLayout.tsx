@@ -23,10 +23,15 @@ import { AnimatePresence } from 'framer-motion';
 export const WorkspaceLayout: React.FC = () => {
   useKeyboardShortcuts();
 
-  const { 
-    leftPanelCollapsed, leftPanelSize, setLeftPanelSize, setLeftPanelCollapsed,
-    rightPanelCollapsed, rightPanelSize, setRightPanelSize, setRightPanelCollapsed
-  } = useWorkspaceStore();
+  const leftPanelCollapsed = useWorkspaceStore(state => state.leftPanelCollapsed);
+  const rightPanelCollapsed = useWorkspaceStore(state => state.rightPanelCollapsed);
+  const setLeftPanelCollapsed = useWorkspaceStore(state => state.setLeftPanelCollapsed);
+  const setRightPanelCollapsed = useWorkspaceStore(state => state.setRightPanelCollapsed);
+  const setLeftPanelSize = useWorkspaceStore(state => state.setLeftPanelSize);
+  const setRightPanelSize = useWorkspaceStore(state => state.setRightPanelSize);
+
+  const leftSize = React.useRef(useWorkspaceStore.getState().leftPanelSize).current;
+  const rightSize = React.useRef(useWorkspaceStore.getState().rightPanelSize).current;
 
   const {
     envGalleryOpen,
@@ -63,7 +68,7 @@ export const WorkspaceLayout: React.FC = () => {
           {!leftPanelCollapsed && (
             <>
               <Panel 
-                defaultSize={leftPanelSize || 20} 
+                defaultSize={leftSize || 20} 
                 minSize={15} 
                 maxSize={40}
                 onResize={(size) => {
@@ -98,7 +103,7 @@ export const WorkspaceLayout: React.FC = () => {
             <>
               <PanelResizeHandle className="w-1 bg-subtle hover:bg-accent hover:w-1.5 transition-all active:bg-accent cursor-col-resize z-10" />
               <Panel 
-                defaultSize={rightPanelSize || 25} 
+                defaultSize={rightSize || 25} 
                 minSize={20} 
                 maxSize={50}
                 onResize={(size) => {
