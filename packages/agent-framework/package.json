@@ -17,7 +17,9 @@
     "dev": "tsup --watch",
     "test": "vitest run"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@beamlab/memory-client": "workspace:*"
+  },
   "devDependencies": {
     "tsup": "^8.0.2",
     "typescript": "^5.4.5",

@@ -4,9 +4,10 @@ import { KnowledgeExplorer } from './KnowledgeExplorer';
 import { PolicyExplorer } from './PolicyExplorer';
 import { ResourceExplorer } from './ResourceExplorer';
 import { AgentDiagnostics } from './AgentDiagnostics';
+import { MemoryExplorer } from './MemoryExplorer';
 
 export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-  const [activeTab, setActiveTab] = useState<'policy' | 'knowledge' | 'resource' | 'agent'>('agent');
+  const [activeTab, setActiveTab] = useState<'policy' | 'knowledge' | 'resource' | 'agent' | 'memory'>('agent');
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-8">
@@ -50,6 +51,13 @@ export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) 
               <Layers className="w-3.5 h-3.5" />
               Resource Explorer
             </button>
+            <button 
+              onClick={() => setActiveTab('memory')}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition-colors ${activeTab === 'memory' ? 'bg-primary/10 text-primary border border-primary/20' : 'text-muted hover:text-white border border-transparent'}`}
+            >
+              <Database className="w-3.5 h-3.5" />
+              Memory Explorer
+            </button>
             <div className="w-px h-4 bg-subtle mx-2" />
             <button 
               onClick={onClose}
@@ -66,6 +74,7 @@ export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) 
           {activeTab === 'policy' && <PolicyExplorer />}
           {activeTab === 'knowledge' && <KnowledgeExplorer onClose={onClose} isEmbedded={true} />}
           {activeTab === 'resource' && <ResourceExplorer />}
+          {activeTab === 'memory' && <MemoryExplorer />}
         </div>
       </div>
     </div>

@@ -1,31 +1,42 @@
-export interface IMemoryProvider {
-  get(key: string): Promise<any>;
-  set(key: string, value: any): Promise<void>;
-  delete(key: string): Promise<void>;
-  has(key: string): Promise<boolean>;
-  clear(): Promise<void>;
-}
+/**
+ * @deprecated The Agent Memory System has been extracted to `@beamlab/memory-client`.
+ * These interfaces are provided for backward compatibility and will be removed in BeamLab v2.
+ * Please use `MemoryRecord` instead of `IMemoryProvider` directly.
+ */
+export type { IMemoryProvider } from '@beamlab/memory-client';
 
-export interface IPrivateAgentMemory extends IMemoryProvider {
+/**
+ * @deprecated Use `MemoryScope` from `@beamlab/memory-client`
+ */
+export interface IPrivateAgentMemory {
   agentId: string;
 }
 
-export interface ISharedExecutionMemory extends IMemoryProvider {
+/**
+ * @deprecated Use `MemoryScope` from `@beamlab/memory-client`
+ */
+export interface ISharedExecutionMemory {
   executionId: string;
 }
 
-export interface IWorkspaceMemoryAdapter extends IMemoryProvider {
+/**
+ * @deprecated Use `MemoryScope` from `@beamlab/memory-client`
+ */
+export interface IWorkspaceMemoryAdapter {
   workspaceId: string;
 }
 
-export interface IConversationMemoryAdapter extends IMemoryProvider {
+/**
+ * @deprecated Use `MemoryScope` from `@beamlab/memory-client`
+ */
+export interface IConversationMemoryAdapter {
   conversationId: string;
 }
 
 /**
- * A simple in-memory implementation of the memory provider for A8.
+ * @deprecated Use `InMemoryProvider` from `@beamlab/memory-system`
  */
-export class InMemoryProvider implements IMemoryProvider {
+export class InMemoryProvider {
   protected store = new Map<string, any>();
 
   async get(key: string): Promise<any> {
