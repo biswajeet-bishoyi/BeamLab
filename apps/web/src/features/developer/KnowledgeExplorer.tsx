@@ -3,7 +3,7 @@ import { Search, Network, Database, X, BookOpen, AlertCircle } from 'lucide-reac
 import { knowledgeClient } from '../../store/knowledge';
 import type { ClientRetrievalResult } from '@beamlab/knowledge-client';
 
-export const KnowledgeExplorer: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+export const KnowledgeExplorer: React.FC<{ onClose: () => void, isEmbedded?: boolean }> = ({ onClose, isEmbedded }) => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<ClientRetrievalResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -26,26 +26,28 @@ export const KnowledgeExplorer: React.FC<{ onClose: () => void }> = ({ onClose }
   const stats = knowledgeClient.getEngineStats();
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-8 backdrop-blur-sm">
-      <div className="bg-[#111111] border border-subtle rounded-xl w-full max-w-6xl h-[80vh] flex flex-col shadow-2xl overflow-hidden">
+    <div className={isEmbedded ? "flex h-full text-white bg-[#0f0f0f]" : "fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-8"}>
+      <div className={isEmbedded ? "w-full h-full flex flex-col" : "bg-[#111111] border border-subtle rounded-xl w-full max-w-6xl h-[80vh] flex flex-col shadow-2xl overflow-hidden"}>
         
         {/* Header */}
-        <div className="h-14 border-b border-subtle flex items-center justify-between px-6 bg-panel">
-          <div className="flex items-center gap-3 text-accent">
-            <Database className="w-5 h-5" />
-            <h2 className="font-semibold text-primary">Knowledge Explorer <span className="text-xs text-amber-500 border border-amber-500/30 bg-amber-500/10 px-1.5 py-0.5 rounded ml-2">DEV MODE</span></h2>
-          </div>
-          
-          <div className="flex items-center gap-4">
-            <div className="text-xs text-muted flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-              Platform Active • Cache Size: {stats.size}/{stats.maxItems}
+        {!isEmbedded && (
+          <div className="h-14 border-b border-subtle flex items-center justify-between px-6 bg-panel shrink-0">
+            <div className="flex items-center gap-3 text-accent">
+              <Database className="w-5 h-5" />
+              <h2 className="font-semibold text-primary">Knowledge Explorer <span className="text-xs text-amber-500 border border-amber-500/30 bg-amber-500/10 px-1.5 py-0.5 rounded ml-2">DEV MODE</span></h2>
             </div>
-            <button onClick={onClose} className="p-1 text-muted hover:text-primary transition-colors">
-              <X className="w-5 h-5" />
-            </button>
+            
+            <div className="flex items-center gap-4">
+              <div className="text-xs text-muted flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                Platform Active • Cache Size: {stats.size}/{stats.maxItems}
+              </div>
+              <button onClick={onClose} className="p-1 text-muted hover:text-primary transition-colors">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="flex-1 flex overflow-hidden">
           {/* Left Panel: Search & Results */}

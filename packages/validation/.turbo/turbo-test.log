@@ -6,6 +6,6 @@ $ vitest run
 
 [2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
 [2m      Tests [22m [1m[32m1 passed[39m[22m[90m (1)[39m
-[2m   Start at [22m 16:42:44
-[2m   Duration [22m 2.82s[2m (transform 462ms, setup 0ms, collect 592ms, tests 7ms, environment 0ms, prepare 590ms)[22m
+[2m   Start at [22m 16:43:08
+[2m   Duration [22m 2.33s[2m (transform 367ms, setup 0ms, collect 452ms, tests 7ms, environment 0ms, prepare 658ms)[22m
 

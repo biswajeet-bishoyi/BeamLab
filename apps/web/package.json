@@ -13,6 +13,8 @@
     "@beamlab/archie-client": "workspace:*",
     "@beamlab/execution-graph": "workspace:*",
     "@beamlab/knowledge-client": "workspace:*",
+    "@beamlab/policy-client": "workspace:*",
+    "@beamlab/policy-engine": "workspace:*",
     "@beamlab/workspace-runtime": "workspace:*",
     "@beamworks/core-engine": "workspace:*",
     "@beamworks/design-system": "workspace:*",
