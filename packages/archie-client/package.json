@@ -15,6 +15,7 @@
     "@beamlab/runtime-gateway": "workspace:*"
   },
   "devDependencies": {
+    "eslint": "^8.57.0",
     "tsup": "^8.0.2",
     "typescript": "^5.0.0",
     "@types/react": "^18.0.0",
