@@ -4,7 +4,7 @@ import { OptimizationPipeline } from './OptimizationPipeline';
 describe('OptimizationPipeline', () => {
   it('should generate tradeoffs successfully', async () => {
     const pipeline = new OptimizationPipeline();
-    const result = await pipeline.execute({}, {});
+    const result = await pipeline.execute({}, {} as any);
     
     expect(result.status).toBe('success');
     expect(result.data.session).toBeDefined();

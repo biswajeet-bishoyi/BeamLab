@@ -1,4 +1,4 @@
-import { IEngineeringReasoner, ConfidenceEngine } from '@beamlab/engineering-reasoning';
+import { IEngineeringReasoner, ConfidenceEngine, ConfidenceResult } from '@beamlab/engineering-reasoning';
 import { OptimizationSession } from '../models';
 
 export class OptimizationReasoningStrategy implements IEngineeringReasoner {
@@ -21,8 +21,24 @@ export class OptimizationReasoningStrategy implements IEngineeringReasoner {
     };
   }
 
-  public async confidence(): Promise<number> {
-    const result = await this.confidenceEngine.evaluate({}, {});
-    return result.overallScore;
+  public async confidence(): Promise<ConfidenceResult> {
+    return this.confidenceEngine.evaluate({}, {});
+  }
+
+  public async recommend(): Promise<any[]> {
+    return [];
+  }
+
+  public async explain(): Promise<any> {
+    return {
+      summary: 'Optimization reasoning summary.',
+      observedBehavior: [],
+      supportingEvidence: [],
+      knowledgeReferences: [],
+      policyReferences: [],
+      assumptions: [],
+      alternativeInterpretations: [],
+      nextSteps: []
+    };
   }
 }
