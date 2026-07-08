@@ -13,9 +13,10 @@ import { OptimizationExplorer } from './OptimizationExplorer';
 import { ComplianceExplorer } from './ComplianceExplorer';
 import { ReportExplorer } from './ReportExplorer';
 import { WorkflowExplorer } from './WorkflowExplorer';
+import { ModelExplorer } from './ModelExplorer';
 
 export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-  const [activeTab, setActiveTab] = useState<'policy' | 'knowledge' | 'resource' | 'agent' | 'memory' | 'analysis' | 'solver' | 'reasoning' | 'design' | 'optimization' | 'compliance' | 'report' | 'workflow'>('agent');
+  const [activeTab, setActiveTab] = useState<'policy' | 'knowledge' | 'resource' | 'agent' | 'memory' | 'analysis' | 'solver' | 'reasoning' | 'design' | 'optimization' | 'compliance' | 'report' | 'workflow' | 'model'>('agent');
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-8">
@@ -122,6 +123,13 @@ export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) 
               <BookOpen className="w-3.5 h-3.5" />
               Report
             </button>
+            <button 
+              onClick={() => setActiveTab('model')}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition-colors ${activeTab === 'model' ? 'bg-primary/10 text-primary border border-primary/20' : 'text-muted hover:text-white border border-transparent'}`}
+            >
+              <Database className="w-3.5 h-3.5" />
+              Model
+            </button>
             <div className="w-px h-4 bg-subtle mx-2" />
             <button 
               onClick={onClose}
@@ -147,6 +155,7 @@ export const DeveloperStudio: React.FC<{ onClose: () => void }> = ({ onClose }) 
           {activeTab === 'compliance' && <ComplianceExplorer />}
           {activeTab === 'report' && <ReportExplorer />}
           {activeTab === 'workflow' && <WorkflowExplorer />}
+          {activeTab === 'model' && <ModelExplorer />}
         </div>
       </div>
     </div>
