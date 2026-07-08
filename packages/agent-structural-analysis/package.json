@@ -18,7 +18,7 @@
     "dev": "tsup --watch",
     "test": "vitest run",
     "test:watch": "vitest",
-    "lint": "eslint src/",
+    "lint": "eslint src/ --ext .ts,.tsx",
     "clean": "rm -rf dist"
   },
   "dependencies": {

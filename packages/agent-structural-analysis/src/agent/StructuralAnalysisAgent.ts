@@ -9,6 +9,7 @@ export class StructuralAnalysisAgent implements IAgent {
   private pipeline!: AnalysisPipeline;
 
   constructor() {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     this.manifest = require('../../agent.manifest.json') as AgentManifest;
   }
 

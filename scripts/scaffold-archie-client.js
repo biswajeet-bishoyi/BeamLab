@@ -28,7 +28,7 @@ fs.writeFileSync(path.join(PKG_DIR, 'package.json'), JSON.stringify({
   scripts: {
     "build": "tsup",
     "dev": "tsup --watch",
-    "lint": "eslint src/",
+    "lint": "eslint src/ --ext .ts,.tsx",
     "test": "vitest run"
   },
   dependencies: {

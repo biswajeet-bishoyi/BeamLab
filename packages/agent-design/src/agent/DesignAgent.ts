@@ -6,6 +6,7 @@ export class DesignAgent implements IAgent {
   private pipeline!: DesignPipeline;
 
   constructor() {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     this.manifest = require('../../agent.manifest.json') as AgentManifest;
   }
 

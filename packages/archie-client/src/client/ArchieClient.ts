@@ -86,7 +86,7 @@ export class ArchieClient {
         this.state = 'planning';
         break;
 
-      case 'planning_completed':
+      case 'planning_completed': {
         // The backend returns a plan object, which we map to ArchiePlanStep
         const rawPlan = event.payload.plan;
         if (rawPlan && Array.isArray(rawPlan.steps)) {
@@ -98,12 +98,13 @@ export class ArchieClient {
           }));
         }
         break;
+      }
 
       case 'context_updated':
         this.contextData = event.payload.contextData;
         break;
 
-      case 'execution_graph_built':
+      case 'execution_graph_built': {
         this.state = 'executing';
         const graph = event.payload.graph;
         if (Array.isArray(graph)) {
@@ -115,6 +116,7 @@ export class ArchieClient {
           }));
         }
         break;
+      }
 
       case 'scheduler_started':
         this.state = 'executing';
