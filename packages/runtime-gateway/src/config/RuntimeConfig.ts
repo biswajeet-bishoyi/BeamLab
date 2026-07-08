@@ -9,7 +9,7 @@ export const RuntimeConfigSchema = z.object({
   retryPolicy: z.object({
     maxRetries: z.number().int().min(0).default(3),
     backoffMs: z.number().int().min(0).default(1000)
-  }).default({}),
+  }).default({ maxRetries: 3, backoffMs: 1000 }),
   streamingEnabled: z.boolean().default(true)
 });
 
