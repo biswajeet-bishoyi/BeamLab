@@ -65,35 +65,40 @@ export class OptimizationPipeline implements IEngineeringPipeline {
     return { availableSections: ['W-Shapes', 'HSS'] };
   }
 
-  public async plan(context: any, knowledge: any, policy: any, resources: any, session: OptimizationSession): Promise<any> {
-    session.status = 'planning';
+  public async plan(context: any, knowledge: any, policy: any, resources: any, session?: OptimizationSession): Promise<any> {
+    if (session) session.status = 'planning';
     
     this.objectiveManager.addObjective({ id: 'obj-1', name: 'Weight Reduction', description: 'Minimize steel weight', weight: 0.8 });
     this.constraintManager.addConstraint({ id: 'con-1', type: 'Policy', description: 'Must satisfy AISC 360-16', isSatisfied: true });
 
-    session.objectives = this.objectiveManager.getObjectives();
-    session.constraints = this.constraintManager.getConstraints();
+    const objectives = this.objectiveManager.getObjectives();
+    const constraints = this.constraintManager.getConstraints();
 
-    return { objectives: session.objectives, constraints: session.constraints };
+    if (session) {
+      session.objectives = objectives;
+      session.constraints = constraints;
+    }
+
+    return { objectives, constraints };
   }
 
-  public async executeDiscipline(plan: any, session: OptimizationSession): Promise<any> {
-    session.status = 'generating';
+  public async executeDiscipline(plan: any, session?: OptimizationSession): Promise<any> {
+    if (session) session.status = 'generating';
     const candidates = this.candidateGenerator.generate({}, plan.objectives, plan.constraints);
-    session.candidates.push(...candidates);
+    if (session) session.candidates.push(...candidates);
 
-    session.status = 'evaluating';
+    if (session) session.status = 'evaluating';
     for (const candidate of candidates) {
       await this.alternativeEvaluator.evaluate(candidate);
     }
 
     const tradeOffs = this.tradeOffAnalyzer.analyze(candidates);
-    session.tradeOffs.push(...tradeOffs);
+    if (session) session.tradeOffs.push(...tradeOffs);
     
     return { candidates, tradeOffs };
   }
 
-  public async reason(executionResult: any, session: OptimizationSession): Promise<any> {
+  public async reason(executionResult: any, session?: OptimizationSession): Promise<any> {
     await this.reasoningStrategy.analyze({}, { session, executionResult });
     await this.reasoningStrategy.reason();
     const confidence = await this.reasoningStrategy.confidence();
@@ -101,17 +106,19 @@ export class OptimizationPipeline implements IEngineeringPipeline {
     return { confidence, justification };
   }
 
-  public async recommend(reasoning: any, session: OptimizationSession): Promise<any> {
-    const recommendations = this.recommendationEngine.generate(session, reasoning);
-    session.recommendations.push(...recommendations);
-    if (recommendations.length > 0) {
-      session.selectedSolutionId = recommendations[0].candidateId;
+  public async recommend(reasoning: any, session?: OptimizationSession): Promise<any> {
+    const recommendations = session ? this.recommendationEngine.generate(session, reasoning) : [];
+    if (session) {
+      session.recommendations.push(...recommendations);
+      if (recommendations.length > 0) {
+        session.selectedSolutionId = recommendations[0].candidateId;
+      }
     }
     return recommendations;
   }
 
-  public async generateNarrative(reasoning: any, recommendations: any, session: OptimizationSession): Promise<any> {
-    return this.narrativeBuilder.build(session, recommendations);
+  public async generateNarrative(reasoning: any, recommendations: any, session?: OptimizationSession): Promise<any> {
+    return session ? this.narrativeBuilder.build(session, recommendations) : '';
   }
 
   public async createResponse(data: any): Promise<any> {

@@ -51,6 +51,6 @@ export interface StructuralModel {
   span: Length;
   supports: Support[];
   loads: StructuralLoad[];
-  material: Material;
-  section: CrossSection;
+  material?: Material;
+  section?: CrossSection;
 }
