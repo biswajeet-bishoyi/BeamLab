@@ -9,8 +9,8 @@ export type Result<T, E> = { ok: true; value: T } | { ok: false; error: E };
 export function solveMatrixMethod(model: StructuralModel): Result<AnalysisResult, ModelingError> {
   const { span, loads, supports, material, section } = model;
   
-  const E = material.E;
-  const I = section.momentOfInertia;
+  const E = material?.E ?? 200e9;
+  const I = section?.momentOfInertia ?? 100e-6;
   
   // 1. Identify Nodes (Supports, Point Loads, and beam ends)
   const nodeX = new Set<number>();

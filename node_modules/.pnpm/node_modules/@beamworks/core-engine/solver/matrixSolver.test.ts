@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { solveMatrixMethod } from './matrixSolver';
 import type { StructuralModel, PointLoad, Support, DistributedLoad } from '../model/types';
-import { toLength, toForce } from '../units/brands';
+import { toLength, toForce, toForcePerLength } from '../units/brands';
 
 describe('solveMatrixMethod', () => {
   it('solves a simply supported beam', () => {
@@ -69,7 +69,7 @@ describe('solveMatrixMethod', () => {
       type: 'distributed', 
       startPosition: toLength(0), 
       endPosition: toLength(10), 
-      magnitude: toForce(-10) 
+      magnitude: toForcePerLength(-10) 
     };
 
     const model: StructuralModel = {

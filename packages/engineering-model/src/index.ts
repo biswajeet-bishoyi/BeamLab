@@ -1,27 +1,18 @@
-/**
- * @beamlab/engineering-model
- *
- * Canonical Engineering Model — the single source of truth for every
- * engineering object in BeamLab.
- *
- * This package is framework-agnostic and may never depend on:
- *   - React / Vue / any UI framework
- *   - Three.js or any rendering library
- *   - Solver implementations
- *   - Engineering agents
- *   - Runtime Gateway
- *   - Developer Studio
- */
-
 // ── Core ─────────────────────────────────────────────────────────────────────
 export * from './core';
 
-// ── Domain entities ────────────────────────────────────────────────────────
+// ── Coordinate System ─────────────────────────────────────────────────────
+export * from './coordinate';
+
+// ── Domain entities (B1.1 base) ────────────────────────────────────────────
 export * from './geometry';
 export * from './properties';
 export * from './boundary';
 export * from './loading';
 export * from './results';
+
+// ── Structural Domain (B1.2) ───────────────────────────────────────────────
+export * from './structural';
 
 // ── Infrastructure ────────────────────────────────────────────────────────
 export * from './registries';
