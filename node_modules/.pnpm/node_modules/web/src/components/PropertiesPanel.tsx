@@ -16,7 +16,7 @@ export function PropertiesPanel() {
         <div className="flex flex-col gap-1">
           <label className="text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">Material</label>
           <select 
-            value={model.material.id}
+            value={model.material?.id || ''}
             onChange={(e) => {
               const val = e.target.value;
               const materials = [
@@ -42,7 +42,7 @@ export function PropertiesPanel() {
         <div className="flex flex-col gap-1">
           <label className="text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">Cross Section</label>
           <select 
-            value={model.section.id}
+            value={model.section?.id || ''}
             onChange={(e) => {
               const val = e.target.value;
               const sections = [

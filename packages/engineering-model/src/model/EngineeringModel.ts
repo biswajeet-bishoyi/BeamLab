@@ -12,7 +12,7 @@ import { CEMEventEmitter, CEMEvent } from '../events/ModelEvents';
 import { EngineeringNode, EngineeringMember } from '../geometry/Geometry';
 import { EngineeringMaterial, EngineeringSection } from '../properties/Properties';
 import { EngineeringSupport } from '../boundary/Boundary';
-import { LoadPattern, LoadCase, LoadCombination, NodeLoad, MemberLoad } from '../loading/Loading';
+import { LegacyLoadPattern, LegacyLoadCase, LegacyLoadCombination, NodeLoad, MemberLoad } from '../loading/Loading';
 import { AnalysisResult } from '../results/Results';
 
 // ─── Project & Structure metadata ────────────────────────────────────────────
@@ -198,20 +198,20 @@ export class EngineeringModel {
 
   // ── Loading ───────────────────────────────────────────────────────────────
 
-  addLoadPattern(id: string, name: string, type: LoadPattern['patternType']): LoadPattern {
-    const lp = new LoadPattern(id, name, type);
+  addLoadPattern(id: string, name: string, type: LegacyLoadPattern['patternType']): LegacyLoadPattern {
+    const lp = new LegacyLoadPattern(id, name, type);
     this._add(lp);
     return lp;
   }
 
-  addLoadCase(id: string, name: string, patternIds: string[]): LoadCase {
-    const lc = new LoadCase(id, name, patternIds);
+  addLoadCase(id: string, name: string, patternIds: string[]): LegacyLoadCase {
+    const lc = new LegacyLoadCase(id, name, patternIds);
     this._add(lc);
     return lc;
   }
 
-  addLoadCombination(id: string, name: string, factors: LoadCombination['factors']): LoadCombination {
-    const combo = new LoadCombination(id, name, factors);
+  addLoadCombination(id: string, name: string, factors: LegacyLoadCombination['factors']): LegacyLoadCombination {
+    const combo = new LegacyLoadCombination(id, name, factors);
     this._add(combo);
     return combo;
   }
