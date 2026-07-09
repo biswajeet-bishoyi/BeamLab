@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-type ExplorerTab = 'overview' | 'structural' | 'objects' | 'relationships' | 'validation' | 'history';
+type ExplorerTab = 'overview' | 'structural' | 'loading' | 'objects' | 'relationships' | 'validation' | 'history';
 
 // ─── Mock data for display when no live model is connected ────────────────────
 
@@ -49,6 +49,7 @@ export const ModelExplorer: React.FC = () => {
   const tabs: { key: ExplorerTab; label: string }[] = [
     { key: 'overview', label: 'Overview' },
     { key: 'structural', label: 'Structural' },
+    { key: 'loading', label: 'Loading' },
     { key: 'objects', label: 'Objects' },
     { key: 'relationships', label: 'Relationships' },
     { key: 'validation', label: 'Validation' },
@@ -278,6 +279,120 @@ export const ModelExplorer: React.FC = () => {
                 <span className="text-slate-500 font-mono">{cs.origin}</span>
               </div>
             ))}
+          </div>
+        </div>
+      )}
+
+      {activeTab === 'loading' && (
+        <div className="space-y-4">
+          {/* Loading System Summary */}
+          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
+            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Loading System</h3>
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              {[
+                ['Loads Defined', '6 (Point, Distributed, Thermal, pressure...)'],
+                ['Total Assignments', '12 load assignments'],
+                ['Load Patterns', '4 patterns (Dead, Live, Wind, Wind-Y)'],
+                ['Load Groups', '2 groups (Gravity, Environmental)'],
+                ['Analysis Cases', '3 cases (DL-Static, LL-Static, Wind-RS)'],
+                ['Combinations', '4 combinations (IS800-ULS, AISC-ASD...)'],
+                ['Design Envelopes', '2 envelopes (Max-Moment, Absolute-Max)'],
+              ].map(([k, v]) => (
+                <div key={k} className="flex gap-2">
+                  <span className="text-slate-500 w-32 shrink-0">{k}</span>
+                  <span className="text-slate-200">{v}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Load Patterns & Groups */}
+          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
+            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Load Patterns & Groups</h3>
+            <div className="space-y-3">
+              {[
+                { name: 'Dead Load (DL)', type: 'Dead', selfWeight: 'Enabled (x1.0)', group: 'Gravity' },
+                { name: 'Live Load (LL)', type: 'Live', selfWeight: 'Disabled', group: 'Gravity' },
+                { name: 'Wind Load X (WL-X)', type: 'Wind', selfWeight: 'Disabled', group: 'Environmental' },
+                { name: 'Wind Load Y (WL-Y)', type: 'Wind', selfWeight: 'Disabled', group: 'Environmental' },
+              ].map((pat, i) => (
+                <div key={i} className="flex items-center justify-between py-1.5 border-b border-slate-800/60 last:border-0 text-xs">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-slate-200 font-medium">{pat.name}</span>
+                      <span className="text-[10px] text-rose-400 bg-rose-950/40 border border-rose-900/40 px-1 py-0.2 rounded font-mono">{pat.type}</span>
+                    </div>
+                    <span className="text-slate-500 text-[10px]">Self weight: {pat.selfWeight}</span>
+                  </div>
+                  <span className="text-slate-400 bg-slate-800/80 px-2 py-0.5 rounded text-[10px] font-medium">{pat.group}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Load Cases */}
+          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
+            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Load Cases</h3>
+            <div className="space-y-3">
+              {[
+                { name: 'DL-Static', type: 'LinearStatic', factor: 'Dead (x1.0)' },
+                { name: 'LL-Static', type: 'LinearStatic', factor: 'Live (x1.0)' },
+                { name: 'Wind-RS', type: 'ResponseSpectrum', factor: 'WL-X (x1.0), WL-Y (x0.3)', modalDep: 'Modal-Case-1' },
+              ].map((c, i) => (
+                <div key={i} className="py-2 border-b border-slate-800/60 last:border-0 text-xs">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-orange-400 font-semibold">{c.name}</span>
+                    <span className="text-slate-500 bg-orange-950/20 border border-orange-900/20 px-1.5 py-0.5 rounded text-[10px]">{c.type}</span>
+                  </div>
+                  <div className="flex justify-between text-slate-500 text-[10px]">
+                    <span>Patterns: {c.factor}</span>
+                    {c.modalDep && <span className="text-slate-400">Modal Dep: {c.modalDep}</span>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Load Combinations */}
+          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
+            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Load Combinations (Design Standards)</h3>
+            <div className="space-y-3">
+              {[
+                { name: 'IS800-ULS-01', std: 'IS800', type: 'ULS', formula: '1.5 × DL-Static + 1.5 × LL-Static' },
+                { name: 'AISC-LRFD-02', std: 'AISC-LRFD', type: 'LRFD', formula: '1.2 × DL-Static + 1.6 × LL-Static + 0.5 × Wind-RS' },
+                { name: 'AISC-ASD-03', std: 'AISC-ASD', type: 'ASD', formula: '1.0 × DL-Static + 1.0 × LL-Static' },
+              ].map((comb, i) => (
+                <div key={i} className="py-2 border-b border-slate-800/60 last:border-0 text-xs">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-yellow-400 font-semibold">{comb.name}</span>
+                    <div className="flex gap-1">
+                      <span className="text-[10px] text-slate-400 bg-slate-800 px-1.5 py-0.5 rounded">{comb.std}</span>
+                      <span className="text-[10px] text-yellow-400 bg-yellow-950/30 border border-yellow-900/30 px-1.5 py-0.5 rounded">{comb.type}</span>
+                    </div>
+                  </div>
+                  <p className="text-slate-500 font-mono text-[10px]">{comb.formula}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Load Envelopes */}
+          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
+            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Load Envelopes</h3>
+            <div className="space-y-2">
+              {[
+                { name: 'Max-Moment-Envelope', type: 'Maximum', sources: 'IS800-ULS-01, AISC-LRFD-02' },
+                { name: 'Absolute-Max-Envelope', type: 'AbsoluteMaximum', sources: 'AISC-LRFD-02, AISC-ASD-03' },
+              ].map((e, i) => (
+                <div key={i} className="flex items-center justify-between py-2 border-b border-slate-800/60 last:border-0 text-xs">
+                  <div>
+                    <span className="text-slate-200 font-medium">{e.name}</span>
+                    <p className="text-slate-500 text-[10px]">Sources: {e.sources}</p>
+                  </div>
+                  <span className="text-cyan-400 text-[10px] bg-cyan-950/20 border border-cyan-900/20 px-1.5 py-0.5 rounded font-mono">{e.type}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}

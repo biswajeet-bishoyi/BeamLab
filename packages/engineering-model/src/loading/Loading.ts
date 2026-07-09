@@ -1,17 +1,26 @@
+/**
+ * B1.1 Loading stubs — backward-compatible legacy entities.
+ *
+ * NOTE: These classes are preserved for backward compatibility.
+ * For all new code, use the canonical B1.3 loading domain:
+ *   - LoadPattern   → import from '../loading-domain'
+ *   - LoadCase      → import from '../loading-domain'
+ *   - LoadCombination → import from '../loading-domain'
+ */
 import { BaseEngineeringObject, EngineeringObjectType } from '../core/IEngineeringObject';
 import { ValidationResult } from '../validation/ValidationResult';
 
 // ─── Load pattern ────────────────────────────────────────────────────────────
 
-export type LoadPatternType = 'Dead' | 'Live' | 'Wind' | 'Seismic' | 'Snow' | 'Temperature' | 'Settlement' | 'Custom';
+export type CemLoadPatternType = 'Dead' | 'Live' | 'Wind' | 'Seismic' | 'Snow' | 'Temperature' | 'Settlement' | 'Custom';
 
-export class LoadPattern extends BaseEngineeringObject {
+export class CemLoadPattern extends BaseEngineeringObject {
   readonly objectType: EngineeringObjectType = 'LoadPattern';
 
   constructor(
     id: string,
     name: string,
-    public patternType: LoadPatternType = 'Custom',
+    public patternType: CemLoadPatternType = 'Custom',
     public selfWeightFactor: number = 0,
   ) {
     super(id, name);
@@ -24,17 +33,16 @@ export class LoadPattern extends BaseEngineeringObject {
 
 // ─── Load case ───────────────────────────────────────────────────────────────
 
-export type AnalysisType = 'Linear' | 'NonLinear' | 'Modal' | 'BucklingLinear';
+export type CemAnalysisType = 'Linear' | 'NonLinear' | 'Modal' | 'BucklingLinear';
 
-export class LoadCase extends BaseEngineeringObject {
+export class CemLoadCase extends BaseEngineeringObject {
   readonly objectType: EngineeringObjectType = 'LoadCase';
 
   constructor(
     id: string,
     name: string,
-    /** IDs of load patterns contributing to this case */
     public loadPatternIds: string[],
-    public analysisType: AnalysisType = 'Linear',
+    public analysisType: CemAnalysisType = 'Linear',
   ) {
     super(id, name);
     this.relationships.dependencyIds = [...loadPatternIds];
@@ -50,18 +58,18 @@ export class LoadCase extends BaseEngineeringObject {
 
 // ─── Load combination ────────────────────────────────────────────────────────
 
-export interface LoadCombinationFactor {
+export interface CemLoadCombinationFactor {
   loadCaseId: string;
   factor: number;
 }
 
-export class LoadCombination extends BaseEngineeringObject {
+export class CemLoadCombination extends BaseEngineeringObject {
   readonly objectType: EngineeringObjectType = 'LoadCombination';
 
   constructor(
     id: string,
     name: string,
-    public factors: LoadCombinationFactor[],
+    public factors: CemLoadCombinationFactor[],
     public combinationType: 'LRFD' | 'ASD' | 'Custom' = 'Custom',
   ) {
     super(id, name);
@@ -119,11 +127,8 @@ export class MemberLoad extends BaseEngineeringObject {
     public memberId: string,
     public loadPatternId: string,
     public loadType: MemberLoadType,
-    /** Magnitude at start (or uniform value) */
     public magnitudeA: number,
-    /** Magnitude at end (for trapezoidal loads) */
     public magnitudeB: number = 0,
-    /** Relative position along member [0,1] for point loads */
     public position: number = 0,
     public direction: 'Fy' | 'Fz' | 'Mx' = 'Fy',
     public coordinateSystem: 'Global' | 'Local' = 'Local',
@@ -144,3 +149,18 @@ export class MemberLoad extends BaseEngineeringObject {
     return ValidationResult.ok(this.identity.id);
   }
 }
+
+// ─── Legacy aliases (kept for backward compatibility with EngineeringModel B1.1) ─
+
+/** @deprecated Use LoadPattern from loading-domain instead */
+export type LegacyLoadPatternType = CemLoadPatternType;
+/** @deprecated Use LoadPattern from loading-domain instead */
+export class LegacyLoadPattern extends CemLoadPattern {}
+/** @deprecated Use LoadCase from loading-domain instead */
+export type LegacyAnalysisType = CemAnalysisType;
+/** @deprecated Use LoadCase from loading-domain instead */
+export class LegacyLoadCase extends CemLoadCase {}
+/** @deprecated Use LoadCombination from loading-domain instead */
+export type LegacyLoadCombinationFactor = CemLoadCombinationFactor;
+/** @deprecated Use LoadCombination from loading-domain instead */
+export class LegacyLoadCombination extends CemLoadCombination {}
