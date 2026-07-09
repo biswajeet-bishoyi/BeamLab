@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-type ExplorerTab = 'overview' | 'objects' | 'relationships' | 'validation' | 'history';
+type ExplorerTab = 'overview' | 'structural' | 'objects' | 'relationships' | 'validation' | 'history';
 
 // ─── Mock data for display when no live model is connected ────────────────────
 
@@ -48,6 +48,7 @@ export const ModelExplorer: React.FC = () => {
 
   const tabs: { key: ExplorerTab; label: string }[] = [
     { key: 'overview', label: 'Overview' },
+    { key: 'structural', label: 'Structural' },
     { key: 'objects', label: 'Objects' },
     { key: 'relationships', label: 'Relationships' },
     { key: 'validation', label: 'Validation' },
@@ -177,6 +178,107 @@ export const ModelExplorer: React.FC = () => {
               <span className="text-green-400">{ref}</span>
             </div>
           ))}
+        </div>
+      )}
+
+      {activeTab === 'structural' && (
+        <div className="space-y-4">
+          {/* Structural System header */}
+          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
+            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Structural System</h3>
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              {[
+                ['System', 'Hospital Tower — Main Frame'],
+                ['Type', '3D Frame'],
+                ['Unit System', 'SI (kN, m, kPa)'],
+                ['Coordinate System', 'Global (CSYS-01)'],
+                ['Structures', '1 structural system'],
+                ['Assemblies', '3 (Frame, Floor, Bracing)'],
+              ].map(([k, v]) => (
+                <div key={k} className="flex gap-2">
+                  <span className="text-slate-500 w-32 shrink-0">{k}</span>
+                  <span className="text-slate-200">{v}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Assemblies */}
+          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
+            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Assemblies</h3>
+            {[
+              { name: 'Main Frame', type: 'Frame', nodes: 12, members: 18 },
+              { name: 'Floor Level 2', type: 'Floor', nodes: 6, members: 8 },
+              { name: 'Lateral Bracing', type: 'BracingSystem', nodes: 4, members: 4 },
+            ].map((a, i) => (
+              <div key={i} className="flex items-center justify-between py-2 border-b border-slate-800 last:border-0 text-xs">
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-purple-400 shrink-0" />
+                  <span className="text-slate-200 font-medium">{a.name}</span>
+                  <span className="text-slate-500 bg-purple-900/20 border border-purple-700/20 px-1.5 py-0.5 rounded text-xs">{a.type}</span>
+                </div>
+                <span className="text-slate-500 font-mono">{a.nodes}N · {a.members}M</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Materials */}
+          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
+            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Materials</h3>
+            {[
+              { grade: 'S355', category: 'Steel', E: '210,000 MPa', fy: '355 MPa', ρ: '7850 kg/m³' },
+              { grade: 'M30', category: 'Concrete', E: '27,400 MPa', fy: '30 MPa', ρ: '2500 kg/m³' },
+              { grade: 'Al-6061-T6', category: 'Aluminium', E: '68,900 MPa', fy: '276 MPa', ρ: '2700 kg/m³' },
+            ].map((m, i) => (
+              <div key={i} className="py-2 border-b border-slate-800 last:border-0 text-xs">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-amber-400 font-semibold">{m.grade}</span>
+                  <span className="text-slate-500 bg-amber-900/20 border border-amber-700/20 px-1.5 py-0.5 rounded">{m.category}</span>
+                </div>
+                <div className="flex gap-4 text-slate-500 font-mono">
+                  <span>E={m.E}</span><span>fy={m.fy}</span><span>ρ={m.ρ}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Sections */}
+          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
+            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Sections</h3>
+            {[
+              { desig: 'IPE 300', type: 'I', A: '53.81 cm²', Iy: '8356 cm⁴', mass: '42.2 kg/m' },
+              { desig: 'IPE 200', type: 'I', A: '28.48 cm²', Iy: '1943 cm⁴', mass: '22.4 kg/m' },
+              { desig: 'W12x26', type: 'I', A: '49.03 cm²', Iy: '8370 cm⁴', mass: '38.7 kg/m' },
+            ].map((s, i) => (
+              <div key={i} className="flex items-center justify-between py-2 border-b border-slate-800 last:border-0 text-xs">
+                <div className="flex items-center gap-2">
+                  <span className="text-purple-400 font-semibold">{s.desig}</span>
+                  <span className="text-slate-500">{s.type}-shape</span>
+                </div>
+                <div className="flex gap-3 text-slate-500 font-mono">
+                  <span>A={s.A}</span><span>Iy={s.Iy}</span><span>{s.mass}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Coordinate Systems */}
+          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
+            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Coordinate Systems</h3>
+            {[
+              { id: 'cs-global', name: 'Global', type: 'Global', origin: '(0, 0, 0)' },
+              { id: 'cs-local-01', name: 'Construction CS', type: 'Construction', origin: '(10.5, 0, 0)' },
+            ].map((cs, i) => (
+              <div key={i} className="flex items-center justify-between py-2 border-b border-slate-800 last:border-0 text-xs">
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0" />
+                  <span className="text-slate-200">{cs.name}</span>
+                  <span className="text-cyan-400 text-xs">{cs.type}</span>
+                </div>
+                <span className="text-slate-500 font-mono">{cs.origin}</span>
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
