@@ -17,6 +17,7 @@ import {
 import { CriticalStationHunterTable } from './CriticalStationHunterTable';
 import { CrossSectionStressInspector } from './CrossSectionStressInspector';
 import { EquilibriumAuditPanel } from './EquilibriumAuditPanel';
+import { ModalVibrationStudio } from './ModalVibrationStudio';
 import {
   Activity,
   Download,
@@ -81,6 +82,7 @@ export const MemberDiagramStudio: React.FC<MemberDiagramStudioProps> = ({
   const [viewMode, setViewMode] = useState<'single' | 'envelope' | 'stress'>('envelope');
   const [showHunterDrawer, setShowHunterDrawer] = useState<boolean>(false);
   const [showEquilibriumDrawer, setShowEquilibriumDrawer] = useState<boolean>(false);
+  const [showModalDrawer, setShowModalDrawer] = useState<boolean>(false);
   const [signConvention, setSignConvention] = useState<'tension_face' | 'cartesian'>('tension_face');
   const [hoveredX, setHoveredX] = useState<number | null>(null);
   const [copied, setCopied] = useState<boolean>(false);
@@ -280,7 +282,10 @@ export const MemberDiagramStudio: React.FC<MemberDiagramStudioProps> = ({
           <button
             onClick={() => {
               setShowEquilibriumDrawer(!showEquilibriumDrawer);
-              if (!showEquilibriumDrawer) setShowHunterDrawer(false);
+              if (!showEquilibriumDrawer) {
+                setShowHunterDrawer(false);
+                setShowModalDrawer(false);
+              }
             }}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all ${
               showEquilibriumDrawer
@@ -292,6 +297,27 @@ export const MemberDiagramStudio: React.FC<MemberDiagramStudioProps> = ({
             <Scale className="w-3.5 h-3.5 text-emerald-400" />
             <span>Equilibrium</span>
             {showEquilibriumDrawer ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+          </button>
+
+          {/* Modal Dynamics Drawer Toggle */}
+          <button
+            onClick={() => {
+              setShowModalDrawer(!showModalDrawer);
+              if (!showModalDrawer) {
+                setShowHunterDrawer(false);
+                setShowEquilibriumDrawer(false);
+              }
+            }}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all ${
+              showModalDrawer
+                ? 'bg-cyan-600/30 text-cyan-300 border-cyan-500/50 font-semibold'
+                : 'bg-slate-900 border-slate-800 hover:bg-slate-800 text-slate-300'
+            }`}
+            title="Open Dynamic Mode Shapes & Vibration Studio"
+          >
+            <Activity className="w-3.5 h-3.5 text-cyan-400" />
+            <span>Modal</span>
+            {showModalDrawer ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
           </button>
 
           {/* Sign Convention Toggle */}
@@ -357,6 +383,13 @@ export const MemberDiagramStudio: React.FC<MemberDiagramStudioProps> = ({
       {showEquilibriumDrawer && (
         <div className="p-4 border-b border-slate-800 bg-slate-950/95">
           <EquilibriumAuditPanel onClose={() => setShowEquilibriumDrawer(false)} />
+        </div>
+      )}
+
+      {/* 2C. DYNAMIC MODAL VIBRATION COLLAPSIBLE DRAWER */}
+      {showModalDrawer && (
+        <div className="p-4 border-b border-slate-800 bg-slate-950/95">
+          <ModalVibrationStudio onClose={() => setShowModalDrawer(false)} />
         </div>
       )}
 

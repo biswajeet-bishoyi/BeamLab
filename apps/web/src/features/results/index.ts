@@ -6,3 +6,5 @@ export * from './StressRecoveryEngine';
 export * from './CrossSectionStressInspector';
 export * from './EquilibriumVerifier';
 export * from './EquilibriumAuditPanel';
+export * from './ModalAnalysisEngine';
+export * from './ModalVibrationStudio';
