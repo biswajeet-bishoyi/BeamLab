@@ -9,3 +9,8 @@
 export * from './ifc/IfcStructuralSchema';
 export * from './ifc/StepSerializer';
 export * from './ifc/StepParser';
+
+// SAF (Structural Analysis Format)
+export * from './saf/SafSchema';
+export * from './saf/SafExporter';
+export * from './saf/SafImporter';
