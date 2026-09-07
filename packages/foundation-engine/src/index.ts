@@ -10,3 +10,6 @@ export * from './soil/SoilStratigraphy';
 
 // Bearing Capacity & Settlement
 export * from './bearing/BearingCapacityEngine';
+
+// Shallow Spread & Eccentric Isolated Pad Footings
+export * from './shallow/IsolatedFootingEngine';
