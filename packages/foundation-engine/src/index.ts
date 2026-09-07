@@ -13,3 +13,6 @@ export * from './bearing/BearingCapacityEngine';
 
 // Shallow Spread & Eccentric Isolated Pad Footings
 export * from './shallow/IsolatedFootingEngine';
+
+// Mat Foundations & Winkler Subgrade SSI
+export * from './ssi/WinklerSubgradeEngine';
