@@ -17,6 +17,7 @@ export const TopNav: React.FC = () => {
     setConnectionStudioOpen,
     setConcreteStudioOpen,
     setBimInteropStudioOpen,
+    setFoundationStudioOpen,
   } = useStore(state => ({
     setView: state.setView,
     activeEnvironment: state.activeEnvironment,
@@ -31,6 +32,7 @@ export const TopNav: React.FC = () => {
     setConnectionStudioOpen: state.setConnectionStudioOpen,
     setConcreteStudioOpen: state.setConcreteStudioOpen,
     setBimInteropStudioOpen: state.setBimInteropStudioOpen,
+    setFoundationStudioOpen: state.setFoundationStudioOpen,
   }));
 
   return (
@@ -121,6 +123,14 @@ export const TopNav: React.FC = () => {
         >
           <Compass size={16} />
           <span>BIM Interop</span>
+        </button>
+        <button 
+          onClick={() => setFoundationStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-amber-600 via-yellow-600 to-orange-600 hover:from-amber-500 hover:to-yellow-500 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-amber-400/30"
+          title="Open 3D Foundation & Geotechnical Soil-Structure Interaction Studio"
+        >
+          <Layers size={16} />
+          <span>Foundations</span>
         </button>
         <button 
           onClick={() => setPlaybackMode(true)}
