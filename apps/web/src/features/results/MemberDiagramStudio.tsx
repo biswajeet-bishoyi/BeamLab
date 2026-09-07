@@ -89,20 +89,12 @@ export const MemberDiagramStudio: React.FC<MemberDiagramStudioProps> = ({
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  if (!activeResult) {
-    return (
-      <div className="p-8 text-center text-slate-400 bg-slate-900/40 rounded-2xl border border-slate-800">
-        No member analysis results available.
-      </div>
-    );
-  }
-
-  const { length: L, stations, criticalPoints, extremes } = activeResult;
+  const stations = activeResult?.stations || [];
   const envelopeStations = activeEnvelope?.stations || [];
 
   // Find nearest station to hoveredX (single case)
   const hoveredStation: StationResult | null = useMemo(() => {
-    if (hoveredX === null || stations.length === 0) return null;
+    if (!activeResult || hoveredX === null || stations.length === 0) return null;
     let closest = stations[0]!;
     let minDiff = Math.abs(closest.x - hoveredX);
     for (const st of stations) {
@@ -113,11 +105,11 @@ export const MemberDiagramStudio: React.FC<MemberDiagramStudioProps> = ({
       }
     }
     return closest;
-  }, [hoveredX, stations]);
+  }, [activeResult, hoveredX, stations]);
 
   // Find nearest station to hoveredX (envelope)
   const hoveredEnvelope: EnvelopedStation | null = useMemo(() => {
-    if (hoveredX === null || envelopeStations.length === 0) return null;
+    if (!activeResult || hoveredX === null || envelopeStations.length === 0) return null;
     let closest = envelopeStations[0]!;
     let minDiff = Math.abs(closest.x - hoveredX);
     for (const st of envelopeStations) {
@@ -128,7 +120,17 @@ export const MemberDiagramStudio: React.FC<MemberDiagramStudioProps> = ({
       }
     }
     return closest;
-  }, [hoveredX, envelopeStations]);
+  }, [activeResult, hoveredX, envelopeStations]);
+
+  if (!activeResult) {
+    return (
+      <div className="p-8 text-center text-slate-400 bg-slate-900/40 rounded-2xl border border-slate-800">
+        No member analysis results available.
+      </div>
+    );
+  }
+
+  const { length: L, criticalPoints, extremes } = activeResult;
 
   // Export to CSV
   const handleExportCSV = () => {

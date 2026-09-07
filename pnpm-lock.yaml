@@ -78,9 +78,21 @@ importers:
 
   apps/web:
     dependencies:
+      '@beamlab/agent-optimization':
+        specifier: workspace:*
+        version: link:../../packages/agent-optimization
+      '@beamlab/agent-report':
+        specifier: workspace:*
+        version: link:../../packages/agent-report
+      '@beamlab/agent-structural-analysis':
+        specifier: workspace:*
+        version: link:../../packages/agent-structural-analysis
       '@beamlab/archie-client':
         specifier: workspace:*
         version: link:../../packages/archie-client
+      '@beamlab/archie-kernel':
+        specifier: workspace:*
+        version: link:../../packages/archie-kernel
       '@beamlab/engineering-model':
         specifier: workspace:*
         version: link:../../packages/engineering-model

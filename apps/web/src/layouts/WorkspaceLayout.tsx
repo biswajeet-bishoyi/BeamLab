@@ -14,6 +14,7 @@ import { CenterWorkspace } from './CenterWorkspace';
 // Overlays
 import { EnvironmentGallery } from '../components/environments/EnvironmentGallery';
 import { AIEngineeringStudio } from '../components/AIEngineeringStudio';
+import { ArchieCopilotStudio } from '../features/copilot/ArchieCopilotStudio';
 import { TimeMachineOverlay } from '../components/replay/TimeMachineOverlay';
 import { PresentationMode } from '../components/presentation/PresentationMode';
 import { ExportStudio } from '../components/export/ExportStudio';
@@ -38,6 +39,8 @@ export const WorkspaceLayout: React.FC = () => {
     setEnvGalleryOpen,
     aiStudioMode,
     setAiStudioOpen,
+    copilotStudioOpen,
+    setCopilotStudioOpen,
     playbackMode,
     setPlaybackMode,
     presentationMode,
@@ -49,6 +52,8 @@ export const WorkspaceLayout: React.FC = () => {
     setEnvGalleryOpen: state.setEnvGalleryOpen,
     aiStudioMode: state.aiStudioOpen,
     setAiStudioOpen: state.setAiStudioOpen,
+    copilotStudioOpen: state.copilotStudioOpen,
+    setCopilotStudioOpen: state.setCopilotStudioOpen,
     playbackMode: state.playbackMode,
     setPlaybackMode: state.setPlaybackMode,
     presentationMode: state.presentationMode,
@@ -131,6 +136,12 @@ export const WorkspaceLayout: React.FC = () => {
         <AnimatePresence>
           {aiStudioMode && (
             <AIEngineeringStudio onClose={() => setAiStudioOpen(false)} />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {copilotStudioOpen && (
+            <ArchieCopilotStudio onClose={() => setCopilotStudioOpen(false)} />
           )}
         </AnimatePresence>
 

@@ -81,7 +81,12 @@ export class EngineeringBlackboard {
   private state: EngineeringBlackboardState;
   private subscribers = new Set<(state: Readonly<EngineeringBlackboardState>) => void>();
 
-  constructor(sessionId: string, goalDescription: string, canonicalModel: any, designCode = 'EUROCODE_3' as const) {
+  constructor(
+    sessionId: string,
+    goalDescription: string,
+    canonicalModel: any,
+    designCode: EngineeringBlackboardState['designCode'] = 'EUROCODE_3',
+  ) {
     this.state = {
       sessionId,
       goalDescription,

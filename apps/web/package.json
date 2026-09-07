@@ -10,7 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@beamlab/agent-optimization": "workspace:*",
+    "@beamlab/agent-report": "workspace:*",
+    "@beamlab/agent-structural-analysis": "workspace:*",
     "@beamlab/archie-client": "workspace:*",
+    "@beamlab/archie-kernel": "workspace:*",
     "@beamlab/engineering-model": "workspace:*",
     "@beamlab/execution-graph": "workspace:*",
     "@beamlab/knowledge-client": "workspace:*",

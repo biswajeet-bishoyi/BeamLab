@@ -9,6 +9,7 @@ export const TopNav: React.FC = () => {
     setEnvGalleryOpen,
     setPresentationMode,
     setAiStudioOpen,
+    setCopilotStudioOpen,
     setPlaybackMode,
     setExportStudioOpen,
   } = useStore(state => ({
@@ -17,6 +18,7 @@ export const TopNav: React.FC = () => {
     setEnvGalleryOpen: state.setEnvGalleryOpen,
     setPresentationMode: state.setPresentationMode,
     setAiStudioOpen: state.setAiStudioOpen,
+    setCopilotStudioOpen: state.setCopilotStudioOpen,
     setPlaybackMode: state.setPlaybackMode,
     setExportStudioOpen: state.setExportStudioOpen,
   }));
@@ -53,10 +55,16 @@ export const TopNav: React.FC = () => {
           <Mic size={16} /> Present
         </button>
         <button 
-          onClick={() => setAiStudioOpen(true)}
-          className="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition-all shadow-sm font-bold flex items-center gap-2 text-sm"
+          onClick={() => setCopilotStudioOpen(true)}
+          className="px-4 py-1.5 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-pink-500 text-white rounded-lg transition-all shadow-lg shadow-indigo-950 font-bold flex items-center gap-2 text-sm"
         >
-          <Brain size={16} /> AI Studio
+          <Brain size={16} /> Copilot Studio
+        </button>
+        <button 
+          onClick={() => setAiStudioOpen(true)}
+          className="px-4 py-1.5 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 rounded-lg transition-all shadow-sm font-semibold flex items-center gap-2 text-sm"
+        >
+          <Brain size={16} /> AI Chat
         </button>
         <button 
           onClick={() => setPlaybackMode(true)}
