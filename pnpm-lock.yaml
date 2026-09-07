@@ -878,6 +878,9 @@ importers:
       '@beamlab/solver-client':
         specifier: workspace:*
         version: link:../solver-client
+      '@beamworks/core-engine':
+        specifier: workspace:*
+        version: link:../core-engine
     devDependencies:
       '@beamlab/config':
         specifier: workspace:*
