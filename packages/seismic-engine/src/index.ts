@@ -18,3 +18,7 @@ export * from './mrsa/BaseShearScalingEngine';
 // Direct Integration Dynamic Time-History Analysis
 export * from './timehistory/GroundMotionProcessor';
 export * from './timehistory/NewmarkIntegrator';
+
+// Story Drift, Diaphragm & Torsional Irregularity Diagnostics
+export * from './checks/StoryDriftAuditor';
+export * from './checks/TorsionalIrregularityAuditor';
