@@ -78,6 +78,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@beamlab/agent-code-compliance':
+        specifier: workspace:*
+        version: link:../../packages/agent-code-compliance
       '@beamlab/agent-optimization':
         specifier: workspace:*
         version: link:../../packages/agent-optimization
@@ -102,6 +105,9 @@ importers:
       '@beamlab/knowledge-client':
         specifier: workspace:*
         version: link:../../packages/knowledge-client
+      '@beamlab/knowledge-platform':
+        specifier: workspace:*
+        version: link:../../packages/knowledge-platform
       '@beamlab/policy-client':
         specifier: workspace:*
         version: link:../../packages/policy-client
@@ -208,6 +214,9 @@ importers:
       '@beamlab/events':
         specifier: workspace:*
         version: link:../events
+      '@beamlab/knowledge-platform':
+        specifier: workspace:*
+        version: link:../knowledge-platform
       '@beamlab/workspace-runtime':
         specifier: workspace:*
         version: link:../workspace-runtime

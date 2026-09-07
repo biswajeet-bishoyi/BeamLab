@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, Globe, Mic, Brain, Clock, Printer } from 'lucide-react';
+import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen } from 'lucide-react';
 import { useStore } from '../store';
 
 export const TopNav: React.FC = () => {
@@ -12,6 +12,7 @@ export const TopNav: React.FC = () => {
     setCopilotStudioOpen,
     setPlaybackMode,
     setExportStudioOpen,
+    setCodeStudioOpen,
   } = useStore(state => ({
     setView: state.setView,
     activeEnvironment: state.activeEnvironment,
@@ -21,6 +22,7 @@ export const TopNav: React.FC = () => {
     setCopilotStudioOpen: state.setCopilotStudioOpen,
     setPlaybackMode: state.setPlaybackMode,
     setExportStudioOpen: state.setExportStudioOpen,
+    setCodeStudioOpen: state.setCodeStudioOpen,
   }));
 
   return (
@@ -65,6 +67,13 @@ export const TopNav: React.FC = () => {
           className="px-4 py-1.5 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 rounded-lg transition-all shadow-sm font-semibold flex items-center gap-2 text-sm"
         >
           <Brain size={16} /> AI Chat
+        </button>
+        <button 
+          onClick={() => setCodeStudioOpen(true)}
+          className="px-4 py-1.5 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white rounded-lg transition-all shadow-sm font-bold flex items-center gap-2 text-sm"
+          title="Open Design Code Intelligence & Clause Inspector Studio"
+        >
+          <BookOpen size={16} /> Design Codes
         </button>
         <button 
           onClick={() => setPlaybackMode(true)}

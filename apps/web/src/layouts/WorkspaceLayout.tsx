@@ -19,6 +19,7 @@ import { TimeMachineOverlay } from '../components/replay/TimeMachineOverlay';
 import { PresentationMode } from '../components/presentation/PresentationMode';
 import { ExportStudio } from '../components/export/ExportStudio';
 import { PerformanceOverlay } from '../components/PerformanceOverlay';
+import { DesignCodeInspectorStudio } from '../features/knowledge';
 import { AnimatePresence } from 'framer-motion';
 
 export const WorkspaceLayout: React.FC = () => {
@@ -47,6 +48,8 @@ export const WorkspaceLayout: React.FC = () => {
     setPresentationMode,
     exportStudioOpen,
     setExportStudioOpen,
+    codeStudioOpen,
+    setCodeStudioOpen,
   } = useStore(state => ({
     envGalleryOpen: state.envGalleryOpen,
     setEnvGalleryOpen: state.setEnvGalleryOpen,
@@ -60,6 +63,8 @@ export const WorkspaceLayout: React.FC = () => {
     setPresentationMode: state.setPresentationMode,
     exportStudioOpen: state.exportStudioOpen,
     setExportStudioOpen: state.setExportStudioOpen,
+    codeStudioOpen: state.codeStudioOpen,
+    setCodeStudioOpen: state.setCodeStudioOpen,
   }));
 
   return (
@@ -160,6 +165,12 @@ export const WorkspaceLayout: React.FC = () => {
         <AnimatePresence>
           {exportStudioOpen && (
             <ExportStudio onClose={() => setExportStudioOpen(false)} />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {codeStudioOpen && (
+            <DesignCodeInspectorStudio onClose={() => setCodeStudioOpen(false)} />
           )}
         </AnimatePresence>
 

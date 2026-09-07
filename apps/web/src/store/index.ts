@@ -27,6 +27,7 @@ interface BeamworksState {
   aiPrompt: string | null;
   aiStudioOpen: boolean;
   copilotStudioOpen: boolean;
+  codeStudioOpen: boolean;
   aiUserLevel: AIUserLevel | null;
   activeEnvironment: EnvironmentId;
   envGalleryOpen: boolean;
@@ -46,6 +47,7 @@ interface BeamworksState {
   loadPreset: (model: StructuralModel) => void;
   setAiStudioOpen: (open: boolean) => void;
   setCopilotStudioOpen: (open: boolean) => void;
+  setCodeStudioOpen: (open: boolean) => void;
   setAiUserLevel: (level: AIUserLevel) => void;
   setEnvironment: (id: EnvironmentId) => void;
   setEnvGalleryOpen: (open: boolean) => void;
@@ -150,6 +152,7 @@ export const useStore = create<BeamworksState>((set, get) => {
     aiPrompt: null,
     aiStudioOpen: false,
     copilotStudioOpen: false,
+    codeStudioOpen: false,
     aiUserLevel: null,
     activeEnvironment: 'none',
     envGalleryOpen: false,
@@ -184,6 +187,7 @@ export const useStore = create<BeamworksState>((set, get) => {
     setView: (view) => set({ currentView: view }),
     setAiStudioOpen: (open) => set({ aiStudioOpen: open }),
     setCopilotStudioOpen: (open) => set({ copilotStudioOpen: open }),
+    setCodeStudioOpen: (open) => set({ codeStudioOpen: open }),
     setAiUserLevel: (level) => set({ aiUserLevel: level }),
     setEnvironment: (id) => set({ activeEnvironment: id }),
     setEnvGalleryOpen: (open) => set({ envGalleryOpen: open }),
