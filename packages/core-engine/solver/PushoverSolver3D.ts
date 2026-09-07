@@ -20,6 +20,9 @@ import {
   type ElementInternalForces3D,
 } from './SpaceFrameSolver3D';
 
+// Re-export SpaceFrameModel3D so tests and consumers can import it from PushoverSolver3D
+export type { SpaceFrameModel3D };
+
 export type PlasticHingeState =
   | 'ELASTIC'
   | 'YIELD'
