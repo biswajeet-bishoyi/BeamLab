@@ -27,7 +27,7 @@ export interface InfluenceLineResult {
   negativeAreaM: number;      // Area under negative portion of IL
   netAreaM: number;
   evaluateAt: (xM: number, preferRightSideAtDiscontinuity?: boolean) => number;
-  calculateVehicleResponse: (axlePositionsM: number[], axleLoadsKn: number[]) => number;
+  calculateVehicleResponse: (axlePositionsM: number[], axleLoadsKn: number[], targetDiscontinuityLimit?: 'positive' | 'negative') => number;
   calculateLaneResponse: (laneLoadKnPerM: number, targetEnvelope: 'max-positive' | 'max-negative' | 'total') => number;
 }
 
@@ -156,13 +156,14 @@ export class InfluenceLineEngine {
       negativeAreaM: Math.min(0, negArea),
       netAreaM: posArea + negArea,
       evaluateAt: evaluate,
-      calculateVehicleResponse: (axlePositionsM: number[], axleLoadsKn: number[]): number => {
+      calculateVehicleResponse: (axlePositionsM: number[], axleLoadsKn: number[], targetDiscontinuityLimit?: 'positive' | 'negative'): number => {
         let sum = 0;
+        const preferRight = targetDiscontinuityLimit !== 'negative';
         for (let i = 0; i < axlePositionsM.length; i++) {
           const axPos = axlePositionsM[i];
           const axLoad = axleLoadsKn[i];
           if (axPos >= 0 && axPos <= L) {
-            sum += axLoad * evaluate(axPos, true);
+            sum += axLoad * evaluate(axPos, preferRight);
           }
         }
         return sum;
@@ -360,13 +361,14 @@ export class InfluenceLineEngine {
       negativeAreaM: Math.min(0, negArea),
       netAreaM: posArea + negArea,
       evaluateAt: evaluate,
-      calculateVehicleResponse: (axlePositionsM: number[], axleLoadsKn: number[]): number => {
+      calculateVehicleResponse: (axlePositionsM: number[], axleLoadsKn: number[], targetDiscontinuityLimit?: 'positive' | 'negative'): number => {
         let sum = 0;
+        const preferRight = targetDiscontinuityLimit !== 'negative';
         for (let i = 0; i < axlePositionsM.length; i++) {
           const axPos = axlePositionsM[i];
           const axLoad = axleLoadsKn[i];
           if (axPos >= 0 && axPos <= totalL) {
-            sum += axLoad * evaluate(axPos, true);
+            sum += axLoad * evaluate(axPos, preferRight);
           }
         }
         return sum;
