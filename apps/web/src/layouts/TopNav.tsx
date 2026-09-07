@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass, Activity, Wind, Trees } from 'lucide-react';
+import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass, Activity, Wind, Trees, Building2 } from 'lucide-react';
 import { useStore } from '../store';
 
 export const TopNav: React.FC = () => {
@@ -21,6 +21,7 @@ export const TopNav: React.FC = () => {
     setSeismicStudioOpen,
     setWindStudioOpen,
     setTimberStudioOpen,
+    setCompositeStudioOpen,
   } = useStore(state => ({
     setView: state.setView,
     activeEnvironment: state.activeEnvironment,
@@ -39,6 +40,7 @@ export const TopNav: React.FC = () => {
     setSeismicStudioOpen: state.setSeismicStudioOpen,
     setWindStudioOpen: state.setWindStudioOpen,
     setTimberStudioOpen: state.setTimberStudioOpen,
+    setCompositeStudioOpen: state.setCompositeStudioOpen,
   }));
 
   return (
@@ -161,6 +163,14 @@ export const TopNav: React.FC = () => {
         >
           <Trees size={16} />
           <span>Timber</span>
+        </button>
+        <button 
+          onClick={() => setCompositeStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-cyan-400/30"
+          title="Open Steel-Concrete Composite Studio (AISC 360-22, EC4, Shear Studs, CFT/Encased Columns, Floor Vibration)"
+        >
+          <Building2 size={16} />
+          <span>Composite</span>
         </button>
         <button 
           onClick={() => setPlaybackMode(true)}

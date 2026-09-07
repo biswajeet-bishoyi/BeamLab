@@ -28,6 +28,7 @@ import { FoundationStudio } from '../features/foundation';
 import { SeismicStudio } from '../features/seismic';
 import { WindStudio } from '../features/wind';
 import { TimberStudio } from '../features/timber';
+import { CompositeStudio } from '../features/composite';
 import { AnimatePresence } from 'framer-motion';
 
 export const WorkspaceLayout: React.FC = () => {
@@ -74,6 +75,8 @@ export const WorkspaceLayout: React.FC = () => {
     setWindStudioOpen,
     timberStudioOpen,
     setTimberStudioOpen,
+    compositeStudioOpen,
+    setCompositeStudioOpen,
   } = useStore(state => ({
     envGalleryOpen: state.envGalleryOpen,
     setEnvGalleryOpen: state.setEnvGalleryOpen,
@@ -105,6 +108,8 @@ export const WorkspaceLayout: React.FC = () => {
     setWindStudioOpen: state.setWindStudioOpen,
     timberStudioOpen: state.timberStudioOpen,
     setTimberStudioOpen: state.setTimberStudioOpen,
+    compositeStudioOpen: state.compositeStudioOpen,
+    setCompositeStudioOpen: state.setCompositeStudioOpen,
   }));
 
   return (
@@ -259,6 +264,12 @@ export const WorkspaceLayout: React.FC = () => {
         <AnimatePresence>
           {timberStudioOpen && (
             <TimberStudio onClose={() => setTimberStudioOpen(false)} />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {compositeStudioOpen && (
+            <CompositeStudio onClose={() => setCompositeStudioOpen(false)} />
           )}
         </AnimatePresence>
 

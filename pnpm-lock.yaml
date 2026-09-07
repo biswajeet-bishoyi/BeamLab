@@ -99,6 +99,9 @@ importers:
       '@beamlab/collaboration-engine':
         specifier: workspace:*
         version: link:../../packages/collaboration-engine
+      '@beamlab/composite-engine':
+        specifier: workspace:*
+        version: link:../../packages/composite-engine
       '@beamlab/concrete-engine':
         specifier: workspace:*
         version: link:../../packages/concrete-engine
