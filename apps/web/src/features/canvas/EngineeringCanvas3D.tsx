@@ -51,6 +51,12 @@ import {
   type DeformationDisplayOptions,
   type DeformationViewMode,
 } from './deformation';
+import {
+  DiagramController,
+  DEFAULT_DIAGRAM_OPTIONS,
+  type DiagramOptions,
+  type DiagramType,
+} from './diagrams';
 import type { LoadPatternType } from '@beamlab/engineering-model';
 import {
   Box,
@@ -64,6 +70,7 @@ import {
   Activity,
   Play,
   Pause,
+  Spline,
   X,
 } from 'lucide-react';
 
@@ -92,6 +99,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
   const snappingEngineRef = useRef<SpatialSnappingEngine | null>(null);
   const loadControllerRef = useRef<LoadVisualizationController | null>(null);
   const modalControllerRef = useRef<ModalAnimationController | null>(null);
+  const diagramControllerRef = useRef<DiagramController | null>(null);
 
   // Viewport & Navigation state
   const [projection, setProjection] = useState<ProjectionMode>('Perspective');
@@ -132,6 +140,10 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
   // 3D Deformation & Modal Animation state
   const [deformationOptions, setDeformationOptions] = useState<DeformationDisplayOptions>(DEFAULT_DEFORMATION_OPTIONS);
   const [showDeformationMenu, setShowDeformationMenu] = useState<boolean>(false);
+
+  // 3D Internal Force Diagrams state
+  const [diagramOptions, setDiagramOptions] = useState<DiagramOptions>(DEFAULT_DIAGRAM_OPTIONS);
+  const [showDiagramMenu, setShowDiagramMenu] = useState<boolean>(false);
 
   const handleFitAll = useCallback(() => {
     if (cameraManagerRef.current && kernelRef.current && sceneControllerRef.current) {
@@ -298,6 +310,49 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     });
   }, []);
 
+  // 3D Internal Force Diagram controls
+  const handleSelectDiagramType = useCallback((type: DiagramType) => {
+    setDiagramOptions((prev) => {
+      const updated = { ...prev, type };
+      if (diagramControllerRef.current) {
+        diagramControllerRef.current.setDiagramType(type);
+      }
+      return updated;
+    });
+  }, []);
+
+  const handleSetDiagramScale = useCallback((scale: number) => {
+    setDiagramOptions((prev) => {
+      const updated = { ...prev, scaleMultiplier: scale };
+      if (diagramControllerRef.current) {
+        diagramControllerRef.current.setOptions({ scaleMultiplier: scale });
+      }
+      return updated;
+    });
+  }, []);
+
+  const handleToggleDiagramLabels = useCallback(() => {
+    setDiagramOptions((prev) => {
+      const updated = { ...prev, showPeakLabels: !prev.showPeakLabels };
+      if (diagramControllerRef.current) {
+        diagramControllerRef.current.setOptions({ showPeakLabels: updated.showPeakLabels });
+      }
+      return updated;
+    });
+  }, []);
+
+  const handleToggleDiagramSign = useCallback(() => {
+    setDiagramOptions((prev) => {
+      const nextSign: 'tension_face' | 'cartesian' =
+        prev.signConvention === 'tension_face' ? 'cartesian' : 'tension_face';
+      const updated: DiagramOptions = { ...prev, signConvention: nextSign };
+      if (diagramControllerRef.current) {
+        diagramControllerRef.current.setOptions({ signConvention: nextSign });
+      }
+      return updated;
+    });
+  }, []);
+
   // Load selected preset into the scene
   const loadPresetModel = useCallback((preset: ModelPreset) => {
     if (!sceneControllerRef.current || !cameraManagerRef.current || !kernelRef.current) return;
@@ -330,6 +385,9 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     }
     if (modalControllerRef.current) {
       modalControllerRef.current.loadModelData(modelData.system, analysisData.displacements, analysisData.modes);
+    }
+    if (diagramControllerRef.current) {
+      diagramControllerRef.current.setSystem(modelData.system, preset);
     }
 
     setModelStats({
@@ -423,6 +481,11 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     const initialAnalysis = ModalAnimationController.createPortalFrameAnalysisData(initialModel.system);
     modalController.loadModelData(initialModel.system, initialAnalysis.displacements, initialAnalysis.modes);
 
+    // 11. Initialize 3D Internal Force Diagram Controller
+    const diagramController = new DiagramController(kernel.scene);
+    diagramControllerRef.current = diagramController;
+    diagramController.setSystem(initialModel.system, 'portal_frame');
+
     // Bind selection state observer
     const unbindSelection = selectionManager.onSelectionChange((state: SelectionState) => {
       const total = selectionManager.getTotalSelectedCount();
@@ -430,9 +493,17 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
 
       if (total === 0) {
         setSelectionSummary(null);
+        diagramController.setSelectedMember(null);
       } else {
         const parts: string[] = [];
-        if (state.members.size > 0) parts.push(`${state.members.size} Member${state.members.size > 1 ? 's' : ''}`);
+        if (state.members.size > 0) {
+          parts.push(`${state.members.size} Member${state.members.size > 1 ? 's' : ''}`);
+          if (state.members.size === 1) {
+            const selMemberId = Array.from(state.members)[0]!;
+            diagramController.setSelectedMember(selMemberId);
+            onSelectMember?.(selMemberId);
+          }
+        }
         if (state.nodes.size > 0) parts.push(`${state.nodes.size} Node${state.nodes.size > 1 ? 's' : ''}`);
         if (state.supports.size > 0) parts.push(`${state.supports.size} Support${state.supports.size > 1 ? 's' : ''}`);
         if (state.plates.size > 0) parts.push(`${state.plates.size} Slab${state.plates.size > 1 ? 's' : ''}`);
@@ -599,6 +670,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
       selectionManager.dispose();
       loadController.dispose();
       modalController.dispose();
+      diagramController.dispose();
       sceneController.dispose();
       kernel.dispose();
     };
@@ -923,6 +995,117 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
                       className="accent-purple-500"
                     />
                   </label>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* 3D Internal Force Diagrams Menu Button */}
+          <div className="relative">
+            <button
+              onClick={() => {
+                setShowDiagramMenu(!showDiagramMenu);
+                setShowLoadMenu(false);
+                setShowDeformationMenu(false);
+                setShowSnapMenu(false);
+              }}
+              title="3D Internal Force Diagram Extrusions (SFD, BMD, Axial)"
+              className={`flex items-center gap-1 px-2 py-1 rounded text-[11px] font-medium transition-all ${
+                diagramOptions.type !== 'none'
+                  ? 'bg-blue-600/30 text-blue-300 border border-blue-500/40 font-semibold'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+              }`}
+            >
+              <Spline className="w-3.5 h-3.5" />
+              <span>
+                {diagramOptions.type === 'none'
+                  ? 'Diagrams'
+                  : diagramOptions.type === 'Mz'
+                  ? 'BMD (Mz)'
+                  : diagramOptions.type === 'Vy'
+                  ? 'SFD (Vy)'
+                  : diagramOptions.type === 'N'
+                  ? 'Axial (N)'
+                  : diagramOptions.type}
+              </span>
+            </button>
+
+            {showDiagramMenu && (
+              <div className="absolute top-full left-0 mt-1.5 w-56 p-2 rounded-lg bg-slate-900/95 backdrop-blur-md border border-slate-700/80 shadow-2xl flex flex-col gap-1.5 text-[11px] z-50">
+                <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider px-1 pb-1 border-b border-slate-800">
+                  3D Force Diagrams
+                </div>
+
+                {/* Diagram Mode Quick Switcher */}
+                <div className="grid grid-cols-3 gap-1">
+                  {(
+                    [
+                      { id: 'none', label: 'Off' },
+                      { id: 'Mz', label: 'BMD (Mz)' },
+                      { id: 'Vy', label: 'SFD (Vy)' },
+                      { id: 'N', label: 'Axial (N)' },
+                      { id: 'My', label: 'BMD (My)' },
+                      { id: 'deflection', label: 'Deflect.' },
+                    ] as const
+                  ).map((m) => (
+                    <button
+                      key={m.id}
+                      onClick={() => handleSelectDiagramType(m.id)}
+                      className={`px-1.5 py-1 rounded text-[10px] font-medium text-center transition-all ${
+                        diagramOptions.type === m.id
+                          ? 'bg-blue-600 text-white font-semibold shadow'
+                          : 'bg-slate-800/80 text-slate-400 hover:text-slate-200'
+                      }`}
+                    >
+                      {m.label}
+                    </button>
+                  ))}
+                </div>
+
+                {diagramOptions.type !== 'none' && (
+                  <>
+                    {/* Scale Multipliers */}
+                    <div className="flex items-center justify-between pt-1 border-t border-slate-800">
+                      <span className="text-slate-400">Scale</span>
+                      <div className="flex items-center gap-1 font-mono">
+                        {[0.5, 1.0, 2.0, 3.0].map((sc) => (
+                          <button
+                            key={sc}
+                            onClick={() => handleSetDiagramScale(sc)}
+                            className={`px-1.5 py-0.5 rounded text-[10px] ${
+                              diagramOptions.scaleMultiplier === sc
+                                ? 'bg-blue-500 text-slate-950 font-bold'
+                                : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                            }`}
+                          >
+                            {sc}×
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Peak Values Callouts */}
+                    <label className="flex items-center justify-between px-1 py-1 rounded hover:bg-slate-800 cursor-pointer pt-1 border-t border-slate-800">
+                      <span className="text-slate-300">Peak 3D Badges</span>
+                      <input
+                        type="checkbox"
+                        checked={diagramOptions.showPeakLabels}
+                        onChange={handleToggleDiagramLabels}
+                        className="accent-blue-500"
+                      />
+                    </label>
+
+                    {/* Sign Convention Toggle */}
+                    <div className="flex items-center justify-between px-1 py-1 pt-1 border-t border-slate-800">
+                      <span className="text-slate-400">Convention</span>
+                      <button
+                        onClick={handleToggleDiagramSign}
+                        className="text-[10px] px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-blue-400 font-medium"
+                      >
+                        {diagramOptions.signConvention === 'tension_face' ? 'Tension Face' : 'Cartesian'}
+                      </button>
+                    </div>
+                  </>
                 )}
               </div>
             )}

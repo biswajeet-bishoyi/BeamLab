@@ -11,6 +11,7 @@ import { Box, Layers } from 'lucide-react';
 export const CenterWorkspace: React.FC = () => {
   const activeEnvironment = useStore(state => state.activeEnvironment);
   const [canvasMode, setCanvasMode] = useState<'2D' | '3D'>('3D');
+  const [selectedMemberId, setSelectedMemberId] = useState<string | null>(null);
 
   return (
     <div className="flex flex-col h-full bg-[#111111] relative overflow-hidden custom-scrollbar">
@@ -56,7 +57,10 @@ export const CenterWorkspace: React.FC = () => {
         {/* Main Canvas Viewport Area */}
         <div className="w-full h-[450px] shrink-0 flex items-center justify-center pointer-events-auto relative rounded-xl overflow-hidden border border-slate-800 shadow-2xl bg-[#090d16]">
           {canvasMode === '3D' ? (
-            <EngineeringCanvas3D className="w-full h-full" />
+            <EngineeringCanvas3D
+              className="w-full h-full"
+              onSelectMember={(id) => setSelectedMemberId(id)}
+            />
           ) : (
             <div className="w-full h-full relative flex items-center justify-center">
               <EnvironmentLayer environmentId={activeEnvironment} />
@@ -67,7 +71,7 @@ export const CenterWorkspace: React.FC = () => {
         
         {/* Interactive Diagram System */}
         <div className="w-full flex-1 pointer-events-auto flex justify-center pb-32 pt-4">
-          <ResultsStudio />
+          <ResultsStudio selectedMemberId={selectedMemberId} />
         </div>
       </div>
     </div>
