@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer } from 'lucide-react';
+import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes } from 'lucide-react';
 import { useStore } from '../store';
 
 export const TopNav: React.FC = () => {
@@ -15,6 +15,7 @@ export const TopNav: React.FC = () => {
     setCodeStudioOpen,
     setCollaborationStudioOpen,
     setConnectionStudioOpen,
+    setConcreteStudioOpen,
   } = useStore(state => ({
     setView: state.setView,
     activeEnvironment: state.activeEnvironment,
@@ -27,6 +28,7 @@ export const TopNav: React.FC = () => {
     setCodeStudioOpen: state.setCodeStudioOpen,
     setCollaborationStudioOpen: state.setCollaborationStudioOpen,
     setConnectionStudioOpen: state.setConnectionStudioOpen,
+    setConcreteStudioOpen: state.setConcreteStudioOpen,
   }));
 
   return (
@@ -101,6 +103,14 @@ export const TopNav: React.FC = () => {
         >
           <Hammer size={16} />
           <span>Connections</span>
+        </button>
+        <button 
+          onClick={() => setConcreteStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 hover:from-amber-500 hover:to-orange-500 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-amber-400/30"
+          title="Open 3D Reinforced Concrete (RC) Studio & P-M-M Engine"
+        >
+          <Boxes size={16} />
+          <span>Concrete RC</span>
         </button>
         <button 
           onClick={() => setPlaybackMode(true)}

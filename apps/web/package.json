@@ -17,6 +17,7 @@
     "@beamlab/archie-client": "workspace:*",
     "@beamlab/archie-kernel": "workspace:*",
     "@beamlab/collaboration-engine": "workspace:*",
+    "@beamlab/concrete-engine": "workspace:*",
     "@beamlab/connection-engine": "workspace:*",
     "@beamlab/engineering-model": "workspace:*",
     "@beamlab/execution-graph": "workspace:*",
