@@ -11,7 +11,6 @@ import {
   SpaceFrameSolver3D,
   type SpaceFrameModel3D,
   type Element3D,
-  type Node3D,
   type NodeDisplacement3D,
   type NodeReaction3D,
   type ElementInternalForces3D,
@@ -37,6 +36,11 @@ export interface ElementNonLinearState {
   effectiveModulusE: number; // [Pa]
 }
 
+export interface TensionOnlyOptions {
+  maxIterations?: number;
+  slackStiffnessFactor?: number;
+}
+
 export interface TensionOnlyAnalysisResult3D {
   displacements: Map<string, NodeDisplacement3D>;
   reactions: Map<string, NodeReaction3D>;
@@ -51,13 +55,15 @@ export interface TensionOnlyAnalysisResult3D {
   };
 }
 
+export type TensionOnlyResult3D = TensionOnlyAnalysisResult3D;
+
 export class TensionOnlySolver3D {
   /**
    * Solves non-linear frame model with tension-only and compression-only elements.
    */
   public static solve(
     model: NonLinearModel3D,
-    options: { maxIterations?: number; slackStiffnessFactor?: number } = {},
+    options: TensionOnlyOptions = {},
   ): TensionOnlyAnalysisResult3D {
     const startTime = performance.now();
     const maxIter = options.maxIterations ?? 20;

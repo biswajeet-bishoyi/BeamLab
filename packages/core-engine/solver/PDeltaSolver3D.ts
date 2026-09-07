@@ -110,7 +110,6 @@ export class PDeltaSolver3D {
 
       // Assemble tangent stiffness: K_T = K_E + K_G(P)
       const K_T = createZeros(totalDOFs, totalDOFs);
-      const F_int = new Array(totalDOFs).fill(0);
 
       // Assemble elastic and geometric stiffness from updated element axial forces
       for (const elem of effectiveModel.elements) {

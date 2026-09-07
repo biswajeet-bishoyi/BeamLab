@@ -4,6 +4,11 @@ export * from './solver/TensionOnlySolver3D';
 export * from './solver/PushoverSolver3D';
 export * from './solver/matrixSolver';
 export * from './solver/internalForces';
-export * from './solver/reactions';
+export {
+  type ReactionResult,
+  type AnalysisResult,
+  type ModelingError,
+  solveDeterminateReactions,
+} from './solver/reactions';
 export * from './math/matrix';
 export * from './model/types';

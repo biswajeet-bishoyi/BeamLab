@@ -611,7 +611,7 @@ export class PushoverSolver3D {
    */
   private static buildLateralLoadPattern(
     nodes: Node3D[],
-    elements: Element3D[],
+    _elements: Element3D[],
     nodeIndexMap: Map<string, number>,
     controlDirection: 'X' | 'Y' | 'Z',
     pattern: 'UNIFORM' | 'TRIANGULAR' | 'MODAL' | 'CUSTOM',
@@ -1291,14 +1291,6 @@ export class PushoverSolver3D {
         length: L,
         startForces: { N: N1, Vy: Vy1, Vz: Vz1, T: T1, My: My1, Mz: Mz1 },
         endForces: { N: N2, Vy: Vy2, Vz: Vz2, T: T2, My: My2, Mz: Mz2 },
-        maxForces: {
-          maxAxial: Math.max(Math.abs(N1), Math.abs(N2)),
-          maxShearY: Math.max(Math.abs(Vy1), Math.abs(Vy2)),
-          maxShearZ: Math.max(Math.abs(Vz1), Math.abs(Vz2)),
-          maxTorsion: Math.max(Math.abs(T1), Math.abs(T2)),
-          maxMomentY: Math.max(Math.abs(My1), Math.abs(My2)),
-          maxMomentZ: Math.max(Math.abs(Mz1), Math.abs(Mz2)),
-        },
         stations: [],
       });
     }
