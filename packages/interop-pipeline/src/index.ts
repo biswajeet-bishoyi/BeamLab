@@ -14,3 +14,8 @@ export * from './ifc/StepParser';
 export * from './saf/SafSchema';
 export * from './saf/SafExporter';
 export * from './saf/SafImporter';
+
+// Analytical-to-Physical Reconciliation & Mapping
+export * from './reconciliation/SpatialNodeSnapper';
+export * from './reconciliation/ModelIntegrityAuditor';
+export * from './mapping/CrossPlatformCatalogMapper';
