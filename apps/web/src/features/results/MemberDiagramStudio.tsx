@@ -16,6 +16,7 @@ import {
 } from './EnvelopeEngine';
 import { CriticalStationHunterTable } from './CriticalStationHunterTable';
 import { CrossSectionStressInspector } from './CrossSectionStressInspector';
+import { EquilibriumAuditPanel } from './EquilibriumAuditPanel';
 import {
   Activity,
   Download,
@@ -26,6 +27,7 @@ import {
   Layers,
   ChevronUp,
   Sparkles,
+  Scale,
 } from 'lucide-react';
 
 interface MemberDiagramStudioProps {
@@ -78,6 +80,7 @@ export const MemberDiagramStudio: React.FC<MemberDiagramStudioProps> = ({
   // Studio state
   const [viewMode, setViewMode] = useState<'single' | 'envelope' | 'stress'>('envelope');
   const [showHunterDrawer, setShowHunterDrawer] = useState<boolean>(false);
+  const [showEquilibriumDrawer, setShowEquilibriumDrawer] = useState<boolean>(false);
   const [signConvention, setSignConvention] = useState<'tension_face' | 'cartesian'>('tension_face');
   const [hoveredX, setHoveredX] = useState<number | null>(null);
   const [copied, setCopied] = useState<boolean>(false);
@@ -257,7 +260,10 @@ export const MemberDiagramStudio: React.FC<MemberDiagramStudioProps> = ({
 
           {/* Critical Station Hunter Drawer Toggle */}
           <button
-            onClick={() => setShowHunterDrawer(!showHunterDrawer)}
+            onClick={() => {
+              setShowHunterDrawer(!showHunterDrawer);
+              if (!showHunterDrawer) setShowEquilibriumDrawer(false);
+            }}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all ${
               showHunterDrawer
                 ? 'bg-amber-600/30 text-amber-300 border-amber-500/50 font-semibold'
@@ -268,6 +274,24 @@ export const MemberDiagramStudio: React.FC<MemberDiagramStudioProps> = ({
             <Crosshair className="w-3.5 h-3.5 text-amber-400" />
             <span>Hunter ({criticalStations.length})</span>
             {showHunterDrawer ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+          </button>
+
+          {/* Equilibrium Audit Drawer Toggle */}
+          <button
+            onClick={() => {
+              setShowEquilibriumDrawer(!showEquilibriumDrawer);
+              if (!showEquilibriumDrawer) setShowHunterDrawer(false);
+            }}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all ${
+              showEquilibriumDrawer
+                ? 'bg-emerald-600/30 text-emerald-300 border-emerald-500/50 font-semibold'
+                : 'bg-slate-900 border-slate-800 hover:bg-slate-800 text-slate-300'
+            }`}
+            title="Open Global Equilibrium & Reaction Verifier"
+          >
+            <Scale className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Equilibrium</span>
+            {showEquilibriumDrawer ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
           </button>
 
           {/* Sign Convention Toggle */}
@@ -326,6 +350,13 @@ export const MemberDiagramStudio: React.FC<MemberDiagramStudioProps> = ({
             selectedMemberId={activeId}
             onSelectStation={handleHunterSelect}
           />
+        </div>
+      )}
+
+      {/* 2B. GLOBAL EQUILIBRIUM AUDIT COLLAPSIBLE DRAWER */}
+      {showEquilibriumDrawer && (
+        <div className="p-4 border-b border-slate-800 bg-slate-950/95">
+          <EquilibriumAuditPanel onClose={() => setShowEquilibriumDrawer(false)} />
         </div>
       )}
 
