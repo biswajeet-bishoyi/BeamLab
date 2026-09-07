@@ -1,9 +1,10 @@
 /**
- * BeamLab B2.3 — Interactive 3D Engineering Canvas
+ * BeamLab B2.4 — Interactive 3D Engineering Canvas
  *
  * High-performance 3D structural viewport with parametric cross-section profile extrusions,
  * member local coordinate system alignment, 3D boundary supports, floor slab extrusion,
  * interactive spatial raycasting, hover highlights, floating engineering tooltip,
+ * CAD spatial snapping (nodes, midpoints, perpendiculars, grid), snap glyphs,
  * single & multi-selection, CAD navigation, orientation gizmo, and real-time model controls.
  */
 
@@ -30,12 +31,20 @@ import {
   type SelectionState,
 } from './interaction';
 import {
+  SpatialSnappingEngine,
+  SnapGlyphOverlay,
+  DEFAULT_SNAP_OPTIONS,
+  type SnapOptions,
+  type SnapResult,
+} from './snapping';
+import {
   Box,
   Grid,
   Maximize2,
   Layers,
   Rotate3d,
   MousePointer,
+  Magnet,
   X,
 } from 'lucide-react';
 
@@ -61,6 +70,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
   const sceneControllerRef = useRef<StructuralSceneController | null>(null);
   const raycasterRef = useRef<SpatialRaycaster | null>(null);
   const selectionManagerRef = useRef<SelectionManager | null>(null);
+  const snappingEngineRef = useRef<SpatialSnappingEngine | null>(null);
 
   // Viewport & Navigation state
   const [projection, setProjection] = useState<ProjectionMode>('Perspective');
@@ -86,6 +96,13 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
   const [containerRect, setContainerRect] = useState<DOMRect | null>(null);
   const [selectedCount, setSelectedCount] = useState<number>(0);
   const [selectionSummary, setSelectionSummary] = useState<string | null>(null);
+
+  // CAD Spatial Snapping state
+  const [snapOptions, setSnapOptions] = useState<SnapOptions>(DEFAULT_SNAP_OPTIONS);
+  const [showSnapMenu, setShowSnapMenu] = useState<boolean>(false);
+  const [activeSnap, setActiveSnap] = useState<SnapResult | null>(null);
+  const snapOptionsRef = useRef<SnapOptions>(snapOptions);
+  snapOptionsRef.current = snapOptions;
 
   const handleFitAll = useCallback(() => {
     if (cameraManagerRef.current && kernelRef.current && sceneControllerRef.current) {
@@ -146,11 +163,18 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     }
   }, []);
 
+  const handleToggleMasterSnap = useCallback(() => {
+    setSnapOptions((prev) => ({ ...prev, enabled: !prev.enabled }));
+  }, []);
+
+  const handleToggleSnapOption = useCallback((key: keyof SnapOptions) => {
+    setSnapOptions((prev) => ({ ...prev, [key]: !prev[key] }));
+  }, []);
+
   // Load selected preset into the scene
   const loadPresetModel = useCallback((preset: ModelPreset) => {
     if (!sceneControllerRef.current || !cameraManagerRef.current || !kernelRef.current) return;
 
-    // Clear existing selection before loading new model
     if (selectionManagerRef.current) {
       selectionManagerRef.current.clearSelection();
     }
@@ -172,7 +196,6 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
       slabs: modelData.plates.length,
     });
 
-    // Auto zoom to fit the newly loaded model
     const box = sceneControllerRef.current.computeBoundingBox();
     cameraManagerRef.current.zoomToFit(box, kernelRef.current.getAspect(), 1.35);
   }, []);
@@ -239,6 +262,10 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     const selectionManager = new SelectionManager();
     selectionManagerRef.current = selectionManager;
 
+    // 8. Initialize Spatial Snapping Engine
+    const snappingEngine = new SpatialSnappingEngine();
+    snappingEngineRef.current = snappingEngine;
+
     // Bind selection state observer
     const unbindSelection = selectionManager.onSelectionChange((state: SelectionState) => {
       const total = selectionManager.getTotalSelectedCount();
@@ -264,7 +291,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
       container.style.cursor = hit ? 'pointer' : 'default';
     });
 
-    // 8. Ground Plane & Pointer Tracking
+    // 9. Ground Plane & Pointer Tracking with Snapping
     const groundPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
     const groundRaycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
@@ -283,15 +310,33 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
       mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
 
-      // Ground plane coordinates readout
-      groundRaycaster.setFromCamera(mouse, cameraManager.activeCamera);
-      const intersection = new THREE.Vector3();
-      if (groundRaycaster.ray.intersectPlane(groundPlane, intersection)) {
+      // Snapping evaluation
+      const snap = snappingEngine.findSnap(
+        { x: e.clientX, y: e.clientY },
+        rect,
+        cameraManager.activeCamera,
+        sceneController.getActiveSystem(),
+        snapOptionsRef.current,
+      );
+      setActiveSnap(snap);
+
+      if (snap) {
         setCursorCoords({
-          x: Math.round(intersection.x * 100) / 100,
-          y: Math.round(intersection.y * 100) / 100,
-          z: Math.round(intersection.z * 100) / 100,
+          x: Math.round(snap.worldPoint.x * 100) / 100,
+          y: Math.round(snap.worldPoint.y * 100) / 100,
+          z: Math.round(snap.worldPoint.z * 100) / 100,
         });
+      } else {
+        // Ground plane coordinates fallback
+        groundRaycaster.setFromCamera(mouse, cameraManager.activeCamera);
+        const intersection = new THREE.Vector3();
+        if (groundRaycaster.ray.intersectPlane(groundPlane, intersection)) {
+          setCursorCoords({
+            x: Math.round(intersection.x * 100) / 100,
+            y: Math.round(intersection.y * 100) / 100,
+            z: Math.round(intersection.z * 100) / 100,
+          });
+        }
       }
 
       // Entity raycasting for hover
@@ -358,7 +403,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     container.addEventListener('pointerup', handlePointerUp);
     window.addEventListener('keydown', handleKeyDown);
 
-    // 9. Setup Render Loop Hook & FPS calculation
+    // 10. Setup Render Loop Hook & FPS calculation
     let frameCount = 0;
     let lastTime = performance.now();
 
@@ -382,7 +427,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
       }
     });
 
-    // 10. Cleanup
+    // 11. Cleanup
     return () => {
       unbindRender();
       unbindSelection();
@@ -411,6 +456,9 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
         cursorScreenPos={cursorScreenPos}
         containerRect={containerRect}
       />
+
+      {/* CAD Snap Glyph Overlay */}
+      <SnapGlyphOverlay snap={activeSnap} />
 
       {/* Top Left: Viewport Controls & Camera HUD */}
       <div className="absolute top-3 left-3 flex flex-col gap-2 z-10">
@@ -485,6 +533,80 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
             <span>{renderOptions.renderMode === 'extruded' ? '3D Extruded' : 'Centerline'}</span>
           </button>
 
+          {/* CAD Spatial Snapping Menu Button */}
+          <div className="relative">
+            <button
+              onClick={() => setShowSnapMenu(!showSnapMenu)}
+              title="CAD Spatial Snapping Controls"
+              className={`flex items-center gap-1 px-2 py-1 rounded text-[11px] font-medium transition-all ${
+                snapOptions.enabled
+                  ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 font-semibold'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+              }`}
+            >
+              <Magnet className="w-3.5 h-3.5" />
+              <span>Snap</span>
+            </button>
+
+            {showSnapMenu && (
+              <div className="absolute top-full left-0 mt-1.5 w-48 p-2 rounded-lg bg-slate-900/95 backdrop-blur-md border border-slate-700/80 shadow-2xl flex flex-col gap-1 text-[11px] z-50">
+                <div className="flex items-center justify-between px-1 pb-1 border-b border-slate-800">
+                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">
+                    Spatial Snapping
+                  </span>
+                  <button
+                    onClick={handleToggleMasterSnap}
+                    className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${
+                      snapOptions.enabled ? 'bg-amber-500 text-slate-950' : 'bg-slate-700 text-slate-400'
+                    }`}
+                  >
+                    {snapOptions.enabled ? 'ON' : 'OFF'}
+                  </button>
+                </div>
+
+                <label className="flex items-center justify-between px-1.5 py-1 rounded hover:bg-slate-800 cursor-pointer">
+                  <span className="text-slate-300">Node / Endpoints (□)</span>
+                  <input
+                    type="checkbox"
+                    checked={snapOptions.snapToNodes}
+                    onChange={() => handleToggleSnapOption('snapToNodes')}
+                    className="accent-amber-500"
+                  />
+                </label>
+
+                <label className="flex items-center justify-between px-1.5 py-1 rounded hover:bg-slate-800 cursor-pointer">
+                  <span className="text-slate-300">Member Midpoints (△)</span>
+                  <input
+                    type="checkbox"
+                    checked={snapOptions.snapToMidpoints}
+                    onChange={() => handleToggleSnapOption('snapToMidpoints')}
+                    className="accent-amber-500"
+                  />
+                </label>
+
+                <label className="flex items-center justify-between px-1.5 py-1 rounded hover:bg-slate-800 cursor-pointer">
+                  <span className="text-slate-300">Along Members (⊾)</span>
+                  <input
+                    type="checkbox"
+                    checked={snapOptions.snapToPerpendicular}
+                    onChange={() => handleToggleSnapOption('snapToPerpendicular')}
+                    className="accent-amber-500"
+                  />
+                </label>
+
+                <label className="flex items-center justify-between px-1.5 py-1 rounded hover:bg-slate-800 cursor-pointer">
+                  <span className="text-slate-300">Metric Grid (+)</span>
+                  <input
+                    type="checkbox"
+                    checked={snapOptions.snapToGrid}
+                    onChange={() => handleToggleSnapOption('snapToGrid')}
+                    className="accent-amber-500"
+                  />
+                </label>
+              </div>
+            )}
+          </div>
+
           {/* Visibility Layers Menu Button */}
           <div className="relative">
             <button
@@ -498,7 +620,6 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
               <span>Layers</span>
             </button>
 
-            {/* Dropdown Menu for Layers */}
             {showLayerMenu && (
               <div className="absolute top-full left-0 mt-1.5 w-44 p-2 rounded-lg bg-slate-900/95 backdrop-blur-md border border-slate-700/80 shadow-2xl flex flex-col gap-1 text-[11px] z-50">
                 <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider px-1 pb-1 border-b border-slate-800">
