@@ -13,25 +13,34 @@ function AppContent() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Sync route URL to Zustand store on deep-link / direct navigation
+  // 1. Sync route URL into Zustand store only when the route changes (deep-link, browser back/forward)
   useEffect(() => {
-    if (location.pathname.includes('/workspace') && currentView !== 'workspace') {
-      setView('workspace');
-    } else if (location.pathname.includes('/gallery') && currentView !== 'gallery') {
-      setView('gallery');
-    } else if (location.pathname === '/' && currentView !== 'dashboard') {
-      setView('dashboard');
+    const path = location.pathname;
+    const storeView = useStore.getState().currentView;
+    if (path.includes('/workspace')) {
+      if (storeView !== 'workspace') setView('workspace');
+    } else if (path.includes('/gallery')) {
+      if (storeView !== 'gallery') setView('gallery');
+    } else {
+      if (storeView !== 'dashboard') setView('dashboard');
     }
-  }, [location.pathname, currentView, setView]);
+  }, [location.pathname, setView]);
 
-  // Sync Zustand store updates to React Router
+  // 2. Sync Zustand store updates (e.g. setView or loadPreset actions) to React Router
   useEffect(() => {
-    if (currentView === 'dashboard' && !location.pathname.endsWith('/')) {
-      navigate('/');
-    } else if (currentView === 'workspace' && !location.pathname.includes('/workspace')) {
-      navigate('/workspace');
-    } else if (currentView === 'gallery' && !location.pathname.includes('/gallery')) {
-      navigate('/gallery');
+    const path = location.pathname;
+    if (currentView === 'workspace') {
+      if (!path.includes('/workspace')) {
+        navigate('/workspace');
+      }
+    } else if (currentView === 'gallery') {
+      if (!path.includes('/gallery')) {
+        navigate('/gallery');
+      }
+    } else if (currentView === 'dashboard') {
+      if (path.includes('/workspace') || path.includes('/gallery')) {
+        navigate('/');
+      }
     }
   }, [currentView, location.pathname, navigate]);
 
