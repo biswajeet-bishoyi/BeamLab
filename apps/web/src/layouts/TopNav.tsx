@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass } from 'lucide-react';
+import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass, Activity } from 'lucide-react';
 import { useStore } from '../store';
 
 export const TopNav: React.FC = () => {
@@ -18,6 +18,7 @@ export const TopNav: React.FC = () => {
     setConcreteStudioOpen,
     setBimInteropStudioOpen,
     setFoundationStudioOpen,
+    setSeismicStudioOpen,
   } = useStore(state => ({
     setView: state.setView,
     activeEnvironment: state.activeEnvironment,
@@ -33,6 +34,7 @@ export const TopNav: React.FC = () => {
     setConcreteStudioOpen: state.setConcreteStudioOpen,
     setBimInteropStudioOpen: state.setBimInteropStudioOpen,
     setFoundationStudioOpen: state.setFoundationStudioOpen,
+    setSeismicStudioOpen: state.setSeismicStudioOpen,
   }));
 
   return (
@@ -131,6 +133,14 @@ export const TopNav: React.FC = () => {
         >
           <Layers size={16} />
           <span>Foundations</span>
+        </button>
+        <button 
+          onClick={() => setSeismicStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-rose-600 via-red-600 to-pink-600 hover:from-rose-500 hover:to-red-500 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-rose-400/30"
+          title="Open 3D Seismic Dynamics & Time-History Studio (MRSA, CQC, Newmark-β, Drift & Torsion)"
+        >
+          <Activity size={16} />
+          <span>Seismic</span>
         </button>
         <button 
           onClick={() => setPlaybackMode(true)}

@@ -29,6 +29,7 @@
     "@beamlab/policy-engine": "workspace:*",
     "@beamlab/resource-client": "workspace:*",
     "@beamlab/resource-manager": "workspace:*",
+    "@beamlab/seismic-engine": "workspace:*",
     "@beamlab/workspace-runtime": "workspace:*",
     "@beamworks/core-engine": "workspace:*",
     "@beamworks/design-system": "workspace:*",
