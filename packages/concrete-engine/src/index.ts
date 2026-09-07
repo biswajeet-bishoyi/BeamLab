@@ -10,3 +10,6 @@ export * from './materials/ConcreteConstitutiveModel';
 export * from './materials/RebarConstitutiveModel';
 export * from './fiber/FiberSection';
 export * from './fiber/FiberSectionAnalyzer';
+export * from './beam/BeamFlexureEngine';
+export * from './beam/BeamShearEngine';
+export * from './beam/BeamServiceabilityEngine';
