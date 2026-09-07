@@ -8,3 +8,7 @@ export * from './core/ConnectionTypes';
 export * from './bolts/BoltLimitStateEngine';
 export * from './bolts/BoltGroupAnalyzer';
 export * from './welds/WeldLimitStateEngine';
+export * from './shear/ShearConnectionTypes';
+export * from './shear/BlockShearEngine';
+export * from './shear/SinglePlateShearEngine';
+export * from './shear/DoubleAngleShearEngine';
