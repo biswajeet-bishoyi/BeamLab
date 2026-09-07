@@ -15,5 +15,8 @@ export default defineConfig({
     alias: {
       '@beamworks': path.resolve(__dirname, '../../packages')
     }
+  },
+  define: {
+    'process.env': {},
   }
 })

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass, Activity, Wind, Trees, Building2 } from 'lucide-react';
+import { useShallow } from 'zustand/react/shallow';
 import { useStore } from '../store';
 
 export const TopNav: React.FC = () => {
@@ -22,7 +23,7 @@ export const TopNav: React.FC = () => {
     setWindStudioOpen,
     setTimberStudioOpen,
     setCompositeStudioOpen,
-  } = useStore(state => ({
+  } = useStore(useShallow(state => ({
     setView: state.setView,
     activeEnvironment: state.activeEnvironment,
     setEnvGalleryOpen: state.setEnvGalleryOpen,
@@ -41,7 +42,7 @@ export const TopNav: React.FC = () => {
     setWindStudioOpen: state.setWindStudioOpen,
     setTimberStudioOpen: state.setTimberStudioOpen,
     setCompositeStudioOpen: state.setCompositeStudioOpen,
-  }));
+  })));
 
   return (
     <header className="h-16 border-b border-subtle bg-panel flex items-center justify-between px-6 shrink-0 relative z-50">

@@ -2,6 +2,7 @@ import React from 'react';
 import { Group as PanelGroup, Panel, Separator as PanelResizeHandle } from 'react-resizable-panels';
 import { useWorkspaceStore } from '../store/workspace';
 import { useStore } from '../store';
+import { useShallow } from 'zustand/react/shallow';
 import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
 import { TopNav } from './TopNav';
 import { StatusBar } from './StatusBar';
@@ -41,8 +42,23 @@ export const WorkspaceLayout: React.FC = () => {
   const setLeftPanelSize = useWorkspaceStore(state => state.setLeftPanelSize);
   const setRightPanelSize = useWorkspaceStore(state => state.setRightPanelSize);
 
-  const leftSize = React.useRef(useWorkspaceStore.getState().leftPanelSize).current;
-  const rightSize = React.useRef(useWorkspaceStore.getState().rightPanelSize).current;
+  const rawLeft = useWorkspaceStore.getState().leftPanelSize;
+  const leftSize = React.useRef(
+    typeof rawLeft === 'number' && !isNaN(rawLeft) && rawLeft > 0
+      ? rawLeft
+      : (rawLeft && typeof rawLeft === 'object' && typeof (rawLeft as any).asPercentage === 'number'
+          ? (rawLeft as any).asPercentage
+          : 20)
+  ).current;
+
+  const rawRight = useWorkspaceStore.getState().rightPanelSize;
+  const rightSize = React.useRef(
+    typeof rawRight === 'number' && !isNaN(rawRight) && rawRight > 0
+      ? rawRight
+      : (rawRight && typeof rawRight === 'object' && typeof (rawRight as any).asPercentage === 'number'
+          ? (rawRight as any).asPercentage
+          : 25)
+  ).current;
 
   const {
     envGalleryOpen,
@@ -77,7 +93,7 @@ export const WorkspaceLayout: React.FC = () => {
     setTimberStudioOpen,
     compositeStudioOpen,
     setCompositeStudioOpen,
-  } = useStore(state => ({
+  } = useStore(useShallow(state => ({
     envGalleryOpen: state.envGalleryOpen,
     setEnvGalleryOpen: state.setEnvGalleryOpen,
     aiStudioMode: state.aiStudioOpen,
@@ -110,7 +126,7 @@ export const WorkspaceLayout: React.FC = () => {
     setTimberStudioOpen: state.setTimberStudioOpen,
     compositeStudioOpen: state.compositeStudioOpen,
     setCompositeStudioOpen: state.setCompositeStudioOpen,
-  }));
+  })));
 
   return (
     <div className="flex flex-col h-screen w-screen bg-app text-primary overflow-hidden">
@@ -123,11 +139,14 @@ export const WorkspaceLayout: React.FC = () => {
           {!leftPanelCollapsed && (
             <>
               <Panel 
-                defaultSize={leftSize || 20} 
-                minSize={15} 
-                maxSize={40}
-                onResize={(size) => {
-                  const s = size as unknown as number;
+                defaultSize={`${leftSize}%`} 
+                minSize="15%" 
+                maxSize="40%"
+                onResize={(size: any) => {
+                  const pct = typeof size === 'number'
+                    ? size
+                    : (size && typeof size === 'object' && typeof size.asPercentage === 'number' ? size.asPercentage : 20);
+                  const s = Math.round(pct);
                   setLeftPanelSize(s);
                   if (s === 0) setLeftPanelCollapsed(true);
                 }}
@@ -135,11 +154,11 @@ export const WorkspaceLayout: React.FC = () => {
                 className="transition-all duration-200 ease-in-out bg-[#111111]"
               >
                 <PanelGroup orientation="vertical">
-                  <Panel defaultSize={50} minSize={20}>
+                  <Panel defaultSize="50%" minSize="20%">
                     <ProjectExplorer />
                   </Panel>
                   <PanelResizeHandle className="h-1 bg-subtle hover:bg-accent hover:h-1.5 transition-all active:bg-accent cursor-row-resize z-10" />
-                  <Panel defaultSize={50} minSize={20}>
+                  <Panel defaultSize="50%" minSize="20%">
                     <LivePropertyInspector />
                   </Panel>
                 </PanelGroup>
@@ -149,7 +168,7 @@ export const WorkspaceLayout: React.FC = () => {
           )}
 
           {/* Center: Engineering Workspace */}
-          <Panel minSize={30}>
+          <Panel minSize="30%">
             <CenterWorkspace />
           </Panel>
 
@@ -158,11 +177,14 @@ export const WorkspaceLayout: React.FC = () => {
             <>
               <PanelResizeHandle className="w-1 bg-subtle hover:bg-accent hover:w-1.5 transition-all active:bg-accent cursor-col-resize z-10" />
               <Panel 
-                defaultSize={rightSize || 25} 
-                minSize={20} 
-                maxSize={50}
-                onResize={(size) => {
-                  const s = size as unknown as number;
+                defaultSize={`${rightSize}%`} 
+                minSize="20%" 
+                maxSize="50%"
+                onResize={(size: any) => {
+                  const pct = typeof size === 'number'
+                    ? size
+                    : (size && typeof size === 'object' && typeof size.asPercentage === 'number' ? size.asPercentage : 25);
+                  const s = Math.round(pct);
                   setRightPanelSize(s);
                   if (s === 0) setRightPanelCollapsed(true);
                 }}
