@@ -14,3 +14,7 @@ export * from './modal/ModalCombinationEngine';
 // Modal Response Spectrum Analysis & Base Shear Scaling
 export * from './mrsa/ModalResponseSpectrumEngine';
 export * from './mrsa/BaseShearScalingEngine';
+
+// Direct Integration Dynamic Time-History Analysis
+export * from './timehistory/GroundMotionProcessor';
+export * from './timehistory/NewmarkIntegrator';
