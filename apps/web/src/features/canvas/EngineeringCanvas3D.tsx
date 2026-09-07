@@ -1026,6 +1026,8 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
                   ? 'SFD (Vy)'
                   : diagramOptions.type === 'N'
                   ? 'Axial (N)'
+                  : diagramOptions.type === 'envelope_Mz'
+                  ? 'Env (Mz)'
                   : diagramOptions.type}
               </span>
             </button>
@@ -1044,7 +1046,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
                       { id: 'Mz', label: 'BMD (Mz)' },
                       { id: 'Vy', label: 'SFD (Vy)' },
                       { id: 'N', label: 'Axial (N)' },
-                      { id: 'My', label: 'BMD (My)' },
+                      { id: 'envelope_Mz', label: 'Env (Mz)' },
                       { id: 'deflection', label: 'Deflect.' },
                     ] as const
                   ).map((m) => (

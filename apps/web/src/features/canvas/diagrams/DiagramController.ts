@@ -1,6 +1,6 @@
 /**
- * BeamLab Sprint B3.1 — 3D Internal Force Diagram Controller
- * Manages procedural 3D diagram groups, active diagram modes, scaling, and member synchronization.
+ * BeamLab Sprint B3.2 — 3D Internal Force & Multi-Case Envelope Diagram Controller
+ * Manages procedural 3D diagram groups, envelope bands, scaling, and member synchronization.
  */
 
 import * as THREE from 'three';
@@ -15,6 +15,10 @@ import {
   MemberForceEvaluator,
   type MemberEvaluationResult,
 } from '../../results/MemberForceEvaluator';
+import {
+  EnvelopeEngine,
+  type MemberEnvelopeResult,
+} from '../../results/EnvelopeEngine';
 import { MemberMeshBuilder } from '../geometry/MemberMeshBuilder';
 
 export class DiagramController {
@@ -22,6 +26,7 @@ export class DiagramController {
   private options: DiagramOptions = { ...DEFAULT_DIAGRAM_OPTIONS };
   private activeSystem?: StructuralSystem;
   private evaluations = new Map<string, MemberEvaluationResult>();
+  private envelopes = new Map<string, MemberEnvelopeResult>();
   private selectedMemberId: string | null = null;
   private currentPreset: 'portal_frame' | 'space_truss' | 'building_slabs' = 'portal_frame';
 
@@ -41,6 +46,7 @@ export class DiagramController {
     this.activeSystem = system;
     this.currentPreset = preset;
     this.evaluations = MemberForceEvaluator.getDemoModelEvaluations(preset);
+    this.envelopes = EnvelopeEngine.getDemoModelEnvelopes(preset);
     this.rebuild();
   }
 
@@ -78,8 +84,15 @@ export class DiagramController {
     return this.evaluations;
   }
 
+  public getEnvelope(memberId: string): MemberEnvelopeResult | undefined {
+    return this.envelopes.get(memberId);
+  }
+
+  public getAllEnvelopes(): Map<string, MemberEnvelopeResult> {
+    return this.envelopes;
+  }
+
   public rebuild(): void {
-    // Clear existing diagram meshes
     while (this.rootGroup.children.length > 0) {
       const child = this.rootGroup.children[0]!;
       this.rootGroup.remove(child);
@@ -106,7 +119,6 @@ export class DiagramController {
 
     this.rootGroup.visible = true;
 
-    // Build 3D diagram for each member in the active structural system
     for (const member of this.activeSystem.members.values()) {
       const startNode = this.activeSystem.nodes.get(member.startNodeId);
       const endNode = this.activeSystem.nodes.get(member.endNodeId);
@@ -120,7 +132,6 @@ export class DiagramController {
 
       let evalResult = this.evaluations.get(member.identity.id);
       if (!evalResult) {
-        // Synthesize dynamic evaluation for any custom member
         evalResult = MemberForceEvaluator.evaluateMember(
           member.identity.id,
           member.identity.name,
@@ -139,6 +150,8 @@ export class DiagramController {
         this.evaluations.set(member.identity.id, evalResult);
       }
 
+      const envelopeResult = this.envelopes.get(member.identity.id);
+
       const memberDiagram = DiagramMeshBuilder.buildMemberDiagram(
         p1,
         p2,
@@ -147,6 +160,7 @@ export class DiagramController {
         zAxis,
         evalResult,
         this.options,
+        envelopeResult,
       );
 
       this.rootGroup.add(memberDiagram);
