@@ -13,3 +13,6 @@ export * from './fiber/FiberSectionAnalyzer';
 export * from './beam/BeamFlexureEngine';
 export * from './beam/BeamShearEngine';
 export * from './beam/BeamServiceabilityEngine';
+export * from './column/BiaxialPMMInteractionEngine';
+export * from './column/ColumnSlendernessEngine';
+export * from './column/ColumnDetailingEngine';
