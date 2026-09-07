@@ -14,3 +14,6 @@ export * from './forces/AerodynamicPressureEngine';
 // Dynamic Along-Wind Gust & Cross-Wind Vortex Shedding
 export * from './dynamics/GustResonanceEngine';
 export * from './dynamics/VortexSheddingEngine';
+
+// High-Rise Serviceability & Occupant Comfort Acceleration
+export * from './serviceability/OccupantComfortAuditor';
