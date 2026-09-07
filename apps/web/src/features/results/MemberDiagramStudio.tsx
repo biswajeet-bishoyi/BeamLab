@@ -15,6 +15,7 @@ import {
   type EnvelopedStation,
 } from './EnvelopeEngine';
 import { CriticalStationHunterTable } from './CriticalStationHunterTable';
+import { CrossSectionStressInspector } from './CrossSectionStressInspector';
 import {
   Activity,
   Download,
@@ -24,6 +25,7 @@ import {
   Crosshair,
   Layers,
   ChevronUp,
+  Sparkles,
 } from 'lucide-react';
 
 interface MemberDiagramStudioProps {
@@ -74,7 +76,7 @@ export const MemberDiagramStudio: React.FC<MemberDiagramStudioProps> = ({
   const activeEnvelope = envelopesMap.get(activeId);
 
   // Studio state
-  const [viewMode, setViewMode] = useState<'single' | 'envelope'>('envelope');
+  const [viewMode, setViewMode] = useState<'single' | 'envelope' | 'stress'>('envelope');
   const [showHunterDrawer, setShowHunterDrawer] = useState<boolean>(false);
   const [signConvention, setSignConvention] = useState<'tension_face' | 'cartesian'>('tension_face');
   const [hoveredX, setHoveredX] = useState<number | null>(null);
@@ -239,6 +241,17 @@ export const MemberDiagramStudio: React.FC<MemberDiagramStudioProps> = ({
             >
               <Layers className="w-3 h-3" />
               <span>Envelope (8 Combos)</span>
+            </button>
+            <button
+              onClick={() => setViewMode('stress')}
+              className={`flex items-center gap-1.5 px-2.5 py-1 rounded font-medium transition-all ${
+                viewMode === 'stress'
+                  ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow font-semibold'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              <Sparkles className="w-3 h-3 text-pink-300" />
+              <span>Stress Inspector</span>
             </button>
           </div>
 
@@ -427,78 +440,87 @@ export const MemberDiagramStudio: React.FC<MemberDiagramStudioProps> = ({
         )}
       </div>
 
-      {/* 4. SYNCHRONIZED DIAGRAM PLOTS */}
-      <div className="flex flex-col gap-5 p-6 overflow-y-auto max-h-[550px] custom-scrollbar">
-        {/* BMD Plot */}
-        <DiagramPlotCard
-          title={viewMode === 'envelope' ? 'Bending Moment Envelope (BMD · Mz [Min, Max])' : 'Bending Moment Diagram (BMD · Mz)'}
-          unit="kNm"
-          color="#0ea5e9"
-          gradientId="grad-bmd"
-          length={L}
-          stations={stations}
-          envelopeStations={viewMode === 'envelope' ? envelopeStations : undefined}
-          getValue={(st) => (signConvention === 'tension_face' ? -st.Mz : st.Mz)}
-          getUpperValue={(st) => (signConvention === 'tension_face' ? -st.minMz : st.maxMz)}
-          getLowerValue={(st) => (signConvention === 'tension_face' ? -st.maxMz : st.minMz)}
-          hoveredX={hoveredX}
-          onHoverX={setHoveredX}
-          criticalPoints={criticalPoints.filter(
-            (p) => p.type === 'max_moment' || p.type === 'min_moment' || p.type === 'inflection_point',
-          )}
-        />
+      {/* 4. MAIN CONTENT: DIAGRAM PLOTS OR CROSS-SECTION STRESS INSPECTOR */}
+      {viewMode === 'stress' ? (
+        <div className="p-6">
+          <CrossSectionStressInspector
+            memberEvaluation={activeResult}
+            initialStationX={hoveredX ?? undefined}
+          />
+        </div>
+      ) : (
+        <div className="flex flex-col gap-5 p-6 overflow-y-auto max-h-[550px] custom-scrollbar">
+          {/* BMD Plot */}
+          <DiagramPlotCard
+            title={viewMode === 'envelope' ? 'Bending Moment Envelope (BMD · Mz [Min, Max])' : 'Bending Moment Diagram (BMD · Mz)'}
+            unit="kNm"
+            color="#0ea5e9"
+            gradientId="grad-bmd"
+            length={L}
+            stations={stations}
+            envelopeStations={viewMode === 'envelope' ? envelopeStations : undefined}
+            getValue={(st) => (signConvention === 'tension_face' ? -st.Mz : st.Mz)}
+            getUpperValue={(st) => (signConvention === 'tension_face' ? -st.minMz : st.maxMz)}
+            getLowerValue={(st) => (signConvention === 'tension_face' ? -st.maxMz : st.minMz)}
+            hoveredX={hoveredX}
+            onHoverX={setHoveredX}
+            criticalPoints={criticalPoints.filter(
+              (p) => p.type === 'max_moment' || p.type === 'min_moment' || p.type === 'inflection_point',
+            )}
+          />
 
-        {/* SFD Plot */}
-        <DiagramPlotCard
-          title={viewMode === 'envelope' ? 'Shear Force Envelope (SFD · Vy [Min, Max])' : 'Shear Force Diagram (SFD · Vy)'}
-          unit="kN"
-          color="#10b981"
-          gradientId="grad-sfd"
-          length={L}
-          stations={stations}
-          envelopeStations={viewMode === 'envelope' ? envelopeStations : undefined}
-          getValue={(st) => st.Vy}
-          getUpperValue={(st) => st.maxVy}
-          getLowerValue={(st) => st.minVy}
-          hoveredX={hoveredX}
-          onHoverX={setHoveredX}
-          criticalPoints={criticalPoints.filter((p) => p.type === 'zero_shear' || p.type === 'max_shear')}
-        />
+          {/* SFD Plot */}
+          <DiagramPlotCard
+            title={viewMode === 'envelope' ? 'Shear Force Envelope (SFD · Vy [Min, Max])' : 'Shear Force Diagram (SFD · Vy)'}
+            unit="kN"
+            color="#10b981"
+            gradientId="grad-sfd"
+            length={L}
+            stations={stations}
+            envelopeStations={viewMode === 'envelope' ? envelopeStations : undefined}
+            getValue={(st) => st.Vy}
+            getUpperValue={(st) => st.maxVy}
+            getLowerValue={(st) => st.minVy}
+            hoveredX={hoveredX}
+            onHoverX={setHoveredX}
+            criticalPoints={criticalPoints.filter((p) => p.type === 'zero_shear' || p.type === 'max_shear')}
+          />
 
-        {/* Axial Plot */}
-        <DiagramPlotCard
-          title={viewMode === 'envelope' ? 'Axial Force Envelope (AFD · N [Comp, Tens])' : 'Axial Force Diagram (AFD · N)'}
-          unit="kN"
-          color="#f59e0b"
-          gradientId="grad-afd"
-          length={L}
-          stations={stations}
-          envelopeStations={viewMode === 'envelope' ? envelopeStations : undefined}
-          getValue={(st) => st.N}
-          getUpperValue={(st) => st.maxN}
-          getLowerValue={(st) => st.minN}
-          hoveredX={hoveredX}
-          onHoverX={setHoveredX}
-          criticalPoints={criticalPoints.filter((p) => p.type === 'max_axial')}
-        />
+          {/* Axial Plot */}
+          <DiagramPlotCard
+            title={viewMode === 'envelope' ? 'Axial Force Envelope (AFD · N [Comp, Tens])' : 'Axial Force Diagram (AFD · N)'}
+            unit="kN"
+            color="#f59e0b"
+            gradientId="grad-afd"
+            length={L}
+            stations={stations}
+            envelopeStations={viewMode === 'envelope' ? envelopeStations : undefined}
+            getValue={(st) => st.N}
+            getUpperValue={(st) => st.maxN}
+            getLowerValue={(st) => st.minN}
+            hoveredX={hoveredX}
+            onHoverX={setHoveredX}
+            criticalPoints={criticalPoints.filter((p) => p.type === 'max_axial')}
+          />
 
-        {/* Deflection Plot */}
-        <DiagramPlotCard
-          title={viewMode === 'envelope' ? 'Peak Deflection Envelope (\u03B4)' : 'Elastic Deflection Curve (\u03B4)'}
-          unit="mm"
-          color="#a855f7"
-          gradientId="grad-defl"
-          length={L}
-          stations={stations}
-          envelopeStations={viewMode === 'envelope' ? envelopeStations : undefined}
-          getValue={(st) => -st.deflection}
-          getUpperValue={() => 0}
-          getLowerValue={(st) => -st.maxDeflection}
-          hoveredX={hoveredX}
-          onHoverX={setHoveredX}
-          criticalPoints={criticalPoints.filter((p) => p.type === 'max_deflection')}
-        />
-      </div>
+          {/* Deflection Plot */}
+          <DiagramPlotCard
+            title={viewMode === 'envelope' ? 'Peak Deflection Envelope (δ)' : 'Elastic Deflection Curve (δ)'}
+            unit="mm"
+            color="#a855f7"
+            gradientId="grad-defl"
+            length={L}
+            stations={stations}
+            envelopeStations={viewMode === 'envelope' ? envelopeStations : undefined}
+            getValue={(st) => -st.deflection}
+            getUpperValue={() => 0}
+            getLowerValue={(st) => -st.maxDeflection}
+            hoveredX={hoveredX}
+            onHoverX={setHoveredX}
+            criticalPoints={criticalPoints.filter((p) => p.type === 'max_deflection')}
+          />
+        </div>
+      )}
 
       {/* 5. BOTTOM HOVER READOUT BAR */}
       <div className="flex items-center justify-between px-6 py-3 border-t border-slate-800 bg-slate-900/60 text-xs font-mono">
@@ -528,7 +550,7 @@ export const MemberDiagramStudio: React.FC<MemberDiagramStudioProps> = ({
                 N Env: <span className="font-bold">[{hoveredEnvelope.minN}, +{hoveredEnvelope.maxN}] kN</span>
               </div>
               <div className="text-purple-400">
-                &delta; Max: <span className="font-bold">{hoveredEnvelope.maxDeflection} mm</span>
+                δ Max: <span className="font-bold">{hoveredEnvelope.maxDeflection} mm</span>
               </div>
             </>
           ) : hoveredStation ? (
@@ -543,16 +565,27 @@ export const MemberDiagramStudio: React.FC<MemberDiagramStudioProps> = ({
                 N: <span className="font-bold">{hoveredStation.N} kN</span>
               </div>
               <div className="text-purple-400">
-                \u03B4: <span className="font-bold">{hoveredStation.deflection} mm</span>
+                δ: <span className="font-bold">{hoveredStation.deflection} mm</span>
               </div>
             </>
           ) : null}
         </div>
 
-        <div className="text-[11px] text-slate-500">
-          {viewMode === 'envelope'
-            ? 'Multi-Case Envelope (8 Combinations) · AISC / Eurocode ULS & SLS'
-            : 'Cubic Hermite Continuous Interpolation · 51 Stations'}
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => setViewMode(viewMode === 'stress' ? 'envelope' : 'stress')}
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-purple-600/20 text-purple-300 border border-purple-500/30 hover:bg-purple-600/30 text-xs transition-colors"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-pink-300" />
+            <span>{viewMode === 'stress' ? 'Back to Diagrams' : 'Inspect Cross Section'}</span>
+          </button>
+          <div className="text-[11px] text-slate-500 hidden sm:block">
+            {viewMode === 'envelope'
+              ? 'Multi-Case Envelope (8 Combinations) · AISC / Eurocode ULS & SLS'
+              : viewMode === 'stress'
+              ? 'Fiber Stress Field & Extreme State Inspector'
+              : 'Cubic Hermite Continuous Interpolation · 51 Stations'}
+          </div>
         </div>
       </div>
     </div>
