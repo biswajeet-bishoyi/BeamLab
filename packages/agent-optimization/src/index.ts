@@ -9,3 +9,4 @@ export * from './tradeoffs/TradeOffAnalyzer';
 export * from './intelligence/OptimizationReasoningStrategy';
 export * from './recommendations/OptimizationRecommendationEngine';
 export * from './narrative/OptimizationNarrativeBuilder';
+export * from './engine/StructuralCatalogOptimizer';
