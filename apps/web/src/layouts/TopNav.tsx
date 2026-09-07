@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users } from 'lucide-react';
+import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer } from 'lucide-react';
 import { useStore } from '../store';
 
 export const TopNav: React.FC = () => {
@@ -14,6 +14,7 @@ export const TopNav: React.FC = () => {
     setExportStudioOpen,
     setCodeStudioOpen,
     setCollaborationStudioOpen,
+    setConnectionStudioOpen,
   } = useStore(state => ({
     setView: state.setView,
     activeEnvironment: state.activeEnvironment,
@@ -25,6 +26,7 @@ export const TopNav: React.FC = () => {
     setExportStudioOpen: state.setExportStudioOpen,
     setCodeStudioOpen: state.setCodeStudioOpen,
     setCollaborationStudioOpen: state.setCollaborationStudioOpen,
+    setConnectionStudioOpen: state.setConnectionStudioOpen,
   }));
 
   return (
@@ -91,6 +93,14 @@ export const TopNav: React.FC = () => {
           title="Open Design Code Intelligence & Clause Inspector Studio"
         >
           <BookOpen size={16} /> Design Codes
+        </button>
+        <button 
+          onClick={() => setConnectionStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-indigo-400/30"
+          title="Open 3D Steel Connection Studio & Detailing Engine"
+        >
+          <Hammer size={16} />
+          <span>Connections</span>
         </button>
         <button 
           onClick={() => setPlaybackMode(true)}
