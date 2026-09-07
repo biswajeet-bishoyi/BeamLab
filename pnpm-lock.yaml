@@ -138,6 +138,9 @@ importers:
       '@beamlab/seismic-engine':
         specifier: workspace:*
         version: link:../../packages/seismic-engine
+      '@beamlab/timber-engine':
+        specifier: workspace:*
+        version: link:../../packages/timber-engine
       '@beamlab/wind-engine':
         specifier: workspace:*
         version: link:../../packages/wind-engine

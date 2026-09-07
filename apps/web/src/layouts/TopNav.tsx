@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass, Activity, Wind } from 'lucide-react';
+import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass, Activity, Wind, Trees } from 'lucide-react';
 import { useStore } from '../store';
 
 export const TopNav: React.FC = () => {
@@ -20,6 +20,7 @@ export const TopNav: React.FC = () => {
     setFoundationStudioOpen,
     setSeismicStudioOpen,
     setWindStudioOpen,
+    setTimberStudioOpen,
   } = useStore(state => ({
     setView: state.setView,
     activeEnvironment: state.activeEnvironment,
@@ -37,6 +38,7 @@ export const TopNav: React.FC = () => {
     setFoundationStudioOpen: state.setFoundationStudioOpen,
     setSeismicStudioOpen: state.setSeismicStudioOpen,
     setWindStudioOpen: state.setWindStudioOpen,
+    setTimberStudioOpen: state.setTimberStudioOpen,
   }));
 
   return (
@@ -151,6 +153,14 @@ export const TopNav: React.FC = () => {
         >
           <Wind size={16} />
           <span>Wind</span>
+        </button>
+        <button 
+          onClick={() => setTimberStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-amber-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-emerald-400/30"
+          title="Open Mass Timber & CLT Aerodynamics Studio (Glulam, CLT, EYM Fasteners, Fire Charring)"
+        >
+          <Trees size={16} />
+          <span>Timber</span>
         </button>
         <button 
           onClick={() => setPlaybackMode(true)}
