@@ -1,9 +1,10 @@
 /**
- * BeamLab B2.2 — Interactive 3D Engineering Canvas
+ * BeamLab B2.3 — Interactive 3D Engineering Canvas
  *
  * High-performance 3D structural viewport with parametric cross-section profile extrusions,
  * member local coordinate system alignment, 3D boundary supports, floor slab extrusion,
- * CAD navigation, orientation gizmo, spatial grid, and real-time model controls.
+ * interactive spatial raycasting, hover highlights, floating engineering tooltip,
+ * single & multi-selection, CAD navigation, orientation gizmo, and real-time model controls.
  */
 
 import React, { useRef, useEffect, useState, useCallback } from 'react';
@@ -22,11 +23,20 @@ import {
   type SceneRenderOptions,
 } from './StructuralSceneController';
 import {
+  SpatialRaycaster,
+  SelectionManager,
+  FloatingEngineeringTooltip,
+  type RaycastHit,
+  type SelectionState,
+} from './interaction';
+import {
   Box,
   Grid,
   Maximize2,
   Layers,
   Rotate3d,
+  MousePointer,
+  X,
 } from 'lucide-react';
 
 export type ModelPreset = 'portal_frame' | 'space_truss' | 'building_slabs';
@@ -39,6 +49,8 @@ interface EngineeringCanvas3DProps {
 
 export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
   className = 'w-full h-full min-h-[450px]',
+  onSelectNode,
+  onSelectMember,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const kernelRef = useRef<ViewportKernel | null>(null);
@@ -47,6 +59,8 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
   const gizmoRef = useRef<OrientationGizmo | null>(null);
   const gridRef = useRef<AdaptiveSpatialGrid | null>(null);
   const sceneControllerRef = useRef<StructuralSceneController | null>(null);
+  const raycasterRef = useRef<SpatialRaycaster | null>(null);
+  const selectionManagerRef = useRef<SelectionManager | null>(null);
 
   // Viewport & Navigation state
   const [projection, setProjection] = useState<ProjectionMode>('Perspective');
@@ -65,6 +79,13 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     supports: 0,
     slabs: 0,
   });
+
+  // Interaction & Selection state
+  const [hoveredHit, setHoveredHit] = useState<RaycastHit | null>(null);
+  const [cursorScreenPos, setCursorScreenPos] = useState<{ x: number; y: number } | null>(null);
+  const [containerRect, setContainerRect] = useState<DOMRect | null>(null);
+  const [selectedCount, setSelectedCount] = useState<number>(0);
+  const [selectionSummary, setSelectionSummary] = useState<string | null>(null);
 
   const handleFitAll = useCallback(() => {
     if (cameraManagerRef.current && kernelRef.current && sceneControllerRef.current) {
@@ -102,6 +123,9 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     setRenderOptions(updated);
     if (sceneControllerRef.current) {
       sceneControllerRef.current.updateOptions({ renderMode: nextMode });
+      if (selectionManagerRef.current) {
+        selectionManagerRef.current.applyVisualHighlights(sceneControllerRef.current.getRootGroup());
+      }
     }
   }, [renderOptions]);
 
@@ -115,9 +139,21 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     });
   }, []);
 
+  const handleClearSelection = useCallback(() => {
+    if (selectionManagerRef.current && sceneControllerRef.current) {
+      selectionManagerRef.current.clearSelection();
+      selectionManagerRef.current.applyVisualHighlights(sceneControllerRef.current.getRootGroup());
+    }
+  }, []);
+
   // Load selected preset into the scene
   const loadPresetModel = useCallback((preset: ModelPreset) => {
     if (!sceneControllerRef.current || !cameraManagerRef.current || !kernelRef.current) return;
+
+    // Clear existing selection before loading new model
+    if (selectionManagerRef.current) {
+      selectionManagerRef.current.clearSelection();
+    }
 
     let modelData;
     if (preset === 'portal_frame') {
@@ -196,36 +232,133 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     const initialBox = sceneController.computeBoundingBox();
     cameraManager.zoomToFit(initialBox, kernel.getAspect(), 1.35);
 
-    // 7. Raycaster for Cursor Tracking on Ground Plane
+    // 7. Initialize Spatial Raycaster & Selection Manager
+    const raycaster = new SpatialRaycaster();
+    raycasterRef.current = raycaster;
+
+    const selectionManager = new SelectionManager();
+    selectionManagerRef.current = selectionManager;
+
+    // Bind selection state observer
+    const unbindSelection = selectionManager.onSelectionChange((state: SelectionState) => {
+      const total = selectionManager.getTotalSelectedCount();
+      setSelectedCount(total);
+
+      if (total === 0) {
+        setSelectionSummary(null);
+      } else {
+        const parts: string[] = [];
+        if (state.members.size > 0) parts.push(`${state.members.size} Member${state.members.size > 1 ? 's' : ''}`);
+        if (state.nodes.size > 0) parts.push(`${state.nodes.size} Node${state.nodes.size > 1 ? 's' : ''}`);
+        if (state.supports.size > 0) parts.push(`${state.supports.size} Support${state.supports.size > 1 ? 's' : ''}`);
+        if (state.plates.size > 0) parts.push(`${state.plates.size} Slab${state.plates.size > 1 ? 's' : ''}`);
+        setSelectionSummary(parts.join(', '));
+      }
+
+      selectionManager.applyVisualHighlights(sceneController.getRootGroup());
+    });
+
+    const unbindHover = selectionManager.onHoverChange((hit) => {
+      setHoveredHit(hit);
+      selectionManager.applyVisualHighlights(sceneController.getRootGroup());
+      container.style.cursor = hit ? 'pointer' : 'default';
+    });
+
+    // 8. Ground Plane & Pointer Tracking
     const groundPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
-    const raycaster = new THREE.Raycaster();
+    const groundRaycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
 
-    const handlePointerMove = (e: MouseEvent) => {
+    let pointerDownPos = { x: 0, y: 0 };
+
+    const handlePointerDown = (e: PointerEvent) => {
+      pointerDownPos = { x: e.clientX, y: e.clientY };
+    };
+
+    const handlePointerMove = (e: PointerEvent) => {
       const rect = container.getBoundingClientRect();
+      setContainerRect(rect);
+      setCursorScreenPos({ x: e.clientX, y: e.clientY });
+
       mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
 
-      raycaster.setFromCamera(mouse, cameraManager.activeCamera);
+      // Ground plane coordinates readout
+      groundRaycaster.setFromCamera(mouse, cameraManager.activeCamera);
       const intersection = new THREE.Vector3();
-      if (raycaster.ray.intersectPlane(groundPlane, intersection)) {
+      if (groundRaycaster.ray.intersectPlane(groundPlane, intersection)) {
         setCursorCoords({
           x: Math.round(intersection.x * 100) / 100,
           y: Math.round(intersection.y * 100) / 100,
           z: Math.round(intersection.z * 100) / 100,
         });
       }
-    };
-    container.addEventListener('mousemove', handlePointerMove);
 
-    // Handle clicks on orientation gizmo
-    const handleCanvasClick = (e: MouseEvent) => {
+      // Entity raycasting for hover
+      const hit = raycaster.castRay(
+        mouse,
+        cameraManager.activeCamera,
+        sceneController.getRaycastCandidates(),
+        sceneController.getActiveSystem(),
+        sceneController.getActivePlates(),
+      );
+      selectionManager.setHovered(hit);
+    };
+
+    const handlePointerUp = (e: PointerEvent) => {
+      // If pointer was dragged more than 4px, it was an orbit/pan, not a click
+      const dist = Math.hypot(e.clientX - pointerDownPos.x, e.clientY - pointerDownPos.y);
+      if (dist > 4) return;
+
       const rect = container.getBoundingClientRect();
-      gizmo.handleClick(e.clientX, e.clientY, rect);
-    };
-    kernel.canvas.addEventListener('click', handleCanvasClick);
+      // Check gizmo click first
+      if (gizmo.handleClick(e.clientX, e.clientY, rect)) {
+        return;
+      }
 
-    // 8. Setup Render Loop Hook & FPS calculation
+      // Raycast on click
+      mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+
+      const hit = raycaster.castRay(
+        mouse,
+        cameraManager.activeCamera,
+        sceneController.getRaycastCandidates(),
+        sceneController.getActiveSystem(),
+        sceneController.getActivePlates(),
+      );
+
+      if (hit) {
+        if (e.shiftKey) {
+          selectionManager.toggle(hit.entityType, hit.entityId);
+        } else {
+          selectionManager.select(hit.entityType, hit.entityId, false);
+        }
+
+        // Notify parent callbacks
+        if (hit.entityType === 'node') {
+          onSelectNode?.(hit.entityId);
+        } else if (hit.entityType === 'member') {
+          onSelectMember?.(hit.entityId);
+        }
+      } else {
+        // Click on empty space clears selection
+        selectionManager.clearSelection();
+      }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        selectionManager.clearSelection();
+      }
+    };
+
+    container.addEventListener('pointerdown', handlePointerDown);
+    container.addEventListener('pointermove', handlePointerMove);
+    container.addEventListener('pointerup', handlePointerUp);
+    window.addEventListener('keydown', handleKeyDown);
+
+    // 9. Setup Render Loop Hook & FPS calculation
     let frameCount = 0;
     let lastTime = performance.now();
 
@@ -249,23 +382,35 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
       }
     });
 
-    // 9. Cleanup
+    // 10. Cleanup
     return () => {
       unbindRender();
-      container.removeEventListener('mousemove', handlePointerMove);
-      kernel.canvas.removeEventListener('click', handleCanvasClick);
+      unbindSelection();
+      unbindHover();
+      container.removeEventListener('pointerdown', handlePointerDown);
+      container.removeEventListener('pointermove', handlePointerMove);
+      container.removeEventListener('pointerup', handlePointerUp);
+      window.removeEventListener('keydown', handleKeyDown);
       controls.dispose();
       gizmo.dispose();
       grid.dispose();
+      selectionManager.dispose();
       sceneController.dispose();
       kernel.dispose();
     };
-  }, [handleFitAll]);
+  }, [handleFitAll, onSelectNode, onSelectMember]);
 
   return (
     <div className={`relative overflow-hidden select-none bg-[#090d16] ${className}`}>
       {/* Three.js canvas container */}
       <div ref={containerRef} className="w-full h-full" />
+
+      {/* Floating Engineering Tooltip following cursor */}
+      <FloatingEngineeringTooltip
+        hit={hoveredHit}
+        cursorScreenPos={cursorScreenPos}
+        containerRect={containerRect}
+      />
 
       {/* Top Left: Viewport Controls & Camera HUD */}
       <div className="absolute top-3 left-3 flex flex-col gap-2 z-10">
@@ -475,8 +620,9 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
         </div>
       </div>
 
-      {/* Bottom Left: Spatial Coordinates HUD & Unit Readout */}
-      <div className="absolute bottom-3 left-3 flex items-center gap-3 text-[11px] font-mono z-10">
+      {/* Bottom Left: Spatial Coordinates HUD, Selection Readout & Navigation Tips */}
+      <div className="absolute bottom-3 left-3 flex flex-wrap items-center gap-2 text-[11px] font-mono z-10">
+        {/* Coordinates HUD */}
         <div className="flex items-center gap-3 px-3 py-1.5 rounded-lg bg-slate-900/85 backdrop-blur-md border border-slate-800 text-slate-300 shadow">
           <div className="flex items-center gap-1">
             <span className="text-red-400 font-semibold">X:</span>
@@ -492,8 +638,23 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
           </div>
         </div>
 
-        <div className="hidden md:block px-2.5 py-1.5 rounded-lg bg-slate-900/80 backdrop-blur-md border border-slate-800 text-[10px] text-slate-500">
-          Left: Orbit · Right/Shift: Pan · Wheel: Zoom · F: Fit All
+        {/* Active Selection Badge (when entities are selected) */}
+        {selectedCount > 0 && (
+          <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-sky-950/90 backdrop-blur-md border border-sky-500/50 text-sky-300 shadow animate-in fade-in">
+            <MousePointer className="w-3.5 h-3.5 text-sky-400" />
+            <span className="font-semibold">{selectionSummary}</span>
+            <button
+              onClick={handleClearSelection}
+              title="Clear selection (Esc)"
+              className="p-0.5 rounded hover:bg-sky-900/60 text-sky-400 hover:text-white"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        )}
+
+        <div className="hidden lg:block px-2.5 py-1.5 rounded-lg bg-slate-900/80 backdrop-blur-md border border-slate-800 text-[10px] text-slate-500">
+          Click: Select · Shift+Click: Multi · Left: Orbit · Right/Shift: Pan · Wheel: Zoom · F: Fit
         </div>
       </div>
     </div>

@@ -104,6 +104,22 @@ export class StructuralSceneController {
     return { ...this.renderOptions };
   }
 
+  public getRootGroup(): THREE.Group {
+    return this.rootGroup;
+  }
+
+  public getRaycastCandidates(): THREE.Object3D[] {
+    return [this.membersGroup, this.nodesGroup, this.supportsGroup, this.platesGroup];
+  }
+
+  public getActiveSystem(): StructuralSystem | undefined {
+    return this.activeSystem;
+  }
+
+  public getActivePlates(): PlateDefinition[] {
+    return this.activePlates;
+  }
+
   /**
    * Computes the 3D world bounding box of all structural entities.
    */
