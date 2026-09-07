@@ -1,10 +1,11 @@
 /**
- * BeamLab B2.4 — Interactive 3D Engineering Canvas
+ * BeamLab B2.5 — Interactive 3D Engineering Canvas
  *
  * High-performance 3D structural viewport with parametric cross-section profile extrusions,
  * member local coordinate system alignment, 3D boundary supports, floor slab extrusion,
  * interactive spatial raycasting, hover highlights, floating engineering tooltip,
  * CAD spatial snapping (nodes, midpoints, perpendiculars, grid), snap glyphs,
+ * 3D load visualization pipeline (point forces, moments, distributed UDL curtains, slab pressure),
  * single & multi-selection, CAD navigation, orientation gizmo, and real-time model controls.
  */
 
@@ -38,6 +39,12 @@ import {
   type SnapResult,
 } from './snapping';
 import {
+  LoadVisualizationController,
+  DEFAULT_LOAD_OPTIONS,
+  type LoadDisplayOptions,
+} from './loads';
+import type { LoadPatternType } from '@beamlab/engineering-model';
+import {
   Box,
   Grid,
   Maximize2,
@@ -45,6 +52,7 @@ import {
   Rotate3d,
   MousePointer,
   Magnet,
+  ArrowDownToLine,
   X,
 } from 'lucide-react';
 
@@ -71,6 +79,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
   const raycasterRef = useRef<SpatialRaycaster | null>(null);
   const selectionManagerRef = useRef<SelectionManager | null>(null);
   const snappingEngineRef = useRef<SpatialSnappingEngine | null>(null);
+  const loadControllerRef = useRef<LoadVisualizationController | null>(null);
 
   // Viewport & Navigation state
   const [projection, setProjection] = useState<ProjectionMode>('Perspective');
@@ -103,6 +112,10 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
   const [activeSnap, setActiveSnap] = useState<SnapResult | null>(null);
   const snapOptionsRef = useRef<SnapOptions>(snapOptions);
   snapOptionsRef.current = snapOptions;
+
+  // 3D Load Visualization state
+  const [loadOptions, setLoadOptions] = useState<LoadDisplayOptions>(DEFAULT_LOAD_OPTIONS);
+  const [showLoadMenu, setShowLoadMenu] = useState<boolean>(false);
 
   const handleFitAll = useCallback(() => {
     if (cameraManagerRef.current && kernelRef.current && sceneControllerRef.current) {
@@ -171,6 +184,47 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     setSnapOptions((prev) => ({ ...prev, [key]: !prev[key] }));
   }, []);
 
+  // Load visualization controls
+  const handleToggleLoadsVisible = useCallback(() => {
+    setLoadOptions((prev) => {
+      const updated = { ...prev, visible: !prev.visible };
+      if (loadControllerRef.current) {
+        loadControllerRef.current.setDisplayOptions(updated);
+      }
+      return updated;
+    });
+  }, []);
+
+  const handleSelectLoadPattern = useCallback((pattern: 'All' | LoadPatternType) => {
+    setLoadOptions((prev) => {
+      const updated = { ...prev, activePattern: pattern };
+      if (loadControllerRef.current) {
+        loadControllerRef.current.setDisplayOptions(updated);
+      }
+      return updated;
+    });
+  }, []);
+
+  const handleSetLoadScale = useCallback((scale: number) => {
+    setLoadOptions((prev) => {
+      const updated = { ...prev, scaleMultiplier: scale };
+      if (loadControllerRef.current) {
+        loadControllerRef.current.setDisplayOptions(updated);
+      }
+      return updated;
+    });
+  }, []);
+
+  const handleToggleLoadLabels = useCallback(() => {
+    setLoadOptions((prev) => {
+      const updated = { ...prev, showLabels: !prev.showLabels };
+      if (loadControllerRef.current) {
+        loadControllerRef.current.setDisplayOptions(updated);
+      }
+      return updated;
+    });
+  }, []);
+
   // Load selected preset into the scene
   const loadPresetModel = useCallback((preset: ModelPreset) => {
     if (!sceneControllerRef.current || !cameraManagerRef.current || !kernelRef.current) return;
@@ -180,15 +234,23 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     }
 
     let modelData;
+    let loadData;
     if (preset === 'portal_frame') {
       modelData = StructuralSceneController.createPortalFrameModel();
+      loadData = LoadVisualizationController.createPortalFrameLoads(modelData.system);
     } else if (preset === 'space_truss') {
       modelData = StructuralSceneController.createSpaceTrussModel();
+      loadData = LoadVisualizationController.createSpaceTrussLoads(modelData.system);
     } else {
       modelData = StructuralSceneController.createBuildingWithSlabsModel();
+      loadData = LoadVisualizationController.createBuildingLoads(modelData.system, modelData.plates);
     }
 
     sceneControllerRef.current.loadSystem(modelData.system, modelData.plates);
+    if (loadControllerRef.current) {
+      loadControllerRef.current.setLoads(loadData.point, loadData.dist, loadData.surf, modelData.plates);
+    }
+
     setModelStats({
       nodes: modelData.system.nodes.size,
       members: modelData.system.members.size,
@@ -266,6 +328,13 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     const snappingEngine = new SpatialSnappingEngine();
     snappingEngineRef.current = snappingEngine;
 
+    // 9. Initialize 3D Load Visualization Controller
+    const loadController = new LoadVisualizationController(kernel.scene);
+    loadControllerRef.current = loadController;
+
+    const initialLoads = LoadVisualizationController.createPortalFrameLoads(initialModel.system);
+    loadController.setLoads(initialLoads.point, initialLoads.dist, initialLoads.surf, initialModel.plates);
+
     // Bind selection state observer
     const unbindSelection = selectionManager.onSelectionChange((state: SelectionState) => {
       const total = selectionManager.getTotalSelectedCount();
@@ -291,7 +360,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
       container.style.cursor = hit ? 'pointer' : 'default';
     });
 
-    // 9. Ground Plane & Pointer Tracking with Snapping
+    // 10. Ground Plane & Pointer Tracking with Snapping
     const groundPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
     const groundRaycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
@@ -351,17 +420,14 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     };
 
     const handlePointerUp = (e: PointerEvent) => {
-      // If pointer was dragged more than 4px, it was an orbit/pan, not a click
       const dist = Math.hypot(e.clientX - pointerDownPos.x, e.clientY - pointerDownPos.y);
       if (dist > 4) return;
 
       const rect = container.getBoundingClientRect();
-      // Check gizmo click first
       if (gizmo.handleClick(e.clientX, e.clientY, rect)) {
         return;
       }
 
-      // Raycast on click
       mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
 
@@ -380,14 +446,12 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
           selectionManager.select(hit.entityType, hit.entityId, false);
         }
 
-        // Notify parent callbacks
         if (hit.entityType === 'node') {
           onSelectNode?.(hit.entityId);
         } else if (hit.entityType === 'member') {
           onSelectMember?.(hit.entityId);
         }
       } else {
-        // Click on empty space clears selection
         selectionManager.clearSelection();
       }
     };
@@ -403,7 +467,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     container.addEventListener('pointerup', handlePointerUp);
     window.addEventListener('keydown', handleKeyDown);
 
-    // 10. Setup Render Loop Hook & FPS calculation
+    // 11. Setup Render Loop Hook & FPS calculation
     let frameCount = 0;
     let lastTime = performance.now();
 
@@ -427,7 +491,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
       }
     });
 
-    // 11. Cleanup
+    // 12. Cleanup
     return () => {
       unbindRender();
       unbindSelection();
@@ -440,6 +504,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
       gizmo.dispose();
       grid.dispose();
       selectionManager.dispose();
+      loadController.dispose();
       sceneController.dispose();
       kernel.dispose();
     };
@@ -532,6 +597,91 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
             <Rotate3d className="w-3.5 h-3.5" />
             <span>{renderOptions.renderMode === 'extruded' ? '3D Extruded' : 'Centerline'}</span>
           </button>
+
+          {/* 3D Load Visualization Controls Button */}
+          <div className="relative">
+            <button
+              onClick={() => setShowLoadMenu(!showLoadMenu)}
+              title="3D Structural Load Visualization Controls"
+              className={`flex items-center gap-1 px-2 py-1 rounded text-[11px] font-medium transition-all ${
+                loadOptions.visible
+                  ? 'bg-amber-600/30 text-amber-300 border border-amber-500/40 font-semibold'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+              }`}
+            >
+              <ArrowDownToLine className="w-3.5 h-3.5" />
+              <span>Loads</span>
+            </button>
+
+            {showLoadMenu && (
+              <div className="absolute top-full left-0 mt-1.5 w-52 p-2 rounded-lg bg-slate-900/95 backdrop-blur-md border border-slate-700/80 shadow-2xl flex flex-col gap-1.5 text-[11px] z-50">
+                <div className="flex items-center justify-between px-1 pb-1 border-b border-slate-800">
+                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">
+                    3D Load Display
+                  </span>
+                  <button
+                    onClick={handleToggleLoadsVisible}
+                    className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${
+                      loadOptions.visible ? 'bg-amber-500 text-slate-950' : 'bg-slate-700 text-slate-400'
+                    }`}
+                  >
+                    {loadOptions.visible ? 'ON' : 'OFF'}
+                  </button>
+                </div>
+
+                {/* Pattern Filter */}
+                <div className="flex flex-col gap-1">
+                  <span className="text-[10px] text-slate-400">Load Pattern</span>
+                  <div className="grid grid-cols-2 gap-1">
+                    {(['All', 'Dead', 'Live', 'Wind', 'Snow'] as const).map((pat) => (
+                      <button
+                        key={pat}
+                        onClick={() => handleSelectLoadPattern(pat)}
+                        className={`px-1.5 py-1 rounded text-[10px] font-medium transition-all text-left ${
+                          loadOptions.activePattern === pat
+                            ? 'bg-blue-600/40 text-blue-300 font-semibold border border-blue-500/50'
+                            : 'bg-slate-800/60 text-slate-400 hover:text-slate-200'
+                        }`}
+                      >
+                        {pat === 'All' ? 'All Loads' : `${pat} (DL/LL)`}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Scale Multipliers */}
+                <div className="flex items-center justify-between pt-1 border-t border-slate-800">
+                  <span className="text-slate-400">Scale</span>
+                  <div className="flex items-center gap-1 font-mono">
+                    {[0.5, 1.0, 2.0].map((s) => (
+                      <button
+                        key={s}
+                        onClick={() => handleSetLoadScale(s)}
+                        className={`px-1.5 py-0.5 rounded text-[10px] ${
+                          loadOptions.scaleMultiplier === s
+                            ? 'bg-amber-500 text-slate-950 font-bold'
+                            : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                        }`}
+                      >
+                        {s}×
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Toggle Labels */}
+                <label className="flex items-center justify-between px-1 py-1 rounded hover:bg-slate-800 cursor-pointer pt-1 border-t border-slate-800">
+                  <span className="text-slate-300">Magnitude Callouts</span>
+                  <input
+                    type="checkbox"
+                    checked={loadOptions.showLabels}
+                    onChange={handleToggleLoadLabels}
+                    className="accent-amber-500"
+                  />
+                </label>
+              </div>
+            )}
+          </div>
 
           {/* CAD Spatial Snapping Menu Button */}
           <div className="relative">
