@@ -31,6 +31,7 @@ interface BeamworksState {
   collaborationStudioOpen: boolean;
   connectionStudioOpen: boolean;
   concreteStudioOpen: boolean;
+  bimInteropStudioOpen: boolean;
   aiUserLevel: AIUserLevel | null;
   activeEnvironment: EnvironmentId;
   envGalleryOpen: boolean;
@@ -54,6 +55,7 @@ interface BeamworksState {
   setCollaborationStudioOpen: (open: boolean) => void;
   setConnectionStudioOpen: (open: boolean) => void;
   setConcreteStudioOpen: (open: boolean) => void;
+  setBimInteropStudioOpen: (open: boolean) => void;
   setAiUserLevel: (level: AIUserLevel) => void;
   setEnvironment: (id: EnvironmentId) => void;
   setEnvGalleryOpen: (open: boolean) => void;
@@ -162,6 +164,7 @@ export const useStore = create<BeamworksState>((set, get) => {
     collaborationStudioOpen: false,
     connectionStudioOpen: false,
     concreteStudioOpen: false,
+    bimInteropStudioOpen: false,
     aiUserLevel: null,
     activeEnvironment: 'none',
     envGalleryOpen: false,
@@ -200,6 +203,7 @@ export const useStore = create<BeamworksState>((set, get) => {
     setCollaborationStudioOpen: (open) => set({ collaborationStudioOpen: open }),
     setConnectionStudioOpen: (open) => set({ connectionStudioOpen: open }),
     setConcreteStudioOpen: (open) => set({ concreteStudioOpen: open }),
+    setBimInteropStudioOpen: (open) => set({ bimInteropStudioOpen: open }),
     setAiUserLevel: (level) => set({ aiUserLevel: level }),
     setEnvironment: (id) => set({ activeEnvironment: id }),
     setEnvGalleryOpen: (open) => set({ envGalleryOpen: open }),

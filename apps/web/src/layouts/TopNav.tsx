@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes } from 'lucide-react';
+import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass } from 'lucide-react';
 import { useStore } from '../store';
 
 export const TopNav: React.FC = () => {
@@ -16,6 +16,7 @@ export const TopNav: React.FC = () => {
     setCollaborationStudioOpen,
     setConnectionStudioOpen,
     setConcreteStudioOpen,
+    setBimInteropStudioOpen,
   } = useStore(state => ({
     setView: state.setView,
     activeEnvironment: state.activeEnvironment,
@@ -29,6 +30,7 @@ export const TopNav: React.FC = () => {
     setCollaborationStudioOpen: state.setCollaborationStudioOpen,
     setConnectionStudioOpen: state.setConnectionStudioOpen,
     setConcreteStudioOpen: state.setConcreteStudioOpen,
+    setBimInteropStudioOpen: state.setBimInteropStudioOpen,
   }));
 
   return (
@@ -111,6 +113,14 @@ export const TopNav: React.FC = () => {
         >
           <Boxes size={16} />
           <span>Concrete RC</span>
+        </button>
+        <button 
+          onClick={() => setBimInteropStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-teal-600 via-cyan-600 to-sky-600 hover:from-teal-500 hover:to-cyan-500 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-cyan-400/30"
+          title="Open BIM & Structural Interoperability Studio (IFC4 & SAF)"
+        >
+          <Compass size={16} />
+          <span>BIM Interop</span>
         </button>
         <button 
           onClick={() => setPlaybackMode(true)}

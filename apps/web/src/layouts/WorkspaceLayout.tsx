@@ -23,6 +23,7 @@ import { DesignCodeInspectorStudio } from '../features/knowledge';
 import { CollaborationSessionStudio } from '../features/collaboration';
 import { SteelConnectionStudio } from '../features/connections';
 import { ConcreteDesignStudio } from '../features/concrete';
+import { BIMInteropStudio } from '../features/interop';
 import { AnimatePresence } from 'framer-motion';
 
 export const WorkspaceLayout: React.FC = () => {
@@ -59,6 +60,8 @@ export const WorkspaceLayout: React.FC = () => {
     setConnectionStudioOpen,
     concreteStudioOpen,
     setConcreteStudioOpen,
+    bimInteropStudioOpen,
+    setBimInteropStudioOpen,
   } = useStore(state => ({
     envGalleryOpen: state.envGalleryOpen,
     setEnvGalleryOpen: state.setEnvGalleryOpen,
@@ -80,6 +83,8 @@ export const WorkspaceLayout: React.FC = () => {
     setConnectionStudioOpen: state.setConnectionStudioOpen,
     concreteStudioOpen: state.concreteStudioOpen,
     setConcreteStudioOpen: state.setConcreteStudioOpen,
+    bimInteropStudioOpen: state.bimInteropStudioOpen,
+    setBimInteropStudioOpen: state.setBimInteropStudioOpen,
   }));
 
   return (
@@ -204,6 +209,12 @@ export const WorkspaceLayout: React.FC = () => {
         <AnimatePresence>
           {concreteStudioOpen && (
             <ConcreteDesignStudio onClose={() => setConcreteStudioOpen(false)} />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {bimInteropStudioOpen && (
+            <BIMInteropStudio onClose={() => setBimInteropStudioOpen(false)} />
           )}
         </AnimatePresence>
 
