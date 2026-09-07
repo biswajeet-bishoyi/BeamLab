@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen } from 'lucide-react';
+import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users } from 'lucide-react';
 import { useStore } from '../store';
 
 export const TopNav: React.FC = () => {
@@ -13,6 +13,7 @@ export const TopNav: React.FC = () => {
     setPlaybackMode,
     setExportStudioOpen,
     setCodeStudioOpen,
+    setCollaborationStudioOpen,
   } = useStore(state => ({
     setView: state.setView,
     activeEnvironment: state.activeEnvironment,
@@ -23,6 +24,7 @@ export const TopNav: React.FC = () => {
     setPlaybackMode: state.setPlaybackMode,
     setExportStudioOpen: state.setExportStudioOpen,
     setCodeStudioOpen: state.setCodeStudioOpen,
+    setCollaborationStudioOpen: state.setCollaborationStudioOpen,
   }));
 
   return (
@@ -67,6 +69,21 @@ export const TopNav: React.FC = () => {
           className="px-4 py-1.5 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 rounded-lg transition-all shadow-sm font-semibold flex items-center gap-2 text-sm"
         >
           <Brain size={16} /> AI Chat
+        </button>
+        <button 
+          onClick={() => setCollaborationStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-700 hover:from-emerald-500 hover:to-teal-500 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-emerald-400/30"
+          title="Open Collaborative Multi-User Session Studio & Team Hub"
+        >
+          <div className="relative flex items-center">
+            <Users size={16} />
+            <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+            <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-emerald-400" />
+          </div>
+          <span>Team Hub</span>
+          <span className="px-1.5 py-0.5 text-[10px] bg-emerald-950/80 text-emerald-300 rounded font-mono border border-emerald-500/30">
+            3 Online
+          </span>
         </button>
         <button 
           onClick={() => setCodeStudioOpen(true)}

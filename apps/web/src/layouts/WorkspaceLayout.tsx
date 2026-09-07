@@ -20,6 +20,7 @@ import { PresentationMode } from '../components/presentation/PresentationMode';
 import { ExportStudio } from '../components/export/ExportStudio';
 import { PerformanceOverlay } from '../components/PerformanceOverlay';
 import { DesignCodeInspectorStudio } from '../features/knowledge';
+import { CollaborationSessionStudio } from '../features/collaboration';
 import { AnimatePresence } from 'framer-motion';
 
 export const WorkspaceLayout: React.FC = () => {
@@ -50,6 +51,8 @@ export const WorkspaceLayout: React.FC = () => {
     setExportStudioOpen,
     codeStudioOpen,
     setCodeStudioOpen,
+    collaborationStudioOpen,
+    setCollaborationStudioOpen,
   } = useStore(state => ({
     envGalleryOpen: state.envGalleryOpen,
     setEnvGalleryOpen: state.setEnvGalleryOpen,
@@ -65,6 +68,8 @@ export const WorkspaceLayout: React.FC = () => {
     setExportStudioOpen: state.setExportStudioOpen,
     codeStudioOpen: state.codeStudioOpen,
     setCodeStudioOpen: state.setCodeStudioOpen,
+    collaborationStudioOpen: state.collaborationStudioOpen,
+    setCollaborationStudioOpen: state.setCollaborationStudioOpen,
   }));
 
   return (
@@ -171,6 +176,12 @@ export const WorkspaceLayout: React.FC = () => {
         <AnimatePresence>
           {codeStudioOpen && (
             <DesignCodeInspectorStudio onClose={() => setCodeStudioOpen(false)} />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {collaborationStudioOpen && (
+            <CollaborationSessionStudio onClose={() => setCollaborationStudioOpen(false)} />
           )}
         </AnimatePresence>
 

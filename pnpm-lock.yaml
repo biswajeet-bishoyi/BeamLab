@@ -96,6 +96,9 @@ importers:
       '@beamlab/archie-kernel':
         specifier: workspace:*
         version: link:../../packages/archie-kernel
+      '@beamlab/collaboration-engine':
+        specifier: workspace:*
+        version: link:../../packages/collaboration-engine
       '@beamlab/engineering-model':
         specifier: workspace:*
         version: link:../../packages/engineering-model
