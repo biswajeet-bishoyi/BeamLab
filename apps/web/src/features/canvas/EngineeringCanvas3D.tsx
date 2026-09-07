@@ -1,8 +1,9 @@
 /**
- * BeamLab B2.1 — Interactive 3D Engineering Canvas
+ * BeamLab B2.2 — Interactive 3D Engineering Canvas
  *
- * High-performance 3D structural viewport with multi-camera projection modes,
- * CAD navigation, orientation gizmo, spatial grid, and real-time cursor coordinate tracking.
+ * High-performance 3D structural viewport with parametric cross-section profile extrusions,
+ * member local coordinate system alignment, 3D boundary supports, floor slab extrusion,
+ * CAD navigation, orientation gizmo, spatial grid, and real-time model controls.
  */
 
 import React, { useRef, useEffect, useState, useCallback } from 'react';
@@ -15,7 +16,20 @@ import {
   AdaptiveSpatialGrid,
 } from './viewport';
 import type { ProjectionMode, ViewOrientation } from './viewport';
-import { Box, Grid, Maximize2 } from 'lucide-react';
+import {
+  StructuralSceneController,
+  DEFAULT_RENDER_OPTIONS,
+  type SceneRenderOptions,
+} from './StructuralSceneController';
+import {
+  Box,
+  Grid,
+  Maximize2,
+  Layers,
+  Rotate3d,
+} from 'lucide-react';
+
+export type ModelPreset = 'portal_frame' | 'space_truss' | 'building_slabs';
 
 interface EngineeringCanvas3DProps {
   className?: string;
@@ -32,17 +46,30 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
   const controlsRef = useRef<NavigationControls | null>(null);
   const gizmoRef = useRef<OrientationGizmo | null>(null);
   const gridRef = useRef<AdaptiveSpatialGrid | null>(null);
+  const sceneControllerRef = useRef<StructuralSceneController | null>(null);
 
+  // Viewport & Navigation state
   const [projection, setProjection] = useState<ProjectionMode>('Perspective');
   const [currentView, setCurrentView] = useState<ViewOrientation>('Isometric');
   const [gridVisible, setGridVisible] = useState<boolean>(true);
   const [cursorCoords, setCursorCoords] = useState<{ x: number; y: number; z: number } | null>(null);
   const [fps, setFps] = useState<number>(60);
 
+  // Scene rendering & model state
+  const [selectedPreset, setSelectedPreset] = useState<ModelPreset>('portal_frame');
+  const [renderOptions, setRenderOptions] = useState<SceneRenderOptions>(DEFAULT_RENDER_OPTIONS);
+  const [showLayerMenu, setShowLayerMenu] = useState<boolean>(false);
+  const [modelStats, setModelStats] = useState({
+    nodes: 0,
+    members: 0,
+    supports: 0,
+    slabs: 0,
+  });
+
   const handleFitAll = useCallback(() => {
-    if (cameraManagerRef.current && kernelRef.current) {
-      const box = new THREE.Box3().setFromObject(kernelRef.current.scene);
-      cameraManagerRef.current.zoomToFit(box, kernelRef.current.getAspect());
+    if (cameraManagerRef.current && kernelRef.current && sceneControllerRef.current) {
+      const box = sceneControllerRef.current.computeBoundingBox();
+      cameraManagerRef.current.zoomToFit(box, kernelRef.current.getAspect(), 1.35);
     }
   }, []);
 
@@ -68,6 +95,57 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     }
   }, [gridVisible]);
 
+  const handleToggleRenderMode = useCallback(() => {
+    const nextMode: 'extruded' | 'centerline' =
+      renderOptions.renderMode === 'extruded' ? 'centerline' : 'extruded';
+    const updated: SceneRenderOptions = { ...renderOptions, renderMode: nextMode };
+    setRenderOptions(updated);
+    if (sceneControllerRef.current) {
+      sceneControllerRef.current.updateOptions({ renderMode: nextMode });
+    }
+  }, [renderOptions]);
+
+  const handleToggleLayer = useCallback((key: keyof SceneRenderOptions) => {
+    setRenderOptions((prev) => {
+      const updated = { ...prev, [key]: !prev[key] };
+      if (sceneControllerRef.current) {
+        sceneControllerRef.current.updateOptions(updated);
+      }
+      return updated;
+    });
+  }, []);
+
+  // Load selected preset into the scene
+  const loadPresetModel = useCallback((preset: ModelPreset) => {
+    if (!sceneControllerRef.current || !cameraManagerRef.current || !kernelRef.current) return;
+
+    let modelData;
+    if (preset === 'portal_frame') {
+      modelData = StructuralSceneController.createPortalFrameModel();
+    } else if (preset === 'space_truss') {
+      modelData = StructuralSceneController.createSpaceTrussModel();
+    } else {
+      modelData = StructuralSceneController.createBuildingWithSlabsModel();
+    }
+
+    sceneControllerRef.current.loadSystem(modelData.system, modelData.plates);
+    setModelStats({
+      nodes: modelData.system.nodes.size,
+      members: modelData.system.members.size,
+      supports: modelData.system.supports.size,
+      slabs: modelData.plates.length,
+    });
+
+    // Auto zoom to fit the newly loaded model
+    const box = sceneControllerRef.current.computeBoundingBox();
+    cameraManagerRef.current.zoomToFit(box, kernelRef.current.getAspect(), 1.35);
+  }, []);
+
+  const handlePresetChange = (preset: ModelPreset) => {
+    setSelectedPreset(preset);
+    loadPresetModel(preset);
+  };
+
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -75,7 +153,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     // 1. Initialize Viewport Kernel
     const kernel = new ViewportKernel(container, {
       antialias: true,
-      backgroundColor: 0x090d16, // Rich dark engineering slate
+      backgroundColor: 0x090d16, // Dark engineering slate
     });
     kernelRef.current = kernel;
 
@@ -102,117 +180,24 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     kernel.scene.add(grid.group);
     gridRef.current = grid;
 
-    // 6. Build Initial Structural Demonstration Model (3D Steel Frame)
-    const structureGroup = new THREE.Group();
-    structureGroup.name = 'DemonstrationStructure';
+    // 6. Initialize Structural Scene Controller & Load Initial Model
+    const sceneController = new StructuralSceneController(kernel.scene);
+    sceneControllerRef.current = sceneController;
 
-    // Materials
-    const steelMat = new THREE.MeshStandardMaterial({
-      color: 0x3b82f6, // BeamLab Blue
-      metalness: 0.8,
-      roughness: 0.25,
-    });
-    const colMat = new THREE.MeshStandardMaterial({
-      color: 0x60a5fa,
-      metalness: 0.85,
-      roughness: 0.2,
-    });
-    const nodeMat = new THREE.MeshStandardMaterial({
-      color: 0xf59e0b, // Amber node sphere
-      metalness: 0.5,
-      roughness: 0.3,
-    });
-    const supportMat = new THREE.MeshStandardMaterial({
-      color: 0x10b981, // Emerald support cone
-      metalness: 0.4,
-      roughness: 0.4,
+    const initialModel = StructuralSceneController.createPortalFrameModel();
+    sceneController.loadSystem(initialModel.system, initialModel.plates);
+    setModelStats({
+      nodes: initialModel.system.nodes.size,
+      members: initialModel.system.members.size,
+      supports: initialModel.system.supports.size,
+      slabs: initialModel.plates.length,
     });
 
-    // Helper: Add node sphere
-    const addNodeMesh = (x: number, y: number, z: number) => {
-      const geo = new THREE.SphereGeometry(0.18, 16, 16);
-      const mesh = new THREE.Mesh(geo, nodeMat);
-      mesh.position.set(x, y, z);
-      structureGroup.add(mesh);
-    };
-
-    // Helper: Add structural cylinder member between two 3D points
-    const addMemberMesh = (p1: [number, number, number], p2: [number, number, number], mat: THREE.Material, radius = 0.12) => {
-      const start = new THREE.Vector3(...p1);
-      const end = new THREE.Vector3(...p2);
-      const dir = new THREE.Vector3().subVectors(end, start);
-      const len = dir.length();
-
-      const geo = new THREE.CylinderGeometry(radius, radius, len, 16);
-      geo.translate(0, len / 2, 0);
-      geo.rotateX(Math.PI / 2);
-
-      const mesh = new THREE.Mesh(geo, mat);
-      mesh.position.copy(start);
-      mesh.lookAt(end);
-      mesh.castShadow = true;
-      mesh.receiveShadow = true;
-      structureGroup.add(mesh);
-    };
-
-    // Helper: Add support pyramid at base
-    const addSupportMesh = (x: number, y: number) => {
-      const geo = new THREE.ConeGeometry(0.35, 0.5, 4);
-      geo.rotateX(-Math.PI / 2); // Point upward along Z
-      const mesh = new THREE.Mesh(geo, supportMat);
-      mesh.position.set(x, y, 0.25);
-      structureGroup.add(mesh);
-    };
-
-    // 4 Column Base Nodes (Elevation Z = 0)
-    const spanX = 6.0;
-    const spanY = 5.0;
-    const heightZ = 3.6;
-
-    const baseCoords: Array<[number, number, number]> = [
-      [0, 0, 0],
-      [spanX, 0, 0],
-      [spanX, spanY, 0],
-      [0, spanY, 0],
-    ];
-
-    // 4 Top Roof Nodes (Elevation Z = heightZ)
-    const roofCoords: Array<[number, number, number]> = [
-      [0, 0, heightZ],
-      [spanX, 0, heightZ],
-      [spanX, spanY, heightZ],
-      [0, spanY, heightZ],
-    ];
-
-    // Add nodes & supports
-    baseCoords.forEach(([x, y, z]) => {
-      addNodeMesh(x, y, z);
-      addSupportMesh(x, y);
-    });
-    roofCoords.forEach(([x, y, z]) => addNodeMesh(x, y, z));
-
-    // Vertical Columns
-    for (let i = 0; i < 4; i++) {
-      addMemberMesh(baseCoords[i]!, roofCoords[i]!, colMat, 0.14);
-    }
-
-    // Horizontal Roof Beams
-    addMemberMesh(roofCoords[0]!, roofCoords[1]!, steelMat, 0.12);
-    addMemberMesh(roofCoords[1]!, roofCoords[2]!, steelMat, 0.12);
-    addMemberMesh(roofCoords[2]!, roofCoords[3]!, steelMat, 0.12);
-    addMemberMesh(roofCoords[3]!, roofCoords[0]!, steelMat, 0.12);
-
-    // Diagonal Cross Bracing on rear frame (between node 0 and node 2 on roof)
-    addMemberMesh(roofCoords[0]!, roofCoords[2]!, colMat, 0.08);
-
-    kernel.scene.add(structureGroup);
-
-    // Initial Zoom to Fit
-    const initialBox = new THREE.Box3().setFromObject(structureGroup);
-    cameraManager.zoomToFit(initialBox, kernel.getAspect(), 1.4);
+    const initialBox = sceneController.computeBoundingBox();
+    cameraManager.zoomToFit(initialBox, kernel.getAspect(), 1.35);
 
     // 7. Raycaster for Cursor Tracking on Ground Plane
-    const groundPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0); // Z=0 plane
+    const groundPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
 
@@ -272,6 +257,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
       controls.dispose();
       gizmo.dispose();
       grid.dispose();
+      sceneController.dispose();
       kernel.dispose();
     };
   }, [handleFitAll]);
@@ -282,74 +268,216 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
       <div ref={containerRef} className="w-full h-full" />
 
       {/* Top Left: Viewport Controls & Camera HUD */}
-      <div className="absolute top-3 left-3 flex items-center gap-1.5 p-1.5 rounded-lg bg-slate-900/80 backdrop-blur-md border border-slate-800/80 shadow-lg text-xs z-10">
-        {/* Projection Mode Toggle */}
-        <button
-          onClick={handleToggleProjection}
-          title={`Switch to ${projection === 'Perspective' ? 'Orthographic' : 'Perspective'} Mode (P)`}
-          className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded font-medium transition-all ${
-            projection === 'Perspective'
-              ? 'bg-blue-600 text-white shadow'
-              : 'bg-slate-800 text-slate-300 hover:text-white'
-          }`}
-        >
-          <Box className="w-3.5 h-3.5" />
-          <span>{projection}</span>
-        </button>
-
-        <div className="w-px h-4 bg-slate-800" />
-
-        {/* View Orientation Quick Selectors */}
-        {(['Isometric', 'Top', 'Front', 'Right'] as ViewOrientation[]).map((view) => (
+      <div className="absolute top-3 left-3 flex flex-col gap-2 z-10">
+        {/* Main Toolbar */}
+        <div className="flex items-center gap-1.5 p-1.5 rounded-lg bg-slate-900/85 backdrop-blur-md border border-slate-800 shadow-lg text-xs">
+          {/* Projection Mode Toggle */}
           <button
-            key={view}
-            onClick={() => handleSelectOrientation(view)}
-            className={`px-2 py-1 rounded text-[11px] font-medium transition-all ${
-              currentView === view
-                ? 'bg-slate-700/80 text-blue-400 font-semibold'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+            onClick={handleToggleProjection}
+            title={`Switch to ${projection === 'Perspective' ? 'Orthographic' : 'Perspective'} Mode (P)`}
+            className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded font-medium transition-all ${
+              projection === 'Perspective'
+                ? 'bg-blue-600 text-white shadow'
+                : 'bg-slate-800 text-slate-300 hover:text-white'
             }`}
           >
-            {view}
+            <Box className="w-3.5 h-3.5" />
+            <span>{projection}</span>
           </button>
-        ))}
 
-        <div className="w-px h-4 bg-slate-800" />
+          <div className="w-px h-4 bg-slate-800" />
 
-        {/* Zoom to Fit Extents */}
-        <button
-          onClick={handleFitAll}
-          title="Zoom to Fit Model Extents (F)"
-          className="p-1.5 rounded text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
-        >
-          <Maximize2 className="w-3.5 h-3.5" />
-        </button>
+          {/* View Orientation Quick Selectors */}
+          {(['Isometric', 'Top', 'Front', 'Right'] as ViewOrientation[]).map((view) => (
+            <button
+              key={view}
+              onClick={() => handleSelectOrientation(view)}
+              className={`px-2 py-1 rounded text-[11px] font-medium transition-all ${
+                currentView === view
+                  ? 'bg-slate-700/80 text-blue-400 font-semibold'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+              }`}
+            >
+              {view}
+            </button>
+          ))}
 
-        {/* Grid Visibility Toggle */}
-        <button
-          onClick={handleToggleGrid}
-          title="Toggle 3D Spatial Grid"
-          className={`p-1.5 rounded transition-colors ${
-            gridVisible ? 'text-blue-400 bg-blue-950/40' : 'text-slate-500 hover:text-slate-300'
-          }`}
-        >
-          <Grid className="w-3.5 h-3.5" />
-        </button>
+          <div className="w-px h-4 bg-slate-800" />
+
+          {/* Zoom to Fit Extents */}
+          <button
+            onClick={handleFitAll}
+            title="Zoom to Fit Model Extents (F)"
+            className="p-1.5 rounded text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+          >
+            <Maximize2 className="w-3.5 h-3.5" />
+          </button>
+
+          {/* Grid Visibility Toggle */}
+          <button
+            onClick={handleToggleGrid}
+            title="Toggle 3D Spatial Grid"
+            className={`p-1.5 rounded transition-colors ${
+              gridVisible ? 'text-blue-400 bg-blue-950/40' : 'text-slate-500 hover:text-slate-300'
+            }`}
+          >
+            <Grid className="w-3.5 h-3.5" />
+          </button>
+
+          <div className="w-px h-4 bg-slate-800" />
+
+          {/* Render Mode Toggle (Extruded 3D Profile vs Centerline) */}
+          <button
+            onClick={handleToggleRenderMode}
+            title="Toggle between Solid 3D Profile Extrusions and Centerline Wireframe"
+            className={`flex items-center gap-1.5 px-2 py-1 rounded text-[11px] font-medium transition-all ${
+              renderOptions.renderMode === 'extruded'
+                ? 'bg-emerald-600/30 text-emerald-300 border border-emerald-500/40'
+                : 'bg-amber-600/30 text-amber-300 border border-amber-500/40'
+            }`}
+          >
+            <Rotate3d className="w-3.5 h-3.5" />
+            <span>{renderOptions.renderMode === 'extruded' ? '3D Extruded' : 'Centerline'}</span>
+          </button>
+
+          {/* Visibility Layers Menu Button */}
+          <div className="relative">
+            <button
+              onClick={() => setShowLayerMenu(!showLayerMenu)}
+              title="Toggle Entity Layers & Visibility"
+              className={`flex items-center gap-1 px-2 py-1 rounded text-[11px] font-medium transition-all ${
+                showLayerMenu ? 'bg-slate-700 text-white' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+              }`}
+            >
+              <Layers className="w-3.5 h-3.5" />
+              <span>Layers</span>
+            </button>
+
+            {/* Dropdown Menu for Layers */}
+            {showLayerMenu && (
+              <div className="absolute top-full left-0 mt-1.5 w-44 p-2 rounded-lg bg-slate-900/95 backdrop-blur-md border border-slate-700/80 shadow-2xl flex flex-col gap-1 text-[11px] z-50">
+                <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider px-1 pb-1 border-b border-slate-800">
+                  Model Layers
+                </div>
+
+                <label className="flex items-center justify-between px-1.5 py-1 rounded hover:bg-slate-800 cursor-pointer">
+                  <span className="text-slate-300">Members</span>
+                  <input
+                    type="checkbox"
+                    checked={renderOptions.showMembers}
+                    onChange={() => handleToggleLayer('showMembers')}
+                    className="accent-blue-500"
+                  />
+                </label>
+
+                <label className="flex items-center justify-between px-1.5 py-1 rounded hover:bg-slate-800 cursor-pointer">
+                  <span className="text-slate-300">Nodes</span>
+                  <input
+                    type="checkbox"
+                    checked={renderOptions.showNodes}
+                    onChange={() => handleToggleLayer('showNodes')}
+                    className="accent-blue-500"
+                  />
+                </label>
+
+                <label className="flex items-center justify-between px-1.5 py-1 rounded hover:bg-slate-800 cursor-pointer">
+                  <span className="text-slate-300">Supports (3D)</span>
+                  <input
+                    type="checkbox"
+                    checked={renderOptions.showSupports}
+                    onChange={() => handleToggleLayer('showSupports')}
+                    className="accent-blue-500"
+                  />
+                </label>
+
+                <label className="flex items-center justify-between px-1.5 py-1 rounded hover:bg-slate-800 cursor-pointer">
+                  <span className="text-slate-300">Floor Slabs / Plates</span>
+                  <input
+                    type="checkbox"
+                    checked={renderOptions.showPlates}
+                    onChange={() => handleToggleLayer('showPlates')}
+                    className="accent-blue-500"
+                  />
+                </label>
+
+                <label className="flex items-center justify-between px-1.5 py-1 rounded hover:bg-slate-800 cursor-pointer">
+                  <span className="text-slate-300">Local Axes (LCS)</span>
+                  <input
+                    type="checkbox"
+                    checked={renderOptions.showLCS}
+                    onChange={() => handleToggleLayer('showLCS')}
+                    className="accent-blue-500"
+                  />
+                </label>
+
+                <label className="flex items-center justify-between px-1.5 py-1 rounded hover:bg-slate-800 cursor-pointer">
+                  <span className="text-slate-300">Node Labels</span>
+                  <input
+                    type="checkbox"
+                    checked={renderOptions.showNodeLabels}
+                    onChange={() => handleToggleLayer('showNodeLabels')}
+                    className="accent-blue-500"
+                  />
+                </label>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Model Presets Selector Bar */}
+        <div className="flex items-center gap-1.5 p-1 rounded-lg bg-slate-900/80 backdrop-blur-md border border-slate-800/80 text-[11px] self-start shadow">
+          <span className="text-slate-500 px-1.5 font-medium">Preset:</span>
+          {(
+            [
+              { id: 'portal_frame', label: 'Portal Frame (Steel)' },
+              { id: 'space_truss', label: 'Space Truss (CHS)' },
+              { id: 'building_slabs', label: 'Building & Slabs (RC)' },
+            ] as const
+          ).map((preset) => (
+            <button
+              key={preset.id}
+              onClick={() => handlePresetChange(preset.id)}
+              className={`px-2 py-1 rounded font-medium transition-all ${
+                selectedPreset === preset.id
+                  ? 'bg-blue-600/30 text-blue-300 border border-blue-500/40 font-semibold'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+              }`}
+            >
+              {preset.label}
+            </button>
+          ))}
+        </div>
       </div>
 
-      {/* Top Right: Viewport Mode Badge & FPS */}
+      {/* Top Right: Viewport Mode Badge, Model Stats & FPS */}
       <div className="absolute top-3 right-3 flex items-center gap-2 text-[10px] font-mono z-10">
-        <div className="px-2 py-1 rounded bg-slate-900/80 backdrop-blur-md border border-slate-800 text-slate-400 flex items-center gap-1.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span>WebGL 2.0</span>
+        {/* Model Stats */}
+        <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md border border-slate-800 text-slate-300">
+          <span className="text-blue-400">{modelStats.nodes}</span> Nodes
           <span className="text-slate-600">·</span>
-          <span className="text-emerald-400">{fps} FPS</span>
+          <span className="text-emerald-400">{modelStats.members}</span> Members
+          <span className="text-slate-600">·</span>
+          <span className="text-amber-400">{modelStats.supports}</span> Supports
+          {modelStats.slabs > 0 && (
+            <>
+              <span className="text-slate-600">·</span>
+              <span className="text-purple-400">{modelStats.slabs}</span> Slabs
+            </>
+          )}
+        </div>
+
+        {/* WebGL Engine & FPS */}
+        <div className="px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md border border-slate-800 text-slate-400 flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <span>Three.js WebGL</span>
+          <span className="text-slate-600">·</span>
+          <span className="text-emerald-400 font-semibold">{fps} FPS</span>
         </div>
       </div>
 
       {/* Bottom Left: Spatial Coordinates HUD & Unit Readout */}
       <div className="absolute bottom-3 left-3 flex items-center gap-3 text-[11px] font-mono z-10">
-        <div className="flex items-center gap-3 px-3 py-1.5 rounded-lg bg-slate-900/80 backdrop-blur-md border border-slate-800/80 text-slate-300 shadow">
+        <div className="flex items-center gap-3 px-3 py-1.5 rounded-lg bg-slate-900/85 backdrop-blur-md border border-slate-800 text-slate-300 shadow">
           <div className="flex items-center gap-1">
             <span className="text-red-400 font-semibold">X:</span>
             <span>{cursorCoords ? cursorCoords.x.toFixed(2) : '0.00'} m</span>
@@ -364,8 +492,8 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
           </div>
         </div>
 
-        <div className="px-2.5 py-1.5 rounded-lg bg-slate-900/80 backdrop-blur-md border border-slate-800/80 text-[10px] text-slate-500">
-          Left/Middle: Orbit · Right/Shift: Pan · Wheel: Zoom
+        <div className="hidden md:block px-2.5 py-1.5 rounded-lg bg-slate-900/80 backdrop-blur-md border border-slate-800 text-[10px] text-slate-500">
+          Left: Orbit · Right/Shift: Pan · Wheel: Zoom · F: Fit All
         </div>
       </div>
     </div>
