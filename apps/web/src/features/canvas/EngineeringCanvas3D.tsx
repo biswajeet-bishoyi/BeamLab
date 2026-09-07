@@ -1,11 +1,12 @@
 /**
- * BeamLab B2.5 — Interactive 3D Engineering Canvas
+ * BeamLab B2.6 — Interactive 3D Engineering Canvas
  *
  * High-performance 3D structural viewport with parametric cross-section profile extrusions,
  * member local coordinate system alignment, 3D boundary supports, floor slab extrusion,
  * interactive spatial raycasting, hover highlights, floating engineering tooltip,
  * CAD spatial snapping (nodes, midpoints, perpendiculars, grid), snap glyphs,
  * 3D load visualization pipeline (point forces, moments, distributed UDL curtains, slab pressure),
+ * deformed shape & dynamic modal vibration animation pipeline with continuous heatmap colormaps,
  * single & multi-selection, CAD navigation, orientation gizmo, and real-time model controls.
  */
 
@@ -43,6 +44,13 @@ import {
   DEFAULT_LOAD_OPTIONS,
   type LoadDisplayOptions,
 } from './loads';
+import {
+  ModalAnimationController,
+  HeatmapLegendOverlay,
+  DEFAULT_DEFORMATION_OPTIONS,
+  type DeformationDisplayOptions,
+  type DeformationViewMode,
+} from './deformation';
 import type { LoadPatternType } from '@beamlab/engineering-model';
 import {
   Box,
@@ -53,6 +61,9 @@ import {
   MousePointer,
   Magnet,
   ArrowDownToLine,
+  Activity,
+  Play,
+  Pause,
   X,
 } from 'lucide-react';
 
@@ -80,6 +91,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
   const selectionManagerRef = useRef<SelectionManager | null>(null);
   const snappingEngineRef = useRef<SpatialSnappingEngine | null>(null);
   const loadControllerRef = useRef<LoadVisualizationController | null>(null);
+  const modalControllerRef = useRef<ModalAnimationController | null>(null);
 
   // Viewport & Navigation state
   const [projection, setProjection] = useState<ProjectionMode>('Perspective');
@@ -116,6 +128,10 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
   // 3D Load Visualization state
   const [loadOptions, setLoadOptions] = useState<LoadDisplayOptions>(DEFAULT_LOAD_OPTIONS);
   const [showLoadMenu, setShowLoadMenu] = useState<boolean>(false);
+
+  // 3D Deformation & Modal Animation state
+  const [deformationOptions, setDeformationOptions] = useState<DeformationDisplayOptions>(DEFAULT_DEFORMATION_OPTIONS);
+  const [showDeformationMenu, setShowDeformationMenu] = useState<boolean>(false);
 
   const handleFitAll = useCallback(() => {
     if (cameraManagerRef.current && kernelRef.current && sceneControllerRef.current) {
@@ -225,6 +241,63 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     });
   }, []);
 
+  // Deformation & Modal controls
+  const handleSelectDeformationMode = useCallback((mode: DeformationViewMode) => {
+    setDeformationOptions((prev) => {
+      const updated = { ...prev, viewMode: mode };
+      if (modalControllerRef.current) {
+        modalControllerRef.current.setOptions(updated);
+      }
+      // If entering deformation mode, hide standard extruded members to highlight deflected curved shape
+      if (sceneControllerRef.current) {
+        sceneControllerRef.current.updateOptions({
+          showMembers: mode === 'undeformed',
+        });
+      }
+      return updated;
+    });
+  }, []);
+
+  const handleSelectModalMode = useCallback((modeNum: number) => {
+    setDeformationOptions((prev) => {
+      const updated = { ...prev, activeModalMode: modeNum };
+      if (modalControllerRef.current) {
+        modalControllerRef.current.setOptions(updated);
+      }
+      return updated;
+    });
+  }, []);
+
+  const handleTogglePlayModal = useCallback(() => {
+    setDeformationOptions((prev) => {
+      const updated = { ...prev, isPlaying: !prev.isPlaying };
+      if (modalControllerRef.current) {
+        modalControllerRef.current.setOptions(updated);
+      }
+      return updated;
+    });
+  }, []);
+
+  const handleSetDeformationScale = useCallback((scale: number) => {
+    setDeformationOptions((prev) => {
+      const updated = { ...prev, scaleMultiplier: scale };
+      if (modalControllerRef.current) {
+        modalControllerRef.current.setOptions(updated);
+      }
+      return updated;
+    });
+  }, []);
+
+  const handleToggleGhost = useCallback(() => {
+    setDeformationOptions((prev) => {
+      const updated = { ...prev, showGhost: !prev.showGhost };
+      if (modalControllerRef.current) {
+        modalControllerRef.current.setOptions(updated);
+      }
+      return updated;
+    });
+  }, []);
+
   // Load selected preset into the scene
   const loadPresetModel = useCallback((preset: ModelPreset) => {
     if (!sceneControllerRef.current || !cameraManagerRef.current || !kernelRef.current) return;
@@ -235,20 +308,28 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
 
     let modelData;
     let loadData;
+    let analysisData;
+
     if (preset === 'portal_frame') {
       modelData = StructuralSceneController.createPortalFrameModel();
       loadData = LoadVisualizationController.createPortalFrameLoads(modelData.system);
+      analysisData = ModalAnimationController.createPortalFrameAnalysisData(modelData.system);
     } else if (preset === 'space_truss') {
       modelData = StructuralSceneController.createSpaceTrussModel();
       loadData = LoadVisualizationController.createSpaceTrussLoads(modelData.system);
+      analysisData = ModalAnimationController.createSpaceTrussAnalysisData(modelData.system);
     } else {
       modelData = StructuralSceneController.createBuildingWithSlabsModel();
       loadData = LoadVisualizationController.createBuildingLoads(modelData.system, modelData.plates);
+      analysisData = ModalAnimationController.createBuildingAnalysisData(modelData.system);
     }
 
     sceneControllerRef.current.loadSystem(modelData.system, modelData.plates);
     if (loadControllerRef.current) {
       loadControllerRef.current.setLoads(loadData.point, loadData.dist, loadData.surf, modelData.plates);
+    }
+    if (modalControllerRef.current) {
+      modalControllerRef.current.loadModelData(modelData.system, analysisData.displacements, analysisData.modes);
     }
 
     setModelStats({
@@ -335,6 +416,13 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     const initialLoads = LoadVisualizationController.createPortalFrameLoads(initialModel.system);
     loadController.setLoads(initialLoads.point, initialLoads.dist, initialLoads.surf, initialModel.plates);
 
+    // 10. Initialize 3D Deformation & Modal Animation Controller
+    const modalController = new ModalAnimationController(kernel.scene);
+    modalControllerRef.current = modalController;
+
+    const initialAnalysis = ModalAnimationController.createPortalFrameAnalysisData(initialModel.system);
+    modalController.loadModelData(initialModel.system, initialAnalysis.displacements, initialAnalysis.modes);
+
     // Bind selection state observer
     const unbindSelection = selectionManager.onSelectionChange((state: SelectionState) => {
       const total = selectionManager.getTotalSelectedCount();
@@ -360,7 +448,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
       container.style.cursor = hit ? 'pointer' : 'default';
     });
 
-    // 10. Ground Plane & Pointer Tracking with Snapping
+    // 11. Ground Plane & Pointer Tracking with Snapping
     const groundPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
     const groundRaycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
@@ -420,6 +508,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     };
 
     const handlePointerUp = (e: PointerEvent) => {
+      // If pointer was dragged more than 4px, it was an orbit/pan, not a click
       const dist = Math.hypot(e.clientX - pointerDownPos.x, e.clientY - pointerDownPos.y);
       if (dist > 4) return;
 
@@ -467,13 +556,18 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     container.addEventListener('pointerup', handlePointerUp);
     window.addEventListener('keydown', handleKeyDown);
 
-    // 11. Setup Render Loop Hook & FPS calculation
+    // 12. Setup Render Loop Hook, FPS calculation & Modal Animation Frame
     let frameCount = 0;
     let lastTime = performance.now();
 
     const unbindRender = kernel.onRender(() => {
       const activeCam = cameraManager.activeCamera;
       cameraManager.updateAspect(kernel.getAspect());
+
+      const now = performance.now();
+
+      // Update dynamic modal vibration animation
+      modalController.update(now / 1000);
 
       // Main scene render
       kernel.render(activeCam);
@@ -483,7 +577,6 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
 
       // FPS tally
       frameCount++;
-      const now = performance.now();
       if (now - lastTime >= 1000) {
         setFps(Math.round((frameCount * 1000) / (now - lastTime)));
         frameCount = 0;
@@ -491,7 +584,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
       }
     });
 
-    // 12. Cleanup
+    // 13. Cleanup
     return () => {
       unbindRender();
       unbindSelection();
@@ -505,6 +598,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
       grid.dispose();
       selectionManager.dispose();
       loadController.dispose();
+      modalController.dispose();
       sceneController.dispose();
       kernel.dispose();
     };
@@ -524,6 +618,13 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
 
       {/* CAD Snap Glyph Overlay */}
       <SnapGlyphOverlay snap={activeSnap} />
+
+      {/* Strain / Deflection Heatmap Color Legend */}
+      <HeatmapLegendOverlay
+        viewMode={deformationOptions.viewMode}
+        maxDisplacementMeters={modalControllerRef.current?.getMaxDisplacement() ?? 0.025}
+        scaleMultiplier={deformationOptions.scaleMultiplier}
+      />
 
       {/* Top Left: Viewport Controls & Camera HUD */}
       <div className="absolute top-3 left-3 flex flex-col gap-2 z-10">
@@ -601,7 +702,11 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
           {/* 3D Load Visualization Controls Button */}
           <div className="relative">
             <button
-              onClick={() => setShowLoadMenu(!showLoadMenu)}
+              onClick={() => {
+                setShowLoadMenu(!showLoadMenu);
+                setShowDeformationMenu(false);
+                setShowSnapMenu(false);
+              }}
               title="3D Structural Load Visualization Controls"
               className={`flex items-center gap-1 px-2 py-1 rounded text-[11px] font-medium transition-all ${
                 loadOptions.visible
@@ -683,10 +788,154 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
             )}
           </div>
 
+          {/* 3D Deformed Shape & Modal Dynamics Button */}
+          <div className="relative">
+            <button
+              onClick={() => {
+                setShowDeformationMenu(!showDeformationMenu);
+                setShowLoadMenu(false);
+                setShowSnapMenu(false);
+              }}
+              title="Deformed Shape & Modal Vibration Dynamics"
+              className={`flex items-center gap-1 px-2 py-1 rounded text-[11px] font-medium transition-all ${
+                deformationOptions.viewMode !== 'undeformed'
+                  ? 'bg-purple-600/30 text-purple-300 border border-purple-500/40 font-semibold'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+              }`}
+            >
+              <Activity className="w-3.5 h-3.5" />
+              <span>
+                {deformationOptions.viewMode === 'undeformed'
+                  ? 'Deformation'
+                  : deformationOptions.viewMode === 'static'
+                  ? 'Deflection'
+                  : `Mode ${deformationOptions.activeModalMode}`}
+              </span>
+            </button>
+
+            {showDeformationMenu && (
+              <div className="absolute top-full left-0 mt-1.5 w-56 p-2 rounded-lg bg-slate-900/95 backdrop-blur-md border border-slate-700/80 shadow-2xl flex flex-col gap-1.5 text-[11px] z-50">
+                <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider px-1 pb-1 border-b border-slate-800">
+                  Deformation & Dynamics
+                </div>
+
+                {/* View Mode Switcher */}
+                <div className="grid grid-cols-3 gap-1">
+                  {(
+                    [
+                      { id: 'undeformed', label: 'Undef.' },
+                      { id: 'static', label: 'Static |u|' },
+                      { id: 'modal', label: 'Modal' },
+                    ] as const
+                  ).map((mode) => (
+                    <button
+                      key={mode.id}
+                      onClick={() => handleSelectDeformationMode(mode.id)}
+                      className={`px-1.5 py-1 rounded text-[10px] font-medium text-center transition-all ${
+                        deformationOptions.viewMode === mode.id
+                          ? 'bg-purple-600 text-white font-semibold shadow'
+                          : 'bg-slate-800/80 text-slate-400 hover:text-slate-200'
+                      }`}
+                    >
+                      {mode.label}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Modal Controls (Only when in Modal mode) */}
+                {deformationOptions.viewMode === 'modal' && (
+                  <div className="flex flex-col gap-1.5 pt-1 border-t border-slate-800">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] text-slate-400">Modal Mode</span>
+                      <div className="flex items-center gap-1">
+                        {[1, 2, 3].map((m) => (
+                          <button
+                            key={m}
+                            onClick={() => handleSelectModalMode(m)}
+                            className={`px-2 py-0.5 rounded text-[10px] ${
+                              deformationOptions.activeModalMode === m
+                                ? 'bg-purple-500 text-slate-950 font-bold'
+                                : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                            }`}
+                          >
+                            M{m}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] text-slate-400">Animation</span>
+                      <button
+                        onClick={handleTogglePlayModal}
+                        className={`flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium ${
+                          deformationOptions.isPlaying
+                            ? 'bg-emerald-600/30 text-emerald-300 border border-emerald-500/40'
+                            : 'bg-amber-600/30 text-amber-300 border border-amber-500/40'
+                        }`}
+                      >
+                        {deformationOptions.isPlaying ? (
+                          <>
+                            <Pause className="w-3 h-3" />
+                            <span>Pause</span>
+                          </>
+                        ) : (
+                          <>
+                            <Play className="w-3 h-3" />
+                            <span>Play</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Scale Multipliers */}
+                {deformationOptions.viewMode !== 'undeformed' && (
+                  <div className="flex items-center justify-between pt-1 border-t border-slate-800">
+                    <span className="text-slate-400">Disp. Scale</span>
+                    <div className="flex items-center gap-1 font-mono">
+                      {[10, 50, 100, 200].map((sc) => (
+                        <button
+                          key={sc}
+                          onClick={() => handleSetDeformationScale(sc)}
+                          className={`px-1.5 py-0.5 rounded text-[10px] ${
+                            deformationOptions.scaleMultiplier === sc
+                              ? 'bg-purple-500 text-slate-950 font-bold'
+                              : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                          }`}
+                        >
+                          {sc}×
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Ghost Wireframe Checkbox */}
+                {deformationOptions.viewMode !== 'undeformed' && (
+                  <label className="flex items-center justify-between px-1 py-1 rounded hover:bg-slate-800 cursor-pointer pt-1 border-t border-slate-800">
+                    <span className="text-slate-300">Undeformed Ghost</span>
+                    <input
+                      type="checkbox"
+                      checked={deformationOptions.showGhost}
+                      onChange={handleToggleGhost}
+                      className="accent-purple-500"
+                    />
+                  </label>
+                )}
+              </div>
+            )}
+          </div>
+
           {/* CAD Spatial Snapping Menu Button */}
           <div className="relative">
             <button
-              onClick={() => setShowSnapMenu(!showSnapMenu)}
+              onClick={() => {
+                setShowSnapMenu(!showSnapMenu);
+                setShowLoadMenu(false);
+                setShowDeformationMenu(false);
+              }}
               title="CAD Spatial Snapping Controls"
               className={`flex items-center gap-1 px-2 py-1 rounded text-[11px] font-medium transition-all ${
                 snapOptions.enabled
