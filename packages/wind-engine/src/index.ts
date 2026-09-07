@@ -7,3 +7,6 @@
 
 // Wind Profile & Velocity Pressure Engine
 export * from './profile/WindProfileEngine';
+
+// Building Aerodynamic Pressures & MWFRS / C&C Force Distribution
+export * from './forces/AerodynamicPressureEngine';
