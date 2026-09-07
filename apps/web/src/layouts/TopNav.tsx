@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass, Activity, Wind, Trees, Building2 } from 'lucide-react';
+import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass, Activity, Wind, Trees, Building2, Spline } from 'lucide-react';
 import { useShallow } from 'zustand/react/shallow';
 import { useStore } from '../store';
 
@@ -23,6 +23,7 @@ export const TopNav: React.FC = () => {
     setWindStudioOpen,
     setTimberStudioOpen,
     setCompositeStudioOpen,
+    setPrestressedStudioOpen,
   } = useStore(useShallow(state => ({
     setView: state.setView,
     activeEnvironment: state.activeEnvironment,
@@ -42,6 +43,7 @@ export const TopNav: React.FC = () => {
     setWindStudioOpen: state.setWindStudioOpen,
     setTimberStudioOpen: state.setTimberStudioOpen,
     setCompositeStudioOpen: state.setCompositeStudioOpen,
+    setPrestressedStudioOpen: state.setPrestressedStudioOpen,
   })));
 
   return (
@@ -172,6 +174,14 @@ export const TopNav: React.FC = () => {
         >
           <Building2 size={16} />
           <span>Composite</span>
+        </button>
+        <button 
+          onClick={() => setPrestressedStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-amber-600 via-orange-500 to-yellow-600 hover:from-amber-500 hover:to-orange-400 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-amber-400/30"
+          title="Open Prestressed & Post-Tensioned (PT) Studio (Tendon Drape, Losses, Balancing, Stresses & Ultimate Flexure)"
+        >
+          <Spline size={16} />
+          <span>PT Studio</span>
         </button>
         <button 
           onClick={() => setPlaybackMode(true)}

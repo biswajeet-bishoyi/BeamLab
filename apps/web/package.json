@@ -28,6 +28,7 @@
     "@beamlab/knowledge-platform": "workspace:*",
     "@beamlab/policy-client": "workspace:*",
     "@beamlab/policy-engine": "workspace:*",
+    "@beamlab/prestressed-engine": "workspace:*",
     "@beamlab/resource-client": "workspace:*",
     "@beamlab/resource-manager": "workspace:*",
     "@beamlab/seismic-engine": "workspace:*",
