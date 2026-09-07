@@ -52,7 +52,7 @@ describe('LoadingSystem', () => {
     const caseLive = sys.addCase('case-live', 'Live Case', 'LinearStatic');
     caseLive.addPattern('pat-live', 1.0);
 
-    expect(caseDead.patternRefs[0].patternId).toBe('pat-dead');
+    expect(caseDead.patternRefs[0]!.patternId).toBe('pat-dead');
 
     // 6. Combinations
     const comboULS = sys.addCombination('combo-uls', '1.2D + 1.6L', 'ULS', 'AISC-LRFD');
@@ -60,7 +60,7 @@ describe('LoadingSystem', () => {
     comboULS.addCase('case-live', 1.6);
 
     expect(comboULS.caseRefs).toHaveLength(2);
-    expect(comboULS.caseRefs[0].factor).toBe(1.2);
+    expect(comboULS.caseRefs[0]!.factor).toBe(1.2);
 
     // 7. Envelopes
     const envelope = sys.addEnvelope('env-01', 'Design Envelope', ['combo-uls'], 'Maximum');
@@ -95,7 +95,7 @@ describe('Loading Domain Validation Rules', () => {
 
     const diags = rule.evaluate(asg1, context);
     expect(diags).toHaveLength(1);
-    expect(diags[0].code).toBe('LDM-XREF-A001');
+    expect(diags[0]!.code).toBe('LDM-XREF-A001');
   });
 
   it('CombinationMissingCaseRule should catch missing references', () => {
@@ -107,7 +107,7 @@ describe('Loading Domain Validation Rules', () => {
 
     const diags = rule.evaluate(combo, context);
     expect(diags).toHaveLength(1);
-    expect(diags[0].code).toBe('LDM-XREF-C001');
+    expect(diags[0]!.code).toBe('LDM-XREF-C001');
   });
 
   it('CircularCombinationReferenceRule should catch circularity', () => {
@@ -121,7 +121,7 @@ describe('Loading Domain Validation Rules', () => {
 
     const diags = rule.evaluate(c1, context);
     expect(diags).toHaveLength(1);
-    expect(diags[0].code).toBe('LDM-XREF-C002');
+    expect(diags[0]!.code).toBe('LDM-XREF-C002');
   });
 
   it('EnvelopeSourceExistenceRule should catch missing envelope source', () => {
@@ -133,7 +133,7 @@ describe('Loading Domain Validation Rules', () => {
 
     const diags = rule.evaluate(env, context);
     expect(diags).toHaveLength(1);
-    expect(diags[0].code).toBe('LDM-XREF-E001');
+    expect(diags[0]!.code).toBe('LDM-XREF-E001');
   });
 
   it('CaseMissingPatternRule should catch missing patterns', () => {
@@ -145,6 +145,6 @@ describe('Loading Domain Validation Rules', () => {
 
     const diags = rule.evaluate(lcase, context);
     expect(diags).toHaveLength(1);
-    expect(diags[0].code).toBe('LDM-XREF-LC001');
+    expect(diags[0]!.code).toBe('LDM-XREF-LC001');
   });
 });

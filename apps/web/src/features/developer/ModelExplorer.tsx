@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-type ExplorerTab = 'overview' | 'structural' | 'loading' | 'objects' | 'relationships' | 'validation' | 'history';
+type ExplorerTab = 'overview' | 'structural' | 'loading' | 'results' | 'objects' | 'relationships' | 'validation' | 'history';
 
 // ─── Mock data for display when no live model is connected ────────────────────
 
@@ -50,6 +50,7 @@ export const ModelExplorer: React.FC = () => {
     { key: 'overview', label: 'Overview' },
     { key: 'structural', label: 'Structural' },
     { key: 'loading', label: 'Loading' },
+    { key: 'results', label: 'Results' },
     { key: 'objects', label: 'Objects' },
     { key: 'relationships', label: 'Relationships' },
     { key: 'validation', label: 'Validation' },
@@ -397,6 +398,94 @@ export const ModelExplorer: React.FC = () => {
         </div>
       )}
 
+      {activeTab === 'results' && (
+        <div className="space-y-4">
+          {/* Analysis Results Summary */}
+          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Analysis Results (CEM B1.4)</h3>
+              <span className="text-[10px] text-emerald-400 bg-emerald-950/40 border border-emerald-900/40 px-2 py-0.5 rounded font-mono">
+                Status: Completed
+              </span>
+            </div>
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              {[
+                ['Active Result ID', 'res-canon-01'],
+                ['Solver ID', 'direct-stiffness-v1 (Direct Sparse)'],
+                ['Convergence', 'Converged (1 iter, residual < 1e-9)'],
+                ['Execution Time', '42 ms'],
+                ['Model Revision', 'Rev #4'],
+                ['Analyzed Cases', '3 cases (DL-Static, LL-Static, Wind-RS)'],
+                ['Design Envelopes', '2 envelopes (Max-Bending, Min-Bending)'],
+                ['Statics Equilibrium', '✓ Verified (Relative Error: 0.001%)'],
+              ].map(([k, v]) => (
+                <div key={k} className="flex gap-2">
+                  <span className="text-slate-500 w-36 shrink-0">{k}</span>
+                  <span className="text-slate-200">{v}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Governing Case Extremes */}
+          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
+            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Governing Case Extremes</h3>
+            <div className="space-y-3">
+              {[
+                { case: 'DL-Static', maxDisp: '4.8 mm @ Node N-2', maxMoment: '42.5 kN·m @ Member M-1', maxShear: '28.3 kN @ Support N-1', eq: 'Passed (0.00%)' },
+                { case: 'LL-Static', maxDisp: '6.2 mm @ Node N-2', maxMoment: '56.0 kN·m @ Member M-1', maxShear: '37.4 kN @ Support N-1', eq: 'Passed (0.00%)' },
+                { case: 'IS800-ULS-01', maxDisp: '16.5 mm @ Node N-2', maxMoment: '147.8 kN·m @ Member M-1', maxShear: '98.6 kN @ Support N-1', eq: 'Passed (0.00%)' },
+              ].map((c, i) => (
+                <div key={i} className="py-2 border-b border-slate-800/60 last:border-0 text-xs">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-cyan-400 font-semibold">{c.case}</span>
+                    <span className="text-[10px] text-emerald-400 bg-emerald-950/20 border border-emerald-900/20 px-1.5 py-0.5 rounded">Equilibrium: {c.eq}</span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2 text-[10px] text-slate-400">
+                    <span>Max Disp: <strong className="text-slate-200">{c.maxDisp}</strong></span>
+                    <span>Max Moment: <strong className="text-amber-300">{c.maxMoment}</strong></span>
+                    <span>Max Shear: <strong className="text-rose-300">{c.maxShear}</strong></span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Dynamic & Stability Analysis */}
+          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
+            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Dynamic & Stability Eigenvalues</h3>
+            <div className="grid grid-cols-2 gap-4 text-xs">
+              <div className="space-y-2 border-r border-slate-800 pr-4">
+                <span className="text-slate-400 font-medium">Modal Analysis (First 2 Modes)</span>
+                <div className="text-[11px] space-y-1">
+                  <div className="flex justify-between text-slate-300">
+                    <span>Mode 1 (Flexure)</span>
+                    <span className="text-cyan-400 font-mono">f = 4.25 Hz (T = 0.235 s)</span>
+                  </div>
+                  <div className="flex justify-between text-slate-300">
+                    <span>Mode 2 (Torsion)</span>
+                    <span className="text-cyan-400 font-mono">f = 11.80 Hz (T = 0.085 s)</span>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-2 pl-2">
+                <span className="text-slate-400 font-medium">Eigenvalue Buckling</span>
+                <div className="text-[11px] space-y-1">
+                  <div className="flex justify-between text-slate-300">
+                    <span>Critical Load Factor (λ_cr)</span>
+                    <span className="text-emerald-400 font-mono font-bold">4.82 (Stable &gt; 1.0)</span>
+                  </div>
+                  <div className="flex justify-between text-slate-400">
+                    <span>Governing Mode</span>
+                    <span>Mode 1 (Major Axis Flexural)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {activeTab === 'validation' && (
         <div className="space-y-2">
           {MOCK_VALIDATION.length === 0 ? (
@@ -422,21 +511,36 @@ export const ModelExplorer: React.FC = () => {
       )}
 
       {activeTab === 'history' && (
-        <div className="space-y-2 font-mono text-xs">
+        <div className="space-y-3 font-mono text-xs">
+          {/* Provenance Traceability Banner */}
+          <div className="rounded-lg border border-slate-800 bg-slate-900/40 p-3">
+            <h4 className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1 font-sans">
+              Engineering Provenance & Traceability Chain
+            </h4>
+            <p className="text-[10px] text-slate-500 font-mono">
+              Result (res-canon-01) → Analysis (run-42) → Revision (Rev #4) → Inputs (Hash: a89c09bf) → Solver (direct-stiffness-v1) → Evidence (IS800:Cl.5.3)
+            </p>
+          </div>
+
           {[
-            { ts: '2026-07-08T01:23:11Z', desc: 'Added 4 members', adds: 4, removes: 0, modifies: 0 },
-            { ts: '2026-07-08T01:20:45Z', desc: 'Added supports and load patterns', adds: 7, removes: 0, modifies: 0 },
-            { ts: '2026-07-08T01:15:00Z', desc: 'Initial geometry creation', adds: 14, removes: 0, modifies: 0 },
+            { ts: '2026-07-08T01:28:40Z', type: 'AnalysisRun', desc: 'Solver run completed: LinearStatic (42ms, converged)', author: 'direct-stiffness-v1', rev: 4, badge: 'text-cyan-400 bg-cyan-950/40 border-cyan-800/40' },
+            { ts: '2026-07-08T01:25:12Z', type: 'LoadChange', desc: 'Applied distributed load 15 kN/m on M-1 in Dead Pattern', author: 'Alice (Engineer)', rev: 3, badge: 'text-rose-400 bg-rose-950/40 border-rose-800/40' },
+            { ts: '2026-07-08T01:23:11Z', type: 'ModelChange', desc: 'Added 4 members and assigned IPE 300 sections', author: 'Alice (Engineer)', rev: 2, badge: 'text-emerald-400 bg-emerald-950/40 border-emerald-800/40' },
+            { ts: '2026-07-08T01:15:00Z', type: 'ModelChange', desc: 'Initial canonical model initialized: Frame Structure', author: 'BeamLab Kernel', rev: 1, badge: 'text-slate-400 bg-slate-800/40 border-slate-700/40' },
           ].map((h, i) => (
             <div key={i} className="rounded border border-slate-800 bg-slate-900/50 p-3">
               <div className="flex items-center justify-between text-slate-400 mb-1">
-                <span className="text-slate-200">{h.desc}</span>
+                <div className="flex items-center gap-2">
+                  <span className={`px-1.5 py-0.5 rounded text-[10px] border font-sans font-medium ${h.badge}`}>
+                    {h.type}
+                  </span>
+                  <span className="text-slate-200">{h.desc}</span>
+                </div>
                 <span className="text-slate-600">{new Date(h.ts).toLocaleTimeString()}</span>
               </div>
-              <div className="flex gap-4 text-xs">
-                <span className="text-emerald-400">+{h.adds} added</span>
-                <span className="text-red-400">-{h.removes} removed</span>
-                <span className="text-amber-400">~{h.modifies} modified</span>
+              <div className="flex items-center justify-between text-[10px] text-slate-500 mt-1 font-sans">
+                <span>Author: <strong className="text-slate-400">{h.author}</strong></span>
+                <span>Revision: <strong className="text-slate-400">Rev #{h.rev}</strong></span>
               </div>
             </div>
           ))}

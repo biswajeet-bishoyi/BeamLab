@@ -17,6 +17,9 @@ export * from './structural';
 // ── Loading Domain (B1.3) ───────────────────────────────────────────────────
 export * from './loading-domain';
 
+// ── Results & History Domain (B1.4) ──────────────────────────────────────────
+export * from './history';
+
 // ── Infrastructure ────────────────────────────────────────────────────────
 export * from './registries';
 export * from './validation';
