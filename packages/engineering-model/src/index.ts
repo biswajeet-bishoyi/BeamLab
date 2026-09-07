@@ -20,6 +20,9 @@ export * from './loading-domain';
 // ── Results & History Domain (B1.4) ──────────────────────────────────────────
 export * from './history';
 
+// ── Interoperability & BIM Domain (B1.5) ────────────────────────────────────
+export * from './interop';
+
 // ── Infrastructure ────────────────────────────────────────────────────────
 export * from './registries';
 export * from './validation';

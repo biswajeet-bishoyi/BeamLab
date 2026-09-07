@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-type ExplorerTab = 'overview' | 'structural' | 'loading' | 'results' | 'objects' | 'relationships' | 'validation' | 'history';
+type ExplorerTab = 'overview' | 'structural' | 'loading' | 'results' | 'interop' | 'objects' | 'relationships' | 'validation' | 'history';
 
 // ─── Mock data for display when no live model is connected ────────────────────
 
@@ -51,6 +51,7 @@ export const ModelExplorer: React.FC = () => {
     { key: 'structural', label: 'Structural' },
     { key: 'loading', label: 'Loading' },
     { key: 'results', label: 'Results' },
+    { key: 'interop', label: 'BIM & Interop' },
     { key: 'objects', label: 'Objects' },
     { key: 'relationships', label: 'Relationships' },
     { key: 'validation', label: 'Validation' },
@@ -481,6 +482,110 @@ export const ModelExplorer: React.FC = () => {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {activeTab === 'interop' && (
+        <div className="space-y-4 text-xs">
+          {/* Interop Status Banner */}
+          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                BIM & External Structural Interoperability Engine
+              </h3>
+              <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-cyan-950/40 text-cyan-400 border border-cyan-800/40">
+                5 Providers Active · Pure TypeScript
+              </span>
+            </div>
+            <p className="text-slate-400 text-xs">
+              Universal structural exchange layer with zero native binary dependencies. Operates symmetrically in browser web workers and Node runtimes with SI unit discipline.
+            </p>
+          </div>
+
+          {/* Registered Interop Adapters Table */}
+          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
+            <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">
+              Registered Format Adapters
+            </h4>
+            <div className="space-y-2">
+              {[
+                { format: 'IFC4 / IFC2X3', name: 'IFC Structural Analysis Provider', exts: ['.ifc', '.stp'], dir: 'BiDirectional', badge: 'text-indigo-400 bg-indigo-950/30 border-indigo-800/30', desc: 'ISO 10303-21 STEP-SPF point connections, curve members, and material bindings.' },
+                { format: 'AutoCAD DXF', name: 'AutoCAD DXF Provider', exts: ['.dxf'], dir: 'BiDirectional', badge: 'text-amber-400 bg-amber-950/30 border-amber-800/30', desc: 'ASCII DXF LINE/POINT interchange with spatial vertex merging tolerance.' },
+                { format: 'Bentley STAAD', name: 'STAAD.Pro Command File Provider', exts: ['.std'], dir: 'BiDirectional', badge: 'text-emerald-400 bg-emerald-950/30 border-emerald-800/30', desc: 'Joint coordinates, member incidences, and fixed/pinned supports with Y-up to Z-up transposition.' },
+                { format: 'CSI SAP2000', name: 'SAP2000 / ETABS Exchange Provider', exts: ['.s2k', '.e2k'], dir: 'BiDirectional', badge: 'text-blue-400 bg-blue-950/30 border-blue-800/30', desc: 'Relational text tables for joints, frame connectivity, and degree-of-freedom restraint assignments.' },
+                { format: 'Tabular CSV', name: 'Tabular Structural Exchange Provider', exts: ['.csv', '.txt'], dir: 'BiDirectional', badge: 'text-teal-400 bg-teal-950/30 border-teal-800/30', desc: 'Lightweight spreadsheet and script interchange for nodes, members, sections, and point/distributed loads.' },
+              ].map((adapter, i) => (
+                <div key={i} className="flex flex-col sm:flex-row sm:items-center justify-between p-2.5 rounded border border-slate-800/80 bg-slate-950/40 gap-2">
+                  <div className="space-y-0.5">
+                    <div className="flex items-center gap-2">
+                      <span className={`px-2 py-0.5 rounded text-[10px] font-semibold border ${adapter.badge}`}>
+                        {adapter.format}
+                      </span>
+                      <span className="font-medium text-slate-200">{adapter.name}</span>
+                    </div>
+                    <p className="text-[11px] text-slate-500">{adapter.desc}</p>
+                  </div>
+                  <div className="flex items-center gap-2 text-[10px] font-mono self-end sm:self-center">
+                    <span className="text-slate-400">{adapter.exts.join(', ')}</span>
+                    <span className="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">
+                      {adapter.dir}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Universal Translation & Mapping Engine */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
+              <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                Coordinate Transformation
+              </h4>
+              <ul className="space-y-1.5 text-slate-300 text-xs">
+                <li className="flex items-center justify-between">
+                  <span className="text-slate-500">Elevation Up-Axis</span>
+                  <span className="font-mono text-cyan-400">Y-up ↔ Canonical Z-up</span>
+                </li>
+                <li className="flex items-center justify-between">
+                  <span className="text-slate-500">Unit Scaling</span>
+                  <span className="font-mono text-cyan-400">mm / in / ft → SI (m)</span>
+                </li>
+                <li className="flex items-center justify-between">
+                  <span className="text-slate-500">Node Coincidence Tol.</span>
+                  <span className="font-mono text-slate-400">1.0 × 10⁻⁴ m (0.1 mm)</span>
+                </li>
+                <li className="flex items-center justify-between">
+                  <span className="text-slate-500">Precision Guarantee</span>
+                  <span className="font-mono text-emerald-400">Deterministic IEEE-754</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
+              <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                Material & Section Mapping
+              </h4>
+              <ul className="space-y-1.5 text-slate-300 text-xs">
+                <li className="flex items-center justify-between">
+                  <span className="text-slate-500">Steel Alias Resolution</span>
+                  <span className="font-mono text-purple-400">S355, S275, A36, Fe410</span>
+                </li>
+                <li className="flex items-center justify-between">
+                  <span className="text-slate-500">Concrete & Timber</span>
+                  <span className="font-mono text-purple-400">M25, M30, C24, GL24h</span>
+                </li>
+                <li className="flex items-center justify-between">
+                  <span className="text-slate-500">Standard Profiles</span>
+                  <span className="font-mono text-slate-400">IPE, ISMB, W-Shape, CHS</span>
+                </li>
+                <li className="flex items-center justify-between">
+                  <span className="text-slate-500">Parametric Rectangles</span>
+                  <span className="font-mono text-emerald-400">RECT_b×h Dimension Parser</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

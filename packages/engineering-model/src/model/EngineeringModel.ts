@@ -15,6 +15,7 @@ import { EngineeringSupport } from '../boundary/Boundary';
 import { LegacyLoadPattern, LegacyLoadCase, LegacyLoadCombination, NodeLoad, MemberLoad } from '../loading/Loading';
 import { AnalysisResult, CanonicalAnalysisResult, ResultRegistry, ResultConvergenceRule, StationContinuityRule, StaticsEquilibriumRule } from '../results';
 import { EngineeringHistoryRegistry, EngineeringHistoryEntry, createHistoryEntry } from '../history';
+import { InteropRegistry, InteropFormat, ImportOptions, ExportOptions } from '../interop';
 
 // ─── Project & Structure metadata ────────────────────────────────────────────
 
@@ -69,6 +70,7 @@ export class EngineeringModel {
   readonly events: CEMEventEmitter = new CEMEventEmitter();
   readonly results: ResultRegistry = new ResultRegistry();
   readonly history: EngineeringHistoryRegistry = new EngineeringHistoryRegistry();
+  readonly interop: InteropRegistry = new InteropRegistry();
 
   // ── Validation engine ──────────────────────────────────────────────────
   private readonly _validationEngine: ValidationEngine;
@@ -376,6 +378,17 @@ export class EngineeringModel {
 
   get changeHistory(): ModelChangeset[] {
     return [...this._history];
+  }
+
+  // ── Interoperability ──────────────────────────────────────────────────────
+
+  exportAs(format: InteropFormat | string, options?: ExportOptions): Promise<string> {
+    return this.interop.exportModel(format, this, options);
+  }
+
+  static async importFrom(format: InteropFormat | string, content: string, options?: ImportOptions): Promise<EngineeringModel> {
+    const registry = new InteropRegistry();
+    return registry.importModel(format, content, options);
   }
 
   // ── Summary ───────────────────────────────────────────────────────────────
