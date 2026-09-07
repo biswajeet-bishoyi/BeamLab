@@ -10,3 +10,7 @@ export * from './spectra/ResponseSpectrumGenerator';
 
 // Modal & Directional Combinations
 export * from './modal/ModalCombinationEngine';
+
+// Modal Response Spectrum Analysis & Base Shear Scaling
+export * from './mrsa/ModalResponseSpectrumEngine';
+export * from './mrsa/BaseShearScalingEngine';
