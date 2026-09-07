@@ -16,6 +16,7 @@ import { LegacyLoadPattern, LegacyLoadCase, LegacyLoadCombination, NodeLoad, Mem
 import { AnalysisResult, CanonicalAnalysisResult, ResultRegistry, ResultConvergenceRule, StationContinuityRule, StaticsEquilibriumRule } from '../results';
 import { EngineeringHistoryRegistry, EngineeringHistoryEntry, createHistoryEntry } from '../history';
 import { InteropRegistry, InteropFormat, ImportOptions, ExportOptions } from '../interop';
+import { ModelProfiler, ModelProfile, DependencyGraphEngine, EventStreamAuditor } from '../diagnostics';
 
 // ─── Project & Structure metadata ────────────────────────────────────────────
 
@@ -391,6 +392,22 @@ export class EngineeringModel {
     return registry.importModel(format, content, options);
   }
 
+  // ── Diagnostics & Developer Studio ─────────────────────────────────────────
+
+  profile(): ModelProfile {
+    return ModelProfiler.profile(this);
+  }
+
+  getDependencyGraph(): DependencyGraphEngine {
+    return new DependencyGraphEngine(this);
+  }
+
+  createEventAuditor(maxSize?: number): EventStreamAuditor {
+    const auditor = new EventStreamAuditor(maxSize);
+    auditor.attach(this.events);
+    return auditor;
+  }
+
   // ── Summary ───────────────────────────────────────────────────────────────
 
   summary(): Record<string, number> {
@@ -401,3 +418,4 @@ export class EngineeringModel {
     return counts;
   }
 }
+

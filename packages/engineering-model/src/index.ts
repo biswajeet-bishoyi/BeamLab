@@ -23,6 +23,9 @@ export * from './history';
 // ── Interoperability & BIM Domain (B1.5) ────────────────────────────────────
 export * from './interop';
 
+// ── Diagnostics & Developer Studio (B1.6) ──────────────────────────────────
+export * from './diagnostics';
+
 // ── Infrastructure ────────────────────────────────────────────────────────
 export * from './registries';
 export * from './validation';

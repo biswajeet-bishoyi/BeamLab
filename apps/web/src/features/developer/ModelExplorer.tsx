@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-type ExplorerTab = 'overview' | 'structural' | 'loading' | 'results' | 'interop' | 'objects' | 'relationships' | 'validation' | 'history';
+type ExplorerTab = 'overview' | 'structural' | 'loading' | 'results' | 'interop' | 'diagnostics' | 'objects' | 'relationships' | 'validation' | 'history';
 
 // ─── Mock data for display when no live model is connected ────────────────────
 
@@ -52,6 +52,7 @@ export const ModelExplorer: React.FC = () => {
     { key: 'loading', label: 'Loading' },
     { key: 'results', label: 'Results' },
     { key: 'interop', label: 'BIM & Interop' },
+    { key: 'diagnostics', label: 'Diagnostics' },
     { key: 'objects', label: 'Objects' },
     { key: 'relationships', label: 'Relationships' },
     { key: 'validation', label: 'Validation' },
@@ -586,6 +587,141 @@ export const ModelExplorer: React.FC = () => {
                   <span className="font-mono text-emerald-400">RECT_b×h Dimension Parser</span>
                 </li>
               </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {activeTab === 'diagnostics' && (
+        <div className="space-y-4 text-xs">
+          {/* Model Health Score Banner */}
+          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <h3 className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                  Model Integrity & Health Diagnostic Score
+                </h3>
+                <p className="text-[11px] text-slate-500 mt-0.5">
+                  Automated topology audit, degree-of-freedom tally, and kinematic stability check
+                </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="text-right">
+                  <div className="text-xl font-bold text-emerald-400">98 / 100</div>
+                  <div className="text-[10px] text-emerald-500 font-medium">Rating: Excellent</div>
+                </div>
+                <div className="w-12 h-12 rounded-full border-2 border-emerald-500/40 bg-emerald-950/30 flex items-center justify-center text-emerald-400 font-bold text-sm">
+                  98%
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 text-[11px] text-slate-400 bg-slate-950/40 p-2.5 rounded border border-slate-800/80">
+              <span className="text-emerald-400 font-bold">✓ Model Verified:</span>
+              <span>Zero rigid-body mechanisms, no isolated nodes, and zero circular dependencies.</span>
+            </div>
+          </div>
+
+          {/* Matrix & Degrees of Freedom Analysis */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4 space-y-3">
+              <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                Degree of Freedom (DoF) Analysis
+              </h4>
+              <div className="grid grid-cols-2 gap-2 text-xs">
+                <div className="bg-slate-950/50 p-2.5 rounded border border-slate-800">
+                  <div className="text-slate-500 text-[10px]">Total DoFs (6/node)</div>
+                  <div className="text-base font-bold font-mono text-blue-400 mt-0.5">72</div>
+                </div>
+                <div className="bg-slate-950/50 p-2.5 rounded border border-slate-800">
+                  <div className="text-slate-500 text-[10px]">Restrained DoFs</div>
+                  <div className="text-base font-bold font-mono text-cyan-400 mt-0.5">24</div>
+                </div>
+                <div className="bg-slate-950/50 p-2.5 rounded border border-slate-800">
+                  <div className="text-slate-500 text-[10px]">Active Free DoFs</div>
+                  <div className="text-base font-bold font-mono text-emerald-400 mt-0.5">48</div>
+                </div>
+                <div className="bg-slate-950/50 p-2.5 rounded border border-slate-800">
+                  <div className="text-slate-500 text-[10px]">Kinematic Stability</div>
+                  <div className="text-xs font-semibold text-emerald-400 mt-1">Stable (Restr ≥ 6)</div>
+                </div>
+              </div>
+              <div className="space-y-1 text-[11px] text-slate-400 pt-1">
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Estimated Half-Bandwidth</span>
+                  <span className="font-mono text-slate-300">18 DoFs</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Matrix Sparsity Estimate</span>
+                  <span className="font-mono text-emerald-400">96.2% Sparse</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4 space-y-3">
+              <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                Memory Footprint & Graph Stats
+              </h4>
+              <div className="grid grid-cols-2 gap-2 text-xs">
+                <div className="bg-slate-950/50 p-2.5 rounded border border-slate-800">
+                  <div className="text-slate-500 text-[10px]">Estimated Memory</div>
+                  <div className="text-base font-bold font-mono text-purple-400 mt-0.5">14.8 KB</div>
+                </div>
+                <div className="bg-slate-950/50 p-2.5 rounded border border-slate-800">
+                  <div className="text-slate-500 text-[10px]">Graph Edges</div>
+                  <div className="text-base font-bold font-mono text-indigo-400 mt-0.5">76</div>
+                </div>
+                <div className="bg-slate-950/50 p-2.5 rounded border border-slate-800">
+                  <div className="text-slate-500 text-[10px]">DAG Cycle Check</div>
+                  <div className="text-xs font-semibold text-emerald-400 mt-1">0 Cycles (Acyclic)</div>
+                </div>
+                <div className="bg-slate-950/50 p-2.5 rounded border border-slate-800">
+                  <div className="text-slate-500 text-[10px]">Orphan Entities</div>
+                  <div className="text-xs font-semibold text-slate-400 mt-1">0 Detected</div>
+                </div>
+              </div>
+              <div className="space-y-1 text-[11px] text-slate-400 pt-1">
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Topological Ordering</span>
+                  <span className="font-mono text-slate-300">Resolved (54 Objects)</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Active CEM Subscriptions</span>
+                  <span className="font-mono text-cyan-400">13 Event Handlers</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Live Event Stream Auditor Panel */}
+          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
+            <div className="flex items-center justify-between mb-3">
+              <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                Live CEM Event Stream & Auditor Log
+              </h4>
+              <span className="text-[10px] font-mono text-slate-500">Ring Buffer (500 max)</span>
+            </div>
+            <div className="space-y-1.5 font-mono text-[11px]">
+              {[
+                { seq: 42, type: 'AnalysisResultCreated', objId: 'res-canon-01', time: '10:28:40', badge: 'text-cyan-400 bg-cyan-950/40 border-cyan-800/40', detail: 'LinearStatic solver completed with 48 free DoFs' },
+                { seq: 41, type: 'EngineeringObjectCreated', objId: 'sup-004', time: '10:25:02', badge: 'text-blue-400 bg-blue-950/40 border-blue-800/40', detail: 'Support node-004 pinned boundary condition registered' },
+                { seq: 40, type: 'RelationshipCreated', objId: 'm-001', time: '10:24:15', badge: 'text-indigo-400 bg-indigo-950/40 border-indigo-800/40', detail: 'Member m-001 connected startNode: n-001, endNode: n-002' },
+                { seq: 39, type: 'EngineeringObjectCreated', objId: 'm-001', time: '10:23:45', badge: 'text-emerald-400 bg-emerald-950/40 border-emerald-800/40', detail: 'Member Col-A created with IPE 300 section profile' },
+                { seq: 38, type: 'EngineeringObjectCreated', objId: 'mat-001', time: '10:21:10', badge: 'text-amber-400 bg-amber-950/40 border-amber-800/40', detail: 'StructuralMaterial S355 Steel registered (E=210 GPa)' },
+              ].map((ev, i) => (
+                <div key={i} className="flex items-center justify-between p-2 rounded bg-slate-950/50 border border-slate-800/60">
+                  <div className="flex items-center gap-2">
+                    <span className="text-slate-600 w-7">#{ev.seq}</span>
+                    <span className={`px-1.5 py-0.5 rounded text-[10px] border font-sans font-medium ${ev.badge}`}>
+                      {ev.type}
+                    </span>
+                    <span className="text-slate-300 font-sans">{ev.detail}</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-slate-500 font-sans text-[10px]">
+                    <span className="font-mono text-slate-400">{ev.objId}</span>
+                    <span>{ev.time}</span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
