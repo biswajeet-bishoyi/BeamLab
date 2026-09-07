@@ -16,3 +16,7 @@ export * from './shallow/IsolatedFootingEngine';
 
 // Mat Foundations & Winkler Subgrade SSI
 export * from './ssi/WinklerSubgradeEngine';
+
+// Deep Foundations & Pile Group Analysis
+export * from './deep/SinglePileEngine';
+export * from './deep/PileGroupEngine';

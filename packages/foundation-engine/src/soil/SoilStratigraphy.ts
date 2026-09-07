@@ -46,6 +46,13 @@ export class SoilStratigraphy {
   }
 
   /**
+   * Returns all layers in stratigraphy profile.
+   */
+  getLayers(): readonly SoilLayer[] {
+    return this.profile.layers;
+  }
+
+  /**
    * Returns the soil layer at a specific depth z.
    */
   getLayerAtDepth(depth_m: number): SoilLayer | undefined {
