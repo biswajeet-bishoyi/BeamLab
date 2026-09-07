@@ -26,6 +26,7 @@ import { ConcreteDesignStudio } from '../features/concrete';
 import { BIMInteropStudio } from '../features/interop';
 import { FoundationStudio } from '../features/foundation';
 import { SeismicStudio } from '../features/seismic';
+import { WindStudio } from '../features/wind';
 import { AnimatePresence } from 'framer-motion';
 
 export const WorkspaceLayout: React.FC = () => {
@@ -68,6 +69,8 @@ export const WorkspaceLayout: React.FC = () => {
     setFoundationStudioOpen,
     seismicStudioOpen,
     setSeismicStudioOpen,
+    windStudioOpen,
+    setWindStudioOpen,
   } = useStore(state => ({
     envGalleryOpen: state.envGalleryOpen,
     setEnvGalleryOpen: state.setEnvGalleryOpen,
@@ -95,6 +98,8 @@ export const WorkspaceLayout: React.FC = () => {
     setFoundationStudioOpen: state.setFoundationStudioOpen,
     seismicStudioOpen: state.seismicStudioOpen,
     setSeismicStudioOpen: state.setSeismicStudioOpen,
+    windStudioOpen: state.windStudioOpen,
+    setWindStudioOpen: state.setWindStudioOpen,
   }));
 
   return (
@@ -237,6 +242,12 @@ export const WorkspaceLayout: React.FC = () => {
         <AnimatePresence>
           {seismicStudioOpen && (
             <SeismicStudio onClose={() => setSeismicStudioOpen(false)} />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {windStudioOpen && (
+            <WindStudio onClose={() => setWindStudioOpen(false)} />
           )}
         </AnimatePresence>
 

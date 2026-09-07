@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass, Activity } from 'lucide-react';
+import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass, Activity, Wind } from 'lucide-react';
 import { useStore } from '../store';
 
 export const TopNav: React.FC = () => {
@@ -19,6 +19,7 @@ export const TopNav: React.FC = () => {
     setBimInteropStudioOpen,
     setFoundationStudioOpen,
     setSeismicStudioOpen,
+    setWindStudioOpen,
   } = useStore(state => ({
     setView: state.setView,
     activeEnvironment: state.activeEnvironment,
@@ -35,6 +36,7 @@ export const TopNav: React.FC = () => {
     setBimInteropStudioOpen: state.setBimInteropStudioOpen,
     setFoundationStudioOpen: state.setFoundationStudioOpen,
     setSeismicStudioOpen: state.setSeismicStudioOpen,
+    setWindStudioOpen: state.setWindStudioOpen,
   }));
 
   return (
@@ -141,6 +143,14 @@ export const TopNav: React.FC = () => {
         >
           <Activity size={16} />
           <span>Seismic</span>
+        </button>
+        <button 
+          onClick={() => setWindStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-sky-600 via-indigo-600 to-blue-600 hover:from-sky-500 hover:to-indigo-500 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-sky-400/30"
+          title="Open 3D Wind Aerodynamics & Structural Wind Engineering Studio (ASCE 7-22, Eurocode 1, IS 875, Gust, Vortex, Comfort)"
+        >
+          <Wind size={16} />
+          <span>Wind</span>
         </button>
         <button 
           onClick={() => setPlaybackMode(true)}
