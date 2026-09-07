@@ -187,3 +187,108 @@ export class CompositeMaterialFactory {
     }
   }
 }
+
+export interface CompositeSectionDefinition {
+  steel: {
+    depth: number;
+    flangeWidth: number;
+    flangeThickness: number;
+    webThickness: number;
+    area: number;
+    momentOfInertiaX: number; // cm^4
+    sectionModulusX: number;
+    plasticModulusX?: number;
+    yieldStrength: number;
+    elasticModulus: number;
+  };
+  concrete: {
+    fc: number;
+    density?: number;
+    elasticModulus: number;
+    poissonRatio?: number;
+    slabThickness: number;
+    totalSlabThickness?: number;
+  };
+  deck?: {
+    ribDepth: number;
+    averageRibWidth: number;
+    ribPitch?: number;
+    sheetThickness?: number;
+    orientation: 'perpendicular' | 'parallel' | 'PERPENDICULAR' | 'PARALLEL';
+  };
+}
+
+export const STANDARD_WIDE_FLANGE_SECTIONS: Record<string, CompositeSectionDefinition['steel']> = {
+  'W16x40': {
+    depth: 407,
+    flangeWidth: 178,
+    flangeThickness: 12.8,
+    webThickness: 7.7,
+    area: 7610,
+    momentOfInertiaX: 21600,
+    sectionModulusX: 1060e3,
+    plasticModulusX: 1195e3,
+    yieldStrength: 345,
+    elasticModulus: 200000,
+  },
+  'W18x50': {
+    depth: 457,
+    flangeWidth: 190,
+    flangeThickness: 14.5,
+    webThickness: 9.0,
+    area: 9480,
+    momentOfInertiaX: 33300,
+    sectionModulusX: 1460e3,
+    plasticModulusX: 1655e3,
+    yieldStrength: 345,
+    elasticModulus: 200000,
+  },
+  'W21x62': {
+    depth: 533,
+    flangeWidth: 210,
+    flangeThickness: 15.6,
+    webThickness: 10.2,
+    area: 11800,
+    momentOfInertiaX: 55400,
+    sectionModulusX: 2080e3,
+    plasticModulusX: 2360e3,
+    yieldStrength: 345,
+    elasticModulus: 200000,
+  },
+  'W24x76': {
+    depth: 607,
+    flangeWidth: 228,
+    flangeThickness: 17.3,
+    webThickness: 11.2,
+    area: 14500,
+    momentOfInertiaX: 87400,
+    sectionModulusX: 2880e3,
+    plasticModulusX: 3280e3,
+    yieldStrength: 345,
+    elasticModulus: 200000,
+  },
+  'IPE360': {
+    depth: 360,
+    flangeWidth: 170,
+    flangeThickness: 12.7,
+    webThickness: 8.0,
+    area: 7270,
+    momentOfInertiaX: 16270,
+    sectionModulusX: 904e3,
+    plasticModulusX: 1019e3,
+    yieldStrength: 355,
+    elasticModulus: 210000,
+  },
+  'UB457': {
+    depth: 453,
+    flangeWidth: 190,
+    flangeThickness: 12.7,
+    webThickness: 8.5,
+    area: 8550,
+    momentOfInertiaX: 29400,
+    sectionModulusX: 1300e3,
+    plasticModulusX: 1450e3,
+    yieldStrength: 355,
+    elasticModulus: 210000,
+  },
+};
