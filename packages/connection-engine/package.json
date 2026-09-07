@@ -1,0 +1,21 @@
+{
+  "name": "@beamlab/connection-engine",
+  "version": "0.1.0",
+  "description": "Structural Steel Connection Design, Detailing & Bolt/Weld Verification Engine for AISC 360-16 and Eurocode 3",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@beamlab/types": "workspace:*"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.2",
+    "typescript": "^5.3.3",
+    "vitest": "^1.6.1"
+  }
+}
