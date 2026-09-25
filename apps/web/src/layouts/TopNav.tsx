@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass, Activity, Wind, Trees, Building2, Spline } from 'lucide-react';
+import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass, Activity, Wind, Trees, Building2, Spline, Truck } from 'lucide-react';
 import { useShallow } from 'zustand/react/shallow';
 import { useStore } from '../store';
 
@@ -24,6 +24,7 @@ export const TopNav: React.FC = () => {
     setTimberStudioOpen,
     setCompositeStudioOpen,
     setPrestressedStudioOpen,
+    setBridgeStudioOpen,
   } = useStore(useShallow(state => ({
     setView: state.setView,
     activeEnvironment: state.activeEnvironment,
@@ -44,6 +45,7 @@ export const TopNav: React.FC = () => {
     setTimberStudioOpen: state.setTimberStudioOpen,
     setCompositeStudioOpen: state.setCompositeStudioOpen,
     setPrestressedStudioOpen: state.setPrestressedStudioOpen,
+    setBridgeStudioOpen: state.setBridgeStudioOpen,
   })));
 
   return (
@@ -182,6 +184,14 @@ export const TopNav: React.FC = () => {
         >
           <Spline size={16} />
           <span>PT Studio</span>
+        </button>
+        <button 
+          onClick={() => setBridgeStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-blue-600 via-sky-500 to-cyan-600 hover:from-blue-500 hover:to-cyan-400 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-sky-400/30"
+          title="Open Bridge Engineering & Moving Live Load Studio (AASHTO HL-93, Eurocode LM1-LM3, IRC 6, Müller-Breslau, LLDF & Dynamics)"
+        >
+          <Truck size={16} />
+          <span>Bridge</span>
         </button>
         <button 
           onClick={() => setPlaybackMode(true)}

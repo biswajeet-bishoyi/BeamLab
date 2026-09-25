@@ -31,6 +31,7 @@ import { WindStudio } from '../features/wind';
 import { TimberStudio } from '../features/timber';
 import { CompositeStudio } from '../features/composite';
 import { PrestressedStudio } from '../features/prestressed';
+import { BridgeStudio } from '../features/bridge';
 import { AnimatePresence } from 'framer-motion';
 
 export const WorkspaceLayout: React.FC = () => {
@@ -96,6 +97,8 @@ export const WorkspaceLayout: React.FC = () => {
     setCompositeStudioOpen,
     prestressedStudioOpen,
     setPrestressedStudioOpen,
+    bridgeStudioOpen,
+    setBridgeStudioOpen,
   } = useStore(useShallow(state => ({
     envGalleryOpen: state.envGalleryOpen,
     setEnvGalleryOpen: state.setEnvGalleryOpen,
@@ -131,6 +134,8 @@ export const WorkspaceLayout: React.FC = () => {
     setCompositeStudioOpen: state.setCompositeStudioOpen,
     prestressedStudioOpen: state.prestressedStudioOpen,
     setPrestressedStudioOpen: state.setPrestressedStudioOpen,
+    bridgeStudioOpen: state.bridgeStudioOpen,
+    setBridgeStudioOpen: state.setBridgeStudioOpen,
   })));
 
   return (
@@ -303,6 +308,12 @@ export const WorkspaceLayout: React.FC = () => {
         <AnimatePresence>
           {prestressedStudioOpen && (
             <PrestressedStudio onClose={() => setPrestressedStudioOpen(false)} />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {bridgeStudioOpen && (
+            <BridgeStudio onClose={() => setBridgeStudioOpen(false)} />
           )}
         </AnimatePresence>
 
