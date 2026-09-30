@@ -1,6 +1,14 @@
 node_modules
+**/node_modules
 dist
+**/dist
 .turbo
+**/.turbo
 .next
+**/.next
+.vite
+**/.vite
 .DS_Store
 *.log
+**/*.log
+.git/index.lock

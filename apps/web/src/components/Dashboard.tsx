@@ -11,7 +11,7 @@ import {
   ArrowRight,
   Sparkles 
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import type { StructuralModel } from '@beamworks/core-engine/model/types';
 import { toLength, toForce, toForcePerLength } from '@beamworks/core-engine/units/brands';
 
@@ -23,6 +23,31 @@ export function Dashboard() {
   const [aiPrompt, setAiPrompt] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [aiError, setAiError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const text = event.target?.result as string;
+        const parsed = JSON.parse(text);
+        if (parsed.model) {
+          loadPreset(parsed.model);
+        } else if (parsed.span && parsed.material) {
+          loadPreset(parsed);
+        } else {
+          loadPreset(initialModel);
+        }
+        setView('workspace');
+      } catch (err) {
+        console.error('Failed to load JSON workspace:', err);
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  };
 
   const handleGenerateBeam = async () => {
     if (!aiPrompt.trim()) return;
@@ -234,7 +259,7 @@ Respond with ONLY valid JSON. Do not include markdown formatting like \`\`\`json
             desc="Load a .json workspace" 
             color="bg-slate-100 dark:bg-slate-800"
             textColor="text-slate-800 dark:text-slate-200"
-            onClick={() => {}}
+            onClick={() => fileInputRef.current?.click()}
           />
           <ActionCard 
             icon={<Library size={28} />} 
@@ -250,7 +275,14 @@ Respond with ONLY valid JSON. Do not include markdown formatting like \`\`\`json
             desc="Preferences & theme" 
             color="bg-slate-100 dark:bg-slate-800"
             textColor="text-slate-800 dark:text-slate-200"
-            onClick={() => {}}
+            onClick={() => setView('workspace')}
+          />
+          <input 
+            ref={fileInputRef} 
+            type="file" 
+            accept=".json,application/json" 
+            onChange={handleFileChange} 
+            className="hidden" 
           />
         </motion.section>
 
