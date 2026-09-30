@@ -16,6 +16,7 @@
     "@beamlab/agent-structural-analysis": "workspace:*",
     "@beamlab/archie-client": "workspace:*",
     "@beamlab/archie-kernel": "workspace:*",
+    "@beamlab/bridge-engine": "workspace:*",
     "@beamlab/collaboration-engine": "workspace:*",
     "@beamlab/composite-engine": "workspace:*",
     "@beamlab/concrete-engine": "workspace:*",
