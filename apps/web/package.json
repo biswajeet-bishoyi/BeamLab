@@ -37,6 +37,7 @@
     "@beamlab/resource-client": "workspace:*",
     "@beamlab/resource-manager": "workspace:*",
     "@beamlab/seismic-engine": "workspace:*",
+    "@beamlab/solve-farm": "workspace:*",
     "@beamlab/timber-engine": "workspace:*",
     "@beamlab/wind-engine": "workspace:*",
     "@beamlab/workspace-runtime": "workspace:*",

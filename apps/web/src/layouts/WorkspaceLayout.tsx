@@ -36,6 +36,7 @@ import { CableStudio } from '../features/cable';
 import { PlateShellStudio } from '../features/fem';
 import { EarthStudio } from '../features/earth';
 import { BlastStudio } from '../features/blast';
+import { SolveFarmStudio } from '../features/farm/SolveFarmStudio';
 import { AnimatePresence } from 'framer-motion';
 
 export const WorkspaceLayout: React.FC = () => {
@@ -111,6 +112,8 @@ export const WorkspaceLayout: React.FC = () => {
     setEarthStudioOpen,
     blastStudioOpen,
     setBlastStudioOpen,
+    solveFarmStudioOpen,
+    setSolveFarmStudioOpen,
   } = useStore(useShallow(state => ({
     envGalleryOpen: state.envGalleryOpen,
     setEnvGalleryOpen: state.setEnvGalleryOpen,
@@ -156,6 +159,8 @@ export const WorkspaceLayout: React.FC = () => {
     setEarthStudioOpen: state.setEarthStudioOpen,
     blastStudioOpen: state.blastStudioOpen,
     setBlastStudioOpen: state.setBlastStudioOpen,
+    solveFarmStudioOpen: state.solveFarmStudioOpen,
+    setSolveFarmStudioOpen: state.setSolveFarmStudioOpen,
   })));
 
   return (
@@ -358,6 +363,12 @@ export const WorkspaceLayout: React.FC = () => {
         <AnimatePresence>
           {blastStudioOpen && (
             <BlastStudio onClose={() => setBlastStudioOpen(false)} />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {solveFarmStudioOpen && (
+            <SolveFarmStudio onClose={() => setSolveFarmStudioOpen(false)} />
           )}
         </AnimatePresence>
 

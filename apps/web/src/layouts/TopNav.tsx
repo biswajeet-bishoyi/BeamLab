@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass, Activity, Wind, Trees, Building2, Spline, Truck, Cable, Grid, Mountain, Bomb } from 'lucide-react';
+import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass, Activity, Wind, Trees, Building2, Spline, Truck, Cable, Grid, Mountain, Bomb, Server } from 'lucide-react';
 import { useShallow } from 'zustand/react/shallow';
 import { useStore } from '../store';
 
@@ -29,6 +29,7 @@ export const TopNav: React.FC = () => {
     setPlateShellStudioOpen,
     setEarthStudioOpen,
     setBlastStudioOpen,
+    setSolveFarmStudioOpen,
   } = useStore(useShallow(state => ({
     setView: state.setView,
     activeEnvironment: state.activeEnvironment,
@@ -54,6 +55,7 @@ export const TopNav: React.FC = () => {
     setPlateShellStudioOpen: state.setPlateShellStudioOpen,
     setEarthStudioOpen: state.setEarthStudioOpen,
     setBlastStudioOpen: state.setBlastStudioOpen,
+    setSolveFarmStudioOpen: state.setSolveFarmStudioOpen,
   })));
 
   return (
@@ -232,6 +234,14 @@ export const TopNav: React.FC = () => {
         >
           <Bomb size={16} />
           <span>Blast / Impact</span>
+        </button>
+        <button 
+          onClick={() => setSolveFarmStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-cyan-700 via-teal-600 to-emerald-600 hover:from-cyan-600 hover:to-emerald-500 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-cyan-500/30"
+          title="Open Cloud Solve Farm & Python Scientific Orchestrator (Worker Pool, Domain Decomposition, FETI Schur Complement & Code Generator)"
+        >
+          <Server size={16} />
+          <span>Solve Farm</span>
         </button>
         <button 
           onClick={() => setPlaybackMode(true)}

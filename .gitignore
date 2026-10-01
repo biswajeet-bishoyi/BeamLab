@@ -12,3 +12,6 @@ dist
 *.log
 **/*.log
 .git/index.lock
+__pycache__
+**/__pycache__
+*.pyc
