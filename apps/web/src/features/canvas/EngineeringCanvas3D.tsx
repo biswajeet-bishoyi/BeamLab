@@ -101,6 +101,14 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
   const modalControllerRef = useRef<ModalAnimationController | null>(null);
   const diagramControllerRef = useRef<DiagramController | null>(null);
 
+  // Keep selection callback references stable so Three.js canvas doesn't tear down on render
+  const onSelectNodeRef = useRef(onSelectNode);
+  const onSelectMemberRef = useRef(onSelectMember);
+  useEffect(() => {
+    onSelectNodeRef.current = onSelectNode;
+    onSelectMemberRef.current = onSelectMember;
+  });
+
   // Viewport & Navigation state
   const [projection, setProjection] = useState<ProjectionMode>('Perspective');
   const [currentView, setCurrentView] = useState<ViewOrientation>('Isometric');
@@ -501,7 +509,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
           if (state.members.size === 1) {
             const selMemberId = Array.from(state.members)[0]!;
             diagramController.setSelectedMember(selMemberId);
-            onSelectMember?.(selMemberId);
+            onSelectMemberRef.current?.(selMemberId);
           }
         }
         if (state.nodes.size > 0) parts.push(`${state.nodes.size} Node${state.nodes.size > 1 ? 's' : ''}`);
@@ -607,9 +615,9 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
         }
 
         if (hit.entityType === 'node') {
-          onSelectNode?.(hit.entityId);
+          onSelectNodeRef.current?.(hit.entityId);
         } else if (hit.entityType === 'member') {
-          onSelectMember?.(hit.entityId);
+          onSelectMemberRef.current?.(hit.entityId);
         }
       } else {
         selectionManager.clearSelection();
@@ -674,7 +682,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
       sceneController.dispose();
       kernel.dispose();
     };
-  }, [handleFitAll, onSelectNode, onSelectMember]);
+  }, [handleFitAll]);
 
   return (
     <div className={`relative overflow-hidden select-none bg-[#090d16] ${className}`}>

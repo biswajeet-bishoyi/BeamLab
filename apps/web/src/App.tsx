@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { WorkspaceLayout } from './layouts/WorkspaceLayout';
 import { Dashboard } from './components/Dashboard';
@@ -13,36 +13,51 @@ function AppContent() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // 1. Sync route URL into Zustand store only when the route changes (deep-link, browser back/forward)
-  useEffect(() => {
-    const path = location.pathname;
-    const storeView = useStore.getState().currentView;
-    if (path.includes('/workspace')) {
-      if (storeView !== 'workspace') setView('workspace');
-    } else if (path.includes('/gallery')) {
-      if (storeView !== 'gallery') setView('gallery');
-    } else {
-      if (storeView !== 'dashboard') setView('dashboard');
-    }
-  }, [location.pathname, setView]);
+  const prevPathRef = useRef<string | null>(null);
+  const prevViewRef = useRef<string | null>(null);
 
-  // 2. Sync Zustand store updates (e.g. setView or loadPreset actions) to React Router
+  // Synchronize route URL and Zustand currentView without feedback loops
   useEffect(() => {
-    const path = location.pathname;
-    if (currentView === 'workspace') {
-      if (!path.includes('/workspace')) {
-        navigate('/workspace');
+    const currentPath = location.pathname;
+    const prevPath = prevPathRef.current;
+    const prevView = prevViewRef.current;
+
+    const urlView: 'dashboard' | 'workspace' | 'gallery' = currentPath.startsWith('/workspace')
+      ? 'workspace'
+      : currentPath.startsWith('/gallery')
+      ? 'gallery'
+      : 'dashboard';
+
+    const viewPath =
+      currentView === 'workspace'
+        ? '/workspace'
+        : currentView === 'gallery'
+        ? '/gallery'
+        : '/';
+
+    if (prevPath === null) {
+      // Initial mount: synchronize store to match initial URL if needed
+      prevPathRef.current = currentPath;
+      prevViewRef.current = urlView;
+      if (useStore.getState().currentView !== urlView) {
+        setView(urlView);
       }
-    } else if (currentView === 'gallery') {
-      if (!path.includes('/gallery')) {
-        navigate('/gallery');
+    } else if (currentPath !== prevPath) {
+      // 1. URL changed (Browser back/forward, direct link, or router navigation)
+      prevPathRef.current = currentPath;
+      prevViewRef.current = urlView;
+      if (useStore.getState().currentView !== urlView) {
+        setView(urlView);
       }
-    } else if (currentView === 'dashboard') {
-      if (path.includes('/workspace') || path.includes('/gallery')) {
-        navigate('/');
+    } else if (currentView !== prevView) {
+      // 2. Store view changed via user action (e.g. setView, loadPreset), but URL hasn't changed yet
+      prevViewRef.current = currentView;
+      if (currentPath !== viewPath) {
+        prevPathRef.current = viewPath;
+        navigate(viewPath);
       }
     }
-  }, [currentView, location.pathname, navigate]);
+  }, [location.pathname, currentView, navigate, setView]);
 
   return (
     <ErrorBoundary>
@@ -69,7 +84,7 @@ function App() {
 
   return (
     <div className={`h-screen w-screen overflow-hidden transition-colors duration-300 font-sans ${theme}`}>
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <AppContent />
       </BrowserRouter>
       

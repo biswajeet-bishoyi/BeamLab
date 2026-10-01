@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useStore } from '../store';
 import { EngineeringInspector } from '../components/EngineeringInspector';
 import { EnvironmentLayer } from '../components/environments/EnvironmentLayer';
@@ -12,6 +12,10 @@ export const CenterWorkspace: React.FC = () => {
   const activeEnvironment = useStore(state => state.activeEnvironment);
   const [canvasMode, setCanvasMode] = useState<'2D' | '3D'>('3D');
   const [selectedMemberId, setSelectedMemberId] = useState<string | null>(null);
+
+  const handleSelectMember = useCallback((id: string) => {
+    setSelectedMemberId(id);
+  }, []);
 
   return (
     <div className="flex flex-col h-full bg-[#111111] relative overflow-hidden custom-scrollbar">
@@ -59,7 +63,7 @@ export const CenterWorkspace: React.FC = () => {
           {canvasMode === '3D' ? (
             <EngineeringCanvas3D
               className="w-full h-full"
-              onSelectMember={(id) => setSelectedMemberId(id)}
+              onSelectMember={handleSelectMember}
             />
           ) : (
             <div className="w-full h-full relative flex items-center justify-center">
