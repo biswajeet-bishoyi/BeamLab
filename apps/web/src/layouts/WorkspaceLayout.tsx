@@ -33,6 +33,7 @@ import { CompositeStudio } from '../features/composite';
 import { PrestressedStudio } from '../features/prestressed';
 import { BridgeStudio } from '../features/bridge';
 import { CableStudio } from '../features/cable';
+import { PlateShellStudio } from '../features/fem';
 import { AnimatePresence } from 'framer-motion';
 
 export const WorkspaceLayout: React.FC = () => {
@@ -102,6 +103,8 @@ export const WorkspaceLayout: React.FC = () => {
     setBridgeStudioOpen,
     cableStudioOpen,
     setCableStudioOpen,
+    plateShellStudioOpen,
+    setPlateShellStudioOpen,
   } = useStore(useShallow(state => ({
     envGalleryOpen: state.envGalleryOpen,
     setEnvGalleryOpen: state.setEnvGalleryOpen,
@@ -141,6 +144,8 @@ export const WorkspaceLayout: React.FC = () => {
     setBridgeStudioOpen: state.setBridgeStudioOpen,
     cableStudioOpen: state.cableStudioOpen,
     setCableStudioOpen: state.setCableStudioOpen,
+    plateShellStudioOpen: state.plateShellStudioOpen,
+    setPlateShellStudioOpen: state.setPlateShellStudioOpen,
   })));
 
   return (
@@ -325,6 +330,12 @@ export const WorkspaceLayout: React.FC = () => {
         <AnimatePresence>
           {cableStudioOpen && (
             <CableStudio onClose={() => setCableStudioOpen(false)} />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {plateShellStudioOpen && (
+            <PlateShellStudio onClose={() => setPlateShellStudioOpen(false)} />
           )}
         </AnimatePresence>
 

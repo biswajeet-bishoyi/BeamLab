@@ -24,6 +24,7 @@
     "@beamlab/connection-engine": "workspace:*",
     "@beamlab/engineering-model": "workspace:*",
     "@beamlab/execution-graph": "workspace:*",
+    "@beamlab/fem-engine": "workspace:*",
     "@beamlab/foundation-engine": "workspace:*",
     "@beamlab/interop-pipeline": "workspace:*",
     "@beamlab/knowledge-client": "workspace:*",

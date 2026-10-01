@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass, Activity, Wind, Trees, Building2, Spline, Truck, Cable } from 'lucide-react';
+import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass, Activity, Wind, Trees, Building2, Spline, Truck, Cable, Grid } from 'lucide-react';
 import { useShallow } from 'zustand/react/shallow';
 import { useStore } from '../store';
 
@@ -26,6 +26,7 @@ export const TopNav: React.FC = () => {
     setPrestressedStudioOpen,
     setBridgeStudioOpen,
     setCableStudioOpen,
+    setPlateShellStudioOpen,
   } = useStore(useShallow(state => ({
     setView: state.setView,
     activeEnvironment: state.activeEnvironment,
@@ -48,6 +49,7 @@ export const TopNav: React.FC = () => {
     setPrestressedStudioOpen: state.setPrestressedStudioOpen,
     setBridgeStudioOpen: state.setBridgeStudioOpen,
     setCableStudioOpen: state.setCableStudioOpen,
+    setPlateShellStudioOpen: state.setPlateShellStudioOpen,
   })));
 
   return (
@@ -202,6 +204,14 @@ export const TopNav: React.FC = () => {
         >
           <Cable size={16} />
           <span>Cable</span>
+        </button>
+        <button 
+          onClick={() => setPlateShellStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 hover:from-emerald-500 hover:to-cyan-400 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-teal-400/30"
+          title="Open Plate & Shell Finite Element Continuum Studio (MITC4 Mindlin-Reissner, 2D Surface Mesher, Wood-Armer & Yield Criteria)"
+        >
+          <Grid size={16} />
+          <span>Shell / FEM</span>
         </button>
         <button 
           onClick={() => setPlaybackMode(true)}
