@@ -12,3 +12,5 @@ export * from './review/EngineeringReviewEngine';
 export * from './intelligence/ComplianceReasoningStrategy';
 export * from './recommendations/ComplianceRecommendationEngine';
 export * from './narrative/ComplianceNarrativeBuilder';
+export * from './engine/CodeComplianceAuditor';
+export * from './comparative/CrossCodeBenchmarkEngine';

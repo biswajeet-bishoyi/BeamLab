@@ -12,8 +12,11 @@ import { CEMEventEmitter, CEMEvent } from '../events/ModelEvents';
 import { EngineeringNode, EngineeringMember } from '../geometry/Geometry';
 import { EngineeringMaterial, EngineeringSection } from '../properties/Properties';
 import { EngineeringSupport } from '../boundary/Boundary';
-import { LoadPattern, LoadCase, LoadCombination, NodeLoad, MemberLoad } from '../loading/Loading';
-import { AnalysisResult } from '../results/Results';
+import { LegacyLoadPattern, LegacyLoadCase, LegacyLoadCombination, NodeLoad, MemberLoad } from '../loading/Loading';
+import { AnalysisResult, CanonicalAnalysisResult, ResultRegistry, ResultConvergenceRule, StationContinuityRule, StaticsEquilibriumRule } from '../results';
+import { EngineeringHistoryRegistry, EngineeringHistoryEntry, createHistoryEntry } from '../history';
+import { InteropRegistry, InteropFormat, ImportOptions, ExportOptions } from '../interop';
+import { ModelProfiler, ModelProfile, DependencyGraphEngine, EventStreamAuditor } from '../diagnostics';
 
 // ─── Project & Structure metadata ────────────────────────────────────────────
 
@@ -66,11 +69,14 @@ export class EngineeringModel {
   readonly serialization: SerializationRegistry = new SerializationRegistry();
   readonly validation: ValidationRegistry = new ValidationRegistry();
   readonly events: CEMEventEmitter = new CEMEventEmitter();
+  readonly results: ResultRegistry = new ResultRegistry();
+  readonly history: EngineeringHistoryRegistry = new EngineeringHistoryRegistry();
+  readonly interop: InteropRegistry = new InteropRegistry();
 
   // ── Validation engine ──────────────────────────────────────────────────
   private readonly _validationEngine: ValidationEngine;
 
-  // ── Results store ───────────────────────────────────────────────────────
+  // ── Results store (legacy compatibility) ────────────────────────────────
   private readonly _results: Map<string, AnalysisResult> = new Map();
 
   // ── Change history ──────────────────────────────────────────────────────
@@ -85,7 +91,22 @@ export class EngineeringModel {
     // Wire up default infrastructure
     this.serialization.register(new JsonSerializationProvider());
     this.validation.register(new OrphanReferenceRule());
+    this.validation.register(new ResultConvergenceRule());
+    this.validation.register(new StationContinuityRule());
+    this.validation.register(new StaticsEquilibriumRule());
     this._validationEngine = new ValidationEngine(this.validation);
+
+    // Initial history record
+    this.history.record(
+      createHistoryEntry({
+        id: `hist-${id}-init`,
+        type: 'ModelChange',
+        revisionNumber: 1,
+        author: { type: 'System', id: 'system', name: 'BeamLab Kernel' },
+        description: `Engineering model initialized: ${project.name}`,
+        affectedObjectIds: [id],
+      })
+    );
   }
 
   // ── Unit system ──────────────────────────────────────────────────────────
@@ -198,20 +219,20 @@ export class EngineeringModel {
 
   // ── Loading ───────────────────────────────────────────────────────────────
 
-  addLoadPattern(id: string, name: string, type: LoadPattern['patternType']): LoadPattern {
-    const lp = new LoadPattern(id, name, type);
+  addLoadPattern(id: string, name: string, type: LegacyLoadPattern['patternType']): LegacyLoadPattern {
+    const lp = new LegacyLoadPattern(id, name, type);
     this._add(lp);
     return lp;
   }
 
-  addLoadCase(id: string, name: string, patternIds: string[]): LoadCase {
-    const lc = new LoadCase(id, name, patternIds);
+  addLoadCase(id: string, name: string, patternIds: string[]): LegacyLoadCase {
+    const lc = new LegacyLoadCase(id, name, patternIds);
     this._add(lc);
     return lc;
   }
 
-  addLoadCombination(id: string, name: string, factors: LoadCombination['factors']): LoadCombination {
-    const combo = new LoadCombination(id, name, factors);
+  addLoadCombination(id: string, name: string, factors: LegacyLoadCombination['factors']): LegacyLoadCombination {
+    const combo = new LegacyLoadCombination(id, name, factors);
     this._add(combo);
     return combo;
   }
@@ -230,17 +251,88 @@ export class EngineeringModel {
 
   // ── Results ───────────────────────────────────────────────────────────────
 
-  publishResult(result: AnalysisResult): void {
+  publishCanonicalResult(result: CanonicalAnalysisResult): void {
+    this.results.register(result, true);
+    this.objects.register(result);
+    this.events.emit({
+      type: 'AnalysisResultCreated',
+      timestamp: new Date().toISOString(),
+      modelId: this.id,
+      objectId: result.identity.id,
+      payload: result,
+    });
+
+    // Record into history
+    this.history.record(
+      createHistoryEntry({
+        id: `hist-${result.identity.id}`,
+        type: 'AnalysisRun',
+        revisionNumber: this.currentVersion.number,
+        author: {
+          type: result.provenance?.agent ? 'Agent' : 'System',
+          id: result.provenance?.agent?.agentId ?? result.solverId,
+          name: result.provenance?.agent?.agentName ?? result.solverId,
+        },
+        description: `Analysis result published: ${result.identity.name} (Solver: ${result.solverId})`,
+        affectedObjectIds: [result.identity.id],
+        metadata: {
+          executionTimeMs: result.executionTimeMs,
+          converged: result.convergence.converged,
+          caseCount: result.caseResults.size,
+        },
+      })
+    );
+  }
+
+  publishResult(result: AnalysisResult | CanonicalAnalysisResult): void {
+    if (result instanceof CanonicalAnalysisResult) {
+      this.publishCanonicalResult(result);
+      return;
+    }
     this._results.set(result.id, result);
     this.events.emit({ type: 'EngineeringObjectCreated', timestamp: new Date().toISOString(), modelId: this.id, objectId: result.id, payload: result });
   }
 
-  getResult(id: string): AnalysisResult | undefined {
-    return this._results.get(id);
+  invalidateResults(reason: string, affectedObjectIds: string[] = []): void {
+    this.results.invalidateAll(reason);
+    this.events.emit({
+      type: 'AnalysisResultInvalidated',
+      timestamp: new Date().toISOString(),
+      modelId: this.id,
+      payload: { reason, affectedObjectIds },
+    });
+
+    this.history.record(
+      createHistoryEntry({
+        id: `hist-inv-${Date.now()}`,
+        type: 'ModelChange',
+        revisionNumber: this.currentVersion.number,
+        author: { type: 'System', id: 'system', name: 'BeamLab Kernel' },
+        description: `Analysis results invalidated: ${reason}`,
+        affectedObjectIds,
+      })
+    );
   }
 
-  allResults(): AnalysisResult[] {
-    return Array.from(this._results.values());
+  recordHistory(entry: EngineeringHistoryEntry): void {
+    this.history.record(entry);
+    this.events.emit({
+      type: 'HistoryEntryRecorded',
+      timestamp: new Date().toISOString(),
+      modelId: this.id,
+      objectId: entry.id,
+      payload: entry,
+    });
+  }
+
+  getResult(id: string): AnalysisResult | CanonicalAnalysisResult | undefined {
+    return this.results.get(id) ?? this._results.get(id);
+  }
+
+  allResults(): (AnalysisResult | CanonicalAnalysisResult)[] {
+    const canonical = this.results.all();
+    const legacy = Array.from(this._results.values());
+    return [...canonical, ...legacy];
   }
 
   // ── Validation ────────────────────────────────────────────────────────────
@@ -289,6 +381,33 @@ export class EngineeringModel {
     return [...this._history];
   }
 
+  // ── Interoperability ──────────────────────────────────────────────────────
+
+  exportAs(format: InteropFormat | string, options?: ExportOptions): Promise<string> {
+    return this.interop.exportModel(format, this, options);
+  }
+
+  static async importFrom(format: InteropFormat | string, content: string, options?: ImportOptions): Promise<EngineeringModel> {
+    const registry = new InteropRegistry();
+    return registry.importModel(format, content, options);
+  }
+
+  // ── Diagnostics & Developer Studio ─────────────────────────────────────────
+
+  profile(): ModelProfile {
+    return ModelProfiler.profile(this);
+  }
+
+  getDependencyGraph(): DependencyGraphEngine {
+    return new DependencyGraphEngine(this);
+  }
+
+  createEventAuditor(maxSize?: number): EventStreamAuditor {
+    const auditor = new EventStreamAuditor(maxSize);
+    auditor.attach(this.events);
+    return auditor;
+  }
+
   // ── Summary ───────────────────────────────────────────────────────────────
 
   summary(): Record<string, number> {
@@ -299,3 +418,4 @@ export class EngineeringModel {
     return counts;
   }
 }
+

@@ -1,18 +1,34 @@
 import { useStore } from '../store';
 import { DiagramChart } from './DiagramChart';
 import { PlaybackScene } from './replay/PlaybackEngine';
+import { MemberDiagramStudio } from '../features/results';
 import { motion } from 'framer-motion';
 
 interface ResultsStudioProps {
   isPlaybackMode?: boolean;
   sceneId?: PlaybackScene;
   localProgress?: number;
+  selectedMemberId?: string | null;
 }
 
-export function ResultsStudio({ isPlaybackMode = false, sceneId, localProgress = 1 }: ResultsStudioProps) {
+export function ResultsStudio({
+  isPlaybackMode = false,
+  sceneId,
+  localProgress = 1,
+  selectedMemberId,
+}: ResultsStudioProps) {
   const analysisResult = useStore(state => state.analysisResult);
   const ghostAnalysisResult = useStore(state => state.ghostAnalysisResult);
   const model = useStore(state => state.model);
+
+  // If in interactive mode, render full-featured Member Diagram Studio
+  if (!isPlaybackMode) {
+    return (
+      <div className="w-full max-w-5xl">
+        <MemberDiagramStudio selectedMemberId={selectedMemberId} />
+      </div>
+    );
+  }
 
   if (!analysisResult || analysisResult.internalForces.length === 0) {
     return (

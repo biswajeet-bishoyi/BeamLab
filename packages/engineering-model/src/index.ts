@@ -1,27 +1,30 @@
-/**
- * @beamlab/engineering-model
- *
- * Canonical Engineering Model — the single source of truth for every
- * engineering object in BeamLab.
- *
- * This package is framework-agnostic and may never depend on:
- *   - React / Vue / any UI framework
- *   - Three.js or any rendering library
- *   - Solver implementations
- *   - Engineering agents
- *   - Runtime Gateway
- *   - Developer Studio
- */
-
 // ── Core ─────────────────────────────────────────────────────────────────────
 export * from './core';
 
-// ── Domain entities ────────────────────────────────────────────────────────
+// ── Coordinate System ─────────────────────────────────────────────────────
+export * from './coordinate';
+
+// ── Domain entities (B1.1 base) ────────────────────────────────────────────
 export * from './geometry';
 export * from './properties';
 export * from './boundary';
 export * from './loading';
 export * from './results';
+
+// ── Structural Domain (B1.2) ───────────────────────────────────────────────
+export * from './structural';
+
+// ── Loading Domain (B1.3) ───────────────────────────────────────────────────
+export * from './loading-domain';
+
+// ── Results & History Domain (B1.4) ──────────────────────────────────────────
+export * from './history';
+
+// ── Interoperability & BIM Domain (B1.5) ────────────────────────────────────
+export * from './interop';
+
+// ── Diagnostics & Developer Studio (B1.6) ──────────────────────────────────
+export * from './diagnostics';
 
 // ── Infrastructure ────────────────────────────────────────────────────────
 export * from './registries';

@@ -20,7 +20,8 @@
   },
   "dependencies": {
     "@beamlab/solver-client": "workspace:*",
-    "@beamlab/events": "workspace:*"
+    "@beamlab/events": "workspace:*",
+    "@beamworks/core-engine": "workspace:*"
   },
   "devDependencies": {
     "@beamlab/config": "workspace:*",

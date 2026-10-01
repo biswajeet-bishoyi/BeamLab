@@ -2,8 +2,11 @@ import { BaseEngineeringObject, EngineeringObjectType } from '../core/IEngineeri
 import { ValidationResult } from '../validation/ValidationResult';
 
 // ─── Restraint DoF ───────────────────────────────────────────────────────────
+// NOTE: The canonical restraint type is RestraintDOF in structural/StructuralSupport.ts.
+// This legacy type uses lowercase field names and is retained for backward compatibility
+// with the EngineeringSupport class (B1.1). New code should use StructuralSupport instead.
 
-export interface RestraintDOF {
+export interface CemRestraintDOF {
   /** Translation along X */
   dx: boolean;
   /** Translation along Y */
@@ -18,7 +21,7 @@ export interface RestraintDOF {
   rz: boolean;
 }
 
-export interface SpringStiffness {
+export interface CemSpringStiffness {
   kx?: number;  // translational spring stiffness [force/length]
   ky?: number;
   kz?: number;
@@ -28,9 +31,9 @@ export interface SpringStiffness {
 }
 
 /** Common support presets */
-export const FIXED_SUPPORT: RestraintDOF = { dx: true, dy: true, dz: true, rx: true, ry: true, rz: true };
-export const PINNED_SUPPORT: RestraintDOF = { dx: true, dy: true, dz: true, rx: false, ry: false, rz: false };
-export const ROLLER_X_SUPPORT: RestraintDOF = { dx: false, dy: true, dz: true, rx: false, ry: false, rz: false };
+export const FIXED_SUPPORT: CemRestraintDOF = { dx: true, dy: true, dz: true, rx: true, ry: true, rz: true };
+export const PINNED_SUPPORT: CemRestraintDOF = { dx: true, dy: true, dz: true, rx: false, ry: false, rz: false };
+export const ROLLER_X_SUPPORT: CemRestraintDOF = { dx: false, dy: true, dz: true, rx: false, ry: false, rz: false };
 
 /**
  * Support condition applied to a node.
@@ -43,8 +46,8 @@ export class EngineeringSupport extends BaseEngineeringObject {
     id: string,
     name: string,
     public nodeId: string,
-    public restraints: RestraintDOF = PINNED_SUPPORT,
-    public springs: SpringStiffness = {},
+    public restraints: CemRestraintDOF = PINNED_SUPPORT,
+    public springs: CemSpringStiffness = {},
     structureId?: string,
   ) {
     super(id, name, structureId);

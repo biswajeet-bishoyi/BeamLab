@@ -46,6 +46,14 @@ const workspaceStorage: StateStorage = {
   },
 };
 
+const sanitizePanelSize = (val: unknown, fallback: number): number => {
+  if (typeof val === 'number' && !isNaN(val) && val > 0) return Math.round(val);
+  if (val && typeof val === 'object' && 'asPercentage' in val && typeof (val as any).asPercentage === 'number') {
+    return Math.round((val as any).asPercentage);
+  }
+  return fallback;
+};
+
 export const useWorkspaceStore = create<WorkspaceState>()(
   persist(
     (set) => ({
@@ -56,9 +64,9 @@ export const useWorkspaceStore = create<WorkspaceState>()(
       activeArchieTab: 'chat',
       theme: 'system',
       setLeftPanelCollapsed: (collapsed) => set({ leftPanelCollapsed: collapsed }),
-      setLeftPanelSize: (size) => set({ leftPanelSize: size }),
+      setLeftPanelSize: (size) => set({ leftPanelSize: sanitizePanelSize(size, 20) }),
       setRightPanelCollapsed: (collapsed) => set({ rightPanelCollapsed: collapsed }),
-      setRightPanelSize: (size) => set({ rightPanelSize: size }),
+      setRightPanelSize: (size) => set({ rightPanelSize: sanitizePanelSize(size, 25) }),
       setActiveArchieTab: (tab) => set({ activeArchieTab: tab }),
       setTheme: (theme) => set({ theme }),
     }),
