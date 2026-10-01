@@ -22,6 +22,7 @@
     "@beamlab/composite-engine": "workspace:*",
     "@beamlab/concrete-engine": "workspace:*",
     "@beamlab/connection-engine": "workspace:*",
+    "@beamlab/earth-engine": "workspace:*",
     "@beamlab/engineering-model": "workspace:*",
     "@beamlab/execution-graph": "workspace:*",
     "@beamlab/fem-engine": "workspace:*",

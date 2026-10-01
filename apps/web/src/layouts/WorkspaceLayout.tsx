@@ -34,6 +34,7 @@ import { PrestressedStudio } from '../features/prestressed';
 import { BridgeStudio } from '../features/bridge';
 import { CableStudio } from '../features/cable';
 import { PlateShellStudio } from '../features/fem';
+import { EarthStudio } from '../features/earth';
 import { AnimatePresence } from 'framer-motion';
 
 export const WorkspaceLayout: React.FC = () => {
@@ -105,6 +106,8 @@ export const WorkspaceLayout: React.FC = () => {
     setCableStudioOpen,
     plateShellStudioOpen,
     setPlateShellStudioOpen,
+    earthStudioOpen,
+    setEarthStudioOpen,
   } = useStore(useShallow(state => ({
     envGalleryOpen: state.envGalleryOpen,
     setEnvGalleryOpen: state.setEnvGalleryOpen,
@@ -146,6 +149,8 @@ export const WorkspaceLayout: React.FC = () => {
     setCableStudioOpen: state.setCableStudioOpen,
     plateShellStudioOpen: state.plateShellStudioOpen,
     setPlateShellStudioOpen: state.setPlateShellStudioOpen,
+    earthStudioOpen: state.earthStudioOpen,
+    setEarthStudioOpen: state.setEarthStudioOpen,
   })));
 
   return (
@@ -336,6 +341,12 @@ export const WorkspaceLayout: React.FC = () => {
         <AnimatePresence>
           {plateShellStudioOpen && (
             <PlateShellStudio onClose={() => setPlateShellStudioOpen(false)} />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {earthStudioOpen && (
+            <EarthStudio onClose={() => setEarthStudioOpen(false)} />
           )}
         </AnimatePresence>
 

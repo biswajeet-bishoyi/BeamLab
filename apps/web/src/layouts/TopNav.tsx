@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass, Activity, Wind, Trees, Building2, Spline, Truck, Cable, Grid } from 'lucide-react';
+import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass, Activity, Wind, Trees, Building2, Spline, Truck, Cable, Grid, Mountain } from 'lucide-react';
 import { useShallow } from 'zustand/react/shallow';
 import { useStore } from '../store';
 
@@ -27,6 +27,7 @@ export const TopNav: React.FC = () => {
     setBridgeStudioOpen,
     setCableStudioOpen,
     setPlateShellStudioOpen,
+    setEarthStudioOpen,
   } = useStore(useShallow(state => ({
     setView: state.setView,
     activeEnvironment: state.activeEnvironment,
@@ -50,6 +51,7 @@ export const TopNav: React.FC = () => {
     setBridgeStudioOpen: state.setBridgeStudioOpen,
     setCableStudioOpen: state.setCableStudioOpen,
     setPlateShellStudioOpen: state.setPlateShellStudioOpen,
+    setEarthStudioOpen: state.setEarthStudioOpen,
   })));
 
   return (
@@ -212,6 +214,14 @@ export const TopNav: React.FC = () => {
         >
           <Grid size={16} />
           <span>Shell / FEM</span>
+        </button>
+        <button 
+          onClick={() => setEarthStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-amber-700 via-stone-600 to-yellow-600 hover:from-amber-600 hover:to-stone-500 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-amber-500/30"
+          title="Open Earth Retaining Structures & Deep Excavation Studio (Rankine/Coulomb Pressures, Retaining Walls, Sheet Piles, Slices Slope Stability)"
+        >
+          <Mountain size={16} />
+          <span>Earth / Shoring</span>
         </button>
         <button 
           onClick={() => setPlaybackMode(true)}
