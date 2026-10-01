@@ -1318,9 +1318,24 @@ importers:
         specifier: ^3.22.4
         version: 3.25.76
     devDependencies:
+      '@beamlab/blast-engine':
+        specifier: workspace:*
+        version: link:../blast-engine
+      '@beamlab/cable-engine':
+        specifier: workspace:*
+        version: link:../cable-engine
       '@beamlab/config':
         specifier: workspace:*
         version: link:../config
+      '@beamlab/earth-engine':
+        specifier: workspace:*
+        version: link:../earth-engine
+      '@beamlab/fem-engine':
+        specifier: workspace:*
+        version: link:../fem-engine
+      '@beamlab/solve-farm':
+        specifier: workspace:*
+        version: link:../solve-farm
       '@beamlab/types':
         specifier: workspace:*
         version: link:../types

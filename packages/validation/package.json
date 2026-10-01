@@ -13,6 +13,11 @@
   "devDependencies": {
     "@beamlab/config": "workspace:*",
     "@beamlab/types": "workspace:*",
+    "@beamlab/cable-engine": "workspace:*",
+    "@beamlab/earth-engine": "workspace:*",
+    "@beamlab/blast-engine": "workspace:*",
+    "@beamlab/fem-engine": "workspace:*",
+    "@beamlab/solve-farm": "workspace:*",
     "vitest": "^1.2.2",
     "typescript": "^5.3.3"
   }
