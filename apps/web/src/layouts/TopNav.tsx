@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass, Activity, Wind, Trees, Building2, Spline, Truck, Cable, Grid, Mountain } from 'lucide-react';
+import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass, Activity, Wind, Trees, Building2, Spline, Truck, Cable, Grid, Mountain, Bomb } from 'lucide-react';
 import { useShallow } from 'zustand/react/shallow';
 import { useStore } from '../store';
 
@@ -28,6 +28,7 @@ export const TopNav: React.FC = () => {
     setCableStudioOpen,
     setPlateShellStudioOpen,
     setEarthStudioOpen,
+    setBlastStudioOpen,
   } = useStore(useShallow(state => ({
     setView: state.setView,
     activeEnvironment: state.activeEnvironment,
@@ -52,6 +53,7 @@ export const TopNav: React.FC = () => {
     setCableStudioOpen: state.setCableStudioOpen,
     setPlateShellStudioOpen: state.setPlateShellStudioOpen,
     setEarthStudioOpen: state.setEarthStudioOpen,
+    setBlastStudioOpen: state.setBlastStudioOpen,
   })));
 
   return (
@@ -222,6 +224,14 @@ export const TopNav: React.FC = () => {
         >
           <Mountain size={16} />
           <span>Earth / Shoring</span>
+        </button>
+        <button 
+          onClick={() => setBlastStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-rose-700 via-orange-600 to-red-600 hover:from-rose-600 hover:to-orange-500 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-rose-500/30"
+          title="Open Blast, Impact & Extreme Dynamic Loading Studio (Kingery-Bulmash, Biggs SDOF, UFC 4-023-03 Progressive Collapse & Missile Penetration)"
+        >
+          <Bomb size={16} />
+          <span>Blast / Impact</span>
         </button>
         <button 
           onClick={() => setPlaybackMode(true)}
