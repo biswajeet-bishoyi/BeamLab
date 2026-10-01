@@ -4,9 +4,9 @@ import { SuspensionBridgeGeometryInput } from './types';
 import { STANDARD_CABLE_MATERIALS, STANDARD_CABLE_SECTIONS } from '../catenary/CableCatalog';
 
 describe('Sprint B18.4 — Suspension Bridge Cable System Engine', () => {
-  const matWire = STANDARD_CABLE_MATERIALS.BRIDGE_STRAND_1860;
-  const secMain250 = STANDARD_CABLE_SECTIONS[5]; // Ø250mm main cable group, breaking load 80.35 MN, unitWeight ~3325 N/m
-  const secHanger30 = STANDARD_CABLE_SECTIONS[1]; // Ø30mm hanger rope, breaking load 843 kN, unitWeight ~41.3 N/m
+  const matWire = STANDARD_CABLE_MATERIALS.BRIDGE_STRAND_1860!;
+  const secMain250 = STANDARD_CABLE_SECTIONS[5]!; // Ø250mm main cable group, breaking load 80.35 MN, unitWeight ~3325 N/m
+  const secHanger30 = STANDARD_CABLE_SECTIONS[1]!; // Ø30mm hanger rope, breaking load 843 kN, unitWeight ~41.3 N/m
 
   const bridgeInput: SuspensionBridgeGeometryInput = {
     id: 'SUSP-1000',
@@ -54,8 +54,8 @@ describe('Sprint B18.4 — Suspension Bridge Cable System Engine', () => {
     // For 1000m span and 25m spacing, numHangers = floor(1000 / 25) - 1 = 39 hangers
     expect(result.hangers.length).toBe(39);
 
-    const firstHanger = result.hangers[0];
-    const midHanger = result.hangers[Math.floor(result.hangers.length / 2)];
+    const firstHanger = result.hangers[0]!;
+    const midHanger = result.hangers[Math.floor(result.hangers.length / 2)]!;
 
     // Each hanger carries tributary dead load: 120,000 N/m * 25m = 3,000,000 N (3.0 MN)
     expect(firstHanger.tension).toBe(3_000_000);
@@ -74,7 +74,8 @@ describe('Sprint B18.4 — Suspension Bridge Cable System Engine', () => {
 
   it('verifies tower saddle equilibrium, wrap angle, and sliding safety factor', () => {
     const result = SuspensionCableSystemEngine.solveSuspensionSystem(bridgeInput);
-    const [saddle1, saddle2] = result.saddles;
+    const saddle1 = result.saddles[0]!;
+    const saddle2 = result.saddles[1]!;
 
     // Symmetric towers: both saddles should have identical thrust and wrap angle
     expect(saddle1.verticalTowerThrust).toBeCloseTo(saddle2.verticalTowerThrust, 0);

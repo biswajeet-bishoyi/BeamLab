@@ -4,7 +4,7 @@ import { STANDARD_CABLE_MATERIALS, STANDARD_CABLE_SECTIONS } from './CableCatalo
 import { CableSupportNode } from './types';
 
 describe('Sprint B18.1 — Catenary & Tension Geometry Engine', () => {
-  const matWire = STANDARD_CABLE_MATERIALS.BRIDGE_STRAND_1860;
+  const matWire = STANDARD_CABLE_MATERIALS.BRIDGE_STRAND_1860!;
   const secLocked50 = STANDARD_CABLE_SECTIONS.find(s => s.id === 'sec_locked_50mm')!;
   const secStay80 = STANDARD_CABLE_SECTIONS.find(s => s.id === 'sec_stay_80mm')!;
 
@@ -69,9 +69,9 @@ describe('Sprint B18.1 — Catenary & Tension Geometry Engine', () => {
 
     // Sampling stations
     expect(res.stations.length).toBe(51);
-    expect(res.stations[0].x).toBe(0);
-    expect(res.stations[50].x).toBe(150);
-    expect(res.stations[50].y).toBeCloseTo(40, 2);
+    expect(res.stations[0]!.x).toBe(0);
+    expect(res.stations[50]!.x).toBe(150);
+    expect(res.stations[50]!.y).toBeCloseTo(40, 2);
   });
 
   it('solves catenary by target sag using Newton-Raphson iteration', () => {

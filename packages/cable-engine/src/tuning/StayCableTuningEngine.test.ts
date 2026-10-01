@@ -5,8 +5,8 @@ import { STANDARD_CABLE_MATERIALS, STANDARD_CABLE_SECTIONS } from '../catenary/C
 import { ErnstModulusEngine } from '../ernst/ErnstModulusEngine';
 
 describe('Sprint B18.3 — Stay Cable Initial Tension Optimization & Tuning Engine', () => {
-  const matPws = STANDARD_CABLE_MATERIALS.BRIDGE_STRAND_1860;
-  const secStay80 = STANDARD_CABLE_SECTIONS[3]; // breaking load = 8.65 MN
+  const matPws = STANDARD_CABLE_MATERIALS.BRIDGE_STRAND_1860!;
+  const secStay80 = STANDARD_CABLE_SECTIONS[3]!; // breaking load = 8.65 MN
 
   // Setup 4 stay cables: 2 side span backstays (S1, S2) and 2 main span forestays (M1, M2)
   const cables: StayCableDefinition[] = [
@@ -60,7 +60,7 @@ describe('Sprint B18.3 — Stay Cable Initial Tension Optimization & Tuning Engi
 
     expect(tuningItems.length).toBe(4);
 
-    tuningItems.forEach((item, idx) => {
+    tuningItems.forEach((item) => {
       // Required tributary dead load vertical lift = 85,000 * 25 = 2.125 MN
       expect(item.verticalLiftForce).toBeCloseTo(2_125_000, -2);
       expect(item.optimalTension).toBeGreaterThan(item.verticalLiftForce);
@@ -72,11 +72,11 @@ describe('Sprint B18.3 — Stay Cable Initial Tension Optimization & Tuning Engi
     });
 
     // Check symmetry: S1 and M1 should have identical tensions and horizontal forces
-    expect(tuningItems[1].optimalTension).toBeCloseTo(tuningItems[2].optimalTension, 1);
-    expect(tuningItems[0].optimalTension).toBeCloseTo(tuningItems[3].optimalTension, 1);
+    expect(tuningItems[1]!.optimalTension).toBeCloseTo(tuningItems[2]!.optimalTension, 1);
+    expect(tuningItems[0]!.optimalTension).toBeCloseTo(tuningItems[3]!.optimalTension, 1);
 
     // Tower net horizontal force from inner stays should cancel by symmetry
-    const netInnerTowerHoriz = tuningItems[1].horizontalForce - tuningItems[2].horizontalForce;
+    const netInnerTowerHoriz = tuningItems[1]!.horizontalForce - tuningItems[2]!.horizontalForce;
     expect(Math.abs(netInnerTowerHoriz)).toBeLessThan(1.0);
   });
 
@@ -108,7 +108,7 @@ describe('Sprint B18.3 — Stay Cable Initial Tension Optimization & Tuning Engi
     ];
 
     const optResult = StayCableTuningEngine.optimizeStayTensions(
-      [cables[2], cables[3]], // Main span cables M1, M2
+      [cables[2]!, cables[3]!], // Main span cables M1, M2
       stations,
       momentMatrix,
       deflMatrix,
