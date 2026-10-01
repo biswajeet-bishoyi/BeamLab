@@ -15,3 +15,5 @@ dist
 __pycache__
 **/__pycache__
 *.pyc
+.turbo_cache
+**/.turbo_cache
