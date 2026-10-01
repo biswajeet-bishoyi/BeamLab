@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass, Activity, Wind, Trees, Building2, Spline, Truck } from 'lucide-react';
+import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass, Activity, Wind, Trees, Building2, Spline, Truck, Cable } from 'lucide-react';
 import { useShallow } from 'zustand/react/shallow';
 import { useStore } from '../store';
 
@@ -25,6 +25,7 @@ export const TopNav: React.FC = () => {
     setCompositeStudioOpen,
     setPrestressedStudioOpen,
     setBridgeStudioOpen,
+    setCableStudioOpen,
   } = useStore(useShallow(state => ({
     setView: state.setView,
     activeEnvironment: state.activeEnvironment,
@@ -46,6 +47,7 @@ export const TopNav: React.FC = () => {
     setCompositeStudioOpen: state.setCompositeStudioOpen,
     setPrestressedStudioOpen: state.setPrestressedStudioOpen,
     setBridgeStudioOpen: state.setBridgeStudioOpen,
+    setCableStudioOpen: state.setCableStudioOpen,
   })));
 
   return (
@@ -192,6 +194,14 @@ export const TopNav: React.FC = () => {
         >
           <Truck size={16} />
           <span>Bridge</span>
+        </button>
+        <button 
+          onClick={() => setCableStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-indigo-600 via-purple-500 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-purple-400/30"
+          title="Open Cable & Tension Structures Engineering Studio (Exact Catenary Kinematics, Ernst Equivalent Modulus, Stay Pre-Tension Tuning & Suspension Saddles)"
+        >
+          <Cable size={16} />
+          <span>Cable</span>
         </button>
         <button 
           onClick={() => setPlaybackMode(true)}

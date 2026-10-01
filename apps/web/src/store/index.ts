@@ -39,6 +39,7 @@ interface BeamworksState {
   compositeStudioOpen: boolean;
   prestressedStudioOpen: boolean;
   bridgeStudioOpen: boolean;
+  cableStudioOpen: boolean;
   aiUserLevel: AIUserLevel | null;
   activeEnvironment: EnvironmentId;
   envGalleryOpen: boolean;
@@ -70,6 +71,7 @@ interface BeamworksState {
   setCompositeStudioOpen: (open: boolean) => void;
   setPrestressedStudioOpen: (open: boolean) => void;
   setBridgeStudioOpen: (open: boolean) => void;
+  setCableStudioOpen: (open: boolean) => void;
   setAiUserLevel: (level: AIUserLevel) => void;
   setEnvironment: (id: EnvironmentId) => void;
   setEnvGalleryOpen: (open: boolean) => void;
@@ -186,6 +188,7 @@ export const useStore = create<BeamworksState>((set, get) => {
     compositeStudioOpen: false,
     prestressedStudioOpen: false,
     bridgeStudioOpen: false,
+    cableStudioOpen: false,
     aiUserLevel: null,
     activeEnvironment: 'none',
     envGalleryOpen: false,
@@ -232,6 +235,7 @@ export const useStore = create<BeamworksState>((set, get) => {
     setCompositeStudioOpen: (open) => set({ compositeStudioOpen: open }),
     setPrestressedStudioOpen: (open) => set({ prestressedStudioOpen: open }),
     setBridgeStudioOpen: (open) => set({ bridgeStudioOpen: open }),
+    setCableStudioOpen: (open) => set({ cableStudioOpen: open }),
     setAiUserLevel: (level) => set({ aiUserLevel: level }),
     setEnvironment: (id) => set({ activeEnvironment: id }),
     setEnvGalleryOpen: (open) => set({ envGalleryOpen: open }),

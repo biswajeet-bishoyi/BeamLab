@@ -99,6 +99,9 @@ importers:
       '@beamlab/bridge-engine':
         specifier: workspace:*
         version: link:../../packages/bridge-engine
+      '@beamlab/cable-engine':
+        specifier: workspace:*
+        version: link:../../packages/cable-engine
       '@beamlab/collaboration-engine':
         specifier: workspace:*
         version: link:../../packages/collaboration-engine
