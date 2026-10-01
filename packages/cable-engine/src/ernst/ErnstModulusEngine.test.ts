@@ -3,8 +3,8 @@ import { ErnstModulusEngine } from './ErnstModulusEngine';
 import { STANDARD_CABLE_MATERIALS, STANDARD_CABLE_SECTIONS } from '../catenary/CableCatalog';
 
 describe('Sprint B18.2 — Ernst Equivalent Modulus & Geometric Non-Linearity', () => {
-  const matPws = STANDARD_CABLE_MATERIALS.BRIDGE_STRAND_1860; // E = 205 GPa
-  const secStay80 = STANDARD_CABLE_SECTIONS[3]; // Ø80mm Stay Cable (Area = 0.00465 m2, weight = 357.9 N/m)
+  const matPws = STANDARD_CABLE_MATERIALS.BRIDGE_STRAND_1860!; // E = 205 GPa
+  const secStay80 = STANDARD_CABLE_SECTIONS[3]!; // Ø80mm Stay Cable (Area = 0.00465 m2, weight = 357.9 N/m)
 
   it('calculates Ernst tangent modulus and demonstrates sag degradation at low vs high tension', () => {
     // 200m horizontal span stay cable inclined at 30 degrees (height = 115.47m)
