@@ -180,7 +180,9 @@ export class PresenceBroadcaster {
     // Threshold check: only broadcast if moved meaningfully
     if (this.lastCursor3D !== null) {
       const dist = this._dist3(position, this.lastCursor3D);
-      if (dist < this.options.cursorMoveThresholdM && elapsed < this.options.cursorDebounceMs) {
+      if (dist < this.options.cursorMoveThresholdM) {
+        this.localTelemetry.cursor3D = position;
+        this.lastCursor3D = position;
         return;
       }
     }
