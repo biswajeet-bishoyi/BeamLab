@@ -26,6 +26,24 @@ interface BeamworksState {
   mouseY: number | null;
   aiPrompt: string | null;
   aiStudioOpen: boolean;
+  copilotStudioOpen: boolean;
+  codeStudioOpen: boolean;
+  collaborationStudioOpen: boolean;
+  connectionStudioOpen: boolean;
+  concreteStudioOpen: boolean;
+  bimInteropStudioOpen: boolean;
+  foundationStudioOpen: boolean;
+  seismicStudioOpen: boolean;
+  windStudioOpen: boolean;
+  timberStudioOpen: boolean;
+  compositeStudioOpen: boolean;
+  prestressedStudioOpen: boolean;
+  bridgeStudioOpen: boolean;
+  cableStudioOpen: boolean;
+  plateShellStudioOpen: boolean;
+  earthStudioOpen: boolean;
+  blastStudioOpen: boolean;
+  solveFarmStudioOpen: boolean;
   aiUserLevel: AIUserLevel | null;
   activeEnvironment: EnvironmentId;
   envGalleryOpen: boolean;
@@ -44,6 +62,24 @@ interface BeamworksState {
   setView: (view: 'dashboard' | 'gallery' | 'workspace') => void;
   loadPreset: (model: StructuralModel) => void;
   setAiStudioOpen: (open: boolean) => void;
+  setCopilotStudioOpen: (open: boolean) => void;
+  setCodeStudioOpen: (open: boolean) => void;
+  setCollaborationStudioOpen: (open: boolean) => void;
+  setConnectionStudioOpen: (open: boolean) => void;
+  setConcreteStudioOpen: (open: boolean) => void;
+  setBimInteropStudioOpen: (open: boolean) => void;
+  setFoundationStudioOpen: (open: boolean) => void;
+  setSeismicStudioOpen: (open: boolean) => void;
+  setWindStudioOpen: (open: boolean) => void;
+  setTimberStudioOpen: (open: boolean) => void;
+  setCompositeStudioOpen: (open: boolean) => void;
+  setPrestressedStudioOpen: (open: boolean) => void;
+  setBridgeStudioOpen: (open: boolean) => void;
+  setCableStudioOpen: (open: boolean) => void;
+  setPlateShellStudioOpen: (open: boolean) => void;
+  setEarthStudioOpen: (open: boolean) => void;
+  setBlastStudioOpen: (open: boolean) => void;
+  setSolveFarmStudioOpen: (open: boolean) => void;
   setAiUserLevel: (level: AIUserLevel) => void;
   setEnvironment: (id: EnvironmentId) => void;
   setEnvGalleryOpen: (open: boolean) => void;
@@ -147,6 +183,24 @@ export const useStore = create<BeamworksState>((set, get) => {
     mouseY: null,
     aiPrompt: null,
     aiStudioOpen: false,
+    copilotStudioOpen: false,
+    codeStudioOpen: false,
+    collaborationStudioOpen: false,
+    connectionStudioOpen: false,
+    concreteStudioOpen: false,
+    bimInteropStudioOpen: false,
+    foundationStudioOpen: false,
+    seismicStudioOpen: false,
+    windStudioOpen: false,
+    timberStudioOpen: false,
+    compositeStudioOpen: false,
+    prestressedStudioOpen: false,
+    bridgeStudioOpen: false,
+    cableStudioOpen: false,
+    plateShellStudioOpen: false,
+    earthStudioOpen: false,
+    blastStudioOpen: false,
+    solveFarmStudioOpen: false,
     aiUserLevel: null,
     activeEnvironment: 'none',
     envGalleryOpen: false,
@@ -180,6 +234,24 @@ export const useStore = create<BeamworksState>((set, get) => {
     setAiPrompt: (prompt) => set({ aiPrompt: prompt }),
     setView: (view) => set({ currentView: view }),
     setAiStudioOpen: (open) => set({ aiStudioOpen: open }),
+    setCopilotStudioOpen: (open) => set({ copilotStudioOpen: open }),
+    setCodeStudioOpen: (open) => set({ codeStudioOpen: open }),
+    setCollaborationStudioOpen: (open) => set({ collaborationStudioOpen: open }),
+    setConnectionStudioOpen: (open) => set({ connectionStudioOpen: open }),
+    setConcreteStudioOpen: (open) => set({ concreteStudioOpen: open }),
+    setBimInteropStudioOpen: (open) => set({ bimInteropStudioOpen: open }),
+    setFoundationStudioOpen: (open) => set({ foundationStudioOpen: open }),
+    setSeismicStudioOpen: (open) => set({ seismicStudioOpen: open }),
+    setWindStudioOpen: (open) => set({ windStudioOpen: open }),
+    setTimberStudioOpen: (open) => set({ timberStudioOpen: open }),
+    setCompositeStudioOpen: (open) => set({ compositeStudioOpen: open }),
+    setPrestressedStudioOpen: (open) => set({ prestressedStudioOpen: open }),
+    setBridgeStudioOpen: (open) => set({ bridgeStudioOpen: open }),
+    setCableStudioOpen: (open) => set({ cableStudioOpen: open }),
+    setPlateShellStudioOpen: (open) => set({ plateShellStudioOpen: open }),
+    setEarthStudioOpen: (open) => set({ earthStudioOpen: open }),
+    setBlastStudioOpen: (open) => set({ blastStudioOpen: open }),
+    setSolveFarmStudioOpen: (open) => set({ solveFarmStudioOpen: open }),
     setAiUserLevel: (level) => set({ aiUserLevel: level }),
     setEnvironment: (id) => set({ activeEnvironment: id }),
     setEnvGalleryOpen: (open) => set({ envGalleryOpen: open }),

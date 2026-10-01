@@ -14,7 +14,10 @@ export type CEMEventType =
   | 'VersionChanged'
   | 'StructureAdded'
   | 'ModelLoaded'
-  | 'ModelCleared';
+  | 'ModelCleared'
+  | 'AnalysisResultCreated'
+  | 'AnalysisResultInvalidated'
+  | 'HistoryEntryRecorded';
 
 export interface CEMEvent<T = unknown> {
   readonly type: CEMEventType;

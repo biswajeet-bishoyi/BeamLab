@@ -111,7 +111,7 @@ export class SchedulerRuntime {
         }
 
         // Simulate actual work...
-        await new Promise(resolve => setImmediate(resolve));
+        await new Promise(resolve => setTimeout(resolve, 0));
 
         this.events.publish('NodeCompleted', nodeTrace);
       }

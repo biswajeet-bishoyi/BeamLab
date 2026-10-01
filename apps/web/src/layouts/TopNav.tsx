@@ -1,5 +1,6 @@
 import React from 'react';
-import { Layers, Globe, Mic, Brain, Clock, Printer } from 'lucide-react';
+import { Layers, Globe, Mic, Brain, Clock, Printer, BookOpen, Users, Hammer, Boxes, Compass, Activity, Wind, Trees, Building2, Spline, Truck, Cable, Grid, Mountain, Bomb, Server } from 'lucide-react';
+import { useShallow } from 'zustand/react/shallow';
 import { useStore } from '../store';
 
 export const TopNav: React.FC = () => {
@@ -9,17 +10,53 @@ export const TopNav: React.FC = () => {
     setEnvGalleryOpen,
     setPresentationMode,
     setAiStudioOpen,
+    setCopilotStudioOpen,
     setPlaybackMode,
     setExportStudioOpen,
-  } = useStore(state => ({
+    setCodeStudioOpen,
+    setCollaborationStudioOpen,
+    setConnectionStudioOpen,
+    setConcreteStudioOpen,
+    setBimInteropStudioOpen,
+    setFoundationStudioOpen,
+    setSeismicStudioOpen,
+    setWindStudioOpen,
+    setTimberStudioOpen,
+    setCompositeStudioOpen,
+    setPrestressedStudioOpen,
+    setBridgeStudioOpen,
+    setCableStudioOpen,
+    setPlateShellStudioOpen,
+    setEarthStudioOpen,
+    setBlastStudioOpen,
+    setSolveFarmStudioOpen,
+  } = useStore(useShallow(state => ({
     setView: state.setView,
     activeEnvironment: state.activeEnvironment,
     setEnvGalleryOpen: state.setEnvGalleryOpen,
     setPresentationMode: state.setPresentationMode,
     setAiStudioOpen: state.setAiStudioOpen,
+    setCopilotStudioOpen: state.setCopilotStudioOpen,
     setPlaybackMode: state.setPlaybackMode,
     setExportStudioOpen: state.setExportStudioOpen,
-  }));
+    setCodeStudioOpen: state.setCodeStudioOpen,
+    setCollaborationStudioOpen: state.setCollaborationStudioOpen,
+    setConnectionStudioOpen: state.setConnectionStudioOpen,
+    setConcreteStudioOpen: state.setConcreteStudioOpen,
+    setBimInteropStudioOpen: state.setBimInteropStudioOpen,
+    setFoundationStudioOpen: state.setFoundationStudioOpen,
+    setSeismicStudioOpen: state.setSeismicStudioOpen,
+    setWindStudioOpen: state.setWindStudioOpen,
+    setTimberStudioOpen: state.setTimberStudioOpen,
+    setCompositeStudioOpen: state.setCompositeStudioOpen,
+    setPrestressedStudioOpen: state.setPrestressedStudioOpen,
+    setBridgeStudioOpen: state.setBridgeStudioOpen,
+    setCableStudioOpen: state.setCableStudioOpen,
+    setPlateShellStudioOpen: state.setPlateShellStudioOpen,
+    setEarthStudioOpen: state.setEarthStudioOpen,
+    setBlastStudioOpen: state.setBlastStudioOpen,
+    setSolveFarmStudioOpen: state.setSolveFarmStudioOpen,
+  })));
 
   return (
     <header className="h-16 border-b border-subtle bg-panel flex items-center justify-between px-6 shrink-0 relative z-50">
@@ -53,10 +90,158 @@ export const TopNav: React.FC = () => {
           <Mic size={16} /> Present
         </button>
         <button 
-          onClick={() => setAiStudioOpen(true)}
-          className="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition-all shadow-sm font-bold flex items-center gap-2 text-sm"
+          onClick={() => setCopilotStudioOpen(true)}
+          className="px-4 py-1.5 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-pink-500 text-white rounded-lg transition-all shadow-lg shadow-indigo-950 font-bold flex items-center gap-2 text-sm"
         >
-          <Brain size={16} /> AI Studio
+          <Brain size={16} /> Copilot Studio
+        </button>
+        <button 
+          onClick={() => setAiStudioOpen(true)}
+          className="px-4 py-1.5 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 rounded-lg transition-all shadow-sm font-semibold flex items-center gap-2 text-sm"
+        >
+          <Brain size={16} /> AI Chat
+        </button>
+        <button 
+          onClick={() => setCollaborationStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-700 hover:from-emerald-500 hover:to-teal-500 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-emerald-400/30"
+          title="Open Collaborative Multi-User Session Studio & Team Hub"
+        >
+          <div className="relative flex items-center">
+            <Users size={16} />
+            <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+            <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-emerald-400" />
+          </div>
+          <span>Team Hub</span>
+          <span className="px-1.5 py-0.5 text-[10px] bg-emerald-950/80 text-emerald-300 rounded font-mono border border-emerald-500/30">
+            3 Online
+          </span>
+        </button>
+        <button 
+          onClick={() => setCodeStudioOpen(true)}
+          className="px-4 py-1.5 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white rounded-lg transition-all shadow-sm font-bold flex items-center gap-2 text-sm"
+          title="Open Design Code Intelligence & Clause Inspector Studio"
+        >
+          <BookOpen size={16} /> Design Codes
+        </button>
+        <button 
+          onClick={() => setConnectionStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-indigo-400/30"
+          title="Open 3D Steel Connection Studio & Detailing Engine"
+        >
+          <Hammer size={16} />
+          <span>Connections</span>
+        </button>
+        <button 
+          onClick={() => setConcreteStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 hover:from-amber-500 hover:to-orange-500 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-amber-400/30"
+          title="Open 3D Reinforced Concrete (RC) Studio & P-M-M Engine"
+        >
+          <Boxes size={16} />
+          <span>Concrete RC</span>
+        </button>
+        <button 
+          onClick={() => setBimInteropStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-teal-600 via-cyan-600 to-sky-600 hover:from-teal-500 hover:to-cyan-500 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-cyan-400/30"
+          title="Open BIM & Structural Interoperability Studio (IFC4 & SAF)"
+        >
+          <Compass size={16} />
+          <span>BIM Interop</span>
+        </button>
+        <button 
+          onClick={() => setFoundationStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-amber-600 via-yellow-600 to-orange-600 hover:from-amber-500 hover:to-yellow-500 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-amber-400/30"
+          title="Open 3D Foundation & Geotechnical Soil-Structure Interaction Studio"
+        >
+          <Layers size={16} />
+          <span>Foundations</span>
+        </button>
+        <button 
+          onClick={() => setSeismicStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-rose-600 via-red-600 to-pink-600 hover:from-rose-500 hover:to-red-500 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-rose-400/30"
+          title="Open 3D Seismic Dynamics & Time-History Studio (MRSA, CQC, Newmark-β, Drift & Torsion)"
+        >
+          <Activity size={16} />
+          <span>Seismic</span>
+        </button>
+        <button 
+          onClick={() => setWindStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-sky-600 via-indigo-600 to-blue-600 hover:from-sky-500 hover:to-indigo-500 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-sky-400/30"
+          title="Open 3D Wind Aerodynamics & Structural Wind Engineering Studio (ASCE 7-22, Eurocode 1, IS 875, Gust, Vortex, Comfort)"
+        >
+          <Wind size={16} />
+          <span>Wind</span>
+        </button>
+        <button 
+          onClick={() => setTimberStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-amber-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-emerald-400/30"
+          title="Open Mass Timber & CLT Aerodynamics Studio (Glulam, CLT, EYM Fasteners, Fire Charring)"
+        >
+          <Trees size={16} />
+          <span>Timber</span>
+        </button>
+        <button 
+          onClick={() => setCompositeStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-cyan-400/30"
+          title="Open Steel-Concrete Composite Studio (AISC 360-22, EC4, Shear Studs, CFT/Encased Columns, Floor Vibration)"
+        >
+          <Building2 size={16} />
+          <span>Composite</span>
+        </button>
+        <button 
+          onClick={() => setPrestressedStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-amber-600 via-orange-500 to-yellow-600 hover:from-amber-500 hover:to-orange-400 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-amber-400/30"
+          title="Open Prestressed & Post-Tensioned (PT) Studio (Tendon Drape, Losses, Balancing, Stresses & Ultimate Flexure)"
+        >
+          <Spline size={16} />
+          <span>PT Studio</span>
+        </button>
+        <button 
+          onClick={() => setBridgeStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-blue-600 via-sky-500 to-cyan-600 hover:from-blue-500 hover:to-cyan-400 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-sky-400/30"
+          title="Open Bridge Engineering & Moving Live Load Studio (AASHTO HL-93, Eurocode LM1-LM3, IRC 6, Müller-Breslau, LLDF & Dynamics)"
+        >
+          <Truck size={16} />
+          <span>Bridge</span>
+        </button>
+        <button 
+          onClick={() => setCableStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-indigo-600 via-purple-500 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-purple-400/30"
+          title="Open Cable & Tension Structures Engineering Studio (Exact Catenary Kinematics, Ernst Equivalent Modulus, Stay Pre-Tension Tuning & Suspension Saddles)"
+        >
+          <Cable size={16} />
+          <span>Cable</span>
+        </button>
+        <button 
+          onClick={() => setPlateShellStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 hover:from-emerald-500 hover:to-cyan-400 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-teal-400/30"
+          title="Open Plate & Shell Finite Element Continuum Studio (MITC4 Mindlin-Reissner, 2D Surface Mesher, Wood-Armer & Yield Criteria)"
+        >
+          <Grid size={16} />
+          <span>Shell / FEM</span>
+        </button>
+        <button 
+          onClick={() => setEarthStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-amber-700 via-stone-600 to-yellow-600 hover:from-amber-600 hover:to-stone-500 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-amber-500/30"
+          title="Open Earth Retaining Structures & Deep Excavation Studio (Rankine/Coulomb Pressures, Retaining Walls, Sheet Piles, Slices Slope Stability)"
+        >
+          <Mountain size={16} />
+          <span>Earth / Shoring</span>
+        </button>
+        <button 
+          onClick={() => setBlastStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-rose-700 via-orange-600 to-red-600 hover:from-rose-600 hover:to-orange-500 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-rose-500/30"
+          title="Open Blast, Impact & Extreme Dynamic Loading Studio (Kingery-Bulmash, Biggs SDOF, UFC 4-023-03 Progressive Collapse & Missile Penetration)"
+        >
+          <Bomb size={16} />
+          <span>Blast / Impact</span>
+        </button>
+        <button 
+          onClick={() => setSolveFarmStudioOpen(true)}
+          className="px-3.5 py-1.5 bg-gradient-to-r from-cyan-700 via-teal-600 to-emerald-600 hover:from-cyan-600 hover:to-emerald-500 text-white rounded-lg transition-all shadow-md font-bold flex items-center gap-2 text-sm border border-cyan-500/30"
+          title="Open Cloud Solve Farm & Python Scientific Orchestrator (Worker Pool, Domain Decomposition, FETI Schur Complement & Code Generator)"
+        >
+          <Server size={16} />
+          <span>Solve Farm</span>
         </button>
         <button 
           onClick={() => setPlaybackMode(true)}

@@ -78,27 +78,96 @@ importers:
 
   apps/web:
     dependencies:
+      '@beamlab/agent-code-compliance':
+        specifier: workspace:*
+        version: link:../../packages/agent-code-compliance
+      '@beamlab/agent-optimization':
+        specifier: workspace:*
+        version: link:../../packages/agent-optimization
+      '@beamlab/agent-report':
+        specifier: workspace:*
+        version: link:../../packages/agent-report
+      '@beamlab/agent-structural-analysis':
+        specifier: workspace:*
+        version: link:../../packages/agent-structural-analysis
       '@beamlab/archie-client':
         specifier: workspace:*
         version: link:../../packages/archie-client
+      '@beamlab/archie-kernel':
+        specifier: workspace:*
+        version: link:../../packages/archie-kernel
+      '@beamlab/blast-engine':
+        specifier: workspace:*
+        version: link:../../packages/blast-engine
+      '@beamlab/bridge-engine':
+        specifier: workspace:*
+        version: link:../../packages/bridge-engine
+      '@beamlab/cable-engine':
+        specifier: workspace:*
+        version: link:../../packages/cable-engine
+      '@beamlab/collaboration-engine':
+        specifier: workspace:*
+        version: link:../../packages/collaboration-engine
+      '@beamlab/composite-engine':
+        specifier: workspace:*
+        version: link:../../packages/composite-engine
+      '@beamlab/concrete-engine':
+        specifier: workspace:*
+        version: link:../../packages/concrete-engine
+      '@beamlab/connection-engine':
+        specifier: workspace:*
+        version: link:../../packages/connection-engine
+      '@beamlab/earth-engine':
+        specifier: workspace:*
+        version: link:../../packages/earth-engine
+      '@beamlab/engineering-model':
+        specifier: workspace:*
+        version: link:../../packages/engineering-model
       '@beamlab/execution-graph':
         specifier: workspace:*
         version: link:../../packages/execution-graph
+      '@beamlab/fem-engine':
+        specifier: workspace:*
+        version: link:../../packages/fem-engine
+      '@beamlab/foundation-engine':
+        specifier: workspace:*
+        version: link:../../packages/foundation-engine
+      '@beamlab/interop-pipeline':
+        specifier: workspace:*
+        version: link:../../packages/interop-pipeline
       '@beamlab/knowledge-client':
         specifier: workspace:*
         version: link:../../packages/knowledge-client
+      '@beamlab/knowledge-platform':
+        specifier: workspace:*
+        version: link:../../packages/knowledge-platform
       '@beamlab/policy-client':
         specifier: workspace:*
         version: link:../../packages/policy-client
       '@beamlab/policy-engine':
         specifier: workspace:*
         version: link:../../packages/policy-engine
+      '@beamlab/prestressed-engine':
+        specifier: workspace:*
+        version: link:../../packages/prestressed-engine
       '@beamlab/resource-client':
         specifier: workspace:*
         version: link:../../packages/resource-client
       '@beamlab/resource-manager':
         specifier: workspace:*
         version: link:../../packages/resource-manager
+      '@beamlab/seismic-engine':
+        specifier: workspace:*
+        version: link:../../packages/seismic-engine
+      '@beamlab/solve-farm':
+        specifier: workspace:*
+        version: link:../../packages/solve-farm
+      '@beamlab/timber-engine':
+        specifier: workspace:*
+        version: link:../../packages/timber-engine
+      '@beamlab/wind-engine':
+        specifier: workspace:*
+        version: link:../../packages/wind-engine
       '@beamlab/workspace-runtime':
         specifier: workspace:*
         version: link:../../packages/workspace-runtime
@@ -147,6 +216,9 @@ importers:
       tailwindcss:
         specifier: ^4.3.2
         version: 4.3.2
+      three:
+        specifier: ^0.174.0
+        version: 0.174.0
       zustand:
         specifier: ^5.0.14
         version: 5.0.14(@types/react@19.2.17)(react@19.2.7)(use-sync-external-store@1.6.0(react@19.2.7))
@@ -163,6 +235,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.17)
+      '@types/three':
+        specifier: ^0.174.0
+        version: 0.174.0
       '@vitejs/plugin-react':
         specifier: ^6.0.3
         version: 6.0.3(vite@8.1.3(@types/node@24.13.2)(esbuild@0.27.7)(jiti@2.7.0)(yaml@2.9.0))
@@ -187,6 +262,9 @@ importers:
       '@beamlab/events':
         specifier: workspace:*
         version: link:../events
+      '@beamlab/knowledge-platform':
+        specifier: workspace:*
+        version: link:../knowledge-platform
       '@beamlab/workspace-runtime':
         specifier: workspace:*
         version: link:../workspace-runtime
@@ -441,9 +519,123 @@ importers:
       rimraf:
         specifier: ^5.0.5
         version: 5.0.10
+      tsup:
+        specifier: ^8.0.2
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.16)(typescript@6.0.3)(yaml@2.9.0)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
+      vitest:
+        specifier: ^1.6.1
+        version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
+
+  packages/blast-engine:
+    dependencies:
+      '@beamlab/types':
+        specifier: workspace:*
+        version: link:../types
+    devDependencies:
+      tsup:
+        specifier: ^8.0.2
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.16)(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vitest:
+        specifier: ^1.6.1
+        version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
+
+  packages/bridge-engine:
+    dependencies:
+      '@beamlab/types':
+        specifier: workspace:*
+        version: link:../types
+    devDependencies:
+      tsup:
+        specifier: ^8.0.2
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.16)(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vitest:
+        specifier: ^1.6.1
+        version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
+
+  packages/cable-engine:
+    dependencies:
+      '@beamlab/types':
+        specifier: workspace:*
+        version: link:../types
+    devDependencies:
+      tsup:
+        specifier: ^8.0.2
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.16)(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vitest:
+        specifier: ^1.6.1
+        version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
+
+  packages/collaboration-engine:
+    dependencies:
+      '@beamlab/engineering-model':
+        specifier: workspace:*
+        version: link:../engineering-model
+      '@beamlab/events':
+        specifier: workspace:*
+        version: link:../events
+      '@beamlab/utils':
+        specifier: workspace:*
+        version: link:../utils
+    devDependencies:
+      '@beamlab/config':
+        specifier: workspace:*
+        version: link:../config
+      '@beamlab/types':
+        specifier: workspace:*
+        version: link:../types
+      '@types/node':
+        specifier: ^20.0.0
+        version: 20.19.43
+      tsup:
+        specifier: ^8.0.0
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.16)(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.3
+      vitest:
+        specifier: ^1.0.0
+        version: 1.6.1(@types/node@20.19.43)(jsdom@29.1.1)(lightningcss@1.32.0)
+
+  packages/composite-engine:
+    dependencies:
+      '@beamlab/types':
+        specifier: workspace:*
+        version: link:../types
+    devDependencies:
+      tsup:
+        specifier: ^8.0.2
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.16)(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vitest:
+        specifier: ^1.6.1
+        version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
+
+  packages/concrete-engine:
+    dependencies:
+      '@beamlab/types':
+        specifier: workspace:*
+        version: link:../types
+    devDependencies:
+      tsup:
+        specifier: ^8.0.2
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.16)(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
       vitest:
         specifier: ^1.6.1
         version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
@@ -459,6 +651,22 @@ importers:
       typescript:
         specifier: ^5.3.3
         version: 5.9.3
+
+  packages/connection-engine:
+    dependencies:
+      '@beamlab/types':
+        specifier: workspace:*
+        version: link:../types
+    devDependencies:
+      tsup:
+        specifier: ^8.0.2
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.16)(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vitest:
+        specifier: ^1.6.1
+        version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
 
   packages/context-engine:
     dependencies:
@@ -579,6 +787,22 @@ importers:
         specifier: ^2.1.8
         version: 2.1.9(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
 
+  packages/earth-engine:
+    dependencies:
+      '@beamlab/types':
+        specifier: workspace:*
+        version: link:../types
+    devDependencies:
+      tsup:
+        specifier: ^8.0.2
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.16)(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vitest:
+        specifier: ^1.6.1
+        version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
+
   packages/engineering-model:
     devDependencies:
       tsup:
@@ -665,9 +889,60 @@ importers:
       rimraf:
         specifier: ^5.0.5
         version: 5.0.10
+      tsup:
+        specifier: ^8.0.2
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.16)(typescript@6.0.3)(yaml@2.9.0)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
+      vitest:
+        specifier: ^1.6.1
+        version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
+
+  packages/fem-engine:
+    dependencies:
+      '@beamlab/types':
+        specifier: workspace:*
+        version: link:../types
+    devDependencies:
+      tsup:
+        specifier: ^8.0.2
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.16)(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vitest:
+        specifier: ^1.6.1
+        version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
+
+  packages/foundation-engine:
+    dependencies:
+      '@beamlab/types':
+        specifier: workspace:*
+        version: link:../types
+    devDependencies:
+      tsup:
+        specifier: ^8.0.2
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.16)(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vitest:
+        specifier: ^1.6.1
+        version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
+
+  packages/interop-pipeline:
+    dependencies:
+      '@beamlab/types':
+        specifier: workspace:*
+        version: link:../types
+    devDependencies:
+      tsup:
+        specifier: ^8.0.2
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.16)(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
       vitest:
         specifier: ^1.6.1
         version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
@@ -749,6 +1024,9 @@ importers:
       rimraf:
         specifier: ^5.0.5
         version: 5.0.10
+      tsup:
+        specifier: ^8.0.2
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.16)(typescript@6.0.3)(yaml@2.9.0)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -782,6 +1060,22 @@ importers:
         version: 5.9.3
       vitest:
         specifier: ^1.1.3
+        version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
+
+  packages/prestressed-engine:
+    dependencies:
+      '@beamlab/types':
+        specifier: workspace:*
+        version: link:../types
+    devDependencies:
+      tsup:
+        specifier: ^8.0.2
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.16)(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vitest:
+        specifier: ^1.6.1
         version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
 
   packages/resource-client:
@@ -843,6 +1137,38 @@ importers:
         specifier: ^1.2.2
         version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
 
+  packages/seismic-engine:
+    dependencies:
+      '@beamlab/types':
+        specifier: workspace:*
+        version: link:../types
+    devDependencies:
+      tsup:
+        specifier: ^8.0.2
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.16)(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vitest:
+        specifier: ^1.6.1
+        version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
+
+  packages/solve-farm:
+    dependencies:
+      '@beamlab/types':
+        specifier: workspace:*
+        version: link:../types
+    devDependencies:
+      tsup:
+        specifier: ^8.0.2
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.16)(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vitest:
+        specifier: ^1.6.1
+        version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
+
   packages/solver-client:
     devDependencies:
       '@beamlab/config':
@@ -869,6 +1195,9 @@ importers:
       '@beamlab/solver-client':
         specifier: workspace:*
         version: link:../solver-client
+      '@beamworks/core-engine':
+        specifier: workspace:*
+        version: link:../core-engine
     devDependencies:
       '@beamlab/config':
         specifier: workspace:*
@@ -901,9 +1230,28 @@ importers:
       rimraf:
         specifier: ^5.0.5
         version: 5.0.10
+      tsup:
+        specifier: ^8.0.2
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.16)(typescript@6.0.3)(yaml@2.9.0)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
+      vitest:
+        specifier: ^1.6.1
+        version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
+
+  packages/timber-engine:
+    dependencies:
+      '@beamlab/types':
+        specifier: workspace:*
+        version: link:../types
+    devDependencies:
+      tsup:
+        specifier: ^8.0.2
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.16)(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
       vitest:
         specifier: ^1.6.1
         version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
@@ -970,9 +1318,24 @@ importers:
         specifier: ^3.22.4
         version: 3.25.76
     devDependencies:
+      '@beamlab/blast-engine':
+        specifier: workspace:*
+        version: link:../blast-engine
+      '@beamlab/cable-engine':
+        specifier: workspace:*
+        version: link:../cable-engine
       '@beamlab/config':
         specifier: workspace:*
         version: link:../config
+      '@beamlab/earth-engine':
+        specifier: workspace:*
+        version: link:../earth-engine
+      '@beamlab/fem-engine':
+        specifier: workspace:*
+        version: link:../fem-engine
+      '@beamlab/solve-farm':
+        specifier: workspace:*
+        version: link:../solve-farm
       '@beamlab/types':
         specifier: workspace:*
         version: link:../types
@@ -981,6 +1344,22 @@ importers:
         version: 5.9.3
       vitest:
         specifier: ^1.2.2
+        version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
+
+  packages/wind-engine:
+    dependencies:
+      '@beamlab/types':
+        specifier: workspace:*
+        version: link:../types
+    devDependencies:
+      tsup:
+        specifier: ^8.0.2
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.16)(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vitest:
+        specifier: ^1.6.1
         version: 1.6.1(@types/node@24.13.2)(jsdom@29.1.1)(lightningcss@1.32.0)
 
   packages/workspace-runtime:
@@ -2375,6 +2754,9 @@ packages:
     cpu: [arm64]
     os: [win32]
 
+  '@tweenjs/tween.js@23.1.3':
+    resolution: {integrity: sha512-vJmvvwFxYuGnF2axRtPYocag6Clbb5YS7kLL+SO/TeVFzHqDIWrNKYtcsPMibjDx9O+bu+psAy9NKfWklassUA==}
+
   '@tybys/wasm-util@0.10.3':
     resolution: {integrity: sha512-F3fo1MYrRJYL3zER0OUOmkutjr1Vp23m7OsSgp7nq4SP6OqX6C/56XFIPAl5bt3zaBRjmW7SGz3u/6LwFpYcOg==}
 
@@ -2509,17 +2891,26 @@ packages:
   '@types/serve-static@1.15.10':
     resolution: {integrity: sha512-tRs1dB+g8Itk72rlSI2ZrW6vZg0YrLI81iQSTkMmOqnqCaNr/8Ek4VwWcN5vZgCYWbg/JJSGBlUaYGAOP73qBw==}
 
+  '@types/stats.js@0.17.4':
+    resolution: {integrity: sha512-jIBvWWShCvlBqBNIZt0KAshWpvSjhkwkEu4ZUcASoAvhmrgAUI2t1dXrjSL4xXVLB4FznPrIsX3nKXFl/Dt4vA==}
+
   '@types/strip-bom@3.0.0':
     resolution: {integrity: sha512-xevGOReSYGM7g/kUBZzPqCrR/KYAo+F0yiPc85WFTJa0MSLtyFTVTU6cJu/aV4mid7IffDIWqo69THF2o4JiEQ==}
 
   '@types/strip-json-comments@0.0.30':
     resolution: {integrity: sha512-7NQmHra/JILCd1QqpSzl8+mJRc8ZHz3uDm8YV1Ks9IhK0epEiTw8aIErbvH9PI+6XbqhyIQy3462nEsn7UVzjQ==}
 
+  '@types/three@0.174.0':
+    resolution: {integrity: sha512-De/+vZnfg2aVWNiuy1Ldu+n2ydgw1osinmiZTAn0necE++eOfsygL8JpZgFjR2uHmAPo89MkxBj3JJ+2BMe+Uw==}
+
   '@types/unist@2.0.11':
     resolution: {integrity: sha512-CmBKiL6NNo/OqgmMn95Fk9Whlp2mtvIv+KNpQKN2F4SjvrEesubTRWGYSg+BnWZOnlCaSTU1sMpsBOzgbYhnsA==}
 
   '@types/unist@3.0.3':
     resolution: {integrity: sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==}
+
+  '@types/webxr@0.5.24':
+    resolution: {integrity: sha512-h8fgEd/DpoS9CBrjEQXR+dIDraopAEfu4wYVNY2tEPwk60stPWhvZMf4Foo5FakuQ7HFZoa8WceaWFervK2Ovg==}
 
   '@typescript-eslint/eslint-plugin@7.18.0':
     resolution: {integrity: sha512-94EQTWZ40mzBc42ATNIBimBEDltSJ9RQHCC8vc/PDbxi4k8dVwUAv4o98dk50M1zB+JGFxp43FP7f8+FP8R6Sw==}
@@ -2667,6 +3058,9 @@ packages:
 
   '@vitest/utils@4.1.9':
     resolution: {integrity: sha512-A51o8ymO5PpqlWNnBP9ZHPXDIpuMtTLlGSjN7la4US+LJzoUMyhwjA5QXlm39JexgwHKW4Xjs8Z2d3dLCXOeuA==}
+
+  '@webgpu/types@0.1.72':
+    resolution: {integrity: sha512-0cF7RFM2edNoiIS1ODJp0/Gzv4/xSXhwoR0YCza+OWpJWtn4wmo9DvK91aLlH9+uUnwIriP7ZiC3WitmyhuzBw==}
 
   '@xyflow/react@12.11.1':
     resolution: {integrity: sha512-L+zBoLGSXham0MnlY8QqjfR7/C5JNw0zxkaey5aZ5XmCgJBAdH4+WRIu8CR40d3l/BdU635V6YbhBK1jMo8/6Q==}
@@ -3362,6 +3756,9 @@ packages:
       picomatch:
         optional: true
 
+  fflate@0.8.3:
+    resolution: {integrity: sha512-tbZNuJrLwGUp3zshBtdy4W+ORxZuIh8a5ilyIEQDC5rY1f3U20JMry0Ll3WBzU58EZKsEuJFXhb5gwv8CsPvgA==}
+
   file-entry-cache@6.0.1:
     resolution: {integrity: sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg==}
     engines: {node: ^10.12.0 || >=12.0.0}
@@ -4055,6 +4452,9 @@ packages:
   merge2@1.4.1:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
     engines: {node: '>= 8'}
+
+  meshoptimizer@0.18.1:
+    resolution: {integrity: sha512-ZhoIoL7TNV4s5B6+rx5mC//fw8/POGyNxS/DZyCJeiZ12ScLfVwRE/GfsxwiTkMYYD5DmK2/JXnEVXqL4rF+Sw==}
 
   methods@1.1.2:
     resolution: {integrity: sha512-iclAHeNqNm68zFtnZ0e+1L2yUIdvzNoauKU4WBA3VvH/vPFieF7qfRlwUZU+DA9P9bPXIS90ulxoUoCH23sV2w==}
@@ -4956,6 +5356,9 @@ packages:
   thread-stream@4.2.0:
     resolution: {integrity: sha512-e2zZ96wSChazBsbENf/Pcm/4swHt2cEKQ92rhUjkL9GCKiTDJIaTBenjE/m9DXi0QBmTMDkFDdOomUy20A1tDQ==}
     engines: {node: '>=20'}
+
+  three@0.174.0:
+    resolution: {integrity: sha512-p+WG3W6Ov74alh3geCMkGK9NWuT62ee21cV3jEnun201zodVF4tCE5aZa2U122/mkLRmhJJUQmLLW1BH00uQJQ==}
 
   tiny-invariant@1.3.3:
     resolution: {integrity: sha512-+FbBPE1o9QAYvviau/qC5SE3caw21q3xkvWKBtja5vgqOWIHHJ3ioaq1VPfn/Szqctz2bU/oYeKd9/z5BL+PVg==}
@@ -6671,6 +7074,8 @@ snapshots:
   '@turbo/windows-arm64@2.10.3':
     optional: true
 
+  '@tweenjs/tween.js@23.1.3': {}
+
   '@tybys/wasm-util@0.10.3':
     dependencies:
       tslib: 2.8.1
@@ -6834,13 +7239,26 @@ snapshots:
       '@types/node': 24.13.2
       '@types/send': 0.17.6
 
+  '@types/stats.js@0.17.4': {}
+
   '@types/strip-bom@3.0.0': {}
 
   '@types/strip-json-comments@0.0.30': {}
 
+  '@types/three@0.174.0':
+    dependencies:
+      '@tweenjs/tween.js': 23.1.3
+      '@types/stats.js': 0.17.4
+      '@types/webxr': 0.5.24
+      '@webgpu/types': 0.1.72
+      fflate: 0.8.3
+      meshoptimizer: 0.18.1
+
   '@types/unist@2.0.11': {}
 
   '@types/unist@3.0.3': {}
+
+  '@types/webxr@0.5.24': {}
 
   '@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@6.0.3))(eslint@8.57.1)(typescript@6.0.3)':
     dependencies:
@@ -7047,6 +7465,8 @@ snapshots:
       '@vitest/pretty-format': 4.1.9
       convert-source-map: 2.0.0
       tinyrainbow: 3.1.0
+
+  '@webgpu/types@0.1.72': {}
 
   '@xyflow/react@12.11.1(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
     dependencies:
@@ -7814,6 +8234,8 @@ snapshots:
   fdir@6.5.0(picomatch@4.0.5):
     optionalDependencies:
       picomatch: 4.0.5
+
+  fflate@0.8.3: {}
 
   file-entry-cache@6.0.1:
     dependencies:
@@ -8628,6 +9050,8 @@ snapshots:
   merge-stream@2.0.0: {}
 
   merge2@1.4.1: {}
+
+  meshoptimizer@0.18.1: {}
 
   methods@1.1.2: {}
 
@@ -9723,6 +10147,8 @@ snapshots:
     dependencies:
       real-require: 1.0.0
 
+  three@0.174.0: {}
+
   tiny-invariant@1.3.3: {}
 
   tinybench@2.9.0: {}
@@ -9855,6 +10281,34 @@ snapshots:
     optionalDependencies:
       postcss: 8.5.16
       typescript: 5.9.3
+    transitivePeerDependencies:
+      - jiti
+      - supports-color
+      - tsx
+      - yaml
+
+  tsup@8.5.1(jiti@2.7.0)(postcss@8.5.16)(typescript@6.0.3)(yaml@2.9.0):
+    dependencies:
+      bundle-require: 5.1.0(esbuild@0.27.7)
+      cac: 6.7.14
+      chokidar: 4.0.3
+      consola: 3.4.2
+      debug: 4.4.3
+      esbuild: 0.27.7
+      fix-dts-default-cjs-exports: 1.0.1
+      joycon: 3.1.1
+      picocolors: 1.1.1
+      postcss-load-config: 6.0.1(jiti@2.7.0)(postcss@8.5.16)(yaml@2.9.0)
+      resolve-from: 5.0.0
+      rollup: 4.62.2
+      source-map: 0.7.6
+      sucrase: 3.35.1
+      tinyexec: 0.3.2
+      tinyglobby: 0.2.17
+      tree-kill: 1.2.2
+    optionalDependencies:
+      postcss: 8.5.16
+      typescript: 6.0.3
     transitivePeerDependencies:
       - jiti
       - supports-color

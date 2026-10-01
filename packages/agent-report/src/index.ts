@@ -7,3 +7,4 @@ export * from './assembly/TemplateEngine';
 export * from './rendering/MarkdownRenderer';
 export * from './validation/ReportValidationPipeline';
 export * from './intelligence/ReportReasoningStrategy';
+export * from './generator/EngineeringCalculationNoteGenerator';

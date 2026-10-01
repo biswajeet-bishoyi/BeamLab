@@ -5,5 +5,6 @@ export * from './manager/SolverManager';
 export * from './manager/SolverSessionManager';
 export * from './jobs/SolverJobManager';
 export * from './adapters/MockSolver';
+export * from './adapters/DirectSpaceFrame3DAdapter';
 export * from './events/SolverEvents';
 export * from './diagnostics/SolverDiagnostics';

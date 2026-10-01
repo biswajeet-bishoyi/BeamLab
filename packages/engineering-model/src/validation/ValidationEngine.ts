@@ -12,6 +12,8 @@ export interface IValidationRule {
 export interface ValidationContext {
   /** Resolve an object by ID for cross-reference checks */
   resolve(id: string): IEngineeringObject | undefined;
+  /** Resolve all objects of a given type (for cross-object rules like duplicate checks) */
+  resolveAll?(type: string): IEngineeringObject[];
 }
 
 // ─── Registry ─────────────────────────────────────────────────────────────────

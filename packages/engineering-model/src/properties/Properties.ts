@@ -49,7 +49,9 @@ export class EngineeringMaterial extends BaseEngineeringObject {
 
 export type SectionShape = 'rectangular' | 'circular' | 'I' | 'T' | 'L' | 'C' | 'box' | 'custom';
 
-export interface SectionDimensions {
+// NOTE: The canonical SectionDimensions type is in structural/StructuralSection.ts.
+// This is retained for backward compatibility with EngineeringSection (B1.1).
+export interface CemSectionDimensions {
   [key: string]: number; // e.g., { width, height } or { flangeWidth, webHeight, … }
 }
 
@@ -74,7 +76,7 @@ export class EngineeringSection extends BaseEngineeringObject {
     /** Section shape for visualisation and design checks */
     public shape: SectionShape = 'custom',
     /** Geometry dimensions keyed by dimension name */
-    public dimensions: SectionDimensions = {},
+    public dimensions: CemSectionDimensions = {},
     /** Shear area factor (Ay/A) — dimensionless */
     public shearAreaFactorY: number = 1,
     /** Shear area factor (Az/A) — dimensionless */

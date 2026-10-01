@@ -15,3 +15,4 @@ export * from './explanation/ExplanationBuilder';
 export * from './events/AnalysisEvents';
 export * from './diagnostics/AnalysisDiagnostics';
 export * from './diagnostics/ExecutionRecorder';
+export * from './loads/AutonomousLoadGenerator';
