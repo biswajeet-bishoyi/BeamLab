@@ -8,12 +8,12 @@ export const TimelineLayout: React.FC = () => {
   const { stages } = useTimelineStore();
 
   return (
-    <div className="flex h-full w-full bg-app">
+    <div className="flex h-full w-full bg-[#080c14]">
       {/* Left side: Timeline Steps */}
-      <div className="w-1/2 border-r border-subtle overflow-y-auto p-6 scrollbar-hide">
+      <div className="w-1/2 border-r border-slate-800 overflow-y-auto p-3.5 custom-scrollbar">
         <ProgressVisualization />
         
-        <div className="mt-8 relative border-l-2 border-subtle/50 ml-4 space-y-6">
+        <div className="mt-4 relative border-l-2 border-slate-800 ml-2 space-y-3">
           {stages.map((stage, index) => (
             <StageCard key={stage.id} stage={stage} index={index} />
           ))}
@@ -21,7 +21,7 @@ export const TimelineLayout: React.FC = () => {
       </div>
 
       {/* Right side: Active details / Snapshot */}
-      <div className="w-1/2 bg-panel overflow-y-auto p-6">
+      <div className="w-1/2 bg-[#0d121d] overflow-y-auto p-3.5 custom-scrollbar">
         <ContextSnapshot />
       </div>
     </div>

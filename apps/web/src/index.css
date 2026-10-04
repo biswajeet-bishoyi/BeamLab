@@ -1,6 +1,14 @@
 @import "tailwindcss";
 
 @theme {
+  --color-app: #080c14;
+  --color-panel: #0d121d;
+  --color-subtle: #1e293b;
+  --color-primary: #f1f5f9;
+  --color-muted: #94a3b8;
+  --color-accent: #3b82f6;
+  --color-accent-foreground: #ffffff;
+
   --color-construction-yellow: #FBBF24;
   --color-engineering-blue: #3B82F6;
   --color-structural-green: #10B981;

@@ -28,7 +28,7 @@ export const ArchieSidebar: React.FC = () => {
 
   return (
     <ArchieProvider client={client}>
-      <div className="flex flex-col h-full bg-app border-l border-subtle overflow-hidden relative pb-[48px]">
+      <div className="flex flex-col h-full bg-app border-l border-subtle overflow-hidden relative">
         {/* Archie Header: Title & Collapse Button */}
         <div className="h-9 px-3 border-b border-subtle bg-panel flex items-center justify-between shrink-0 select-none">
           <div className="flex items-center gap-2">
@@ -63,7 +63,7 @@ export const ArchieSidebar: React.FC = () => {
         </div>
 
         {/* Archie Content Router */}
-        <div className="flex-1 overflow-hidden relative">
+        <div className="flex-1 overflow-hidden relative min-h-0">
           {activeArchieTab === 'chat' && <ChatTab />}
           {activeArchieTab === 'plan' && <PlanTab />}
           {activeArchieTab === 'exec' && <ExecutionGraphTab />}
