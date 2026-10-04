@@ -28,7 +28,7 @@ export class DiagramController {
   private evaluations = new Map<string, MemberEvaluationResult>();
   private envelopes = new Map<string, MemberEnvelopeResult>();
   private selectedMemberId: string | null = null;
-  private currentPreset: 'portal_frame' | 'space_truss' | 'building_slabs' = 'portal_frame';
+  private currentPreset: 'blank' | 'portal_frame' | 'space_truss' | 'building_slabs' = 'portal_frame';
 
   constructor(scene: THREE.Scene) {
     this.rootGroup.name = 'DiagramsVisualizationRoot';
@@ -41,7 +41,7 @@ export class DiagramController {
 
   public setSystem(
     system: StructuralSystem,
-    preset: 'portal_frame' | 'space_truss' | 'building_slabs' = 'portal_frame',
+    preset: 'blank' | 'portal_frame' | 'space_truss' | 'building_slabs' = 'portal_frame',
   ): void {
     this.activeSystem = system;
     this.currentPreset = preset;
@@ -72,7 +72,7 @@ export class DiagramController {
     return this.selectedMemberId;
   }
 
-  public getPreset(): 'portal_frame' | 'space_truss' | 'building_slabs' {
+  public getPreset(): 'blank' | 'portal_frame' | 'space_truss' | 'building_slabs' {
     return this.currentPreset;
   }
 

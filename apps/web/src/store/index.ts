@@ -4,6 +4,7 @@ import type { StructuralCommand } from '@beamworks/core-engine/commands/types';
 import type { AnalysisResult, ModelingError } from '@beamworks/core-engine/solver/reactions';
 import { toLength, toForce } from '@beamworks/core-engine/units/brands';
 import { engineInstance } from '../engine/AnalysisEngine';
+import { workspace } from '@beamstudio/workspace-runtime';
 
 export type AIUserLevel = 'beginner' | 'student' | 'intermediate' | 'professional' | 'researcher';
 export type EnvironmentId = 'none' | 'blueprint' | 'residential' | 'bridge' | 'industrial' | 'commercial' | 'construction' | 'research';
@@ -87,7 +88,17 @@ interface BeamworksState {
   setPresentationMode: (open: boolean) => void;
   setPerformanceMonitorOpen: (open: boolean) => void;
   setExportStudioOpen: (open: boolean) => void;
+  activePreset: 'blank' | 'portal_frame' | 'space_truss' | 'building_slabs';
+  setActivePreset: (preset: 'blank' | 'portal_frame' | 'space_truss' | 'building_slabs') => void;
 }
+
+export const blankModel: StructuralModel = {
+  span: toLength(10),
+  supports: [],
+  loads: [],
+  material: { id: 'm1', name: 'Structural Steel', E: 200e9, density: 7850 },
+  section: { id: 'sec1', name: 'W12x26', area: 0.0049, momentOfInertia: 8.5e-5, height: 0.31 }
+};
 
 export const initialModel: StructuralModel = {
   span: toLength(10),
@@ -229,7 +240,14 @@ export const useStore = create<BeamworksState>((set, get) => {
     
     clearPreview: () => set({ ghostModel: null, ghostAnalysisResult: null }),
     
-    selectObject: (id) => set({ selectedObjectId: id }),
+    selectObject: (id) => {
+      set({ selectedObjectId: id });
+      if (id) {
+        workspace.select([id]);
+      } else {
+        workspace.clearSelection();
+      }
+    },
     setHoveredX: (x, mx = null, my = null) => set({ hoveredX: x, mouseX: mx, mouseY: my }),
     setAiPrompt: (prompt) => set({ aiPrompt: prompt }),
     setView: (view) => set({ currentView: view }),
@@ -259,16 +277,21 @@ export const useStore = create<BeamworksState>((set, get) => {
     setPresentationMode: (open) => set({ presentationMode: open }),
     setPerformanceMonitorOpen: (open) => set({ performanceMonitorOpen: open }),
     setExportStudioOpen: (open) => set({ exportStudioOpen: open }),
+    activePreset: 'blank',
+    setActivePreset: (preset) => set({ activePreset: preset }),
     
     loadPreset: (model) => {
       engineInstance.calculate(model, false);
+      const isBlank = model.supports.length === 0 && model.loads.length === 0;
       set({
         model,
         selectedObjectId: null,
         currentView: 'workspace',
         ghostModel: null,
-        ghostAnalysisResult: null
+        ghostAnalysisResult: null,
+        activePreset: isBlank ? 'blank' : 'portal_frame',
       });
+      workspace.clearSelection();
     },
   };
 });

@@ -58,6 +58,9 @@ import {
   type DiagramType,
 } from './diagrams';
 import type { LoadPatternType } from '@beamstudio/engineering-model';
+import { workspace } from '@beamstudio/workspace-runtime';
+import { useStore } from '../../store';
+import { structuralBridge } from './structuralBridge';
 import {
   Box,
   Grid,
@@ -77,7 +80,7 @@ import {
   ChevronUp,
 } from 'lucide-react';
 
-export type ModelPreset = 'portal_frame' | 'space_truss' | 'building_slabs';
+export type ModelPreset = 'blank' | 'portal_frame' | 'space_truss' | 'building_slabs';
 
 interface EngineeringCanvas3DProps {
   className?: string;
@@ -125,7 +128,8 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
   const [fps, setFps] = useState<number>(60);
 
   // Scene rendering & model state
-  const [selectedPreset, setSelectedPreset] = useState<ModelPreset>('portal_frame');
+  const activePreset = useStore(state => state.activePreset);
+  const [selectedPreset, setSelectedPreset] = useState<ModelPreset>(activePreset || 'blank');
   const [renderOptions, setRenderOptions] = useState<SceneRenderOptions>(DEFAULT_RENDER_OPTIONS);
   const [showLayerMenu, setShowLayerMenu] = useState<boolean>(false);
   const [modelStats, setModelStats] = useState({
@@ -376,12 +380,18 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     if (selectionManagerRef.current) {
       selectionManagerRef.current.clearSelection();
     }
+    workspace.clearSelection();
+    useStore.getState().selectObject(null);
 
     let modelData;
     let loadData;
     let analysisData;
 
-    if (preset === 'portal_frame') {
+    if (preset === 'blank') {
+      modelData = StructuralSceneController.createBlankModel();
+      loadData = { point: [], dist: [], surf: [] };
+      analysisData = { displacements: [], modes: [] };
+    } else if (preset === 'portal_frame') {
       modelData = StructuralSceneController.createPortalFrameModel();
       loadData = LoadVisualizationController.createPortalFrameLoads(modelData.system);
       analysisData = ModalAnimationController.createPortalFrameAnalysisData(modelData.system);
@@ -396,6 +406,8 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     }
 
     sceneControllerRef.current.loadSystem(modelData.system, modelData.plates);
+    structuralBridge.setSystem(modelData.system, modelData.plates);
+
     if (loadControllerRef.current) {
       loadControllerRef.current.setLoads(loadData.point, loadData.dist, loadData.surf, modelData.plates);
     }
@@ -419,6 +431,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
 
   const handlePresetChange = (preset: ModelPreset) => {
     setSelectedPreset(preset);
+    useStore.getState().setActivePreset(preset);
     loadPresetModel(preset);
   };
 
@@ -460,13 +473,56 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     const sceneController = new StructuralSceneController(kernel.scene);
     sceneControllerRef.current = sceneController;
 
-    const initialModel = StructuralSceneController.createPortalFrameModel();
-    sceneController.loadSystem(initialModel.system, initialModel.plates);
+    // Connect structural bridge to scene controller so Property Inspector mutations rebuild the 3D meshes live
+    structuralBridge.setRebuildCallback(() => {
+      if (sceneControllerRef.current) {
+        sceneControllerRef.current.rebuildScene();
+        const sys = sceneControllerRef.current.getActiveSystem();
+        const pls = sceneControllerRef.current.getActivePlates();
+        if (sys) {
+          setModelStats({
+            nodes: sys.nodes.size,
+            members: sys.members.size,
+            supports: sys.supports.size,
+            slabs: pls.length,
+          });
+        }
+      }
+    });
+
+    const initialPreset: ModelPreset = useStore.getState().activePreset || 'blank';
+    setSelectedPreset(initialPreset);
+
+    let initialModelData;
+    let initialLoadsData;
+    let initialAnalysisData;
+
+    if (initialPreset === 'blank') {
+      initialModelData = StructuralSceneController.createBlankModel();
+      initialLoadsData = { point: [], dist: [], surf: [] };
+      initialAnalysisData = { displacements: [], modes: [] };
+    } else if (initialPreset === 'space_truss') {
+      initialModelData = StructuralSceneController.createSpaceTrussModel();
+      initialLoadsData = LoadVisualizationController.createSpaceTrussLoads(initialModelData.system);
+      initialAnalysisData = ModalAnimationController.createSpaceTrussAnalysisData(initialModelData.system);
+    } else if (initialPreset === 'building_slabs') {
+      initialModelData = StructuralSceneController.createBuildingWithSlabsModel();
+      initialLoadsData = LoadVisualizationController.createBuildingLoads(initialModelData.system, initialModelData.plates);
+      initialAnalysisData = ModalAnimationController.createBuildingAnalysisData(initialModelData.system);
+    } else {
+      initialModelData = StructuralSceneController.createPortalFrameModel();
+      initialLoadsData = LoadVisualizationController.createPortalFrameLoads(initialModelData.system);
+      initialAnalysisData = ModalAnimationController.createPortalFrameAnalysisData(initialModelData.system);
+    }
+
+    sceneController.loadSystem(initialModelData.system, initialModelData.plates);
+    structuralBridge.setSystem(initialModelData.system, initialModelData.plates);
+
     setModelStats({
-      nodes: initialModel.system.nodes.size,
-      members: initialModel.system.members.size,
-      supports: initialModel.system.supports.size,
-      slabs: initialModel.plates.length,
+      nodes: initialModelData.system.nodes.size,
+      members: initialModelData.system.members.size,
+      supports: initialModelData.system.supports.size,
+      slabs: initialModelData.plates.length,
     });
 
     const initialBox = sceneController.computeBoundingBox();
@@ -487,20 +543,18 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
     const loadController = new LoadVisualizationController(kernel.scene);
     loadControllerRef.current = loadController;
 
-    const initialLoads = LoadVisualizationController.createPortalFrameLoads(initialModel.system);
-    loadController.setLoads(initialLoads.point, initialLoads.dist, initialLoads.surf, initialModel.plates);
+    loadController.setLoads(initialLoadsData.point, initialLoadsData.dist, initialLoadsData.surf, initialModelData.plates);
 
     // 10. Initialize 3D Deformation & Modal Animation Controller
     const modalController = new ModalAnimationController(kernel.scene);
     modalControllerRef.current = modalController;
 
-    const initialAnalysis = ModalAnimationController.createPortalFrameAnalysisData(initialModel.system);
-    modalController.loadModelData(initialModel.system, initialAnalysis.displacements, initialAnalysis.modes);
+    modalController.loadModelData(initialModelData.system, initialAnalysisData.displacements, initialAnalysisData.modes);
 
     // 11. Initialize 3D Internal Force Diagram Controller
     const diagramController = new DiagramController(kernel.scene);
     diagramControllerRef.current = diagramController;
-    diagramController.setSystem(initialModel.system, 'portal_frame');
+    diagramController.setSystem(initialModelData.system, initialPreset);
 
     // Bind selection state observer
     const unbindSelection = selectionManager.onSelectionChange((state: SelectionState) => {
@@ -622,6 +676,9 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
           selectionManager.select(hit.entityType, hit.entityId, false);
         }
 
+        workspace.select([hit.entityId], { type: hit.entityType });
+        useStore.getState().selectObject(hit.entityId);
+
         if (hit.entityType === 'node') {
           onSelectNodeRef.current?.(hit.entityId);
         } else if (hit.entityType === 'member') {
@@ -629,12 +686,16 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
         }
       } else {
         selectionManager.clearSelection();
+        workspace.clearSelection();
+        useStore.getState().selectObject(null);
       }
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         selectionManager.clearSelection();
+        workspace.clearSelection();
+        useStore.getState().selectObject(null);
       }
     };
 
@@ -687,6 +748,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
       loadController.dispose();
       modalController.dispose();
       diagramController.dispose();
+      structuralBridge.setRebuildCallback(null);
       sceneController.dispose();
       kernel.dispose();
     };
@@ -1354,6 +1416,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
               onChange={(e) => handlePresetChange(e.target.value as ModelPreset)}
               className="bg-slate-800/90 text-slate-300 hover:text-white border border-slate-700/80 rounded px-2 py-0.5 text-[11px] font-medium focus:outline-none focus:border-blue-500 cursor-pointer"
             >
+              <option value="blank">Blank Canvas (Clean)</option>
               <option value="portal_frame">Portal Frame (Steel)</option>
               <option value="space_truss">Space Truss (CHS)</option>
               <option value="building_slabs">Building & Slabs (RC)</option>
