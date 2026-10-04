@@ -707,9 +707,9 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
       />
 
       {/* Top Left: Viewport Controls & Camera HUD */}
-      <div className="absolute top-3 left-3 flex flex-col gap-2 z-10">
+      <div className="absolute top-12 left-3 flex flex-col gap-2 z-10">
         {/* Main Toolbar */}
-        <div className="flex items-center gap-1.5 p-1.5 rounded-lg bg-slate-900/85 backdrop-blur-md border border-slate-800 shadow-lg text-xs">
+        <div className="flex items-center gap-1.5 p-1 rounded-lg bg-slate-900/90 backdrop-blur-md border border-slate-800 shadow-xl text-xs">
           {/* Projection Mode Toggle */}
           <button
             onClick={handleToggleProjection}
@@ -1280,30 +1280,21 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
               </div>
             )}
           </div>
-        </div>
 
-        {/* Model Presets Selector Bar */}
-        <div className="flex items-center gap-1.5 p-1 rounded-lg bg-slate-900/80 backdrop-blur-md border border-slate-800/80 text-[11px] self-start shadow">
-          <span className="text-slate-500 px-1.5 font-medium">Preset:</span>
-          {(
-            [
-              { id: 'portal_frame', label: 'Portal Frame (Steel)' },
-              { id: 'space_truss', label: 'Space Truss (CHS)' },
-              { id: 'building_slabs', label: 'Building & Slabs (RC)' },
-            ] as const
-          ).map((preset) => (
-            <button
-              key={preset.id}
-              onClick={() => handlePresetChange(preset.id)}
-              className={`px-2 py-1 rounded font-medium transition-all ${
-                selectedPreset === preset.id
-                  ? 'bg-blue-600/30 text-blue-300 border border-blue-500/40 font-semibold'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
-              }`}
+          {/* Model Presets Compact Dropdown */}
+          <div className="w-px h-4 bg-slate-800 mx-0.5" />
+          <div className="flex items-center gap-1">
+            <span className="text-[10px] text-slate-500 font-medium pl-1">Preset:</span>
+            <select
+              value={selectedPreset}
+              onChange={(e) => handlePresetChange(e.target.value as ModelPreset)}
+              className="bg-slate-800/90 text-slate-300 hover:text-white border border-slate-700/80 rounded px-2 py-0.5 text-[11px] font-medium focus:outline-none focus:border-blue-500 cursor-pointer"
             >
-              {preset.label}
-            </button>
-          ))}
+              <option value="portal_frame">Portal Frame (Steel)</option>
+              <option value="space_truss">Space Truss (CHS)</option>
+              <option value="building_slabs">Building & Slabs (RC)</option>
+            </select>
+          </div>
         </div>
       </div>
 
