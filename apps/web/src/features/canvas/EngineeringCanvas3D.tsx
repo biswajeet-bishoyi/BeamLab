@@ -72,6 +72,9 @@ import {
   Pause,
   Spline,
   X,
+  Compass,
+  ChevronDown,
+  ChevronUp,
 } from 'lucide-react';
 
 export type ModelPreset = 'portal_frame' | 'space_truss' | 'building_slabs';
@@ -80,12 +83,16 @@ interface EngineeringCanvas3DProps {
   className?: string;
   onSelectNode?: (nodeId: string) => void;
   onSelectMember?: (memberId: string) => void;
+  canvasMode?: '2D' | '3D';
+  onSetCanvasMode?: (mode: '2D' | '3D') => void;
 }
 
 export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
   className = 'w-full h-full min-h-[450px]',
   onSelectNode,
   onSelectMember,
+  canvasMode = '3D',
+  onSetCanvasMode,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const kernelRef = useRef<ViewportKernel | null>(null);
@@ -112,6 +119,7 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
   // Viewport & Navigation state
   const [projection, setProjection] = useState<ProjectionMode>('Perspective');
   const [currentView, setCurrentView] = useState<ViewOrientation>('Isometric');
+  const [showViewMenu, setShowViewMenu] = useState<boolean>(false);
   const [gridVisible, setGridVisible] = useState<boolean>(true);
   const [cursorCoords, setCursorCoords] = useState<{ x: number; y: number; z: number } | null>(null);
   const [fps, setFps] = useState<number>(60);
@@ -706,78 +714,134 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
         scaleMultiplier={deformationOptions.scaleMultiplier}
       />
 
-      {/* Top Left: Viewport Controls & Camera HUD */}
-      <div className="absolute top-12 left-3 flex flex-col gap-2 z-10">
+      {/* Top Left: Unified CAD Viewport HUD */}
+      <div className="absolute top-3 left-16 flex flex-col gap-2 z-20 pointer-events-auto">
         {/* Main Toolbar */}
-        <div className="flex items-center gap-1.5 p-1 rounded-lg bg-slate-900/90 backdrop-blur-md border border-slate-800 shadow-xl text-xs">
-          {/* Projection Mode Toggle */}
-          <button
-            onClick={handleToggleProjection}
-            title={`Switch to ${projection === 'Perspective' ? 'Orthographic' : 'Perspective'} Mode (P)`}
-            className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded font-medium transition-all ${
-              projection === 'Perspective'
-                ? 'bg-blue-600 text-white shadow'
-                : 'bg-slate-800 text-slate-300 hover:text-white'
-            }`}
-          >
-            <Box className="w-3.5 h-3.5" />
-            <span>{projection}</span>
-          </button>
+        <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-900/95 backdrop-blur-xl border border-slate-800 shadow-2xl text-xs">
+          {/* Canvas Mode Toggle: 3D / 2D (when onSetCanvasMode provided) */}
+          {onSetCanvasMode && (
+            <>
+              <div className="flex items-center bg-slate-800/80 rounded-lg p-0.5">
+                <button
+                  onClick={() => onSetCanvasMode('3D')}
+                  className={`px-2 py-0.5 rounded-md text-[11px] font-semibold transition-all ${
+                    canvasMode === '3D'
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  3D
+                </button>
+                <button
+                  onClick={() => onSetCanvasMode('2D')}
+                  className={`px-2 py-0.5 rounded-md text-[11px] font-semibold transition-all ${
+                    canvasMode === '2D'
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  2D
+                </button>
+              </div>
+              <div className="w-px h-4 bg-slate-800 mx-0.5" />
+            </>
+          )}
 
-          <div className="w-px h-4 bg-slate-800" />
-
-          {/* View Orientation Quick Selectors */}
-          {(['Isometric', 'Top', 'Front', 'Right'] as ViewOrientation[]).map((view) => (
+          {/* Camera View Orientation & Projection Dropdown */}
+          <div className="relative">
             <button
-              key={view}
-              onClick={() => handleSelectOrientation(view)}
-              className={`px-2 py-1 rounded text-[11px] font-medium transition-all ${
-                currentView === view
-                  ? 'bg-slate-700/80 text-blue-400 font-semibold'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+              onClick={() => {
+                setShowViewMenu(!showViewMenu);
+                setShowLoadMenu(false);
+                setShowDeformationMenu(false);
+                setShowDiagramMenu(false);
+                setShowSnapMenu(false);
+                setShowLayerMenu(false);
+              }}
+              title="Camera View & Projection (P)"
+              className={`flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-medium transition-all ${
+                showViewMenu
+                  ? 'bg-slate-800 text-white'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800/70'
               }`}
             >
-              {view}
+              <Compass className="w-3.5 h-3.5 text-blue-400" />
+              <span>{currentView}</span>
+              <ChevronDown className={`w-3 h-3 text-slate-500 transition-transform ${showViewMenu ? 'rotate-180' : ''}`} />
             </button>
-          ))}
+
+            {showViewMenu && (
+              <div className="absolute top-full left-0 mt-1.5 w-44 p-1.5 rounded-xl bg-slate-900/98 backdrop-blur-xl border border-slate-700/80 shadow-2xl flex flex-col gap-1 text-xs z-50 animate-in fade-in zoom-in-95 duration-100">
+                <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider px-2 py-1">
+                  Camera Orientation
+                </div>
+                {(['Isometric', 'Top', 'Front', 'Right'] as ViewOrientation[]).map((v) => (
+                  <button
+                    key={v}
+                    onClick={() => {
+                      handleSelectOrientation(v);
+                      setShowViewMenu(false);
+                    }}
+                    className={`flex items-center justify-between px-2.5 py-1.5 rounded-lg text-left transition-all ${
+                      currentView === v
+                        ? 'bg-blue-600/30 text-blue-300 font-semibold'
+                        : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                    }`}
+                  >
+                    <span>{v} View</span>
+                    {currentView === v && <div className="w-1.5 h-1.5 rounded-full bg-blue-400" />}
+                  </button>
+                ))}
+                <div className="h-px bg-slate-800 my-1" />
+                <button
+                  onClick={() => {
+                    handleToggleProjection();
+                  }}
+                  className="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-left text-slate-300 hover:bg-slate-800 hover:text-white transition-all"
+                >
+                  <span>Projection</span>
+                  <span className="text-[10px] font-mono text-slate-300 bg-slate-800 px-1.5 py-0.5 rounded border border-slate-700">
+                    {projection}
+                  </span>
+                </button>
+              </div>
+            )}
+          </div>
 
           <div className="w-px h-4 bg-slate-800" />
 
-          {/* Zoom to Fit Extents */}
+          {/* Quick Camera & Grid Tools: Fit, Grid, Extruded */}
           <button
             onClick={handleFitAll}
-            title="Zoom to Fit Model Extents (F)"
-            className="p-1.5 rounded text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+            title="Zoom to Fit Extents (F)"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
           >
             <Maximize2 className="w-3.5 h-3.5" />
           </button>
 
-          {/* Grid Visibility Toggle */}
           <button
             onClick={handleToggleGrid}
-            title="Toggle 3D Spatial Grid"
-            className={`p-1.5 rounded transition-colors ${
-              gridVisible ? 'text-blue-400 bg-blue-950/40' : 'text-slate-500 hover:text-slate-300'
+            title="Toggle Grid (G)"
+            className={`p-1.5 rounded-lg transition-colors ${
+              gridVisible ? 'text-blue-400 bg-blue-950/40' : 'text-slate-500 hover:text-slate-300 hover:bg-slate-800'
             }`}
           >
             <Grid className="w-3.5 h-3.5" />
           </button>
 
-          <div className="w-px h-4 bg-slate-800" />
-
-          {/* Render Mode Toggle (Extruded 3D Profile vs Centerline) */}
           <button
             onClick={handleToggleRenderMode}
-            title="Toggle between Solid 3D Profile Extrusions and Centerline Wireframe"
-            className={`flex items-center gap-1.5 px-2 py-1 rounded text-[11px] font-medium transition-all ${
+            title={`Render Mode: ${renderOptions.renderMode === 'extruded' ? 'Solid 3D Extrusions' : 'Centerline Wireframe'}`}
+            className={`p-1.5 rounded-lg transition-all ${
               renderOptions.renderMode === 'extruded'
-                ? 'bg-emerald-600/30 text-emerald-300 border border-emerald-500/40'
-                : 'bg-amber-600/30 text-amber-300 border border-amber-500/40'
+                ? 'text-emerald-400 hover:bg-emerald-950/30'
+                : 'text-amber-400 hover:bg-amber-950/30'
             }`}
           >
             <Rotate3d className="w-3.5 h-3.5" />
-            <span>{renderOptions.renderMode === 'extruded' ? '3D Extruded' : 'Centerline'}</span>
           </button>
+
+          <div className="w-px h-4 bg-slate-800" />
 
           {/* 3D Load Visualization Controls Button */}
           <div className="relative">
@@ -1298,68 +1362,60 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
         </div>
       </div>
 
-      {/* Top Right: Viewport Mode Badge, Model Stats & FPS */}
-      <div className="absolute top-3 right-3 flex items-center gap-2 text-[10px] font-mono z-10">
-        {/* Model Stats */}
-        <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md border border-slate-800 text-slate-300">
-          <span className="text-blue-400">{modelStats.nodes}</span> Nodes
+      {/* Bottom Right: Quiet Model Stats & WebGL Engine Info */}
+      <div className="absolute bottom-3 right-3 hidden sm:flex items-center gap-2 text-[10px] font-mono z-10 pointer-events-none">
+        <div className="flex items-center gap-2 px-2.5 py-1 rounded-lg bg-slate-900/85 backdrop-blur-md border border-slate-800 text-slate-300 shadow">
+          <span className="text-blue-400 font-semibold">{modelStats.nodes}</span> Nodes
           <span className="text-slate-600">·</span>
-          <span className="text-emerald-400">{modelStats.members}</span> Members
+          <span className="text-emerald-400 font-semibold">{modelStats.members}</span> Members
           <span className="text-slate-600">·</span>
-          <span className="text-amber-400">{modelStats.supports}</span> Supports
+          <span className="text-amber-400 font-semibold">{modelStats.supports}</span> Supports
           {modelStats.slabs > 0 && (
             <>
               <span className="text-slate-600">·</span>
-              <span className="text-purple-400">{modelStats.slabs}</span> Slabs
+              <span className="text-purple-400 font-semibold">{modelStats.slabs}</span> Slabs
             </>
           )}
         </div>
 
-        {/* WebGL Engine & FPS */}
-        <div className="px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md border border-slate-800 text-slate-400 flex items-center gap-1.5">
+        <div className="px-2 py-1 rounded-lg bg-slate-900/85 backdrop-blur-md border border-slate-800 text-slate-400 flex items-center gap-1.5 shadow">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span>Three.js WebGL</span>
-          <span className="text-slate-600">·</span>
-          <span className="text-emerald-400 font-semibold">{fps} FPS</span>
+          <span className="text-emerald-400 font-medium">{fps} FPS</span>
         </div>
       </div>
 
-      {/* Bottom Left: Spatial Coordinates HUD, Selection Readout & Navigation Tips */}
-      <div className="absolute bottom-3 left-3 flex flex-wrap items-center gap-2 text-[11px] font-mono z-10">
+      {/* Bottom Left: Spatial Coordinates HUD & Selection */}
+      <div className="absolute bottom-3 left-3 flex items-center gap-2 text-[10px] font-mono z-10 pointer-events-none">
         {/* Coordinates HUD */}
-        <div className="flex items-center gap-3 px-3 py-1.5 rounded-lg bg-slate-900/85 backdrop-blur-md border border-slate-800 text-slate-300 shadow">
-          <div className="flex items-center gap-1">
-            <span className="text-red-400 font-semibold">X:</span>
-            <span>{cursorCoords ? cursorCoords.x.toFixed(2) : '0.00'} m</span>
+        <div className="flex items-center gap-2.5 px-2.5 py-1 rounded-lg bg-slate-900/85 backdrop-blur-md border border-slate-800 text-slate-300 shadow">
+          <div>
+            <span className="text-red-400 font-semibold">X </span>
+            <span>{cursorCoords ? cursorCoords.x.toFixed(2) : '0.00'}</span>
           </div>
-          <div className="flex items-center gap-1">
-            <span className="text-green-400 font-semibold">Y:</span>
-            <span>{cursorCoords ? cursorCoords.y.toFixed(2) : '0.00'} m</span>
+          <div>
+            <span className="text-green-400 font-semibold">Y </span>
+            <span>{cursorCoords ? cursorCoords.y.toFixed(2) : '0.00'}</span>
           </div>
-          <div className="flex items-center gap-1">
-            <span className="text-blue-400 font-semibold">Z:</span>
-            <span>{cursorCoords ? cursorCoords.z.toFixed(2) : '0.00'} m</span>
+          <div>
+            <span className="text-blue-400 font-semibold">Z </span>
+            <span>{cursorCoords ? cursorCoords.z.toFixed(2) : '0.00'}</span>
           </div>
         </div>
 
         {/* Active Selection Badge (when entities are selected) */}
         {selectedCount > 0 && (
-          <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-sky-950/90 backdrop-blur-md border border-sky-500/50 text-sky-300 shadow animate-in fade-in">
-            <MousePointer className="w-3.5 h-3.5 text-sky-400" />
+          <div className="pointer-events-auto flex items-center gap-2 px-2.5 py-1 rounded-lg bg-sky-950/90 backdrop-blur-md border border-sky-500/50 text-sky-300 shadow animate-in fade-in">
+            <MousePointer className="w-3 h-3 text-sky-400" />
             <span className="font-semibold">{selectionSummary}</span>
             <button
               onClick={handleClearSelection}
               title="Clear selection (Esc)"
               className="p-0.5 rounded hover:bg-sky-900/60 text-sky-400 hover:text-white"
             >
-              <X className="w-3.5 h-3.5" />
+              <X className="w-3 h-3" />
             </button>
           </div>
         )}
-
-        <div className="hidden lg:block px-2.5 py-1.5 rounded-lg bg-slate-900/80 backdrop-blur-md border border-slate-800 text-[10px] text-slate-500">
-          Click: Select · Shift+Click: Multi · Left: Orbit · Right/Shift: Pan · Wheel: Zoom · F: Fit
-        </div>
       </div>
     </div>
   );

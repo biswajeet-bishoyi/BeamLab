@@ -22,57 +22,27 @@ export const CenterWorkspace: React.FC = () => {
       {/* LEFT TOOLBOX (Floating) */}
       <LeftToolbox />
 
-      {/* TOP FLOATING CONTROLS: Mode Switcher & Engine Info */}
-      <div className="absolute top-3 left-16 right-4 flex items-center justify-between pointer-events-none z-20">
-        <div className="flex items-center gap-2 pointer-events-auto">
-          {/* 2D / 3D Canvas Switcher */}
-          <div className="flex items-center gap-1 p-1 rounded-lg bg-slate-900/90 backdrop-blur-md border border-slate-800 text-xs shadow-lg">
+      {/* When canvasMode === '2D', render a simple clean top switcher */}
+      {canvasMode === '2D' && (
+        <div className="absolute top-3 left-16 z-20 flex items-center gap-2">
+          <div className="flex items-center gap-1 p-1 rounded-xl bg-slate-900/95 backdrop-blur-xl border border-slate-800 text-xs shadow-2xl">
             <button
               onClick={() => setCanvasMode('3D')}
-              className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md font-medium transition-all ${
-                canvasMode === '3D'
-                  ? 'bg-blue-600 text-white shadow-sm'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
-              }`}
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 transition-all"
             >
               <Box className="w-3.5 h-3.5" />
               <span>3D Spatial</span>
             </button>
             <button
               onClick={() => setCanvasMode('2D')}
-              className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md font-medium transition-all ${
-                canvasMode === '2D'
-                  ? 'bg-blue-600 text-white shadow-sm'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
-              }`}
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg font-medium bg-blue-600 text-white shadow-sm transition-all"
             >
               <Layers className="w-3.5 h-3.5" />
               <span>2D Beam</span>
             </button>
           </div>
-
-          {/* Quick Drawer Toggle */}
-          <button
-            onClick={() => setResultsExpanded(!resultsExpanded)}
-            className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border text-xs font-medium backdrop-blur-md transition-all shadow-lg ${
-              resultsExpanded
-                ? 'bg-blue-600/20 text-blue-300 border-blue-500/40'
-                : 'bg-slate-900/90 text-slate-400 hover:text-slate-200 border-slate-800 hover:bg-slate-800'
-            }`}
-            title="Toggle Results Analysis Drawer"
-          >
-            <Activity className="w-3.5 h-3.5 text-blue-400" />
-            <span>Diagrams</span>
-            {resultsExpanded ? <ChevronDown className="w-3 h-3" /> : <ChevronUp className="w-3 h-3" />}
-          </button>
         </div>
-
-        <div className="hidden md:flex items-center gap-2 pointer-events-auto">
-          <div className="px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md border border-slate-800/80 text-[10px] font-mono text-slate-400">
-            {canvasMode === '3D' ? 'WebGL 2.0 · Three.js · Z-up' : 'SVG Vector Schematic'}
-          </div>
-        </div>
-      </div>
+      )}
 
       {/* FULL-VIEWPORT CANVAS AREA */}
       <div className="flex-1 w-full h-full relative overflow-hidden bg-[#070a10]">
@@ -80,6 +50,8 @@ export const CenterWorkspace: React.FC = () => {
           <EngineeringCanvas3D
             className="w-full h-full"
             onSelectMember={handleSelectMember}
+            canvasMode={canvasMode}
+            onSetCanvasMode={setCanvasMode}
           />
         ) : (
           <div className="w-full h-full relative flex items-center justify-center">
@@ -90,31 +62,28 @@ export const CenterWorkspace: React.FC = () => {
       </div>
 
       {/* COLLAPSIBLE RESULTS DRAWER (Bottom) */}
-      <div className={`transition-all duration-300 ease-in-out border-t border-slate-800 bg-slate-950/98 backdrop-blur-2xl z-30 flex flex-col ${
-        resultsExpanded ? 'h-[320px]' : 'h-8'
+      <div className={`transition-all duration-300 ease-in-out border-t border-slate-800/80 bg-slate-950/98 backdrop-blur-2xl z-30 flex flex-col ${
+        resultsExpanded ? 'h-[320px]' : 'h-7'
       }`}>
         {/* Drawer Header Bar */}
         <div
           onClick={() => setResultsExpanded(!resultsExpanded)}
-          className="h-8 px-4 flex items-center justify-between cursor-pointer hover:bg-slate-900/80 transition-colors shrink-0"
+          className="h-7 px-3 flex items-center justify-between cursor-pointer hover:bg-slate-900/80 transition-colors shrink-0 select-none"
         >
           <div className="flex items-center gap-2 text-xs">
             <Activity className="w-3.5 h-3.5 text-blue-400" />
-            <span className="font-semibold text-slate-200">Results Studio</span>
-            <span className="text-slate-500 hidden sm:inline">· Multi-Case Enveloping & Critical Station Hunter</span>
-            <span className="px-1.5 py-0.2 rounded text-[9px] font-mono bg-blue-500/10 text-blue-400 border border-blue-500/20">
-              Sprint B3.2
-            </span>
+            <span className="font-semibold text-slate-300 text-[11px]">Results Studio</span>
+            <span className="text-slate-500 text-[11px] hidden sm:inline">— Multi-Case Enveloping & Diagram Peaks</span>
           </div>
 
           <div className="flex items-center gap-2 text-xs text-slate-400">
-            <span className="text-[11px] text-slate-500">
-              {resultsExpanded ? 'Click to minimize canvas drawer' : 'Click to view diagram envelopes'}
+            <span className="text-[10px] text-slate-500">
+              {resultsExpanded ? 'Minimize drawer' : 'View envelopes'}
             </span>
             {resultsExpanded ? (
-              <ChevronDown className="w-4 h-4 text-slate-400" />
+              <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
             ) : (
-              <ChevronUp className="w-4 h-4 text-slate-400" />
+              <ChevronUp className="w-3.5 h-3.5 text-slate-400" />
             )}
           </div>
         </div>
