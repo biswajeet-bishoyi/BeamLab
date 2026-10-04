@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/task-scheduler",
+  "name": "@beamstudio/task-scheduler",
   "version": "0.1.0",
   "private": true,
   "description": "Task Scheduler for Archie Kernel",
@@ -22,8 +22,8 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@beamlab/execution-graph": "workspace:*",
-    "@beamlab/utils": "workspace:*"
+    "@beamstudio/execution-graph": "workspace:*",
+    "@beamstudio/utils": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^24.13.2",

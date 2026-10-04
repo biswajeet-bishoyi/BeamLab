@@ -11,7 +11,7 @@ Shallow isolated spread footings are the most prevalent foundation typology in b
 4. **Flexural Bottom Reinforcement**: Cantilever bending moment at column faces, tension rebar area $A_s$, minimum temperature and shrinkage ratios ($\rho_{min} = 0.0018$), bar count, and spacing.
 
 ## Decision
-We implemented the Spread & Eccentric Isolated Pad Footing Design Engine in `@beamlab/foundation-engine`:
+We implemented the Spread & Eccentric Isolated Pad Footing Design Engine in `@beamstudio/foundation-engine`:
 1. **Biaxial Contact & Uplift Model** (`IsolatedFootingEngine.ts`):
    - Calculates 4-corner pressures and eccentricity coordinates $e_x = M_y / P_{tot}$, $e_y = M_x / P_{tot}$.
    - Evaluates kern full contact vs. tension cut-off partial uplift using Meyerhof effective base dimensions.

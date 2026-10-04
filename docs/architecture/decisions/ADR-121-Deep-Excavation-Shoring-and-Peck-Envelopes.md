@@ -7,7 +7,7 @@ Accepted
 Urban deep excavations (basements, subway stations, utility trenches) require shoring systems ranging from flexible cantilever sheet piles to multi-tiered anchored walls and strutted braced cuts. Classical Rankine distributions fail for strutted cuts due to arching effects, necessitating empirical apparent earth pressure envelopes (Peck 1969).
 
 ## Decision
-We implemented `DeepExcavationEngine` in `@beamlab/earth-engine`:
+We implemented `DeepExcavationEngine` in `@beamstudio/earth-engine`:
 1. **Cantilever Sheet Piles**:
    - Solves non-linear moment equilibrium about sheet pile toe to compute calculated embedment depth $D_{calc}$ and factored design depth $D_{design} = 1.25 D_{calc}$.
    - Locates depth of zero shear to establish peak bending moment $M_{max}$ and required elastic section modulus $S_{req} = M_{max} / (0.66 f_y)$.

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Play, Shield, Activity, Save, Search, CheckCircle2, AlertTriangle, XCircle, ChevronRight, Clock, Terminal } from 'lucide-react';
 import { policyClient } from '../../store/policy';
-import type { PolicyDecision, ActionRequest } from '@beamlab/policy-engine';
+import type { PolicyDecision, ActionRequest } from '@beamstudio/policy-engine';
 
 const SCENARIOS = [
   {

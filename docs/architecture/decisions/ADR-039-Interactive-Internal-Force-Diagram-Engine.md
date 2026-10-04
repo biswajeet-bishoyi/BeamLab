@@ -60,4 +60,4 @@ Selecting any structural member in the 3D canvas (via click or hover) automatica
 
 ## Consequences
 - Engineers have full visibility into internal force distributions in both 3D spatial frames and 2D station curves.
-- Fully compatible with canonical `@beamlab/engineering-model` and sets up Sprint B3.2 (Multi-Case Result Enveloping).
+- Fully compatible with canonical `@beamstudio/engineering-model` and sets up Sprint B3.2 (Multi-Case Result Enveloping).

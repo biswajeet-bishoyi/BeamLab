@@ -11,7 +11,7 @@ To support Beta goals (including BIM integration, multi-structure projects, real
 
 ## Decision
 
-We will implement `@beamlab/engineering-model` as the **Canonical Engineering Model (CEM)** — the single source of truth for all engineering data in BeamLab.
+We will implement `@beamstudio/engineering-model` as the **Canonical Engineering Model (CEM)** — the single source of truth for all engineering data in BeamLab.
 
 ### Architecture
 
@@ -65,7 +65,7 @@ References between objects are stored as ID strings, not direct object reference
 `CEMEventEmitter` decouples producers (model mutations) from consumers (Workspace Runtime, Visualization, Agents). No consumer needs to poll.
 
 #### 8. No Framework Dependencies
-The `@beamlab/engineering-model` package **must never import** React, Vue, Three.js, Zustand, or any solver library. It is a pure TypeScript domain model.
+The `@beamstudio/engineering-model` package **must never import** React, Vue, Three.js, Zustand, or any solver library. It is a pure TypeScript domain model.
 
 ## Future Compatibility
 

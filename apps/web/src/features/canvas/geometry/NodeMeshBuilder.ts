@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import type { StructuralNode } from '@beamlab/engineering-model';
+import type { StructuralNode } from '@beamstudio/engineering-model';
 
 export interface NodeVisualOptions {
   isSupported?: boolean;

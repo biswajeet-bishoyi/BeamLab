@@ -14,7 +14,7 @@ Key engineering challenges:
 4. **Cable Band Clamping Safety**: Cable clamps bolted around the main cable must prevent slippage along the inclined cable under suspender live loads.
 
 ## Decision
-We implement `SuspensionCableSystemEngine` in `@beamlab/cable-engine/src/suspension/`:
+We implement `SuspensionCableSystemEngine` in `@beamstudio/cable-engine/src/suspension/`:
 
 1. **Global Horizontal Tension & Profile**:
    - Closed-form solution:

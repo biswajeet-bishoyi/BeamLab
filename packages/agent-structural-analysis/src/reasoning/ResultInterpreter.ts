@@ -1,4 +1,4 @@
-import { ISolverResult } from '@beamlab/solver-client';
+import { ISolverResult } from '@beamstudio/solver-client';
 
 export interface InterpretedResults {
   maxDeflection: number;

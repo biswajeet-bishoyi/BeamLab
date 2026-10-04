@@ -41,5 +41,5 @@ We implemented **Sprint B14.2: Sawn Timber & Glulam Member Design Engine (`packa
 
 ## Consequences
 - Full support for multi-code verification of timber beams, columns, and beam-columns.
-- Zero external runtime dependencies in `@beamlab/timber-engine`.
+- Zero external runtime dependencies in `@beamstudio/timber-engine`.
 - 100% test coverage with 14/14 passing tests.

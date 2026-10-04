@@ -1,4 +1,4 @@
-import { contextEngine } from '@beamlab/context-engine';
+import { contextEngine } from '@beamstudio/context-engine';
 
 export class ContextIntegrator {
   public async getOptimizedContext(projectId: string, maxTokens: number): Promise<string> {

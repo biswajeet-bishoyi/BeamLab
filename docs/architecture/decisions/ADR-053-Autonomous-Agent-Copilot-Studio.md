@@ -26,6 +26,6 @@ We implemented `ArchieCopilotStudio` in `apps/web/src/features/copilot/`:
    - Embedded preview for generated HTML/Markdown calculation packages with one-click print-to-PDF, markdown download, and copy actions.
 
 ## Consequences
-- Bridges the backend multi-agent kernel (`@beamlab/archie-kernel`, `@beamlab/agent-optimization`, `@beamlab/agent-structural-analysis`, `@beamlab/agent-report`) to the frontend engineering operating system.
+- Bridges the backend multi-agent kernel (`@beamstudio/archie-kernel`, `@beamstudio/agent-optimization`, `@beamstudio/agent-structural-analysis`, `@beamstudio/agent-report`) to the frontend engineering operating system.
 - Provides professional engineers with complete transparency and authoritative veto power over all automated decisions.
 - Successfully completes **Phase B5 (Autonomous Engineering Reasoning Agents & Multi-Agent Orchestration)**.

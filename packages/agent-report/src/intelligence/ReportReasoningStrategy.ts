@@ -1,4 +1,4 @@
-import { IEngineeringReasoner, ConfidenceResult } from '@beamlab/engineering-reasoning';
+import { IEngineeringReasoner, ConfidenceResult } from '@beamstudio/engineering-reasoning';
 import { LivingReport } from '../models';
 
 export class ReportReasoningStrategy implements IEngineeringReasoner {

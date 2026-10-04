@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { MemoryClient } from './MemoryClient';
-import { MemoryManager } from '@beamlab/memory-system';
+import { MemoryManager } from '@beamstudio/memory-system';
 
 describe('MemoryClient', () => {
   it('should be instantiable', () => {

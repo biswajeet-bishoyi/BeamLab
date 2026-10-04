@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/memory-client",
+  "name": "@beamstudio/memory-client",
   "version": "0.1.0",
   "private": true,
   "main": "dist/index.js",
@@ -12,7 +12,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@beamlab/memory-system": "workspace:*"
+    "@beamstudio/memory-system": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.1",

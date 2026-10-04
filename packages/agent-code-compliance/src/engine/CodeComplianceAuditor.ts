@@ -8,7 +8,7 @@ import {
   CodeClauseRetriever,
   type DesignStandard,
   type LimitState,
-} from '@beamlab/knowledge-platform';
+} from '@beamstudio/knowledge-platform';
 
 export interface MemberAuditDemand {
   elementId: string;

@@ -7,7 +7,7 @@ import {
   EngineeringJustificationEngine,
   BehaviorAnalysisEngine,
   CriticalMemberDetector
-} from '@beamlab/engineering-reasoning';
+} from '@beamstudio/engineering-reasoning';
 
 export class StructuralReasoningStrategy implements IReasoningStrategy {
   public id = 'structural-reasoning-strategy';

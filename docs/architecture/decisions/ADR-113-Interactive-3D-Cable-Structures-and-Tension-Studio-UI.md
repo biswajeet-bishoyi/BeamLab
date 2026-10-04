@@ -18,7 +18,7 @@ We implement `CableStudio` in `apps/web/src/features/cable/`:
 
 1. **3D WebGL Spatial Viewport (`Three.js` & `OrbitControls`)**:
    - Renders 3D pylons/towers, bridge roadway deck with lane markings, cable anchor points, and 3D catenary cables.
-   - Dynamic HSL color heatmap mapping cable stress ratios directly from calculations in `@beamlab/cable-engine`.
+   - Dynamic HSL color heatmap mapping cable stress ratios directly from calculations in `@beamstudio/cable-engine`.
 
 2. **Cable-Stayed Bridge & Initial Tension Tuning Tab**:
    - Topology selectors: Fan, Semi-Harp, Harp.

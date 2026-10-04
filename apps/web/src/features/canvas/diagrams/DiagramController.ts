@@ -4,7 +4,7 @@
  */
 
 import * as THREE from 'three';
-import { StructuralSystem } from '@beamlab/engineering-model';
+import { StructuralSystem } from '@beamstudio/engineering-model';
 import {
   DiagramMeshBuilder,
   type DiagramOptions,

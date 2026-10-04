@@ -1,4 +1,4 @@
-import { IEngineeringPipeline } from '@beamlab/agent-framework';
+import { IEngineeringPipeline } from '@beamstudio/agent-framework';
 import { EvidenceCollector } from '../collection/EvidenceCollector';
 import { TemplateEngine } from '../assembly/TemplateEngine';
 import { ReportValidationPipeline } from '../validation/ReportValidationPipeline';

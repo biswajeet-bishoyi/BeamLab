@@ -57,7 +57,7 @@ import {
   PileCapDimensions,
   PileCapColumn,
   PileGroupLoads,
-} from '@beamlab/foundation-engine';
+} from '@beamstudio/foundation-engine';
 
 interface FoundationStudioProps {
   onClose: () => void;

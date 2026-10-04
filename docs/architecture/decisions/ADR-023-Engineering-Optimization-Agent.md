@@ -16,8 +16,8 @@ Furthermore, we need a reusable mechanism for multi-criteria decision making tha
    - `CandidateGenerator` (generates architectural variations without numerical constraints)
    - `AlternativeEvaluator` (evaluates performance)
    - `TradeOffAnalyzer` (surfaces trade-offs across candidates)
-3. **Engineering Decision Engine**: Introduced as a foundational platform capability in `@beamlab/engineering-reasoning` to score candidates and produce an `EvaluationMatrix` and `DecisionExplanation`.
-4. **Events Model**: Established a base `EngineeringEvent` in `@beamlab/events`, from which `OptimizationEvent` inherits.
+3. **Engineering Decision Engine**: Introduced as a foundational platform capability in `@beamstudio/engineering-reasoning` to score candidates and produce an `EvaluationMatrix` and `DecisionExplanation`.
+4. **Events Model**: Established a base `EngineeringEvent` in `@beamstudio/events`, from which `OptimizationEvent` inherits.
 5. **UI Separation**: The agent generates a structured `TradeOffModel` only. Rendering happens externally via the `OptimizationExplorer` in Developer Studio (and later in the Workspace).
 
 ## Consequences

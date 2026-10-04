@@ -5,7 +5,7 @@ import {
   EngineeringNarrativeBuilder, 
   RecommendationEngine, 
   EngineeringJustificationEngine
-} from '@beamlab/engineering-reasoning';
+} from '@beamstudio/engineering-reasoning';
 import { DesignIntent } from '../intent/DesignIntentAnalyzer';
 
 export class DesignReasoningStrategy implements IReasoningStrategy {

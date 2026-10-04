@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { useArchie } from '@beamlab/archie-client';
+import { useArchie } from '@beamstudio/archie-client';
 import { PlayCircle } from 'lucide-react';
 
 export const ExecutionTab: React.FC = () => {

@@ -21,5 +21,5 @@ We implemented `EarthStudio` in `apps/web/src/features/earth/EarthStudio.tsx`:
    - Scorecard HUD with real-time pass/fail badges against Eurocode 7 (EN 1997) and AASHTO LRFD criteria.
 
 ## Consequences
-- Full interactive pairing between `@beamlab/earth-engine` analytical engines and user-facing 3D visualization.
+- Full interactive pairing between `@beamstudio/earth-engine` analytical engines and user-facing 3D visualization.
 - Instant feedback allows rapid optimization of retaining wall geometry and deep excavation shoring.

@@ -54,5 +54,5 @@ $$L_{arrow} = \min\left(2.5, \log_{10}(F + 1) \cdot 0.9 + 0.5\right) \cdot \text
 
 ## Consequences
 - Engineers can visually audit self-weight, roof live loads, lateral wind pressures, and crane loads in 3D.
-- Full support for canonical `@beamlab/engineering-model` load definitions.
+- Full support for canonical `@beamstudio/engineering-model` load definitions.
 - Scalable, clear presentation graphics for design reports and peer review.

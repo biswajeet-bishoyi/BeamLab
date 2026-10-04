@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/archie-client",
+  "name": "@beamstudio/archie-client",
   "version": "0.0.0",
   "private": true,
   "main": "./dist/index.js",
@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "zustand": "^5.0.0",
-    "@beamlab/runtime-gateway": "workspace:*"
+    "@beamstudio/runtime-gateway": "workspace:*"
   },
   "devDependencies": {
     "eslint": "^8.57.0",

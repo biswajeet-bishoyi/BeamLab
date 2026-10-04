@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Database, Search, Layers, Server, Activity, Book } from 'lucide-react';
 import { resourceClient } from '../../store/resource';
-import type { Resource } from '@beamlab/resource-manager';
+import type { Resource } from '@beamstudio/resource-manager';
 
 export const ResourceExplorer: React.FC = () => {
   const [query, setQuery] = useState('');

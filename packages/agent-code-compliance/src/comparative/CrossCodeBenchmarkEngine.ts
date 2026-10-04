@@ -5,7 +5,7 @@
  * Computes comparative utilization ratios, capacity disparities, and safety factor rationales.
  */
 
-import type { DesignStandard } from '@beamlab/knowledge-platform';
+import type { DesignStandard } from '@beamstudio/knowledge-platform';
 import {
   CodeComplianceAuditor,
   type MemberAuditDemand,

@@ -10,7 +10,7 @@ Global structural engineering practice routinely requires evaluating designs acr
 3. How do column flexural buckling reductions compare across slenderness ratios ($L/r = 20 \dots 180$)?
 
 ## Decision
-We implemented `CrossCodeBenchmarkEngine` in `@beamlab/agent-code-compliance`:
+We implemented `CrossCodeBenchmarkEngine` in `@beamstudio/agent-code-compliance`:
 1. **Simultaneous Multi-Code Member Evaluation (`compareMember`)**:
    - Executes identical structural demands and geometric properties simultaneously against Eurocode 3, AISC 360-16, and IS 800:2007.
    - Computes utilization ratios ($UC_{EC3}, UC_{AISC}, UC_{IS800}$), identifies most and least conservative standards, and computes the maximum capacity disparity percentage.

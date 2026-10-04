@@ -1,5 +1,5 @@
 /**
- * @beamlab/blast-engine
+ * @beamstudio/blast-engine
  * Blast, Impact & Extreme Dynamic Loading Engine
  * @packageDocumentation
  */

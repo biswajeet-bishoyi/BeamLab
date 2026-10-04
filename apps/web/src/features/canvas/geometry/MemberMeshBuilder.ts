@@ -5,7 +5,7 @@ import type {
   SectionProfile,
   StructuralMaterial,
   MemberType,
-} from '@beamlab/engineering-model';
+} from '@beamstudio/engineering-model';
 import { ProfileGeometryBuilder } from './ProfileGeometryBuilder';
 
 export interface MemberVisualOptions {

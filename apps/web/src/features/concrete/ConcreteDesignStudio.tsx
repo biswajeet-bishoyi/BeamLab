@@ -29,7 +29,7 @@ import {
   ColumnSlendernessEngine,
   ColumnDetailingEngine,
   PMMPoint3D,
-} from '@beamlab/concrete-engine';
+} from '@beamstudio/concrete-engine';
 
 interface ConcreteDesignStudioProps {
   onClose: () => void;

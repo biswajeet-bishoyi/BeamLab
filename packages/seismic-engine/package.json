@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/seismic-engine",
+  "name": "@beamstudio/seismic-engine",
   "version": "0.1.0",
   "description": "Dynamic Response Spectrum, Modal Combination (CQC/SRSS), Time-History Ground Motion Integration, and Seismic Drift Engine",
   "main": "./dist/index.js",
@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@beamlab/types": "workspace:*"
+    "@beamstudio/types": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.2",

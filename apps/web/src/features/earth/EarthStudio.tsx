@@ -30,7 +30,7 @@ import {
   SurchargeLoad,
   WallDimensions,
   SlopeProfilePoint,
-} from '@beamlab/earth-engine';
+} from '@beamstudio/earth-engine';
 
 interface EarthStudioProps {
   onClose: () => void;

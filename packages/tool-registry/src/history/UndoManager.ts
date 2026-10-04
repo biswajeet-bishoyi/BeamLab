@@ -1,5 +1,5 @@
 import { UndoPayload } from '../interfaces/BaseTool';
-import { logger } from '@beamlab/utils';
+import { logger } from '@beamstudio/utils';
 
 export class UndoManager {
   private undoStack: UndoPayload[] = [];

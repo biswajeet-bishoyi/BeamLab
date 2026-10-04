@@ -1,4 +1,4 @@
-import { ExecutionPlanData } from '@beamlab/planning-engine';
+import { ExecutionPlanData } from '@beamstudio/planning-engine';
 import { ExecutionGraph } from '../models/ExecutionGraph';
 import { GraphBuilder } from '../core/GraphBuilder';
 import { DependencyResolver } from '../core/DependencyResolver';

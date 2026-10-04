@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/prestressed-engine",
+  "name": "@beamstudio/prestressed-engine",
   "version": "0.1.0",
   "description": "Prestressed and Post-Tensioned (PT) Concrete Structural Engineering Engine: Tendon Trajectory, Friction & Long-Term Losses, Load Balancing, Fiber Stresses, and Ultimate Flexure",
   "main": "./dist/index.js",
@@ -18,7 +18,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@beamlab/types": "workspace:*"
+    "@beamstudio/types": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.2",

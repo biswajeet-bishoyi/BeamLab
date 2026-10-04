@@ -4,7 +4,7 @@
 Accepted
 
 ## Context
-Following the completion of the `@beamlab/composite-engine` calculation domain across Sprints B15.1 through B15.4, BeamLab requires a flagship user interface to allow structural engineers to interactively configure, inspect, and verify composite floor and column systems. Key interactive capabilities required:
+Following the completion of the `@beamstudio/composite-engine` calculation domain across Sprints B15.1 through B15.4, BeamLab requires a flagship user interface to allow structural engineers to interactively configure, inspect, and verify composite floor and column systems. Key interactive capabilities required:
 1. Cross-section configuration (steel shapes, deck profile, stud diameter, rib orientation).
 2. Live interaction degree slider ($\eta \in [0.25, 1.0]$) with instant PNA calculation and continuous $M_p(\eta)$ curve plot.
 3. Concrete-Filled Steel Tube (CFT) & Encased Column geometry selectors with real-time 4-point plastic P-M envelope rendering and applied load check.

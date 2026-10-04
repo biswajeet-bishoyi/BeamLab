@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/solver-client",
+  "name": "@beamstudio/solver-client",
   "version": "1.0.0",
   "private": true,
   "description": "BeamLab Solver Client API",
@@ -19,7 +19,7 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "@beamlab/config": "workspace:*",
+    "@beamstudio/config": "workspace:*",
     "@types/node": "^20.0.0",
     "tsup": "^8.0.0",
     "typescript": "^5.0.0",

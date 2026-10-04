@@ -23,7 +23,7 @@ import {
   BridgeDynamicForcesEngine,
   BridgeActionType,
   BridgeStandard
-} from '@beamlab/bridge-engine';
+} from '@beamstudio/bridge-engine';
 
 interface BridgeStudioProps {
   onClose: () => void;

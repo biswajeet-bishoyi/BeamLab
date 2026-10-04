@@ -8,7 +8,7 @@ import {
   ArrowRight,
   FileCheck2,
 } from 'lucide-react';
-import type { HumanApprovalGate, SectionOptimizationProposal } from '@beamlab/archie-kernel';
+import type { HumanApprovalGate, SectionOptimizationProposal } from '@beamstudio/archie-kernel';
 
 interface HumanApprovalModalProps {
   gate: HumanApprovalGate;

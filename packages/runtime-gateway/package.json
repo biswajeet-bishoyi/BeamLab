@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/runtime-gateway",
+  "name": "@beamstudio/runtime-gateway",
   "version": "0.1.0",
   "private": true,
   "main": "src/index.ts",
@@ -8,15 +8,15 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@beamlab/utils": "workspace:*",
-    "@beamlab/types": "workspace:*",
-    "@beamlab/events": "workspace:*",
-    "@beamlab/context-engine": "workspace:*",
-    "@beamlab/tool-registry": "workspace:*",
+    "@beamstudio/utils": "workspace:*",
+    "@beamstudio/types": "workspace:*",
+    "@beamstudio/events": "workspace:*",
+    "@beamstudio/context-engine": "workspace:*",
+    "@beamstudio/tool-registry": "workspace:*",
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@beamlab/config": "workspace:*",
+    "@beamstudio/config": "workspace:*",
     "typescript": "^5.3.3",
     "vitest": "^1.2.2"
   }

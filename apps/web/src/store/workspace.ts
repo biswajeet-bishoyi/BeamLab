@@ -1,7 +1,7 @@
 
 import { create } from 'zustand';
 import { persist, createJSONStorage, type StateStorage } from 'zustand/middleware';
-import { workspace } from '@beamlab/workspace-runtime';
+import { workspace } from '@beamstudio/workspace-runtime';
 
 interface WorkspaceState {
   leftPanelCollapsed: boolean;

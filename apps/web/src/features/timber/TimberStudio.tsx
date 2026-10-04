@@ -30,7 +30,7 @@ import {
   Eurocode5ServiceClass,
   Eurocode5LoadDuration,
   NdsLoadDuration,
-} from '@beamlab/timber-engine';
+} from '@beamstudio/timber-engine';
 
 interface TimberStudioProps {
   onClose: () => void;
@@ -1170,7 +1170,7 @@ Residual Bending Resistance: ${connectionResult.fire.fireBendingResistanceKNm.to
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              Engine: @beamlab/timber-engine
+              Engine: @beamstudio/timber-engine
             </span>
             <span>Standards: NDS 2024 / Eurocode 5 / IS 883</span>
           </div>

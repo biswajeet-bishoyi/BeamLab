@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/execution-graph",
+  "name": "@beamstudio/execution-graph",
   "version": "0.1.0",
   "private": true,
   "description": "Execution Graph Engine (EGE) for Archie",
@@ -22,8 +22,8 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@beamlab/planning-engine": "workspace:*",
-    "@beamlab/utils": "workspace:*"
+    "@beamstudio/planning-engine": "workspace:*",
+    "@beamstudio/utils": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^24.13.2",

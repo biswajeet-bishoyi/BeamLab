@@ -1,5 +1,5 @@
 import { BaseTool, ToolContext } from '../interfaces/BaseTool';
-import { AuthenticationError } from '@beamlab/utils';
+import { AuthenticationError } from '@beamstudio/utils';
 
 export class PermissionManager {
   public authorize(tool: BaseTool<any, any>, context: ToolContext): void {

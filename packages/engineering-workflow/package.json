@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/engineering-workflow",
+  "name": "@beamstudio/engineering-workflow",
   "version": "1.0.0",
   "private": true,
   "description": "BeamLab Engineering Workflow Orchestrator",
@@ -20,9 +20,9 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@beamlab/agent-framework": "workspace:*",
-    "@beamlab/events": "workspace:*",
-    "@beamlab/engineering-reasoning": "workspace:*"
+    "@beamstudio/agent-framework": "workspace:*",
+    "@beamstudio/events": "workspace:*",
+    "@beamstudio/engineering-reasoning": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.0",

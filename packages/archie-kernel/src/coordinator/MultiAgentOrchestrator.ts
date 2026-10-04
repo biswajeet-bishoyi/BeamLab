@@ -5,7 +5,7 @@
  * and pauses at human-in-the-loop approval gates.
  */
 
-import { ExecutionPlan, type PlanStep } from '@beamlab/planning-engine';
+import { ExecutionPlan, type PlanStep } from '@beamstudio/planning-engine';
 import {
   EngineeringBlackboard,
   type EngineeringBlackboardState,

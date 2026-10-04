@@ -9,7 +9,7 @@ BeamLab needs to transform its solver outputs (raw numbers) into expert-level en
 Furthermore, engineering recommendations require rigorous explainability. Presenting a recommendation without justifiable evidence, explicit assumptions, and a clear confidence metric is insufficient for professional engineers.
 
 ## Decision
-1. **Generic Reasoning Framework**: We introduced `@beamlab/engineering-reasoning` as a standalone core platform service. It provides generic registries, narrative builders, and engines.
+1. **Generic Reasoning Framework**: We introduced `@beamstudio/engineering-reasoning` as a standalone core platform service. It provides generic registries, narrative builders, and engines.
 2. **Strategy Pattern**: Agents no longer embed massive reasoning engines. Instead, they implement the `IReasoningStrategy` interface (e.g., `StructuralReasoningStrategy`) which plugs into the generic reasoning framework.
 3. **Pluggable Confidence Engine**: Confidence is calculated via independent `IConfidenceContributor` modules (Model Quality, Knowledge Match, etc.) aggregated through an `IAggregationStrategy`. Default is `WeightedAverageAggregationStrategy`. This allows future integration of Bayesian or LLM-based confidence scoring without changing the architecture.
 4. **Engineering Justification Engine**: We introduced a unique mechanism that synthesizes Evidence, Reasoning, Confidence, and Assumptions into an `EngineeringJustification`. It explicitly answers: "Would a senior engineer sign off on this?"

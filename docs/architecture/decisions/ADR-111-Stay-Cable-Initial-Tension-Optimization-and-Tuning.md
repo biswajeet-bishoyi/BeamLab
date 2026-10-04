@@ -12,7 +12,7 @@ In cable-stayed bridges (fan, harp, and semi-fan topologies), stay cables serve 
   to prevent both cable slackening / fatigue at the lower bound and strand rupture / creep relaxation at the upper bound.
 
 ## Decision
-We implement `StayCableTuningEngine` in `@beamlab/cable-engine/src/tuning/`:
+We implement `StayCableTuningEngine` in `@beamstudio/cable-engine/src/tuning/`:
 
 1. **Rigid Support Zero-Displacement Method (`solveZeroDisplacementTensions`)**:
    - Treats the deck as a continuous beam on unyielding supports at stay anchor locations.

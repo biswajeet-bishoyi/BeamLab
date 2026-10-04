@@ -10,7 +10,7 @@ While steel-concrete composite floor systems exhibit superior strength, their de
 3. **Floor Vibration**: Slender composite beams and long-span bays are vulnerable to human-induced walking excitation. AISC Design Guide 11 defines frequency and peak acceleration thresholds ($a_p / g$) to prevent human annoyance.
 
 ## Decision
-We implemented `@beamlab/composite-engine/src/serviceability`:
+We implemented `@beamstudio/composite-engine/src/serviceability`:
 1. **`CompositeDeflectionAuditor.ts`**:
    - Effective moment of inertia under partial composite action per AISC 360-22 Commentary Eq. C-I3-1:
      $$I_{eff} = I_s + \sqrt{\eta} (I_{tr} - I_s)$$

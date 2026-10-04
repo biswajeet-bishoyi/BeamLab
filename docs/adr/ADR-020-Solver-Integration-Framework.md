@@ -11,8 +11,8 @@ If every agent directly manages solver lifecycle, dependencies, and queueing, th
 ## Decision
 We will introduce the **Solver Integration Framework (SIF)** as a universal abstraction layer and core platform service.
 
-1. **Separation of Concerns**: Agents interact with numerical solvers strictly through a universal `ISolverService` API provided by `@beamlab/solver-client`.
-2. **Dedicated Runtime**: The `@beamlab/solver-runtime` package handles solver execution, lifecycle, health monitoring, queueing, and metrics.
+1. **Separation of Concerns**: Agents interact with numerical solvers strictly through a universal `ISolverService` API provided by `@beamstudio/solver-client`.
+2. **Dedicated Runtime**: The `@beamstudio/solver-runtime` package handles solver execution, lifecycle, health monitoring, queueing, and metrics.
 3. **Platform Service Registry**: The `SolverRuntime` will be initialized and managed by the `ArchieKernel` as a core platform service alongside the Memory System, Context Engine, and Policy Engine.
 4. **Adapter Architecture**: Specific solver engines (OpenSees, Abaqus, Cloud) will implement the `ISolverAdapter` interface and register with the `SolverRegistry` within the `SolverRuntime`.
 5. **Initialization Order**: The `SolverRuntime` must be initialized *before* the `AgentRuntime` so that agents can discover available solver capabilities upon startup.

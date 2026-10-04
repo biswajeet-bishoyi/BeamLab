@@ -6,12 +6,12 @@ Accepted
 ## Context
 Cable structures (stay cables in cable-stayed bridges, cable roofs, and suspension bridges) exhibit strong geometric non-linearity due to sag under dead weight. When tension increases, the cable straightens (geometric deformation) in addition to purely Hookean material stretching.
 
-In linear and quasi-linear bridge structural analysis (such as beam-truss frame discretization in `@beamlab/direct-stiffness`), modeling each individual cable as dozens of non-linear catenary segments is computationally prohibitive during live load influence surface and vehicle stepping calculations.
+In linear and quasi-linear bridge structural analysis (such as beam-truss frame discretization in `@beamstudio/direct-stiffness`), modeling each individual cable as dozens of non-linear catenary segments is computationally prohibitive during live load influence surface and vehicle stepping calculations.
 
 In 1965, H.J. Ernst formulated the **Equivalent Modulus of Elasticity ($E_{eq}$)**, which maps the non-linear catenary sag behavior into an equivalent straight chord truss/bar element with an adjusted modulus.
 
 ## Decision
-We implement `ErnstModulusEngine` and associated types in `@beamlab/cable-engine/src/ernst/`:
+We implement `ErnstModulusEngine` and associated types in `@beamstudio/cable-engine/src/ernst/`:
 
 1. **Ernst Tangent Modulus ($E_{tan}$)**:
    $$E_{tan} = \frac{E_0}{1 + \frac{(w \cdot L_h)^2 \cdot E_0 \cdot A}{12 \cdot T^3}} = \frac{E_0}{1 + \frac{\gamma^2 \cdot L_h^2 \cdot E_0}{12 \cdot \sigma^3}}$$

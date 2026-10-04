@@ -21,7 +21,7 @@ While simple shear connections (ADR-063) transfer gravity shear reactions as ide
    - Shear transfer via base friction and anchor rod shear.
 
 ## Decision
-We implemented the moment connection and base plate subsystems in `@beamlab/connection-engine`:
+We implemented the moment connection and base plate subsystems in `@beamstudio/connection-engine`:
 
 ### 1. Prying Action & Equivalent T-Stub Engine (`packages/connection-engine/src/moment/PryingActionEngine.ts`)
 - **AISC 15th Edition Manual Part 9 Formulation**:

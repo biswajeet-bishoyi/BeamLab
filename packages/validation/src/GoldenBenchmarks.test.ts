@@ -3,16 +3,16 @@ import {
   CatenaryGeometryEngine,
   STANDARD_CABLE_MATERIALS,
   STANDARD_CABLE_SECTIONS,
-} from '@beamlab/cable-engine';
+} from '@beamstudio/cable-engine';
 import {
   LateralEarthPressureEngine,
   RetainingWallStabilityEngine,
-} from '@beamlab/earth-engine';
+} from '@beamstudio/earth-engine';
 import {
   KingeryBulmashEngine,
   SDOFBlastEngine,
-} from '@beamlab/blast-engine';
-import { DomainDecompositionEngine } from '@beamlab/solve-farm';
+} from '@beamstudio/blast-engine';
+import { DomainDecompositionEngine } from '@beamstudio/solve-farm';
 
 describe('Cross-Domain Golden Benchmarks (Sprint B23)', () => {
   describe('Benchmark 1: Cable Mechanics & Exact Catenary Formulation', () => {

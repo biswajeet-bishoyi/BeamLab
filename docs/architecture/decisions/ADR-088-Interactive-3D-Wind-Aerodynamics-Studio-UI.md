@@ -6,7 +6,7 @@ Accepted
 ## Context
 Structural and facade engineers designing low-rise and tall buildings require an intuitive, visual, and highly interactive computational aerodynamics studio to configure atmospheric boundary layer wind velocity profiles, determine MWFRS and C&C pressure distributions, evaluate dynamic along-wind resonant gust effects and cross-wind vortex shedding lock-in risks, and audit high-rise occupant comfort accelerations against international standards (ISO 10137 / AIJ) with Tuned Mass Damper (TMD) mitigation sizing.
 
-Prior to Sprint B13.5, `@beamlab/wind-engine` provided the underlying analytical calculation kernels (Sprints B13.1–B13.4), but `apps/web` lacked an integrated UI for structural wind engineering.
+Prior to Sprint B13.5, `@beamstudio/wind-engine` provided the underlying analytical calculation kernels (Sprints B13.1–B13.4), but `apps/web` lacked an integrated UI for structural wind engineering.
 
 ## Decision
 We implemented the **Interactive 3D Wind Aerodynamics Studio UI (`apps/web/src/features/wind/WindStudio.tsx`)**:
@@ -46,4 +46,4 @@ We implemented the **Interactive 3D Wind Aerodynamics Studio UI (`apps/web/src/f
 ## Consequences
 - Structural engineers have a comprehensive, interactive computational wind engineering suite built directly into the BeamLab web workspace.
 - Seamless multi-standard aerodynamic calculations across ASCE 7-22, Eurocode 1, and IS 875.
-- 100% test passing rate across all 45 monorepo projects, zero external runtime dependencies in `@beamlab/wind-engine`.
+- 100% test passing rate across all 45 monorepo projects, zero external runtime dependencies in `@beamstudio/wind-engine`.

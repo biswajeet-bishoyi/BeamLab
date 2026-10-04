@@ -34,7 +34,7 @@ Prior to Sprint B4.1, BeamLab had a 2D 2-DOF/node beam matrix solver in `core-en
   - Transforms global distributed line loads $(w_x, w_y, w_z)$ into consistent local fixed-end reactions $\mathbf{f}_{fem}$ and equivalent nodal forces.
 
 ### 2. Native Solver Runtime Integration (`DirectSpaceFrame3DAdapter`)
-- Implements `ISolverAdapter` in `@beamlab/solver-runtime`.
+- Implements `ISolverAdapter` in `@beamstudio/solver-runtime`.
 - Allows the BeamLab client and background workers to run native 3D finite element space frame analyses with sub-millisecond solve latency.
 
 ### 3. Verification & Benchmarking

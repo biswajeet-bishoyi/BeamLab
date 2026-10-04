@@ -9,7 +9,7 @@ BeamLab requires a centralized governance layer to determine if certain engineer
 Historically, logic restricting user interactions or requiring approvals was hardcoded in UI components or scattered across the runtime architecture. We need a unified approach that is highly typed, completely decoupled from the UI/Runtime, and prepares us for future enterprise scenarios (multi-user approval, custom organization workflows, legal compliance).
 
 ## Decision
-We decided to implement a decoupled **Engineering Policy Engine (EPE)** (`@beamlab/policy-engine`) that evaluates declarative policies against action requests and returns a structured `PolicyDecision`.
+We decided to implement a decoupled **Engineering Policy Engine (EPE)** (`@beamstudio/policy-engine`) that evaluates declarative policies against action requests and returns a structured `PolicyDecision`.
 
 ### 1. Typed Policy Expression Tree
 Instead of relying on a raw string-based DSL or generic JSON logic evaluation, the EPE utilizes a strongly typed AST (Abstract Syntax Tree) model (`PolicyExpression`).

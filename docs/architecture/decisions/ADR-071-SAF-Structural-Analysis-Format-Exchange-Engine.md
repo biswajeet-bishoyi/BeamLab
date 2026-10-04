@@ -18,7 +18,7 @@ SAF directly models:
 To enable friction-free interoperability between BeamLab and major commercial analysis solvers (SCIA Engineer, RFEM, Allplan, Archicad), BeamLab requires a robust, bi-directional SAF translation engine that bridges SAF and IFC4.
 
 ## Decision
-We implemented the SAF Bi-Directional Exchange Engine in `@beamlab/interop-pipeline`:
+We implemented the SAF Bi-Directional Exchange Engine in `@beamstudio/interop-pipeline`:
 1. **Strongly Typed SAF Domain Schema** (`SafSchema.ts`):
    - Formal TypeScript definitions for `SafModel`, `SafProjectInfo`, `SafMaterial`, `SafCrossSection`, `SafPointConnection`, `SafCurveMember`, `SafSurfaceMember`, `SafLoadCase`, `SafPointLoad`, `SafCurveLoad`, and `SafLoadCombination`.
 2. **Tabular Workbook Exporter** (`SafExporter.ts`):

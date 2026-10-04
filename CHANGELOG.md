@@ -3,7 +3,7 @@
 ## [Unreleased]
 
 ### Added
-- **Structural Analysis Agent (`@beamlab/agent-structural-analysis`)**: A9.1 Release
+- **Structural Analysis Agent (`@beamstudio/agent-structural-analysis`)**: A9.1 Release
   - Integrated `EngineeringReasoningPipeline`.
   - Implemented `ModelValidator`, `AnalysisPlanning`, and `StrategyRegistry`.
   - Introduced `SolverAbstraction`, `ResultInterpreter`, `EngineeringReasoner`, and `RecommendationGenerator`.
@@ -17,11 +17,11 @@
   - Central Engineering Canvas with restored interactive diagramming and 3D preview placeholders.
   - Integrated Timeline, Execution Graph, and Recommendation Center.
   - Global Overlays restored: Environment Gallery, AI Engineering Studio, Time Machine, Presentation Mode, Export Studio, Performance Overlay.
-- **Archie Kernel (`@beamlab/archie-kernel`)**: Core OS and Session Management.
+- **Archie Kernel (`@beamstudio/archie-kernel`)**: Core OS and Session Management.
 - **Runtime Gateway**: Streaming pipeline and transport layer.
-- **Task Scheduler (`@beamlab/task-scheduler`)**: Execution orchestrator.
-- **Execution Graph Engine (`@beamlab/execution-graph`)**: Immutable DAGs and Dependency Resolution.
-- **Planning Engine Core (`@beamlab/planning-engine`)**: Intent Classification and Rule Planners.
+- **Task Scheduler (`@beamstudio/task-scheduler`)**: Execution orchestrator.
+- **Execution Graph Engine (`@beamstudio/execution-graph`)**: Immutable DAGs and Dependency Resolution.
+- **Planning Engine Core (`@beamstudio/planning-engine`)**: Intent Classification and Rule Planners.
 
 ### Changed
 - Decoupled Planning from Execution at the architectural level.

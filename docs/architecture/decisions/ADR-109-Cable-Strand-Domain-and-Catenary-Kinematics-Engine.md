@@ -12,7 +12,7 @@ Tension-only structural elements such as stay cables (cable-stayed bridges, susp
 Prior to Sprint B18.1, BeamLab lacked a codified cable strand domain and analytical catenary solver.
 
 ## Decision
-We implement `@beamlab/cable-engine` with a dedicated catenary kinematics package (`packages/cable-engine/src/catenary/`):
+We implement `@beamstudio/cable-engine` with a dedicated catenary kinematics package (`packages/cable-engine/src/catenary/`):
 
 1. **Standard Cable Strand Catalog (`CableCatalog.ts`)**:
    - Codified steel grades: Grade 1860 Parallel Wire Strand (PWS), Grade 1770 Full Locked Coil Rope (EN 12385-10), Grade 1570 Structural Spiral Strand (ASTM A586), and AISI 316 Stainless Steel Strand.

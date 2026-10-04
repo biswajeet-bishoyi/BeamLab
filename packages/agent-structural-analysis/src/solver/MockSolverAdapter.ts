@@ -2,7 +2,7 @@ import { ISolverAdapter } from './ISolverAdapter';
 import { SolverRequest, SolverResponse, SolverCapabilities, SolverHealth } from './SolverTypes';
 
 /**
- * @deprecated Use MockSolver from '@beamlab/solver-runtime' instead.
+ * @deprecated Use MockSolver from '@beamstudio/solver-runtime' instead.
  */
 export class MockSolverAdapter implements ISolverAdapter {
   public id = 'mock-solver-01';

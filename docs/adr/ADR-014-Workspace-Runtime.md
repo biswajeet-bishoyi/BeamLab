@@ -9,7 +9,7 @@ BeamLab aims to become an Engineering Operating System, meaning its UI cannot fu
 Previously, state like panel sizes, active tabs, and canvas selections were scattered. If a user selected a steel beam on the canvas, the Property Inspector might update, but Archie remained completely unaware unless the user manually prompted: "I am looking at Beam 12".
 
 ## Decision
-We have established `@beamlab/workspace-runtime` as the single source of truth for all UI session state, replacing localized component states with an event-driven operating layer.
+We have established `@beamstudio/workspace-runtime` as the single source of truth for all UI session state, replacing localized component states with an event-driven operating layer.
 
 ### 1. Centralized Workspace API
 All interactions now flow through the `workspace` singleton:

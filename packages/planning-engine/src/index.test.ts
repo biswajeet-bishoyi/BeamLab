@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { ToolRegistry } from '@beamlab/tool-registry';
+import { ToolRegistry } from '@beamstudio/tool-registry';
 import { PlanningEngine } from './api/PlanningEngine';
 
 describe('PlanningEngine', () => {

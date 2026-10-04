@@ -7,7 +7,7 @@ Accepted
 Slope stability analysis is essential for evaluating earth embankments, cuts, and the overall global shear failure safety factor around retaining structures. Limit equilibrium method of slices remains the primary engineering standard.
 
 ## Decision
-We implemented `SlopeStabilityEngine` in `@beamlab/earth-engine`:
+We implemented `SlopeStabilityEngine` in `@beamstudio/earth-engine`:
 1. **Geometric Slice Generation**:
    - Automatically computes profile intersection, slice midpoints, base elevation $y_{base}$, slice height $h_i$, base inclination angle $\alpha_i = \arcsin((x_i - x_c)/R)$, and pore water pressures $u_i$.
 2. **Limit Equilibrium Solvers**:

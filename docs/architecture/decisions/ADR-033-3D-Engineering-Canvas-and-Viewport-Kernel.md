@@ -53,7 +53,7 @@ To achieve consistent 60–120 FPS, the rendering loop runs via `requestAnimatio
 `CameraManager` maintains both a `THREE.PerspectiveCamera` (45° FOV) and a `THREE.OrthographicCamera`. When switching between projection modes, target focus distance and frustum bounds are mathematically mapped so that objects remain at identical visual scales without jarring position shifts.
 
 #### 3. Canonical Z-Up Coordinate Enforcement
-Both perspective and orthographic cameras explicitly set `.up.set(0, 0, 1)`, and the reference grid is oriented on the $XY$ ground plane ($Z=0$), preserving exact alignment with `@beamlab/engineering-model` and international structural BIM formats (IFC4).
+Both perspective and orthographic cameras explicitly set `.up.set(0, 0, 1)`, and the reference grid is oriented on the $XY$ ground plane ($Z=0$), preserving exact alignment with `@beamstudio/engineering-model` and international structural BIM formats (IFC4).
 
 #### 4. Corner Orientation Gizmo with Raycast Snapping
 A dedicated orthographic sub-scene renders the world axes ($X$ Red, $Y$ Green, $Z$ Blue) in the corner of the canvas. Clicking any terminal sphere executes raycasting and triggers camera re-alignment to the corresponding normal view plane.

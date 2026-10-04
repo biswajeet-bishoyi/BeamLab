@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/utils",
+  "name": "@beamstudio/utils",
   "version": "0.1.0",
   "private": true,
   "main": "src/index.ts",
@@ -11,8 +11,8 @@
     "pino": "^9.0.0"
   },
   "devDependencies": {
-    "@beamlab/config": "workspace:*",
-    "@beamlab/types": "workspace:*",
+    "@beamstudio/config": "workspace:*",
+    "@beamstudio/types": "workspace:*",
     "vitest": "^1.2.2",
     "typescript": "^5.3.3"
   }

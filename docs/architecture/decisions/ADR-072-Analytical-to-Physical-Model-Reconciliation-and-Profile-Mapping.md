@@ -10,7 +10,7 @@ When importing BIM models from architectural and fabrication tools (Autodesk Rev
 3. **Kinematic & Modeling Defects**: Dangling/orphaned nodes, zero-length degenerate members, unassigned materials, and unconstrained boundary mechanisms cause singularities during direct stiffness matrix inversion.
 
 ## Decision
-We implemented the Analytical-to-Physical Reconciliation & Profile Mapping module in `@beamlab/interop-pipeline`:
+We implemented the Analytical-to-Physical Reconciliation & Profile Mapping module in `@beamstudio/interop-pipeline`:
 1. **Spatial Node Snapper** (`SpatialNodeSnapper.ts`):
    - Geometric clustering engine with configurable Euclidean tolerance (default $\varepsilon = 25\text{ mm}$).
    - Merges near-miss nodes, collapsing clusters to boundary-supported nodes to guarantee support condition inheritance.

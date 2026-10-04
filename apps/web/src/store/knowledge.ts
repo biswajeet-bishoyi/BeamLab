@@ -1,4 +1,4 @@
-import { KnowledgeClient } from '@beamlab/knowledge-client';
+import { KnowledgeClient } from '@beamstudio/knowledge-client';
 
 export const knowledgeClient = new KnowledgeClient();
 

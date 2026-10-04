@@ -8,8 +8,8 @@ BeamLab agents (and the Archie runtime) require structured memory to track state
 
 ## Decision
 We will extract memory management from `agent-framework` into a standalone platform service layer:
-1. **`@beamlab/memory-system`**: The core package defining `MemoryRecord`, `MemoryRegistry`, `SnapshotRegistry`, and providers.
-2. **`@beamlab/memory-client`**: The SDK consumed by clients (agents, Archie) to interface with the memory system.
+1. **`@beamstudio/memory-system`**: The core package defining `MemoryRecord`, `MemoryRegistry`, `SnapshotRegistry`, and providers.
+2. **`@beamstudio/memory-client`**: The SDK consumed by clients (agents, Archie) to interface with the memory system.
 
 ### Memory Scope Model
 Memory is explicitly scoped to avoid global state. Supported scopes include:
@@ -46,4 +46,4 @@ A **Snapshot Registry** tracks metadata, restore strategies, and schema migratio
 - **Negative**: Adds overhead for clients to use `MemoryClient` instead of direct object reference sharing.
 
 ## Migration
-The existing interfaces in `agent-framework` are deprecated and exported as compatibility shims from `@beamlab/memory-client`. They will be removed in BeamLab v2.
+The existing interfaces in `agent-framework` are deprecated and exported as compatibility shims from `@beamstudio/memory-client`. They will be removed in BeamLab v2.

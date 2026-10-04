@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import type { LoadPatternType, StructuralSystem } from '@beamlab/engineering-model';
+import type { LoadPatternType, StructuralSystem } from '@beamstudio/engineering-model';
 import {
   PointLoadMeshBuilder,
   type PointLoadDefinition,

@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import type { StructuralSystem } from '@beamlab/engineering-model';
+import type { StructuralSystem } from '@beamstudio/engineering-model';
 
 /**
  * Builds ghosted semi-translucent wireframes of the undeformed structural model

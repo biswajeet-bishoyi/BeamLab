@@ -1,4 +1,4 @@
-import { ISolver } from '@beamlab/solver-client';
+import { ISolver } from '@beamstudio/solver-client';
 import { SolverRegistry } from '../registry/SolverRegistry';
 
 export class SolverManager {

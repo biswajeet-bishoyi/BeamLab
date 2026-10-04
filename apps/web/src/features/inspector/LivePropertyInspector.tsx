@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { workspace } from '@beamlab/workspace-runtime';
+import { workspace } from '@beamstudio/workspace-runtime';
 import { FocusCard } from './FocusCards';
 
 export const LivePropertyInspector: React.FC = () => {

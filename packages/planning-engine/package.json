@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/planning-engine",
+  "name": "@beamstudio/planning-engine",
   "version": "0.1.0",
   "private": true,
   "description": "Planning Engine Core for Archie",
@@ -22,9 +22,9 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@beamlab/context-engine": "workspace:*",
-    "@beamlab/tool-registry": "workspace:*",
-    "@beamlab/utils": "workspace:*"
+    "@beamstudio/context-engine": "workspace:*",
+    "@beamstudio/tool-registry": "workspace:*",
+    "@beamstudio/utils": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^24.13.2",

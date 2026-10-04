@@ -33,4 +33,4 @@ We implemented **Sprint B14.3: Cross-Laminated Timber (CLT) Orthotropic Plate & 
 ## Consequences
 - Accurate evaluation of mass timber floor and roof panels under out-of-plane and serviceability loads.
 - Prevention of rolling shear and floor vibration issues in CLT specifications.
-- 100% test pass rate with 19/19 passing tests in `@beamlab/timber-engine`.
+- 100% test pass rate with 19/19 passing tests in `@beamstudio/timber-engine`.

@@ -1,4 +1,4 @@
-import { ToolRegistry } from '@beamlab/tool-registry';
+import { ToolRegistry } from '@beamstudio/tool-registry';
 import { ExecutionPlan, ExecutionPlanData } from '../models/ExecutionPlan';
 import { IntentClassifier, Intent } from '../classifiers/IntentClassifier';
 import { IPlanningStrategy, PlanningContext } from '../strategies/IPlanningStrategy';

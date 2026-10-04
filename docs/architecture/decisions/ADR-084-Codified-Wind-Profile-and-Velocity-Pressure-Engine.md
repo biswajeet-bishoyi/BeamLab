@@ -19,7 +19,7 @@ Building codes employ distinct analytical formulations to model boundary layer t
    - Design wind pressure $p_z = 0.6 V_z^2$ (N/m²).
 
 ## Decision
-We implemented `WindProfileEngine` in `@beamlab/wind-engine`:
+We implemented `WindProfileEngine` in `@beamstudio/wind-engine`:
 - Pure TypeScript implementation with zero external runtime dependencies.
 - Exact codified exposure formulas with strict lower and upper elevation bounds ($z_{min}, z_g$).
 - Continuous vertical profile generation from ground elevation ($z = 0$) up to structure apex with adaptive height stepping.

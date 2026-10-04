@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/wind-engine",
+  "name": "@beamstudio/wind-engine",
   "version": "0.1.0",
   "description": "Codified Wind Profile, Dynamic Along-Wind Gust Resonance, Cross-Wind Vortex Shedding, and High-Rise Acceleration Engine",
   "main": "./dist/index.js",
@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@beamlab/types": "workspace:*"
+    "@beamstudio/types": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.2",

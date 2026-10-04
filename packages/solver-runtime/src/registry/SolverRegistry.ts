@@ -1,4 +1,4 @@
-import { ISolver, ISolverCapabilities, ISolverHealth } from '@beamlab/solver-client';
+import { ISolver, ISolverCapabilities, ISolverHealth } from '@beamstudio/solver-client';
 import { SolverAdapterRegistry } from './SolverAdapterRegistry';
 
 export class SolverRegistry {

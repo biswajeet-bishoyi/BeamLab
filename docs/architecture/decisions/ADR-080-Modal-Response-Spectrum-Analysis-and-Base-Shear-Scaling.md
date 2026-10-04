@@ -18,7 +18,7 @@ Key codified MRSA requirements include:
    - IS 1893:2016 Part 1 Clause 7.7.3.2 similarly requires scaling if $V_t < 0.85 V_B$.
 
 ## Decision
-We implemented `ModalResponseSpectrumEngine` and `BaseShearScalingEngine` in `@beamlab/seismic-engine`:
+We implemented `ModalResponseSpectrumEngine` and `BaseShearScalingEngine` in `@beamstudio/seismic-engine`:
 1. `ModalResponseSpectrumEngine.ts`:
    - Evaluates multi-mode dynamic mass participation ratios and explicitly flags whether the cumulative mass satisfies $\ge 90\%$.
    - Computes modal base shears and SDOF peak displacements.
@@ -31,7 +31,7 @@ We implemented `ModalResponseSpectrumEngine` and `BaseShearScalingEngine` in `@b
 ### Positive
 - Fully automated verification of the 90% mass participation rule.
 - Code-compliant scaling preventing underestimation of seismic demands on flexible structural models.
-- Clean integration with `@beamlab/seismic-engine`'s modal combination core.
+- Clean integration with `@beamstudio/seismic-engine`'s modal combination core.
 
 ### Trade-offs
 - Linear response spectrum analysis relies on elastic or $R$-reduced spectra; highly non-linear or ductile plastic hinge behavior is addressed in Sprint B12.3 via step-by-step direct integration time-history analysis.

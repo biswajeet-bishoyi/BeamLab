@@ -41,7 +41,7 @@ We implement the `SteelConnectionStudio` feature module within `apps/web/src/fea
 ## Consequences
 ### Positive
 - Engineers can interactively tweak bolt diameter, spacing, edge distances, plate thicknesses, and weld sizes, observing instant recalculations and graphical updates.
-- Complete parity between analytical connection engine calculations (`@beamlab/connection-engine`) and UI visualization.
+- Complete parity between analytical connection engine calculations (`@beamstudio/connection-engine`) and UI visualization.
 - Eliminates "black-box" connection design by exposing transparent step-by-step mathematical derivations.
 - Seamlessly integrated into BeamLab's main workspace overlay system with full keyboard shortcut and TopNav navigation support.
 

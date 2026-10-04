@@ -1,4 +1,4 @@
-import { IAgent, AgentManifest, ExecutionContext } from '@beamlab/agent-framework';
+import { IAgent, AgentManifest, ExecutionContext } from '@beamstudio/agent-framework';
 import { CompliancePipeline } from '../pipeline/CompliancePipeline';
 
 export class ComplianceAgent implements IAgent {

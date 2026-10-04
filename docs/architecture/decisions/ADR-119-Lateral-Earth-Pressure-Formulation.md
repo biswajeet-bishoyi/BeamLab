@@ -7,7 +7,7 @@ Accepted
 Earth retaining structures (cantilever walls, gravity retaining walls, basement walls, and deep excavation shoring) require accurate determination of lateral earth pressures under complex soil stratigraphy, sloping backfills, wall friction, surcharges, and water table conditions. Existing tools often oversimplify backfills or lack seamless integration with full numerical slicing and structural design codes.
 
 ## Decision
-We implemented `LateralEarthPressureEngine` in `@beamlab/earth-engine` with the following analytical capabilities:
+We implemented `LateralEarthPressureEngine` in `@beamstudio/earth-engine` with the following analytical capabilities:
 1. **Rankine Theory**:
    - Classical horizontal backfill coefficients: $K_a = \tan^2(45^\circ - \phi/2)$, $K_p = \tan^2(45^\circ + \phi/2)$, and Jaky's at-rest coefficient $K_0 = (1 - \sin\phi)\sqrt{OCR}$.
    - Sloping backfill Rankine formulation for surcharge angle $\beta \le \phi$.

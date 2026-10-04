@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import type { NodeDisplacement } from '@beamlab/engineering-model';
+import type { NodeDisplacement } from '@beamstudio/engineering-model';
 
 export interface DisplacementVector {
   dx: number;

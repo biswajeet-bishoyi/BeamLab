@@ -7,7 +7,7 @@ Accepted
 BeamLab needs to decouple specific engineering data (e.g., standard steel sections, concrete grades, material properties) from the core logic. To ensure true enterprise scalability, we can no longer hardcode specific properties into a giant `Record<string, any>` or generic monolithic interfaces. Furthermore, resources must be strictly typed, contain metadata, and support multiple extension profiles (Geometry, Mechanical, Cost, Carbon) for downstream features.
 
 ## Decision
-We decided to implement the **Engineering Resource Manager (ERM)** via `@beamlab/resource-manager` and `@beamlab/resource-client`. The architecture enforces the following principles:
+We decided to implement the **Engineering Resource Manager (ERM)** via `@beamstudio/resource-manager` and `@beamstudio/resource-client`. The architecture enforces the following principles:
 
 ### 1. Strongly Typed Schemas & Properties
 Every resource category defines its own strongly typed properties interface (e.g., `SteelSectionProperties`, `ConcreteProperties`). These are coupled with a `ResourceSchema` containing rich metadata about each property (display name, engineering category, unit, validation limits).

@@ -8,11 +8,11 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   external: [
-    '@beamlab/agent-framework',
-    '@beamlab/memory-client',
-    '@beamlab/workspace-runtime',
-    '@beamlab/knowledge-platform',
-    '@beamlab/policy-engine',
-    '@beamlab/resource-manager'
+    '@beamstudio/agent-framework',
+    '@beamstudio/memory-client',
+    '@beamstudio/workspace-runtime',
+    '@beamstudio/knowledge-platform',
+    '@beamstudio/policy-engine',
+    '@beamstudio/resource-manager'
   ]
 });

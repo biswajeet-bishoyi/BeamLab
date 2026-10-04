@@ -1,4 +1,4 @@
-import { KnowledgeEngine, KeywordRetrievalEngine, StaticProvider } from '@beamlab/knowledge-platform';
+import { KnowledgeEngine, KeywordRetrievalEngine, StaticProvider } from '@beamstudio/knowledge-platform';
 import { ClientRetrievalQuery, ClientRetrievalResult } from '../types';
 
 export class KnowledgeClient {

@@ -17,12 +17,12 @@ import {
   CodeClauseRetriever,
   type CodeClause,
   type DesignStandard,
-} from '@beamlab/knowledge-platform';
+} from '@beamstudio/knowledge-platform';
 import {
   CodeComplianceAuditor,
   CrossCodeBenchmarkEngine,
   type MemberAuditDemand,
-} from '@beamlab/agent-code-compliance';
+} from '@beamstudio/agent-code-compliance';
 
 interface DesignCodeInspectorStudioProps {
   onClose: () => void;

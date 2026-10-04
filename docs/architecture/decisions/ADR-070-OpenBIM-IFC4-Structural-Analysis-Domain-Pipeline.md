@@ -15,7 +15,7 @@ buildingSMART International standardized the **IFC4 Structural Analysis Domain**
 BeamLab requires a zero-dependency, ultra-fast ISO 10303-21 STEP physical file serializer and parser to enable standards-compliant OpenBIM structural exchange.
 
 ## Decision
-We implemented `@beamlab/interop-pipeline` featuring:
+We implemented `@beamstudio/interop-pipeline` featuring:
 1. **Strongly Typed IFC4 Structural Schema** (`IfcStructuralSchema.ts`):
    - Strict adherence to ISO 16739-1 entity definitions.
    - Comprehensive 6-DOF boundary support conditions (`BoundaryStiffness`: `'FIXED'`, `'FREE'`, or numeric stiffness in N/m and N*m/rad).

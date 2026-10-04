@@ -18,7 +18,7 @@ Furthermore, bridges are subjected to dynamic vehicular effects beyond static gr
 BeamLab requires a dedicated, unified distribution and dynamic forces calculation engine.
 
 ## Decision
-We implement `GirderDistributionEngine` and `BridgeDynamicForcesEngine` within `@beamlab/bridge-engine`:
+We implement `GirderDistributionEngine` and `BridgeDynamicForcesEngine` within `@beamstudio/bridge-engine`:
 1. **AASHTO LRFD Empirical Distribution Formulation**:
    - Computes modular ratio $n$, composite eccentricity $e_g$, and longitudinal stiffness $K_g$.
    - Interior girder moment factors:

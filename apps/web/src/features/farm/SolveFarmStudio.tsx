@@ -27,7 +27,7 @@ import {
   SolverAlgorithm,
   JobPriority,
   ConvergenceIterationMetric,
-} from '@beamlab/solve-farm';
+} from '@beamstudio/solve-farm';
 import { useStore } from '../../store';
 
 interface SolveFarmStudioProps {
@@ -112,7 +112,7 @@ export const SolveFarmStudio: React.FC<SolveFarmStudioProps> = ({ onClose }) => 
 
   const [copiedCode, setCopiedCode] = useState<boolean>(false);
 
-  // Domain decomposition computation using @beamlab/solve-farm
+  // Domain decomposition computation using @beamstudio/solve-farm
   const decompositionStats = useMemo(() => {
     // 2x2 interior vs 2x2 boundary sample
     const K_II = [

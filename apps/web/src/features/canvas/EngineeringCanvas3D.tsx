@@ -57,7 +57,7 @@ import {
   type DiagramOptions,
   type DiagramType,
 } from './diagrams';
-import type { LoadPatternType } from '@beamlab/engineering-model';
+import type { LoadPatternType } from '@beamstudio/engineering-model';
 import {
   Box,
   Grid,

@@ -15,7 +15,7 @@ Prior to Phase B8, BeamLab focused on space frame structural analysis, non-linea
 6. Provide transparent, step-by-step mathematical calculations with LaTeX formulas, substitution records, and code citations suitable for submission to building control authorities.
 
 ## Decision
-We established a dedicated engineering package `@beamlab/connection-engine` in `packages/connection-engine/`:
+We established a dedicated engineering package `@beamstudio/connection-engine` in `packages/connection-engine/`:
 
 ### 1. Connection Domain Types & Standard Databases (`src/core/ConnectionTypes.ts`)
 - Fastener databases: ASTM A325, ASTM A490, ISO Grade 8.8, Grade 10.9 with nominal tensile ($F_{nt}$) and shear ($F_{nv}$) strengths.

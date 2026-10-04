@@ -1,4 +1,4 @@
-import { ISolverAdapter, ISolverHealth } from '@beamlab/solver-client';
+import { ISolverAdapter, ISolverHealth } from '@beamstudio/solver-client';
 
 export class MockSolver implements ISolverAdapter {
   public id = 'mock-solver-01';

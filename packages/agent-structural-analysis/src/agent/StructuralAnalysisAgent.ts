@@ -1,8 +1,8 @@
-import { IAgent, AgentManifest, ExecutionContext } from '@beamlab/agent-framework';
+import { IAgent, AgentManifest, ExecutionContext } from '@beamstudio/agent-framework';
 import { AnalysisPipeline } from '../pipeline/AnalysisPipeline';
 import { ValidationRuleRegistry } from '../validation/ValidationRuleRegistry';
 
-import { SolverClient } from '@beamlab/solver-client';
+import { SolverClient } from '@beamstudio/solver-client';
 
 export class StructuralAnalysisAgent implements IAgent {
   public manifest: AgentManifest;

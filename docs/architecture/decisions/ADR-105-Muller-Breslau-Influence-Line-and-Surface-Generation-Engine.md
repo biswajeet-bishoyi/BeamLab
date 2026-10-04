@@ -13,7 +13,7 @@ BeamLab requires an influence line and surface calculation engine capable of:
 4. Rapidly mapping arbitrary multi-axle vehicle trains to calculate instantaneous action responses ($S_{truck} = \sum W_i \eta(x_i)$).
 
 ## Decision
-We implement `InfluenceLineEngine` within `@beamlab/bridge-engine/src/influence/`:
+We implement `InfluenceLineEngine` within `@beamstudio/bridge-engine/src/influence/`:
 1. **Single-Span Analytical Influence Lines**:
    - **Reactions**: $R_A(x) = (L - x)/L$, $R_B(x) = x/L$.
    - **Bending Moment $M(x_0)$**: Triangular shape with peak ordinate $\eta_{peak} = \frac{x_0 (L - x_0)}{L}$ at $x = x_0$, zero at both ends, and positive area $A^+ = \frac{x_0 (L - x_0)}{2}$.

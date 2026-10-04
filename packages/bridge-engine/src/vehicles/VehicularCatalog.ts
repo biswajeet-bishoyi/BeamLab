@@ -1,5 +1,5 @@
 /**
- * @beamlab/bridge-engine - Vehicular Live Load Trains & Standards Catalog
+ * @beamstudio/bridge-engine - Vehicular Live Load Trains & Standards Catalog
  * Compliant with AASHTO LRFD (9th/10th Ed), Eurocode 1 (EN 1991-2), and IRC 6:2017
  */
 

@@ -1,4 +1,4 @@
-import { ResourceClient } from '@beamlab/resource-client';
+import { ResourceClient } from '@beamstudio/resource-client';
 
 export const resourceClient = new ResourceClient();
 

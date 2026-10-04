@@ -19,7 +19,7 @@ DIRS.forEach(dir => {
 
 // package.json
 fs.writeFileSync(path.join(PKG_DIR, 'package.json'), JSON.stringify({
-  name: "@beamlab/archie-client",
+  name: "@beamstudio/archie-client",
   version: "0.0.0",
   private: true,
   main: "./dist/index.js",

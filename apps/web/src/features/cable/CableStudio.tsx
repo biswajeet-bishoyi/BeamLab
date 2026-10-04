@@ -29,7 +29,7 @@ import {
   StayCableDefinition,
   DeckStationPoint,
   SuspensionBridgeGeometryInput,
-} from '@beamlab/cable-engine';
+} from '@beamstudio/cable-engine';
 
 interface CableStudioProps {
   onClose: () => void;

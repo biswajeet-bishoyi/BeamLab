@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { workspace } from '@beamlab/workspace-runtime';
+import { workspace } from '@beamstudio/workspace-runtime';
 import { Play, Wrench, CheckCircle2, FileText, Zap } from 'lucide-react';
 
 interface QuickActionsProps {

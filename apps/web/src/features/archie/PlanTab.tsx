@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { useArchie } from '@beamlab/archie-client';
+import { useArchie } from '@beamstudio/archie-client';
 import { CheckCircle2, Circle, Loader2, AlertCircle } from 'lucide-react';
 import { clsx } from 'clsx';
 

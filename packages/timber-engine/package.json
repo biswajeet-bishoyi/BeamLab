@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/timber-engine",
+  "name": "@beamstudio/timber-engine",
   "version": "0.1.0",
   "description": "Mass Timber, Glulam, Cross-Laminated Timber (CLT), Fastener Yield, and Fire Charring Structural Engine",
   "main": "./dist/index.js",
@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@beamlab/types": "workspace:*"
+    "@beamstudio/types": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.2",

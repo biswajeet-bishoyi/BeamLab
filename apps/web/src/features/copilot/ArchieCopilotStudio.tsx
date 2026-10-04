@@ -19,20 +19,20 @@ import {
   GoalDecompositionEngine,
   type MemberComplianceCheck,
   type SectionOptimizationProposal,
-} from '@beamlab/archie-kernel';
+} from '@beamstudio/archie-kernel';
 import {
   AutonomousLoadGenerator,
   type WindLoadParameters,
   type SeismicLoadParameters,
-} from '@beamlab/agent-structural-analysis';
+} from '@beamstudio/agent-structural-analysis';
 import {
   StructuralCatalogOptimizer,
   type MemberOptimizationRequest,
-} from '@beamlab/agent-optimization';
+} from '@beamstudio/agent-optimization';
 import {
   EngineeringCalculationNoteGenerator,
   type CalculationNoteInput,
-} from '@beamlab/agent-report';
+} from '@beamstudio/agent-report';
 
 import { CopilotDAGViewer } from './CopilotDAGViewer';
 import { ReasoningStream } from './ReasoningStream';

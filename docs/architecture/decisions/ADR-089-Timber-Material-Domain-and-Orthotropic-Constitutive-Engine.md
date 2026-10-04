@@ -6,10 +6,10 @@ Accepted
 ## Context
 Structural wood and mass timber construction (Glued Laminated Timber, Cross-Laminated Timber, and structural sawn lumber) require rigorous material modeling that accounts for wood's orthotropic cellular nature: strengths and stiffness parallel to the grain ($0^\circ$) are an order of magnitude higher than perpendicular to the grain ($90^\circ$). Additionally, timber mechanical capacities are highly sensitive to load duration, environmental moisture content (service classes), temperature, member size, and load sharing across parallel framing.
 
-Prior to Phase B14, BeamLab lacked a dedicated structural wood engine (`@beamlab/timber-engine`).
+Prior to Phase B14, BeamLab lacked a dedicated structural wood engine (`@beamstudio/timber-engine`).
 
 ## Decision
-We implemented **Sprint B14.1: Timber Material Domain & Orthotropic Constitutive Engine** in `@beamlab/timber-engine`:
+We implemented **Sprint B14.1: Timber Material Domain & Orthotropic Constitutive Engine** in `@beamstudio/timber-engine`:
 
 1. **Codified Timber Grade Database (`TimberMaterialDatabase.ts`)**:
    - Eurocode 5 / EN 338 softwoods (C16, C24, C30) and hardwoods (D30).
@@ -34,5 +34,5 @@ We implemented **Sprint B14.1: Timber Material Domain & Orthotropic Constitutive
 
 ## Consequences
 - Foundation established for Sawn Timber / Glulam member design (Sprint B14.2), CLT orthotropic plates (Sprint B14.3), and Johansen fastener connections (Sprint B14.4).
-- Zero external runtime dependencies in `@beamlab/timber-engine`.
+- Zero external runtime dependencies in `@beamstudio/timber-engine`.
 - 100% test passing rate in Vitest.

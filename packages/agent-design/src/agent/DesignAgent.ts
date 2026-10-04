@@ -1,4 +1,4 @@
-import { IAgent, AgentManifest, ExecutionContext } from '@beamlab/agent-framework';
+import { IAgent, AgentManifest, ExecutionContext } from '@beamstudio/agent-framework';
 import { DesignPipeline } from '../pipeline/DesignPipeline';
 
 export class DesignAgent implements IAgent {

@@ -1,5 +1,5 @@
 /**
- * @beamlab/interop-pipeline
+ * @beamstudio/interop-pipeline
  *
  * OpenBIM IFC4, Structural Analysis Format (SAF), and Cross-Platform
  * Engineering Interoperability Pipeline.

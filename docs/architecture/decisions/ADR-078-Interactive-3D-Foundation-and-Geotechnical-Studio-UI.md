@@ -16,7 +16,7 @@ Previously, structural analysis, geotechnics, and foundation detailing operated 
 ## Decision
 We implemented `FoundationStudio` in `apps/web/src/features/foundation`:
 1. **Interactive Architecture**:
-   - Integrated with `@beamlab/foundation-engine` for real-time recalculations upon parameter changes.
+   - Integrated with `@beamstudio/foundation-engine` for real-time recalculations upon parameter changes.
    - 5 dedicated tabs:
      - `'isolated'`: Spread & Eccentric Isolated Pad Footing.
      - `'mat_ssi'`: Mat Foundation & Winkler Subgrade SSI.

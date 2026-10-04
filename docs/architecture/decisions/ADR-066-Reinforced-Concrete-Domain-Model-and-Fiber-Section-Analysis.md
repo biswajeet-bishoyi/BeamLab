@@ -11,7 +11,7 @@ Phase B9 introduces reinforced concrete (RC) member design and detailing across 
 - Empirical interaction formulas alone cannot model asymmetric reinforcement layouts, spalling of concrete cover, or confined concrete cores.
 
 ## Decision
-We establish `@beamlab/concrete-engine` as the core reinforced concrete calculation kernel for BeamLab:
+We establish `@beamstudio/concrete-engine` as the core reinforced concrete calculation kernel for BeamLab:
 
 1. **Constitutive Material Laws (`ConcreteConstitutiveModel`, `RebarConstitutiveModel`)**:
    - **ACI 318-19 Whitney Rectangular Stress Block**: Dynamic calculation of depth factor $\beta_1$ per Table 22.2.2.4.3 ($0.85$ for $f'_c \le 28$ MPa, decreasing linearly to $0.65$ at $\ge 55$ MPa) and stress intensity $\alpha_1 = 0.85$.

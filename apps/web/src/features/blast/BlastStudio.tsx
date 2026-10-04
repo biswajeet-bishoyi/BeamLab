@@ -30,7 +30,7 @@ import {
   SDOFSystemParams,
   ProgressiveCollapseScenario,
   ProjectileImpactParams,
-} from '@beamlab/blast-engine';
+} from '@beamstudio/blast-engine';
 
 interface BlastStudioProps {
   onClose: () => void;

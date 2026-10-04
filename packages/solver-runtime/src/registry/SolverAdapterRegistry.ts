@@ -1,4 +1,4 @@
-import { ISolverAdapter } from '@beamlab/solver-client';
+import { ISolverAdapter } from '@beamstudio/solver-client';
 
 export class SolverAdapterRegistry {
   private adapters: Map<string, ISolverAdapter> = new Map();

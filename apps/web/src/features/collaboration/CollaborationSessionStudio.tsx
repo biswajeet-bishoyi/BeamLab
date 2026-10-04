@@ -39,7 +39,7 @@ import {
   type ConflictResolutionChoice,
   type VisualEntityDiff,
   type DiffLegendItem,
-} from '@beamlab/collaboration-engine';
+} from '@beamstudio/collaboration-engine';
 
 interface CollaborationSessionStudioProps {
   onClose: () => void;

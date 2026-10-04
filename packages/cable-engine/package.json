@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/cable-engine",
+  "name": "@beamstudio/cable-engine",
   "version": "0.1.0",
   "description": "Cable & Tension Structures Engineering Engine: Catenary/Parabolic Geometry, Ernst Secant Modulus, Stay Cable Tuning, Suspension Systems & PTI/EC3 Auditing",
   "main": "./dist/index.js",
@@ -18,7 +18,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@beamlab/types": "workspace:*"
+    "@beamstudio/types": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.2",

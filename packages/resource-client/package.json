@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/resource-client",
+  "name": "@beamstudio/resource-client",
   "version": "0.1.0",
   "private": true,
   "main": "./dist/index.js",
@@ -18,7 +18,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@beamlab/resource-manager": "workspace:*"
+    "@beamstudio/resource-manager": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.2",

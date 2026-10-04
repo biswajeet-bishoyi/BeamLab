@@ -1,5 +1,5 @@
 import { BaseTool, ToolContext } from '../interfaces/BaseTool';
-import { logger } from '@beamlab/utils';
+import { logger } from '@beamstudio/utils';
 
 export class EventPublisher {
   public publish(event: string, payload: any): void {

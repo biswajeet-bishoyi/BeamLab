@@ -10,7 +10,7 @@ We initially considered reusing the `AnalysisPipeline` from `agent-structural-an
 
 ## Decision
 1. **Independent Pipelines**: We established that `agent-design` has its own execution pipeline (`DesignPipeline`), separate from `AnalysisPipeline`.
-2. **Standardized Lifecycle Interface**: We introduced `IEngineeringPipeline` in `@beamlab/agent-framework`. This standardizes the pipeline structure for *all* future agents:
+2. **Standardized Lifecycle Interface**: We introduced `IEngineeringPipeline` in `@beamstudio/agent-framework`. This standardizes the pipeline structure for *all* future agents:
    - Request -> Context -> Knowledge -> Policy -> Resources -> Planning -> Execution -> Reasoning -> Recommendations -> Narrative -> Response.
 3. **Engineering Workflow Coordinator**: We defined `IEngineeringWorkflowCoordinator` as a placeholder interface for future orchestration across agents (e.g., in Sprint A14).
 4. **Developer Studio Top-Level Tabs**: The Developer Studio is organized by platform capability, not implementation details. The Design Agent now has its own top-level tab (`DesignExplorer`) containing Intent, Alternatives, Constructability, and Narrative viewers.

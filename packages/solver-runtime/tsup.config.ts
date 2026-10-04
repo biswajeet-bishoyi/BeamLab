@@ -8,7 +8,7 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   external: [
-    '@beamlab/solver-client',
-    '@beamlab/events'
+    '@beamstudio/solver-client',
+    '@beamstudio/events'
   ]
 });

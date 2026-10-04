@@ -1,4 +1,4 @@
-import { ExecutionPlanData, PlanStep } from '@beamlab/planning-engine';
+import { ExecutionPlanData, PlanStep } from '@beamstudio/planning-engine';
 import { ExecutionGraph, ExecutionGraphData, GraphNodeData } from '../models/ExecutionGraph';
 
 export class GraphBuilder {

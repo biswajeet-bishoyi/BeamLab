@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/earth-engine",
+  "name": "@beamstudio/earth-engine",
   "version": "0.1.0",
   "description": "Earth Retaining Structures & Deep Excavation Engine: Rankine/Coulomb Lateral Pressures, Retaining Wall Stability, Anchored Sheet Piles, and Bishop Slope Stability",
   "main": "./dist/index.js",
@@ -18,7 +18,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@beamlab/types": "workspace:*"
+    "@beamstudio/types": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.2",

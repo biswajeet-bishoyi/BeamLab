@@ -5,7 +5,7 @@
  * topologies, and assigns specialized engineering agents.
  */
 
-import { ExecutionPlan, type PlanStep, type ApprovalRequirement } from '@beamlab/planning-engine';
+import { ExecutionPlan, type PlanStep, type ApprovalRequirement } from '@beamstudio/planning-engine';
 
 export type EngineeringIntentType =
   | 'WEIGHT_OPTIMIZATION'
