@@ -60,9 +60,9 @@ export function LeftToolbox() {
 
   return (
     <motion.div 
-      initial={{ x: -50, opacity: 0 }}
+      initial={{ x: -30, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
-      className="absolute left-3 top-16 w-11 bg-slate-900/90 backdrop-blur-md rounded-xl flex flex-col items-center py-2.5 gap-1.5 border border-slate-800 z-30 shadow-2xl"
+      className="absolute left-3 top-20 w-11 bg-slate-900/95 backdrop-blur-md rounded-xl flex flex-col items-center py-2 gap-1 border border-slate-800/80 z-30 shadow-2xl"
     >
       <ToolButton icon={<MousePointer2 size={20} />} tooltip="Select (V)" active />
       <ToolButton icon={<Hand size={20} />} tooltip="Pan (H)" />

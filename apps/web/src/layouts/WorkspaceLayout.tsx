@@ -1,4 +1,5 @@
 import React from 'react';
+import { ChevronRight, ChevronLeft } from 'lucide-react';
 import { Group as PanelGroup, Panel, Separator as PanelResizeHandle } from 'react-resizable-panels';
 import { useWorkspaceStore } from '../store/workspace';
 import { useStore } from '../store';
@@ -232,6 +233,27 @@ export const WorkspaceLayout: React.FC = () => {
           )}
 
         </PanelGroup>
+
+        {/* Collapsed Panel Edge Re-Open Handles */}
+        {leftPanelCollapsed && (
+          <button
+            onClick={() => setLeftPanelCollapsed(false)}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-40 bg-slate-900/90 hover:bg-slate-800 text-slate-400 hover:text-white border-y border-r border-slate-700/80 rounded-r-lg p-1 py-3 transition-colors shadow-xl"
+            title="Show Project Explorer ( [ )"
+          >
+            <ChevronRight className="w-3.5 h-3.5" />
+          </button>
+        )}
+
+        {rightPanelCollapsed && (
+          <button
+            onClick={() => setRightPanelCollapsed(false)}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-40 bg-slate-900/90 hover:bg-slate-800 text-slate-400 hover:text-white border-y border-l border-slate-700/80 rounded-l-lg p-1 py-3 transition-colors shadow-xl"
+            title="Show Archie Assistant ( ] )"
+          >
+            <ChevronLeft className="w-3.5 h-3.5" />
+          </button>
+        )}
 
         {/* OVERLAYS */}
         <AnimatePresence>

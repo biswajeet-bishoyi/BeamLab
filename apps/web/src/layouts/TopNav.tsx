@@ -27,11 +27,20 @@ import {
   FileCode,
   ShieldAlert,
   ArrowUpRight,
+  PanelLeft,
+  PanelRight,
+  Maximize2,
+  Minimize2,
 } from 'lucide-react';
 import { useShallow } from 'zustand/react/shallow';
 import { useStore } from '../store';
+import { useWorkspaceStore } from '../store/workspace';
 
 export const TopNav: React.FC = () => {
+  const leftPanelCollapsed = useWorkspaceStore(state => state.leftPanelCollapsed);
+  const rightPanelCollapsed = useWorkspaceStore(state => state.rightPanelCollapsed);
+  const setLeftPanelCollapsed = useWorkspaceStore(state => state.setLeftPanelCollapsed);
+  const setRightPanelCollapsed = useWorkspaceStore(state => state.setRightPanelCollapsed);
   const {
     setView,
     activeEnvironment,
@@ -133,6 +142,17 @@ export const TopNav: React.FC = () => {
           <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-blue-500/10 text-blue-400 border border-blue-500/20">
             PRO
           </span>
+          <button
+            onClick={() => setLeftPanelCollapsed(!leftPanelCollapsed)}
+            className={`p-1.5 rounded-lg border text-xs transition-all flex items-center justify-center ${
+              leftPanelCollapsed
+                ? 'border-slate-800 bg-slate-900/60 text-slate-400 hover:text-white hover:bg-slate-800'
+                : 'border-blue-500/30 bg-blue-500/10 text-blue-300'
+            }`}
+            title={leftPanelCollapsed ? 'Show Project Explorer ( [ )' : 'Hide Project Explorer ( [ )'}
+          >
+            <PanelLeft className="w-3.5 h-3.5" />
+          </button>
         </div>
       </div>
 
@@ -520,6 +540,40 @@ export const TopNav: React.FC = () => {
             </div>
           )}
         </div>
+
+        {/* Zen CAD Focus Mode */}
+        <button
+          onClick={() => {
+            const both = leftPanelCollapsed && rightPanelCollapsed;
+            setLeftPanelCollapsed(!both);
+            setRightPanelCollapsed(!both);
+          }}
+          className={`p-1.5 rounded-lg border text-xs transition-all flex items-center justify-center ${
+            leftPanelCollapsed && rightPanelCollapsed
+              ? 'border-emerald-500/40 bg-emerald-500/15 text-emerald-300 shadow-sm shadow-emerald-500/10'
+              : 'border-slate-800 bg-slate-900/60 text-slate-400 hover:text-white hover:bg-slate-800'
+          }`}
+          title={leftPanelCollapsed && rightPanelCollapsed ? 'Exit Fullscreen CAD View' : 'Fullscreen CAD View (Zen Mode)'}
+        >
+          {leftPanelCollapsed && rightPanelCollapsed ? (
+            <Minimize2 className="w-3.5 h-3.5" />
+          ) : (
+            <Maximize2 className="w-3.5 h-3.5" />
+          )}
+        </button>
+
+        {/* Right Assistant Panel Toggle */}
+        <button
+          onClick={() => setRightPanelCollapsed(!rightPanelCollapsed)}
+          className={`p-1.5 rounded-lg border text-xs transition-all flex items-center justify-center ${
+            rightPanelCollapsed
+              ? 'border-slate-800 bg-slate-900/60 text-slate-400 hover:text-white hover:bg-slate-800'
+              : 'border-purple-500/30 bg-purple-500/10 text-purple-300'
+          }`}
+          title={rightPanelCollapsed ? 'Show Archie Assistant ( ] )' : 'Hide Archie Assistant ( ] )'}
+        >
+          <PanelRight className="w-3.5 h-3.5" />
+        </button>
       </div>
     </header>
   );
