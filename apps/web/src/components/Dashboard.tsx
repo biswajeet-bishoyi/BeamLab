@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useStore, initialModel } from '../store';
+import { useStore, initialModel, blankModel } from '../store';
 import { PRESETS } from './Gallery';
 import { 
   Plus, 
@@ -248,7 +248,7 @@ Respond with ONLY valid JSON. Do not include markdown formatting like \`\`\`json
             color="bg-yellow-400" 
             textColor="text-slate-900"
             onClick={() => {
-              loadPreset(initialModel);
+              loadPreset(blankModel);
               setView('workspace');
             }}
             primary

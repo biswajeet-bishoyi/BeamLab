@@ -381,9 +381,13 @@ export class EnvelopeEngine {
    * Generates complete multi-case envelopes for all members in a demo preset.
    */
   public static getDemoModelEnvelopes(
-    preset: 'portal_frame' | 'space_truss' | 'building_slabs',
+    preset: 'blank' | 'portal_frame' | 'space_truss' | 'building_slabs',
   ): Map<string, MemberEnvelopeResult> {
     const envelopes = new Map<string, MemberEnvelopeResult>();
+
+    if (preset === 'blank') {
+      return envelopes;
+    }
 
     if (preset === 'portal_frame') {
       // 1. Rafter Left

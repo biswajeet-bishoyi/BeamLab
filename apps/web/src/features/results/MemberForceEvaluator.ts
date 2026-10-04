@@ -330,8 +330,12 @@ export class MemberForceEvaluator {
   /**
    * Generates realistic standard member results for any model preset.
    */
-  public static getDemoModelEvaluations(preset: 'portal_frame' | 'space_truss' | 'building_slabs'): Map<string, MemberEvaluationResult> {
+  public static getDemoModelEvaluations(preset: 'blank' | 'portal_frame' | 'space_truss' | 'building_slabs'): Map<string, MemberEvaluationResult> {
     const results = new Map<string, MemberEvaluationResult>();
+
+    if (preset === 'blank') {
+      return results;
+    }
 
     if (preset === 'portal_frame') {
       // 1. Rafter Left (6m span, UDL 12 kN/m gravity + point load 25 kN at crane point)

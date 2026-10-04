@@ -158,9 +158,9 @@ export class StructuralSceneController {
     }
   }
 
-  // ─── Private Scene Construction ─────────────────────────────────────────────
+  // ─── Scene Construction ───────────────────────────────────────────────────
 
-  private rebuildScene(): void {
+  public rebuildScene(): void {
     this.clearGroup(this.membersGroup);
     this.clearGroup(this.nodesGroup);
     this.clearGroup(this.supportsGroup);
@@ -259,6 +259,33 @@ export class StructuralSceneController {
   }
 
   // ─── Preset Engineering Models ──────────────────────────────────────────────
+
+  /**
+   * Generates a genuine Blank Canvas model (0 nodes, 0 members, 0 supports, 0 plates)
+   * with standard structural steel and wide-flange section presets registered.
+   */
+  public static createBlankModel(): { system: StructuralSystem; plates: PlateDefinition[] } {
+    const sys = new StructuralSystem('sys-blank', 'Blank Canvas Model', 'proj-default');
+
+    sys.addMaterial('mat-steel', {
+      grade: 'A992',
+      category: 'Steel',
+      elasticModulus: 200e9,
+      shearModulus: 77e9,
+      poissonRatio: 0.3,
+      yieldStrength: 345e6,
+      density: 7850,
+    });
+
+    sys.addSection('sec-w12x26', {
+      designation: 'W12x26',
+      type: 'I',
+      properties: { area: 0.00494, momentOfInertiaY: 8.49e-5, momentOfInertiaZ: 7.2e-6, torsionalConstant: 1.25e-7 },
+      dimensions: { depth: 0.31, flangeWidth: 0.165, webThickness: 0.0058, flangeThickness: 0.0097 },
+    });
+
+    return { system: sys, plates: [] };
+  }
 
   /**
    * Generates a 3D Multi-Bay Industrial Portal Frame.
