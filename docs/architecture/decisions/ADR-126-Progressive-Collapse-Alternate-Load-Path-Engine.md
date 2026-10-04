@@ -7,7 +7,7 @@ Accepted
 When extreme blast or vehicular impact destroys a primary vertical support, the building must have sufficient redundancy and alternative load paths to arrest disproportionate progressive collapse. The Department of Defense (DoD) UFC 4-023-03 and GSA guidelines prescribe specific alternate path methodologies.
 
 ## Decision
-We implemented `ProgressiveCollapseEngine` in `@beamlab/blast-engine`:
+We implemented `ProgressiveCollapseEngine` in `@beamstudio/blast-engine`:
 1. **Critical Column Removal Scenarios**:
    - Supports corner column, exterior middle column, and interior column instantaneous removal.
 2. **Dynamic Amplification Factor (DAF)**:

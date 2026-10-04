@@ -11,7 +11,7 @@ Once atmospheric boundary layer velocity pressure profiles are known, structural
 4. Localized Components & Cladding (C&C) suction design pressures for exterior walls and roof edges/corners where flow separation creates high localized negative pressures.
 
 ## Decision
-We implemented `AerodynamicPressureEngine` in `@beamlab/wind-engine`:
+We implemented `AerodynamicPressureEngine` in `@beamstudio/wind-engine`:
 - **Wall Aerodynamic Coefficients**:
   - Windward $C_p = +0.80$.
   - Leeward $C_p$ evaluated as a continuous piecewise linear function of along-wind to cross-wind aspect ratio $L/B$ ($-0.50$ for $L/B \le 1.0$ up to $-0.20$ for $L/B \ge 4.0$).

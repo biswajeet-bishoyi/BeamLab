@@ -23,7 +23,7 @@ Deep foundation engineering requires evaluating geotechnical and structural limi
    - Flexural design and Strut-and-Tie Method (STM) tension ties ($T = M_u / jd$) providing orthogonal reinforcement meshes.
 
 ## Decision
-We implemented `SinglePileEngine` and `PileGroupEngine` in `@beamlab/foundation-engine`:
+We implemented `SinglePileEngine` and `PileGroupEngine` in `@beamstudio/foundation-engine`:
 1. **`SinglePileEngine.ts`**:
    - Supports bored cast-in-situ, driven precast, and steel pipe piles.
    - Seamlessly integrates with `SoilStratigraphy` for layer-by-layer stress recovery and friction integration.

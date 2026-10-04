@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import type { StructuralSupport, StructuralNode, SupportPreset } from '@beamlab/engineering-model';
+import type { StructuralSupport, StructuralNode, SupportPreset } from '@beamstudio/engineering-model';
 
 /**
  * Procedural 3D glyph builder for structural boundary conditions & supports.

@@ -13,7 +13,7 @@ However, reinforcement bars in reinforced concrete slabs are placed in orthogona
 In 1968, R.H. Wood and A. Armer derived the mathematically rigorous yield-line and lower-bound equilibrium equations that transform arbitrary moment fields into safe orthogonal design moments $(M_{xd}, M_{yd})$ for top and bottom reinforcement layers.
 
 ## Decision
-We implement `WoodArmerEngine` in `@beamlab/fem-engine/src/forces/`:
+We implement `WoodArmerEngine` in `@beamstudio/fem-engine/src/forces/`:
 
 1. **Bottom Face (Sagging / Positive Reinforcement)**:
    - Primary case:

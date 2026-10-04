@@ -1,5 +1,5 @@
 /**
- * @beamlab/seismic-engine
+ * @beamstudio/seismic-engine
  *
  * Dynamic Response Spectrum Analysis (MRSA), Modal Combination (CQC / SRSS),
  * Direct Integration Time-History Analysis, Base Shear Scaling, and Seismic Drift Engine.

@@ -1,4 +1,4 @@
-import { IEngineeringReasoner, ConfidenceEngine } from '@beamlab/engineering-reasoning';
+import { IEngineeringReasoner, ConfidenceEngine } from '@beamstudio/engineering-reasoning';
 import { ComplianceSession } from '../models';
 
 export class ComplianceReasoningStrategy implements IEngineeringReasoner {

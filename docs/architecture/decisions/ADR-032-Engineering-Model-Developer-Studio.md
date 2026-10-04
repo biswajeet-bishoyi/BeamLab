@@ -13,7 +13,7 @@ Previously:
 4. **CEM Event Streams** had no historical audit buffer for real-time diagnostics, UI state synchronization debugging, or AI agent rationale review.
 
 ## Decision
-We implement the **Engineering Model Developer Studio Diagnostics Suite** in `@beamlab/engineering-model/src/diagnostics/` and integrate it into the web developer inspection UI.
+We implement the **Engineering Model Developer Studio Diagnostics Suite** in `@beamstudio/engineering-model/src/diagnostics/` and integrate it into the web developer inspection UI.
 
 ### Architecture
 

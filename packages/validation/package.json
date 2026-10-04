@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/validation",
+  "name": "@beamstudio/validation",
   "version": "0.1.0",
   "private": true,
   "main": "src/index.ts",
@@ -11,13 +11,13 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@beamlab/config": "workspace:*",
-    "@beamlab/types": "workspace:*",
-    "@beamlab/cable-engine": "workspace:*",
-    "@beamlab/earth-engine": "workspace:*",
-    "@beamlab/blast-engine": "workspace:*",
-    "@beamlab/fem-engine": "workspace:*",
-    "@beamlab/solve-farm": "workspace:*",
+    "@beamstudio/config": "workspace:*",
+    "@beamstudio/types": "workspace:*",
+    "@beamstudio/cable-engine": "workspace:*",
+    "@beamstudio/earth-engine": "workspace:*",
+    "@beamstudio/blast-engine": "workspace:*",
+    "@beamstudio/fem-engine": "workspace:*",
+    "@beamstudio/solve-farm": "workspace:*",
     "vitest": "^1.2.2",
     "typescript": "^5.3.3"
   }

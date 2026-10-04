@@ -1,5 +1,5 @@
 import { BaseTool, ToolContext } from '../interfaces/BaseTool';
-import { logger } from '@beamlab/utils';
+import { logger } from '@beamstudio/utils';
 
 export type ApprovalState = 'PENDING' | 'APPROVED' | 'REJECTED' | 'CANCELLED' | 'TIMEOUT';
 

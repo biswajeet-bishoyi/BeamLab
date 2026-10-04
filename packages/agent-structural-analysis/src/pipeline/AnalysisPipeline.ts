@@ -1,8 +1,8 @@
 import { AnalysisPlanner } from '../planning/AnalysisPlanner';
 import { ModelValidator } from '../validation/ModelValidator';
 import { ValidationRuleRegistry } from '../validation/ValidationRuleRegistry';
-import { ISolverService, ISolverRequest } from '@beamlab/solver-client';
-import { ExecutionContext } from '@beamlab/agent-framework';
+import { ISolverService, ISolverRequest } from '@beamstudio/solver-client';
+import { ExecutionContext } from '@beamstudio/agent-framework';
 import { StructuralReasoningStrategy } from '../intelligence/StructuralReasoningStrategy';
 
 export class AnalysisPipeline {

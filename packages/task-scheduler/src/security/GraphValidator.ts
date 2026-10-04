@@ -1,4 +1,4 @@
-import { ExecutionGraph } from '@beamlab/execution-graph';
+import { ExecutionGraph } from '@beamstudio/execution-graph';
 
 export class GraphSecurityValidator {
   

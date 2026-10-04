@@ -1,4 +1,4 @@
-import { ISolverSession } from '@beamlab/solver-client';
+import { ISolverSession } from '@beamstudio/solver-client';
 
 export class SolverSessionManager {
   private sessions: Map<string, ISolverSession> = new Map();

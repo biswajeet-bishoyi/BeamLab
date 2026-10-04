@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/agent-design",
+  "name": "@beamstudio/agent-design",
   "version": "1.0.0",
   "private": true,
   "description": "BeamLab Structural Design Agent",
@@ -21,15 +21,15 @@
     "lint": "eslint src/ --ext .ts,.tsx"
   },
   "dependencies": {
-    "@beamlab/agent-framework": "workspace:*",
-    "@beamlab/engineering-reasoning": "workspace:*",
-    "@beamlab/context-engine": "workspace:*",
-    "@beamlab/knowledge-platform": "workspace:*",
-    "@beamlab/policy-engine": "workspace:*",
-    "@beamlab/resource-manager": "workspace:*"
+    "@beamstudio/agent-framework": "workspace:*",
+    "@beamstudio/engineering-reasoning": "workspace:*",
+    "@beamstudio/context-engine": "workspace:*",
+    "@beamstudio/knowledge-platform": "workspace:*",
+    "@beamstudio/policy-engine": "workspace:*",
+    "@beamstudio/resource-manager": "workspace:*"
   },
   "devDependencies": {
-    "@beamlab/config": "workspace:*",
+    "@beamstudio/config": "workspace:*",
     "typescript": "^5.3.3",
     "tsup": "^8.0.1",
     "vitest": "^1.2.1"

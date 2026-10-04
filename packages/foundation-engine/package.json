@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/foundation-engine",
+  "name": "@beamstudio/foundation-engine",
   "version": "0.1.0",
   "description": "Geotechnical Soil-Structure Interaction (SSI), Shallow Spread Footings, Winkler Subgrade, and Deep Pile Group Engineering Engine",
   "main": "./dist/index.js",
@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@beamlab/types": "workspace:*"
+    "@beamstudio/types": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.2",

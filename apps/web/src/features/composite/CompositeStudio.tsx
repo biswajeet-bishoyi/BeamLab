@@ -30,7 +30,7 @@ import {
   CircularCftDefinition,
   EncasedColumnDefinition,
   CompositeSectionDefinition,
-} from '@beamlab/composite-engine';
+} from '@beamstudio/composite-engine';
 
 interface CompositeStudioProps {
   onClose: () => void;

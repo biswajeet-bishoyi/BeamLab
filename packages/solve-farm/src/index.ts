@@ -1,5 +1,5 @@
 /**
- * @beamlab/solve-farm
+ * @beamstudio/solve-farm
  * High-Performance Cloud Solve Farm & Worker Cluster Orchestration
  * @packageDocumentation
  */

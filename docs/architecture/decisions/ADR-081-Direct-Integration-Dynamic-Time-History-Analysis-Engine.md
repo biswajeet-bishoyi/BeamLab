@@ -14,7 +14,7 @@ Engineers require:
 5. Time-step response histories including relative displacements, relative velocities, absolute accelerations, story drifts, and dynamic base shear histories.
 
 ## Decision
-We implemented `NewmarkIntegrator` and `GroundMotionProcessor` within `@beamlab/seismic-engine`:
+We implemented `NewmarkIntegrator` and `GroundMotionProcessor` within `@beamstudio/seismic-engine`:
 
 1. **Newmark-$\beta$ Direct Step-by-Step Integration**:
    - Employs the unconditionally stable Newmark Average Acceleration method ($\gamma = 0.5$, $\beta = 0.25$).

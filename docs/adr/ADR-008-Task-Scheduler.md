@@ -4,7 +4,7 @@
 Following the creation of the Execution Graph Engine (ADR-007), Archie requires an orchestration layer that takes an immutable DAG and executes its nodes in the correct topological order. This Scheduler must meet stringent performance budgets (<5ms queue insertion, <10ms scheduling latency) and expose robust health, metrics, and observability endpoints.
 
 ## Decision
-We implement a highly decoupled, provider-agnostic **Task Scheduler (`@beamlab/task-scheduler`)**.
+We implement a highly decoupled, provider-agnostic **Task Scheduler (`@beamstudio/task-scheduler`)**.
 
 1. **State Machine Event Loop**: The Scheduler operates its own internal event loop decoupled from request routing, polling an internal queue to schedule graphs.
 2. **First-Class Observability**: We mandate the use of a `TracingEngine` injecting `TraceContext` (Correlation ID, Request ID, Graph ID, Node ID) into every log statement.

@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import type { LoadPatternType } from '@beamlab/engineering-model';
+import type { LoadPatternType } from '@beamstudio/engineering-model';
 
 export interface PointLoadDefinition {
   id: string;

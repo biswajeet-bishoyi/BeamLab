@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/solve-farm",
+  "name": "@beamstudio/solve-farm",
   "version": "0.1.0",
   "description": "High-Performance Cloud Solve Farm: Worker Cluster Orchestration, Distributed Matrix Decomposition, and Streaming Solver Protocol",
   "main": "./dist/index.js",
@@ -18,7 +18,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@beamlab/types": "workspace:*"
+    "@beamstudio/types": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.2",

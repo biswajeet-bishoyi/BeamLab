@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import {
   StructuralSystem,
-} from '@beamlab/engineering-model';
+} from '@beamstudio/engineering-model';
 import {
   MemberMeshBuilder,
   SupportMeshBuilder,
@@ -33,7 +33,7 @@ export const DEFAULT_RENDER_OPTIONS: SceneRenderOptions = {
 
 /**
  * High-performance structural scene coordinator.
- * Synchronizes @beamlab/engineering-model entities with Three.js scene graph.
+ * Synchronizes @beamstudio/engineering-model entities with Three.js scene graph.
  */
 export class StructuralSceneController {
   private readonly rootGroup = new THREE.Group();

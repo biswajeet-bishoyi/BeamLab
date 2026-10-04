@@ -10,7 +10,7 @@ Prior to Sprint B1.3, only minimal stubs existed for `LoadPattern`, `LoadCase`, 
 
 ## Decision
 
-We introduce a dedicated, highly robust `loading-domain/` package within `@beamlab/engineering-model`. The architecture decouples the load definition from its structural assignment, grouping, and analysis contexts.
+We introduce a dedicated, highly robust `loading-domain/` package within `@beamstudio/engineering-model`. The architecture decouples the load definition from its structural assignment, grouping, and analysis contexts.
 
 ### Architectural Component Diagram
 

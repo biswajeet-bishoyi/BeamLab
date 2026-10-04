@@ -7,7 +7,7 @@ Accepted
 Full non-linear dynamic continuum finite element modeling of structural members under blast overpressure can be computationally intensive. Biggs (1964) and DoD UFC 3-340-02 equivalent Single Degree of Freedom (SDOF) methods provide fast, code-approved evaluations of dynamic deflection, ductility, and support rotations.
 
 ## Decision
-We implemented `SDOFBlastEngine` in `@beamlab/blast-engine`:
+We implemented `SDOFBlastEngine` in `@beamstudio/blast-engine`:
 1. **Biggs Transformation Factors**:
    - Boundary condition lookups for $K_{LM} = K_M / K_L$ across simply-supported, fixed-fixed, cantilever, and propped-cantilever configurations.
    - Equivalent dynamic mass $M_e = K_{LM} M_{total}$.

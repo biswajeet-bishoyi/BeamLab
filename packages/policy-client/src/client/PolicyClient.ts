@@ -1,4 +1,4 @@
-import { PolicyEngine, ActionRequest, PolicyDecision, StaticProvider, PolicyCache } from '@beamlab/policy-engine';
+import { PolicyEngine, ActionRequest, PolicyDecision, StaticProvider, PolicyCache } from '@beamstudio/policy-engine';
 
 export class PolicyClient {
   private engine: PolicyEngine;

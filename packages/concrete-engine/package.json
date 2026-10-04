@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/concrete-engine",
+  "name": "@beamstudio/concrete-engine",
   "version": "0.1.0",
   "description": "Reinforced Concrete Design, Non-Linear Fiber Discretization & 3D P-M-M Interaction Engine for ACI 318-19, Eurocode 2, and IS 456",
   "main": "./dist/index.js",
@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@beamlab/types": "workspace:*"
+    "@beamstudio/types": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.2",

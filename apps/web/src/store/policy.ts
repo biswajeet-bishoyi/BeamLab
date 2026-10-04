@@ -1,4 +1,4 @@
-import { PolicyClient } from '@beamlab/policy-client';
+import { PolicyClient } from '@beamstudio/policy-client';
 
 // Singleton instance for the web app
 export const policyClient = new PolicyClient();

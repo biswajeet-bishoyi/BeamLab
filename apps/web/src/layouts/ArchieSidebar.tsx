@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useWorkspaceStore } from '../store/workspace';
 import { MessageSquare, ListTodo, PlayCircle, Database, History } from 'lucide-react';
-import { ArchieProvider, ArchieClient, LocalRuntimeTransport } from '@beamlab/archie-client';
+import { ArchieProvider, ArchieClient, LocalRuntimeTransport } from '@beamstudio/archie-client';
 import { ChatTab } from '../features/archie/ChatTab';
 import { PlanTab } from '../features/archie/PlanTab';
 import { ExecutionGraphTab } from '../features/execution-graph/components/ExecutionGraphTab';

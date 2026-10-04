@@ -1,4 +1,4 @@
-import { IEngineeringPipeline, ExecutionContext } from '@beamlab/agent-framework';
+import { IEngineeringPipeline, ExecutionContext } from '@beamstudio/agent-framework';
 import { DesignIntentAnalyzer } from '../intent/DesignIntentAnalyzer';
 import { DesignStrategyRegistry } from '../strategy/DesignStrategyRegistry';
 import { AlternativeGenerator } from '../alternatives/AlternativeGenerator';

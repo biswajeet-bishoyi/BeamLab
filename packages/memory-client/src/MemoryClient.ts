@@ -1,4 +1,4 @@
-import { MemoryManager, MemoryRecord, MemoryScope } from '@beamlab/memory-system';
+import { MemoryManager, MemoryRecord, MemoryScope } from '@beamstudio/memory-system';
 
 export class MemoryClient {
   constructor(private manager: MemoryManager) {}

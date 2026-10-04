@@ -25,7 +25,7 @@ import {
   ShellMaterial,
   ShellSection,
   SurfaceMeshModel,
-} from '@beamlab/fem-engine';
+} from '@beamstudio/fem-engine';
 
 interface PlateShellStudioProps {
   onClose: () => void;

@@ -1,4 +1,4 @@
-import { IEngineeringReasoner, ConfidenceEngine, ConfidenceResult } from '@beamlab/engineering-reasoning';
+import { IEngineeringReasoner, ConfidenceEngine, ConfidenceResult } from '@beamstudio/engineering-reasoning';
 import { OptimizationSession } from '../models';
 
 export class OptimizationReasoningStrategy implements IEngineeringReasoner {

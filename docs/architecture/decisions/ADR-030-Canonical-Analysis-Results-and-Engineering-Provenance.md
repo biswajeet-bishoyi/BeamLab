@@ -15,7 +15,7 @@ In BeamLab, analysis results were previously represented by minimal stubs (`Anal
 
 ## Decision
 
-We implement a comprehensive canonical result model and engineering history system in `@beamlab/engineering-model` across `src/results/` and `src/history/`.
+We implement a comprehensive canonical result model and engineering history system in `@beamstudio/engineering-model` across `src/results/` and `src/history/`.
 
 ### Architecture
 

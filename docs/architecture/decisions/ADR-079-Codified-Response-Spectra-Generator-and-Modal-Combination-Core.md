@@ -16,7 +16,7 @@ Key structural dynamics requirements include:
    - Directional orthogonality: Combining concurrent orthogonal seismic actions via the 100% + 30% rule ($E_X \pm 0.3 E_Y \pm 0.3 E_Z$) or spatial SRSS.
 
 ## Decision
-We initialized `@beamlab/seismic-engine` and implemented:
+We initialized `@beamstudio/seismic-engine` and implemented:
 1. `ResponseSpectrumGenerator.ts`:
    - Functions for ASCE 7-22, Eurocode 8, IS 1893:2016, and user-defined piecewise response spectra.
    - Viscous damping correction factors $\eta(\xi)$ and discretization utilities.

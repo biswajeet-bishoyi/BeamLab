@@ -10,7 +10,7 @@ Reinforced concrete beam design requires simultaneous verification across ultima
 - **Serviceability (Deflection & Cracking)**: Calculation of effective moment of inertia $I_e$ using the Bischoff formulation (ACI 318-19 Eq. 24.2.3.5a) and long-term sustained load deflection multipliers $\lambda_\Delta = \frac{\xi}{1 + 50 \rho'}$. Crack control requires limiting rebar spacing per ACI 318 Section 24.3.2 and evaluating direct characteristic crack width $w_k \le 0.3$ mm per Eurocode 2 Clause 7.3.4.
 
 ## Decision
-We implement the reinforced concrete beam design core within `@beamlab/concrete-engine`:
+We implement the reinforced concrete beam design core within `@beamstudio/concrete-engine`:
 
 1. **Beam Flexural Engine (`BeamFlexureEngine`)**:
    - Solves for neutral axis depth $c$ and Whitney stress block depth $a = \beta_1 c$ using a rapid secant/Newton root finder.

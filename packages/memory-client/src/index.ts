@@ -7,4 +7,4 @@ export type {
   SnapshotMetadata,
   Snapshot,
   IMemoryProvider
-} from '@beamlab/memory-system';
+} from '@beamstudio/memory-system';

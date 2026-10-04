@@ -1,4 +1,4 @@
-import { IAgent, AgentManifest } from '@beamlab/agent-framework';
+import { IAgent, AgentManifest } from '@beamstudio/agent-framework';
 import { ReportPipeline } from '../pipeline/ReportPipeline';
 
 export class ReportAgent implements IAgent {

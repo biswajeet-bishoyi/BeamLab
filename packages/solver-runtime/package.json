@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/solver-runtime",
+  "name": "@beamstudio/solver-runtime",
   "version": "1.0.0",
   "private": true,
   "description": "BeamLab Solver Runtime backend",
@@ -19,12 +19,12 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@beamlab/solver-client": "workspace:*",
-    "@beamlab/events": "workspace:*",
+    "@beamstudio/solver-client": "workspace:*",
+    "@beamstudio/events": "workspace:*",
     "@beamworks/core-engine": "workspace:*"
   },
   "devDependencies": {
-    "@beamlab/config": "workspace:*",
+    "@beamstudio/config": "workspace:*",
     "@types/node": "^20.0.0",
     "tsup": "^8.0.0",
     "typescript": "^5.0.0",

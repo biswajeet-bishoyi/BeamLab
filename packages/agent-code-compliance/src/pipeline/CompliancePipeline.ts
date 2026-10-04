@@ -1,4 +1,4 @@
-import { IEngineeringPipeline, ExecutionContext } from '@beamlab/agent-framework';
+import { IEngineeringPipeline, ExecutionContext } from '@beamstudio/agent-framework';
 import { ComplianceSession, ComplianceStatus } from '../models';
 import { StandardRegistry } from '../standards/StandardRegistry';
 import { ClauseRegistry } from '../clauses/ClauseRegistry';

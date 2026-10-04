@@ -7,7 +7,7 @@ Accepted
 Steel-concrete composite beams achieve their high strength and stiffness through headed shear stud connectors welded through profiled steel deck to the beam flange. Depending on architectural constraints, deflection limits, and stud pitch limitations, designers frequently specify partial composite action ($\eta = 25\%$ to $99\%$) rather than 100% full interaction. Furthermore, in unshored construction, the bare steel wide-flange section must independently resist the wet concrete, deck, and construction live loads prior to slab curing.
 
 ## Decision
-We implemented `@beamlab/composite-engine/src/beam`:
+We implemented `@beamstudio/composite-engine/src/beam`:
 1. **`ShearStudConnectorEngine.ts`**:
    - Computes nominal shear strength $Q_n$ per AISC 360-22 Section I8.2a:
      $$Q_n = 0.5 A_{sa} \sqrt{f'_c E_c} \le R_g R_p A_{sa} F_u$$

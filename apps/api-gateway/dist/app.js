@@ -8,7 +8,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
 const pino_http_1 = __importDefault(require("pino-http"));
-const utils_1 = require("@beamlab/utils");
+const utils_1 = require("@beamstudio/utils");
 const errorHandler_1 = require("./middleware/errorHandler");
 exports.app = (0, express_1.default)();
 exports.app.use((0, helmet_1.default)());

@@ -13,7 +13,7 @@ Bridge design codes (AASHTO LRFD Section 3.6.1, Eurocode 1 EN 1991-2) require en
 BeamLab requires an automated, robust stepping analyzer that steps multi-axle trains along the span, records critical governing head positions, computes peak force envelopes, and evaluates fatigue stress ranges.
 
 ## Decision
-We implement `MovingLoadAnalyzer` within `@beamlab/bridge-engine/src/moving/`:
+We implement `MovingLoadAnalyzer` within `@beamstudio/bridge-engine/src/moving/`:
 1. **Incremental Multi-Axle Stepping Algorithm**:
    - The vehicle train is stepped across the bridge domain from $x_{head} = -L_{truck}$ to $x_{head} = L_{span} + L_{truck}$ at user-configurable spatial increments $\Delta x$ (default $0.1\text{ m}$).
    - For each evaluation station $x_0$, the instantaneous truck response is computed as:

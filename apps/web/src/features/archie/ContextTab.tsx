@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Database } from 'lucide-react';
-import { useArchie } from '@beamlab/archie-client';
+import { useArchie } from '@beamstudio/archie-client';
 
 export const ContextTab: React.FC = () => {
   const { contextData } = useArchie();

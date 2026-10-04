@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/agent-structural-analysis",
+  "name": "@beamstudio/agent-structural-analysis",
   "version": "1.0.0",
   "private": true,
   "description": "BeamLab Structural Analysis Engineering Agent",
@@ -22,17 +22,17 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@beamlab/agent-framework": "workspace:*",
-    "@beamlab/memory-client": "workspace:*",
-    "@beamlab/workspace-runtime": "workspace:*",
-    "@beamlab/knowledge-platform": "workspace:*",
-    "@beamlab/policy-engine": "workspace:*",
-    "@beamlab/resource-manager": "workspace:*",
-    "@beamlab/solver-client": "workspace:*",
-    "@beamlab/engineering-reasoning": "workspace:*"
+    "@beamstudio/agent-framework": "workspace:*",
+    "@beamstudio/memory-client": "workspace:*",
+    "@beamstudio/workspace-runtime": "workspace:*",
+    "@beamstudio/knowledge-platform": "workspace:*",
+    "@beamstudio/policy-engine": "workspace:*",
+    "@beamstudio/resource-manager": "workspace:*",
+    "@beamstudio/solver-client": "workspace:*",
+    "@beamstudio/engineering-reasoning": "workspace:*"
   },
   "devDependencies": {
-    "@beamlab/config": "workspace:*",
+    "@beamstudio/config": "workspace:*",
     "@types/node": "^20.0.0",
     "tsup": "^8.0.0",
     "typescript": "^5.0.0",

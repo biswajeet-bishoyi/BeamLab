@@ -6,7 +6,7 @@ BeamLab aims to support a highly extensible and orchestrated multi-agent archite
 Before an agent participates in an execution, it must declare its capabilities (supported domains, inputs/outputs, confidence) so that the `NegotiationPipeline` can select the best candidate. Once selected, agents must run in a controlled environment to ensure reliability and predictability.
 
 ## Decision
-We have introduced a dedicated `@beamlab/agent-framework` to act as the primary interface for defining agents and orchestrating their execution.
+We have introduced a dedicated `@beamstudio/agent-framework` to act as the primary interface for defining agents and orchestrating their execution.
 
 ### Key Architectural Decisions:
 1. **Agent Capability Negotiation**: Agents declare strongly typed `AgentCapability` manifests. A `NegotiationPipeline` handles discovery, matching, policy validation, and selection prior to any execution.

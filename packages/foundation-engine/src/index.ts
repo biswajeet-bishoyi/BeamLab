@@ -1,5 +1,5 @@
 /**
- * @beamlab/foundation-engine
+ * @beamstudio/foundation-engine
  *
  * Geotechnical Soil-Structure Interaction (SSI), Shallow Spread Footings,
  * Winkler Subgrade, and Deep Pile Group Engineering Engine.

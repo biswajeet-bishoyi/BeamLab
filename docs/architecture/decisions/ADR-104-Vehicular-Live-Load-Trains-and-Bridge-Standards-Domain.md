@@ -22,7 +22,7 @@ Bridge superstructures are subject to dynamic moving vehicular live loads with d
 BeamLab requires a standardized, strongly typed vehicular domain library that models these standard axle configurations, calculates total weights, generates axle longitudinal offsets, and provides extensibility for user-defined custom axle trains.
 
 ## Decision
-We implement `VehicularCatalog` and the `VehicularTrain` data domain within `@beamlab/bridge-engine/src/vehicles/`:
+We implement `VehicularCatalog` and the `VehicularTrain` data domain within `@beamstudio/bridge-engine/src/vehicles/`:
 1. **Strongly-Typed Axle Discretization**:
    - Each axle defines total axle load ($W_{axle}$), single-wheel load ($W_{wheel} = W_{axle} / 2$), transverse center-to-center track width ($b_{track}$), tire contact patch dimensions ($L_{patch} \times W_{patch}$), and distance to subsequent trailing axle ($\Delta x_{next}$).
 2. **Standard Load Model Generators**:

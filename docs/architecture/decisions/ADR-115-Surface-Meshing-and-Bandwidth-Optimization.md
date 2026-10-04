@@ -12,7 +12,7 @@ Key engineering requirements:
 3. **Cuthill-McKee & Reverse Cuthill-McKee (RCM)**: Re-ordering node numbering through breadth-first search degree ordering dramatically reduces matrix profile and bandwidth.
 
 ## Decision
-We implement `SurfaceMeshEngine` in `@beamlab/fem-engine/src/mesh/`:
+We implement `SurfaceMeshEngine` in `@beamstudio/fem-engine/src/mesh/`:
 
 1. **Structured Quad Grid Meshing (`generateStructuredQuadMesh`)**:
    - Discretizes regular rectangular slab bays $[0, L_x] \times [0, L_y]$ into $n_x \times n_y$ elements with counter-clockwise node connectivity.

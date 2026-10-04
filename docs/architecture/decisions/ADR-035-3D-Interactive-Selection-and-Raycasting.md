@@ -41,7 +41,7 @@ We implement a dedicated interaction pipeline comprising `SpatialRaycaster`, `Se
 ### Key Technical Decisions
 
 #### 1. Hierarchical Entity Traversal
-`SpatialRaycaster` intercepts raw Three.js geometry intersections and walks up `obj.parent` until finding valid `userData.entityType` and `userData.entityId`. It attaches complete metadata resolved against `@beamlab/engineering-model` (`StructuralSystem`).
+`SpatialRaycaster` intercepts raw Three.js geometry intersections and walks up `obj.parent` until finding valid `userData.entityType` and `userData.entityId`. It attaches complete metadata resolved against `@beamstudio/engineering-model` (`StructuralSystem`).
 
 #### 2. Drag Discrimination for CAD Gestures
 To prevent accidental selections when an engineer orbits or pans the camera, the pointer event handler records `pointerDownPos`. Only if the mouse movement distance is less than $4\text{ px}$ upon `pointerup` is the event processed as an interactive click selection.

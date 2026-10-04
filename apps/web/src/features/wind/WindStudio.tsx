@@ -42,7 +42,7 @@ import {
   ComfortAuditInput,
   OccupancyType,
   StormReturnPeriod,
-} from '@beamlab/wind-engine';
+} from '@beamstudio/wind-engine';
 
 interface WindStudioProps {
   onClose: () => void;

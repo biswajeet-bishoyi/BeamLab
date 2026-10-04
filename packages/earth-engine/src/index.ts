@@ -1,5 +1,5 @@
 /**
- * @beamlab/earth-engine
+ * @beamstudio/earth-engine
  * Earth Retaining Structures & Deep Excavation Engine
  * @packageDocumentation
  */

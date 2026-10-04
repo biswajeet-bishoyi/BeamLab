@@ -1,4 +1,4 @@
-import { ISolverAdapter, ISolverHealth } from '@beamlab/solver-client';
+import { ISolverAdapter, ISolverHealth } from '@beamstudio/solver-client';
 import {
   SpaceFrameSolver3D,
   type SpaceFrameModel3D,

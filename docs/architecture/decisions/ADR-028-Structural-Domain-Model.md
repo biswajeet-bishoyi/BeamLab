@@ -11,7 +11,7 @@ B1.2 must build the actual structural engineering domain on top of that foundati
 
 ## Decision
 
-We will implement a `structural/` subdirectory inside `@beamlab/engineering-model` that contains the core structural domain objects, provider registries, and validation rules.
+We will implement a `structural/` subdirectory inside `@beamstudio/engineering-model` that contains the core structural domain objects, provider registries, and validation rules.
 
 ### Object Hierarchy
 

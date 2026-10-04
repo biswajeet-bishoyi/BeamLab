@@ -9,11 +9,11 @@ BeamLab must provide a fully transparent view of Archie's execution graph. This 
 ## Decisions
 
 ### 1. The Execution Graph Rendering
-We adopt **React Flow (`@xyflow/react`)** and **`dagre`** for the Interactive Execution Graph. However, they are abstracted behind the `IGraphRenderer` interface inside the new `@beamlab/execution-graph` package.
+We adopt **React Flow (`@xyflow/react`)** and **`dagre`** for the Interactive Execution Graph. However, they are abstracted behind the `IGraphRenderer` interface inside the new `@beamstudio/execution-graph` package.
 This decoupling ensures that if we later require a WebGL/Three.js renderer for massive 100k+ node graphs, the core execution engine remains unchanged.
 
 ### 2. Workspace Runtime Architecture
-Instead of scattering selection, focus, viewport, and events across multiple isolated stores, we introduced the **Workspace Runtime** (`@beamlab/workspace-runtime`). 
+Instead of scattering selection, focus, viewport, and events across multiple isolated stores, we introduced the **Workspace Runtime** (`@beamstudio/workspace-runtime`). 
 This package serves as the single source of truth for UI state, exposing a unified `WorkspaceAPI` (e.g., `workspace.select()`, `workspace.highlight()`). It communicates purely via the `WorkspaceEventBus`.
 
 ### 3. Canvas ↔ Archie Synchronization

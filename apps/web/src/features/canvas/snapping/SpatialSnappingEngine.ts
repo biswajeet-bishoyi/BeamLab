@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import type { StructuralSystem } from '@beamlab/engineering-model';
+import type { StructuralSystem } from '@beamstudio/engineering-model';
 
 export type SnapType = 'node' | 'midpoint' | 'grid' | 'perpendicular' | 'intersection';
 

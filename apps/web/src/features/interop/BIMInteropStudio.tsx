@@ -39,7 +39,7 @@ import {
   CrossPlatformCatalogMapper,
   ModelIntegrityAuditor,
   ModelAuditReport,
-} from '@beamlab/interop-pipeline';
+} from '@beamstudio/interop-pipeline';
 
 interface BIMInteropStudioProps {
   onClose: () => void;

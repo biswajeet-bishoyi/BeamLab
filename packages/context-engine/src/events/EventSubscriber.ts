@@ -2,7 +2,7 @@ import { contextEngine } from '../api/ContextEngine';
 import { contextCache } from '../cache/ContextCache';
 import { metrics } from '../metrics/ContextMetrics';
 import { GraphNode } from '../interfaces/ContextTypes';
-import { logger } from '@beamlab/utils';
+import { logger } from '@beamstudio/utils';
 
 export class EventSubscriber {
   public subscribe() {

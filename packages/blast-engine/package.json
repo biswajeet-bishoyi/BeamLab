@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/blast-engine",
+  "name": "@beamstudio/blast-engine",
   "version": "0.1.0",
   "description": "Blast, Impact & Extreme Dynamic Loading Engine: Kingery-Bulmash Overpressure Waveforms, Equivalent SDOF Nonlinear Dynamics, Progressive Collapse Alternate Path, and Missile Penetration Mechanics",
   "main": "./dist/index.js",
@@ -18,7 +18,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@beamlab/types": "workspace:*"
+    "@beamstudio/types": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.2",

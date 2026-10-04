@@ -1,5 +1,5 @@
 /**
- * @beamlab/bridge-engine - Bridge Dynamic Forces, Centrifugal & Braking Force Engine
+ * @beamstudio/bridge-engine - Bridge Dynamic Forces, Centrifugal & Braking Force Engine
  * Compliant with AASHTO LRFD (Sections 3.6.2, 3.6.3, 3.6.4), Eurocode 1 (EN 1991-2), and IRC 6:2017
  */
 

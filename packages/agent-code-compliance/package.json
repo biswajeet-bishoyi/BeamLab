@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/agent-code-compliance",
+  "name": "@beamstudio/agent-code-compliance",
   "version": "0.1.0",
   "private": true,
   "description": "BeamLab Engineering Code Compliance Agent",
@@ -19,15 +19,15 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@beamlab/agent-framework": "workspace:*",
-    "@beamlab/events": "workspace:*",
-    "@beamlab/workspace-runtime": "workspace:*",
-    "@beamlab/engineering-reasoning": "workspace:*",
-    "@beamlab/knowledge-platform": "workspace:*"
+    "@beamstudio/agent-framework": "workspace:*",
+    "@beamstudio/events": "workspace:*",
+    "@beamstudio/workspace-runtime": "workspace:*",
+    "@beamstudio/engineering-reasoning": "workspace:*",
+    "@beamstudio/knowledge-platform": "workspace:*"
   },
   "devDependencies": {
-    "@beamlab/config": "workspace:*",
-    "@beamlab/types": "workspace:*",
+    "@beamstudio/config": "workspace:*",
+    "@beamstudio/types": "workspace:*",
     "@types/node": "^20.0.0",
     "tsup": "^8.0.0",
     "typescript": "^5.0.0",

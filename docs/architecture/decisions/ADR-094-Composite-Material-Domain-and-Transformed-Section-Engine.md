@@ -11,7 +11,7 @@ In modern structural engineering, steel-concrete composite floor beams and girde
 4. Transformed section property calculators computing transformed cross-sectional area $A_{tr}$, neutral axis depth $y_{tr}$, moment of inertia $I_{tr}$, and top/bottom elastic section moduli ($S_{tr,top}, S_{tr,bot}$).
 
 ## Decision
-We implemented `@beamlab/composite-engine/src/material`:
+We implemented `@beamstudio/composite-engine/src/material`:
 1. **`CompositeMaterialModel.ts`**:
    - Standard steel wide-flange library (`W18x50`, `W21x62`, `IPE360`) and custom section parameters ($A_s, d, b_f, t_f, t_w, I_x, F_y, E_s$).
    - Concrete slab definitions with characteristic strength ($f'_c$ or $f_{ck}$), elastic modulus $E_c = 0.043 w_c^{1.5} \sqrt{f'_c}$ (AISC) or $22000 (f_{cm} / 10)^{0.3}$ (EC4), density $w_c$, and creep coefficient $\varphi_t$.

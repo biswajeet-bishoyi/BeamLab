@@ -17,7 +17,7 @@ We implement a procedural 3D structural geometry engine in `apps/web/src/feature
 ### Architecture
 
 ```
-                 @beamlab/engineering-model (StructuralSystem)
+                 @beamstudio/engineering-model (StructuralSystem)
                                       │
                                       ▼
                         StructuralSceneController
@@ -72,5 +72,5 @@ Users can toggle between **3D Extruded Profile** and **Centerline Wireframe** in
 
 ## Consequences
 - Engineers can visually inspect structural connections, member orientations, and boundary conditions directly in WebGL.
-- Full compatibility with `@beamlab/engineering-model` entity definitions.
+- Full compatibility with `@beamstudio/engineering-model` entity definitions.
 - Smooth 60–120 FPS performance maintained via shared PBR material instances and optional centerline mode.

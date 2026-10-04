@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { logger, InternalError, AppError } from '@beamlab/utils';
+import { logger, InternalError, AppError } from '@beamstudio/utils';
 
 export function errorHandler(err: Error, req: Request, res: Response, next: NextFunction) {
   if (err instanceof AppError) {

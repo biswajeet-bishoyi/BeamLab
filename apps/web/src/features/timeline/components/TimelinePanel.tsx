@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useArchie } from '@beamlab/archie-client';
+import { useArchie } from '@beamstudio/archie-client';
 import { useTimelineStore } from '../store/useTimelineStore';
 import { ChevronDown, ChevronUp, Pause, Play, Activity } from 'lucide-react';
 import { clsx } from 'clsx';

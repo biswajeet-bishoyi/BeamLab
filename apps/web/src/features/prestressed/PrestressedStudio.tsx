@@ -25,7 +25,7 @@ import {
   TendonProfileType,
   TendonProfileInput,
   StructuralBoundaryCondition,
-} from '@beamlab/prestressed-engine';
+} from '@beamstudio/prestressed-engine';
 
 interface PrestressedStudioProps {
   onClose: () => void;

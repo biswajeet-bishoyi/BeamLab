@@ -7,7 +7,7 @@ Accepted
 Retaining wall design requires simultaneous verification of geotechnical limit states (overturning, sliding, and bearing capacity eccentricity) as well as structural limit states (stem shear and bending moments at the base). Traditional approaches require separate geotechnical spreadsheets and structural design tools.
 
 ## Decision
-We implemented `RetainingWallStabilityEngine` in `@beamlab/earth-engine`:
+We implemented `RetainingWallStabilityEngine` in `@beamstudio/earth-engine`:
 1. **Geometric Profile Modeling**:
    - Parameterized cantilever geometry including stem height $H$, top width $b_{top}$, bottom width $b_{bot}$, toe width $B_{toe}$, heel width $B_{heel}$, base slab thickness $t_{base}$, and shear key ($D_k, B_k$).
 2. **Limit State Verifications**:

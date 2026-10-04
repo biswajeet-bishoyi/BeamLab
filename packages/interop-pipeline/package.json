@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/interop-pipeline",
+  "name": "@beamstudio/interop-pipeline",
   "version": "0.1.0",
   "description": "OpenBIM IFC4 Structural Analysis Domain, SAF Exchange & Analytical-to-Physical Model Reconciliation Pipeline",
   "main": "./dist/index.js",
@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@beamlab/types": "workspace:*"
+    "@beamstudio/types": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.2",

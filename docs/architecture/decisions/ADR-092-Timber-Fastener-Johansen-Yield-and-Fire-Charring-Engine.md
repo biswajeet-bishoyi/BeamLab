@@ -34,4 +34,4 @@ We implemented **Sprint B14.4: Timber Fastener & Connection Yield Engine (`packa
 ## Consequences
 - Accurate evaluation of timber connections ensuring ductile failure over brittle wood splitting.
 - Explicit verification of mass timber structural fire resistance without arbitrary empirical rules.
-- 100% test pass rate with 24/24 passing tests in `@beamlab/timber-engine`.
+- 100% test pass rate with 24/24 passing tests in `@beamstudio/timber-engine`.

@@ -15,7 +15,7 @@ Historically, structural software solutions attempt to create proprietary binary
 BeamLab requires a **pure TypeScript, zero-heavy-dependency, vendor-neutral interoperability architecture** that operates identically in web browser workers, serverless Node runtimes, and local CLI environments.
 
 ## Decision
-We implement a pluggable, bidirectional interoperability architecture in `@beamlab/engineering-model/src/interop/`.
+We implement a pluggable, bidirectional interoperability architecture in `@beamstudio/engineering-model/src/interop/`.
 
 ### Architecture
 

@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { CheckCircle2, Cpu, GitBranch, Share2, AlertTriangle, XCircle, Database } from 'lucide-react';
-import { workspace, type HealthState } from '@beamlab/workspace-runtime';
+import { workspace, type HealthState } from '@beamstudio/workspace-runtime';
 import { DeveloperStudio } from '../features/developer/DeveloperStudio';
 
 export const StatusBar: React.FC = () => {

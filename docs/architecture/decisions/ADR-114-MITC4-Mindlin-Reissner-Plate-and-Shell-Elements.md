@@ -11,7 +11,7 @@ Traditional Kirchhoff thin plate elements require $C^1$ continuity, cannot accou
 In 1984, Dvorkin and Bathe introduced the **MITC4 (Mixed Interpolation of Tensorial Components)** formulation, which ties the covariant transverse shear strain field to edge midpoints, completely eliminating shear locking across both ultra-thin and thick continuum shells.
 
 ## Decision
-We establish `@beamlab/fem-engine` and implement the `MITC4ShellElement` kernel (`packages/fem-engine/src/element/`):
+We establish `@beamstudio/fem-engine` and implement the `MITC4ShellElement` kernel (`packages/fem-engine/src/element/`):
 
 1. **6 DOFs Per Node Flat Shell (24 DOFs per Quad Element)**:
    - Order of local DOFs: $[u_i, v_i, w_i, \theta_{xi}, \theta_{yi}, \theta_{zi}]^T$.

@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/collaboration-engine",
+  "name": "@beamstudio/collaboration-engine",
   "version": "0.1.0",
   "private": true,
   "description": "BeamLab Real-Time Collaboration & CRDT Engineering Model Sync Engine",
@@ -19,13 +19,13 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@beamlab/engineering-model": "workspace:*",
-    "@beamlab/events": "workspace:*",
-    "@beamlab/utils": "workspace:*"
+    "@beamstudio/engineering-model": "workspace:*",
+    "@beamstudio/events": "workspace:*",
+    "@beamstudio/utils": "workspace:*"
   },
   "devDependencies": {
-    "@beamlab/config": "workspace:*",
-    "@beamlab/types": "workspace:*",
+    "@beamstudio/config": "workspace:*",
+    "@beamstudio/types": "workspace:*",
     "@types/node": "^20.0.0",
     "tsup": "^8.0.0",
     "typescript": "^5.0.0",

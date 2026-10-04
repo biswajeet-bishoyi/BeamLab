@@ -4,7 +4,7 @@
 Accepted
 
 ## Context
-Structural engineering projects are inherently multidisciplinary and collaborative, involving lead structural engineers, peer reviewers, BIM coordinators, and engineering interns working concurrently on complex finite element models. Sprints B7.1 through B7.3 implemented the core headless primitives within `@beamlab/collaboration-engine`:
+Structural engineering projects are inherently multidisciplinary and collaborative, involving lead structural engineers, peer reviewers, BIM coordinators, and engineering interns working concurrently on complex finite element models. Sprints B7.1 through B7.3 implemented the core headless primitives within `@beamstudio/collaboration-engine`:
 1. CRDT model replication and operational synchronization (`Y.Doc` state vectors, structural node/member CRDT maps).
 2. Spatial presence, peer cursors, raycast selections, camera viewpoints, and telemetry streams.
 3. Git-like structural version control, commit trees, 3D semantic diffs, steel mass comparisons, and 3-way merge conflict resolution.

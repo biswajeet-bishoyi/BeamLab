@@ -38,10 +38,10 @@ importers:
 
   apps/api-gateway:
     dependencies:
-      '@beamlab/utils':
+      '@beamstudio/utils':
         specifier: workspace:*
         version: link:../../packages/utils
-      '@beamlab/validation':
+      '@beamstudio/validation':
         specifier: workspace:*
         version: link:../../packages/validation
       cors:
@@ -60,7 +60,7 @@ importers:
         specifier: ^9.0.0
         version: 9.0.0
     devDependencies:
-      '@beamlab/config':
+      '@beamstudio/config':
         specifier: workspace:*
         version: link:../../packages/config
       '@types/cors':
@@ -78,97 +78,97 @@ importers:
 
   apps/web:
     dependencies:
-      '@beamlab/agent-code-compliance':
+      '@beamstudio/agent-code-compliance':
         specifier: workspace:*
         version: link:../../packages/agent-code-compliance
-      '@beamlab/agent-optimization':
+      '@beamstudio/agent-optimization':
         specifier: workspace:*
         version: link:../../packages/agent-optimization
-      '@beamlab/agent-report':
+      '@beamstudio/agent-report':
         specifier: workspace:*
         version: link:../../packages/agent-report
-      '@beamlab/agent-structural-analysis':
+      '@beamstudio/agent-structural-analysis':
         specifier: workspace:*
         version: link:../../packages/agent-structural-analysis
-      '@beamlab/archie-client':
+      '@beamstudio/archie-client':
         specifier: workspace:*
         version: link:../../packages/archie-client
-      '@beamlab/archie-kernel':
+      '@beamstudio/archie-kernel':
         specifier: workspace:*
         version: link:../../packages/archie-kernel
-      '@beamlab/blast-engine':
+      '@beamstudio/blast-engine':
         specifier: workspace:*
         version: link:../../packages/blast-engine
-      '@beamlab/bridge-engine':
+      '@beamstudio/bridge-engine':
         specifier: workspace:*
         version: link:../../packages/bridge-engine
-      '@beamlab/cable-engine':
+      '@beamstudio/cable-engine':
         specifier: workspace:*
         version: link:../../packages/cable-engine
-      '@beamlab/collaboration-engine':
+      '@beamstudio/collaboration-engine':
         specifier: workspace:*
         version: link:../../packages/collaboration-engine
-      '@beamlab/composite-engine':
+      '@beamstudio/composite-engine':
         specifier: workspace:*
         version: link:../../packages/composite-engine
-      '@beamlab/concrete-engine':
+      '@beamstudio/concrete-engine':
         specifier: workspace:*
         version: link:../../packages/concrete-engine
-      '@beamlab/connection-engine':
+      '@beamstudio/connection-engine':
         specifier: workspace:*
         version: link:../../packages/connection-engine
-      '@beamlab/earth-engine':
+      '@beamstudio/earth-engine':
         specifier: workspace:*
         version: link:../../packages/earth-engine
-      '@beamlab/engineering-model':
+      '@beamstudio/engineering-model':
         specifier: workspace:*
         version: link:../../packages/engineering-model
-      '@beamlab/execution-graph':
+      '@beamstudio/execution-graph':
         specifier: workspace:*
         version: link:../../packages/execution-graph
-      '@beamlab/fem-engine':
+      '@beamstudio/fem-engine':
         specifier: workspace:*
         version: link:../../packages/fem-engine
-      '@beamlab/foundation-engine':
+      '@beamstudio/foundation-engine':
         specifier: workspace:*
         version: link:../../packages/foundation-engine
-      '@beamlab/interop-pipeline':
+      '@beamstudio/interop-pipeline':
         specifier: workspace:*
         version: link:../../packages/interop-pipeline
-      '@beamlab/knowledge-client':
+      '@beamstudio/knowledge-client':
         specifier: workspace:*
         version: link:../../packages/knowledge-client
-      '@beamlab/knowledge-platform':
+      '@beamstudio/knowledge-platform':
         specifier: workspace:*
         version: link:../../packages/knowledge-platform
-      '@beamlab/policy-client':
+      '@beamstudio/policy-client':
         specifier: workspace:*
         version: link:../../packages/policy-client
-      '@beamlab/policy-engine':
+      '@beamstudio/policy-engine':
         specifier: workspace:*
         version: link:../../packages/policy-engine
-      '@beamlab/prestressed-engine':
+      '@beamstudio/prestressed-engine':
         specifier: workspace:*
         version: link:../../packages/prestressed-engine
-      '@beamlab/resource-client':
+      '@beamstudio/resource-client':
         specifier: workspace:*
         version: link:../../packages/resource-client
-      '@beamlab/resource-manager':
+      '@beamstudio/resource-manager':
         specifier: workspace:*
         version: link:../../packages/resource-manager
-      '@beamlab/seismic-engine':
+      '@beamstudio/seismic-engine':
         specifier: workspace:*
         version: link:../../packages/seismic-engine
-      '@beamlab/solve-farm':
+      '@beamstudio/solve-farm':
         specifier: workspace:*
         version: link:../../packages/solve-farm
-      '@beamlab/timber-engine':
+      '@beamstudio/timber-engine':
         specifier: workspace:*
         version: link:../../packages/timber-engine
-      '@beamlab/wind-engine':
+      '@beamstudio/wind-engine':
         specifier: workspace:*
         version: link:../../packages/wind-engine
-      '@beamlab/workspace-runtime':
+      '@beamstudio/workspace-runtime':
         specifier: workspace:*
         version: link:../../packages/workspace-runtime
       '@beamworks/core-engine':
@@ -253,26 +253,26 @@ importers:
 
   packages/agent-code-compliance:
     dependencies:
-      '@beamlab/agent-framework':
+      '@beamstudio/agent-framework':
         specifier: workspace:*
         version: link:../agent-framework
-      '@beamlab/engineering-reasoning':
+      '@beamstudio/engineering-reasoning':
         specifier: workspace:*
         version: link:../engineering-reasoning
-      '@beamlab/events':
+      '@beamstudio/events':
         specifier: workspace:*
         version: link:../events
-      '@beamlab/knowledge-platform':
+      '@beamstudio/knowledge-platform':
         specifier: workspace:*
         version: link:../knowledge-platform
-      '@beamlab/workspace-runtime':
+      '@beamstudio/workspace-runtime':
         specifier: workspace:*
         version: link:../workspace-runtime
     devDependencies:
-      '@beamlab/config':
+      '@beamstudio/config':
         specifier: workspace:*
         version: link:../config
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
       '@types/node':
@@ -290,26 +290,26 @@ importers:
 
   packages/agent-design:
     dependencies:
-      '@beamlab/agent-framework':
+      '@beamstudio/agent-framework':
         specifier: workspace:*
         version: link:../agent-framework
-      '@beamlab/context-engine':
+      '@beamstudio/context-engine':
         specifier: workspace:*
         version: link:../context-engine
-      '@beamlab/engineering-reasoning':
+      '@beamstudio/engineering-reasoning':
         specifier: workspace:*
         version: link:../engineering-reasoning
-      '@beamlab/knowledge-platform':
+      '@beamstudio/knowledge-platform':
         specifier: workspace:*
         version: link:../knowledge-platform
-      '@beamlab/policy-engine':
+      '@beamstudio/policy-engine':
         specifier: workspace:*
         version: link:../policy-engine
-      '@beamlab/resource-manager':
+      '@beamstudio/resource-manager':
         specifier: workspace:*
         version: link:../resource-manager
     devDependencies:
-      '@beamlab/config':
+      '@beamstudio/config':
         specifier: workspace:*
         version: link:../config
       tsup:
@@ -324,7 +324,7 @@ importers:
 
   packages/agent-framework:
     dependencies:
-      '@beamlab/memory-client':
+      '@beamstudio/memory-client':
         specifier: workspace:*
         version: link:../memory-client
     devDependencies:
@@ -340,23 +340,23 @@ importers:
 
   packages/agent-optimization:
     dependencies:
-      '@beamlab/agent-framework':
+      '@beamstudio/agent-framework':
         specifier: workspace:*
         version: link:../agent-framework
-      '@beamlab/engineering-reasoning':
+      '@beamstudio/engineering-reasoning':
         specifier: workspace:*
         version: link:../engineering-reasoning
-      '@beamlab/events':
+      '@beamstudio/events':
         specifier: workspace:*
         version: link:../events
-      '@beamlab/workspace-runtime':
+      '@beamstudio/workspace-runtime':
         specifier: workspace:*
         version: link:../workspace-runtime
     devDependencies:
-      '@beamlab/config':
+      '@beamstudio/config':
         specifier: workspace:*
         version: link:../config
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
       typescript:
@@ -368,23 +368,23 @@ importers:
 
   packages/agent-report:
     dependencies:
-      '@beamlab/agent-framework':
+      '@beamstudio/agent-framework':
         specifier: workspace:*
         version: link:../agent-framework
-      '@beamlab/engineering-reasoning':
+      '@beamstudio/engineering-reasoning':
         specifier: workspace:*
         version: link:../engineering-reasoning
-      '@beamlab/events':
+      '@beamstudio/events':
         specifier: workspace:*
         version: link:../events
-      '@beamlab/workspace-runtime':
+      '@beamstudio/workspace-runtime':
         specifier: workspace:*
         version: link:../workspace-runtime
     devDependencies:
-      '@beamlab/config':
+      '@beamstudio/config':
         specifier: workspace:*
         version: link:../config
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
       '@types/node':
@@ -402,32 +402,32 @@ importers:
 
   packages/agent-structural-analysis:
     dependencies:
-      '@beamlab/agent-framework':
+      '@beamstudio/agent-framework':
         specifier: workspace:*
         version: link:../agent-framework
-      '@beamlab/engineering-reasoning':
+      '@beamstudio/engineering-reasoning':
         specifier: workspace:*
         version: link:../engineering-reasoning
-      '@beamlab/knowledge-platform':
+      '@beamstudio/knowledge-platform':
         specifier: workspace:*
         version: link:../knowledge-platform
-      '@beamlab/memory-client':
+      '@beamstudio/memory-client':
         specifier: workspace:*
         version: link:../memory-client
-      '@beamlab/policy-engine':
+      '@beamstudio/policy-engine':
         specifier: workspace:*
         version: link:../policy-engine
-      '@beamlab/resource-manager':
+      '@beamstudio/resource-manager':
         specifier: workspace:*
         version: link:../resource-manager
-      '@beamlab/solver-client':
+      '@beamstudio/solver-client':
         specifier: workspace:*
         version: link:../solver-client
-      '@beamlab/workspace-runtime':
+      '@beamstudio/workspace-runtime':
         specifier: workspace:*
         version: link:../workspace-runtime
     devDependencies:
-      '@beamlab/config':
+      '@beamstudio/config':
         specifier: workspace:*
         version: link:../config
       '@types/node':
@@ -445,7 +445,7 @@ importers:
 
   packages/archie-client:
     dependencies:
-      '@beamlab/runtime-gateway':
+      '@beamstudio/runtime-gateway':
         specifier: workspace:*
         version: link:../runtime-gateway
       zustand:
@@ -470,46 +470,46 @@ importers:
 
   packages/archie-kernel:
     dependencies:
-      '@beamlab/agent-design':
+      '@beamstudio/agent-design':
         specifier: workspace:*
         version: link:../agent-design
-      '@beamlab/agent-framework':
+      '@beamstudio/agent-framework':
         specifier: workspace:*
         version: link:../agent-framework
-      '@beamlab/context-engine':
+      '@beamstudio/context-engine':
         specifier: workspace:*
         version: link:../context-engine
-      '@beamlab/engineering-reasoning':
+      '@beamstudio/engineering-reasoning':
         specifier: workspace:*
         version: link:../engineering-reasoning
-      '@beamlab/execution-graph':
+      '@beamstudio/execution-graph':
         specifier: workspace:*
         version: link:../execution-graph
-      '@beamlab/knowledge-platform':
+      '@beamstudio/knowledge-platform':
         specifier: workspace:*
         version: link:../knowledge-platform
-      '@beamlab/memory-system':
+      '@beamstudio/memory-system':
         specifier: workspace:*
         version: link:../memory-system
-      '@beamlab/planning-engine':
+      '@beamstudio/planning-engine':
         specifier: workspace:*
         version: link:../planning-engine
-      '@beamlab/policy-engine':
+      '@beamstudio/policy-engine':
         specifier: workspace:*
         version: link:../policy-engine
-      '@beamlab/resource-manager':
+      '@beamstudio/resource-manager':
         specifier: workspace:*
         version: link:../resource-manager
-      '@beamlab/solver-runtime':
+      '@beamstudio/solver-runtime':
         specifier: workspace:*
         version: link:../solver-runtime
-      '@beamlab/task-scheduler':
+      '@beamstudio/task-scheduler':
         specifier: workspace:*
         version: link:../task-scheduler
-      '@beamlab/tool-registry':
+      '@beamstudio/tool-registry':
         specifier: workspace:*
         version: link:../tool-registry
-      '@beamlab/utils':
+      '@beamstudio/utils':
         specifier: workspace:*
         version: link:../utils
     devDependencies:
@@ -531,7 +531,7 @@ importers:
 
   packages/blast-engine:
     dependencies:
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -547,7 +547,7 @@ importers:
 
   packages/bridge-engine:
     dependencies:
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -563,7 +563,7 @@ importers:
 
   packages/cable-engine:
     dependencies:
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -579,20 +579,20 @@ importers:
 
   packages/collaboration-engine:
     dependencies:
-      '@beamlab/engineering-model':
+      '@beamstudio/engineering-model':
         specifier: workspace:*
         version: link:../engineering-model
-      '@beamlab/events':
+      '@beamstudio/events':
         specifier: workspace:*
         version: link:../events
-      '@beamlab/utils':
+      '@beamstudio/utils':
         specifier: workspace:*
         version: link:../utils
     devDependencies:
-      '@beamlab/config':
+      '@beamstudio/config':
         specifier: workspace:*
         version: link:../config
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
       '@types/node':
@@ -610,7 +610,7 @@ importers:
 
   packages/composite-engine:
     dependencies:
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -626,7 +626,7 @@ importers:
 
   packages/concrete-engine:
     dependencies:
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -654,7 +654,7 @@ importers:
 
   packages/connection-engine:
     dependencies:
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -670,20 +670,20 @@ importers:
 
   packages/context-engine:
     dependencies:
-      '@beamlab/events':
+      '@beamstudio/events':
         specifier: workspace:*
         version: link:../events
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
-      '@beamlab/utils':
+      '@beamstudio/utils':
         specifier: workspace:*
         version: link:../utils
       zod:
         specifier: ^3.22.4
         version: 3.25.76
     devDependencies:
-      '@beamlab/config':
+      '@beamstudio/config':
         specifier: workspace:*
         version: link:../config
       typescript:
@@ -789,7 +789,7 @@ importers:
 
   packages/earth-engine:
     dependencies:
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -817,14 +817,14 @@ importers:
 
   packages/engineering-reasoning:
     dependencies:
-      '@beamlab/events':
+      '@beamstudio/events':
         specifier: workspace:*
         version: link:../events
-      '@beamlab/solver-client':
+      '@beamstudio/solver-client':
         specifier: workspace:*
         version: link:../solver-client
     devDependencies:
-      '@beamlab/config':
+      '@beamstudio/config':
         specifier: workspace:*
         version: link:../config
       '@types/node':
@@ -842,13 +842,13 @@ importers:
 
   packages/engineering-workflow:
     dependencies:
-      '@beamlab/agent-framework':
+      '@beamstudio/agent-framework':
         specifier: workspace:*
         version: link:../agent-framework
-      '@beamlab/engineering-reasoning':
+      '@beamstudio/engineering-reasoning':
         specifier: workspace:*
         version: link:../engineering-reasoning
-      '@beamlab/events':
+      '@beamstudio/events':
         specifier: workspace:*
         version: link:../events
     devDependencies:
@@ -864,10 +864,10 @@ importers:
 
   packages/events:
     devDependencies:
-      '@beamlab/config':
+      '@beamstudio/config':
         specifier: workspace:*
         version: link:../config
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
       typescript:
@@ -876,10 +876,10 @@ importers:
 
   packages/execution-graph:
     dependencies:
-      '@beamlab/planning-engine':
+      '@beamstudio/planning-engine':
         specifier: workspace:*
         version: link:../planning-engine
-      '@beamlab/utils':
+      '@beamstudio/utils':
         specifier: workspace:*
         version: link:../utils
     devDependencies:
@@ -901,7 +901,7 @@ importers:
 
   packages/fem-engine:
     dependencies:
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -917,7 +917,7 @@ importers:
 
   packages/foundation-engine:
     dependencies:
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -933,7 +933,7 @@ importers:
 
   packages/interop-pipeline:
     dependencies:
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -949,7 +949,7 @@ importers:
 
   packages/knowledge-client:
     dependencies:
-      '@beamlab/knowledge-platform':
+      '@beamstudio/knowledge-platform':
         specifier: workspace:*
         version: link:../knowledge-platform
     devDependencies:
@@ -977,7 +977,7 @@ importers:
 
   packages/memory-client:
     dependencies:
-      '@beamlab/memory-system':
+      '@beamstudio/memory-system':
         specifier: workspace:*
         version: link:../memory-system
     devDependencies:
@@ -1005,13 +1005,13 @@ importers:
 
   packages/planning-engine:
     dependencies:
-      '@beamlab/context-engine':
+      '@beamstudio/context-engine':
         specifier: workspace:*
         version: link:../context-engine
-      '@beamlab/tool-registry':
+      '@beamstudio/tool-registry':
         specifier: workspace:*
         version: link:../tool-registry
-      '@beamlab/utils':
+      '@beamstudio/utils':
         specifier: workspace:*
         version: link:../utils
     devDependencies:
@@ -1036,7 +1036,7 @@ importers:
 
   packages/policy-client:
     dependencies:
-      '@beamlab/policy-engine':
+      '@beamstudio/policy-engine':
         specifier: workspace:*
         version: link:../policy-engine
     devDependencies:
@@ -1064,7 +1064,7 @@ importers:
 
   packages/prestressed-engine:
     dependencies:
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -1080,7 +1080,7 @@ importers:
 
   packages/resource-client:
     dependencies:
-      '@beamlab/resource-manager':
+      '@beamstudio/resource-manager':
         specifier: workspace:*
         version: link:../resource-manager
     devDependencies:
@@ -1108,26 +1108,26 @@ importers:
 
   packages/runtime-gateway:
     dependencies:
-      '@beamlab/context-engine':
+      '@beamstudio/context-engine':
         specifier: workspace:*
         version: link:../context-engine
-      '@beamlab/events':
+      '@beamstudio/events':
         specifier: workspace:*
         version: link:../events
-      '@beamlab/tool-registry':
+      '@beamstudio/tool-registry':
         specifier: workspace:*
         version: link:../tool-registry
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
-      '@beamlab/utils':
+      '@beamstudio/utils':
         specifier: workspace:*
         version: link:../utils
       zod:
         specifier: ^3.22.4
         version: 3.25.76
     devDependencies:
-      '@beamlab/config':
+      '@beamstudio/config':
         specifier: workspace:*
         version: link:../config
       typescript:
@@ -1139,7 +1139,7 @@ importers:
 
   packages/seismic-engine:
     dependencies:
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -1155,7 +1155,7 @@ importers:
 
   packages/solve-farm:
     dependencies:
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -1171,7 +1171,7 @@ importers:
 
   packages/solver-client:
     devDependencies:
-      '@beamlab/config':
+      '@beamstudio/config':
         specifier: workspace:*
         version: link:../config
       '@types/node':
@@ -1189,17 +1189,17 @@ importers:
 
   packages/solver-runtime:
     dependencies:
-      '@beamlab/events':
+      '@beamstudio/events':
         specifier: workspace:*
         version: link:../events
-      '@beamlab/solver-client':
+      '@beamstudio/solver-client':
         specifier: workspace:*
         version: link:../solver-client
       '@beamworks/core-engine':
         specifier: workspace:*
         version: link:../core-engine
     devDependencies:
-      '@beamlab/config':
+      '@beamstudio/config':
         specifier: workspace:*
         version: link:../config
       '@types/node':
@@ -1217,10 +1217,10 @@ importers:
 
   packages/task-scheduler:
     dependencies:
-      '@beamlab/execution-graph':
+      '@beamstudio/execution-graph':
         specifier: workspace:*
         version: link:../execution-graph
-      '@beamlab/utils':
+      '@beamstudio/utils':
         specifier: workspace:*
         version: link:../utils
     devDependencies:
@@ -1242,7 +1242,7 @@ importers:
 
   packages/timber-engine:
     dependencies:
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -1258,23 +1258,23 @@ importers:
 
   packages/tool-registry:
     dependencies:
-      '@beamlab/events':
+      '@beamstudio/events':
         specifier: workspace:*
         version: link:../events
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
-      '@beamlab/utils':
+      '@beamstudio/utils':
         specifier: workspace:*
         version: link:../utils
-      '@beamlab/validation':
+      '@beamstudio/validation':
         specifier: workspace:*
         version: link:../validation
       zod:
         specifier: ^3.22.4
         version: 3.25.76
     devDependencies:
-      '@beamlab/config':
+      '@beamstudio/config':
         specifier: workspace:*
         version: link:../config
       typescript:
@@ -1286,7 +1286,7 @@ importers:
 
   packages/types:
     devDependencies:
-      '@beamlab/config':
+      '@beamstudio/config':
         specifier: workspace:*
         version: link:../config
       typescript:
@@ -1299,10 +1299,10 @@ importers:
         specifier: ^9.0.0
         version: 9.14.0
     devDependencies:
-      '@beamlab/config':
+      '@beamstudio/config':
         specifier: workspace:*
         version: link:../config
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
       typescript:
@@ -1318,25 +1318,25 @@ importers:
         specifier: ^3.22.4
         version: 3.25.76
     devDependencies:
-      '@beamlab/blast-engine':
+      '@beamstudio/blast-engine':
         specifier: workspace:*
         version: link:../blast-engine
-      '@beamlab/cable-engine':
+      '@beamstudio/cable-engine':
         specifier: workspace:*
         version: link:../cable-engine
-      '@beamlab/config':
+      '@beamstudio/config':
         specifier: workspace:*
         version: link:../config
-      '@beamlab/earth-engine':
+      '@beamstudio/earth-engine':
         specifier: workspace:*
         version: link:../earth-engine
-      '@beamlab/fem-engine':
+      '@beamstudio/fem-engine':
         specifier: workspace:*
         version: link:../fem-engine
-      '@beamlab/solve-farm':
+      '@beamstudio/solve-farm':
         specifier: workspace:*
         version: link:../solve-farm
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
       typescript:
@@ -1348,7 +1348,7 @@ importers:
 
   packages/wind-engine:
     dependencies:
-      '@beamlab/types':
+      '@beamstudio/types':
         specifier: workspace:*
         version: link:../types
     devDependencies:

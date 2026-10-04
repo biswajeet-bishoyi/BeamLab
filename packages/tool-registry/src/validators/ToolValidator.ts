@@ -1,5 +1,5 @@
 import { BaseTool, ToolContext, ValidationResult } from '../interfaces/BaseTool';
-import { ValidationError } from '@beamlab/utils';
+import { ValidationError } from '@beamstudio/utils';
 
 export class ToolValidator {
   public async validate<I, O>(tool: BaseTool<I, O>, input: any, context: ToolContext): Promise<I> {

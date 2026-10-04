@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { ExecutionGraphEngine } from './api/ExecutionGraphEngine';
-import { ExecutionPlanData } from '@beamlab/planning-engine';
+import { ExecutionPlanData } from '@beamstudio/planning-engine';
 import { ExecutionGraph, ExecutionGraphData } from './models/ExecutionGraph';
 
 describe('ExecutionGraphEngine', () => {

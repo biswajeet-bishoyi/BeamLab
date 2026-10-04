@@ -1,5 +1,5 @@
 /**
- * @beamlab/bridge-engine - AASHTO LRFD Girder Live Load Distribution Factors (LLDF) & Skew Engine
+ * @beamstudio/bridge-engine - AASHTO LRFD Girder Live Load Distribution Factors (LLDF) & Skew Engine
  * Compliant with AASHTO LRFD Bridge Design Specifications (Section 4.6.2.2)
  */
 

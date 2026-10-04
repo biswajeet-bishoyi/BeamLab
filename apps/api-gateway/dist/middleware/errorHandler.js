@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.errorHandler = errorHandler;
-const utils_1 = require("@beamlab/utils");
+const utils_1 = require("@beamstudio/utils");
 function errorHandler(err, req, res, next) {
     if (err instanceof utils_1.AppError) {
         res.status(err.statusCode).json({

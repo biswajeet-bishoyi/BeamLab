@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import type { StructuralSystem, NodeDisplacement } from '@beamlab/engineering-model';
+import type { StructuralSystem, NodeDisplacement } from '@beamstudio/engineering-model';
 import { DeformationEngine } from './DeformationEngine';
 import { UndeformedGhostBuilder } from './UndeformedGhostBuilder';
 

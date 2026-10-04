@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/archie-kernel",
+  "name": "@beamstudio/archie-kernel",
   "version": "1.0.0",
   "private": true,
   "description": "The Runtime OS and central coordinator for Archie",
@@ -22,20 +22,20 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@beamlab/context-engine": "workspace:*",
-    "@beamlab/tool-registry": "workspace:*",
-    "@beamlab/utils": "workspace:*",
-    "@beamlab/planning-engine": "workspace:*",
-    "@beamlab/execution-graph": "workspace:*",
-    "@beamlab/task-scheduler": "workspace:*",
-    "@beamlab/knowledge-platform": "workspace:*",
-    "@beamlab/policy-engine": "workspace:*",
-    "@beamlab/resource-manager": "workspace:*",
-    "@beamlab/memory-system": "workspace:*",
-    "@beamlab/solver-runtime": "workspace:*",
-    "@beamlab/engineering-reasoning": "workspace:*",
-    "@beamlab/agent-framework": "workspace:*",
-    "@beamlab/agent-design": "workspace:*"
+    "@beamstudio/context-engine": "workspace:*",
+    "@beamstudio/tool-registry": "workspace:*",
+    "@beamstudio/utils": "workspace:*",
+    "@beamstudio/planning-engine": "workspace:*",
+    "@beamstudio/execution-graph": "workspace:*",
+    "@beamstudio/task-scheduler": "workspace:*",
+    "@beamstudio/knowledge-platform": "workspace:*",
+    "@beamstudio/policy-engine": "workspace:*",
+    "@beamstudio/resource-manager": "workspace:*",
+    "@beamstudio/memory-system": "workspace:*",
+    "@beamstudio/solver-runtime": "workspace:*",
+    "@beamstudio/engineering-reasoning": "workspace:*",
+    "@beamstudio/agent-framework": "workspace:*",
+    "@beamstudio/agent-design": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^24.13.2",

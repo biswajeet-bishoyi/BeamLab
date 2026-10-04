@@ -1,6 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { useArchie } from '@beamlab/archie-client';
+import { useArchie } from '@beamstudio/archie-client';
 import { ChatBubble, PromptComposer } from '@beamworks/design-system';
 import { Bot, Zap, TerminalSquare } from 'lucide-react';
 

@@ -1,4 +1,4 @@
-import { ToolRegistry } from '@beamlab/tool-registry';
+import { ToolRegistry } from '@beamstudio/tool-registry';
 
 export class ToolResolver {
   constructor(private registry: ToolRegistry) {}

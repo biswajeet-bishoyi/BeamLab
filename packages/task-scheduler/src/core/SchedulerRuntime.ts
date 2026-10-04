@@ -1,4 +1,4 @@
-import { ExecutionGraph } from '@beamlab/execution-graph';
+import { ExecutionGraph } from '@beamstudio/execution-graph';
 import { HealthRegistry } from '../health/HealthRegistry';
 import { TracingEngine, TraceContext } from '../observability/TracingEngine';
 import { MetricsCollector } from '../metrics/MetricsCollector';

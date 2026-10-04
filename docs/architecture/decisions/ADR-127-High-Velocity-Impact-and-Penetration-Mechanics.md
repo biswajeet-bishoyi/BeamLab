@@ -7,7 +7,7 @@ Accepted
 Critical infrastructure (nuclear power plants, defense facilities, industrial chemical plants) must be fortified against tornado-generated missiles, aircraft debris, and high-velocity ballistic fragments. Predictive equations are necessary to determine penetration, scabbing, and perforation thickness thresholds.
 
 ## Decision
-We implemented `ImpactEngine` in `@beamlab/blast-engine`:
+We implemented `ImpactEngine` in `@beamstudio/blast-engine`:
 1. **Concrete Barriers (Modified NDRC)**:
    - Implemented National Defense Research Committee (NDRC) formulations incorporating projectile mass $M$, velocity $v_0$, diameter $d$, and nose shape factor $N^*$ (flat, blunt, spherical, conical, ogive).
    - Computes penetration depth $x$, scabbing limit thickness $h_s$, perforation limit thickness $h_p$, and residual exit velocity $v_r$.

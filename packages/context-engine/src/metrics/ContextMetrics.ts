@@ -1,4 +1,4 @@
-import { logger } from '@beamlab/utils';
+import { logger } from '@beamstudio/utils';
 
 export class ContextMetrics {
   public logRebuild(projectId: string, durationMs: number, nodeCount: number) {

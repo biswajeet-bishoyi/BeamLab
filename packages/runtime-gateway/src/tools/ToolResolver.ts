@@ -1,4 +1,4 @@
-import { registry, ToolExecutor, ToolContext } from '@beamlab/tool-registry';
+import { registry, ToolExecutor, ToolContext } from '@beamstudio/tool-registry';
 
 export class ToolResolver {
   private executor = new ToolExecutor();

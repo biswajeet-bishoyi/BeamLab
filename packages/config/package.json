@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/config",
+  "name": "@beamstudio/config",
   "version": "0.1.0",
   "private": true,
   "main": "index.js",

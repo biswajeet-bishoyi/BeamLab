@@ -1,5 +1,5 @@
 import { RuntimeStatus } from '../api/IArchieKernel';
-import { SchedulerRuntime } from '@beamlab/task-scheduler';
+import { SchedulerRuntime } from '@beamstudio/task-scheduler';
 
 export class RuntimeManager {
   private status: RuntimeStatus = { state: 'stopped', uptime: 0 };

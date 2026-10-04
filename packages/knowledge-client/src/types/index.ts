@@ -1,4 +1,4 @@
-import type { KnowledgeItem, KnowledgeVersion } from '@beamlab/knowledge-platform';
+import type { KnowledgeItem, KnowledgeVersion } from '@beamstudio/knowledge-platform';
 
 export interface ClientRetrievalQuery {
   query: string;

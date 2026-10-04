@@ -16,7 +16,7 @@ Accurate structural design of mat foundations requires modeling Soil-Structure I
 4. **Serviceability Criteria**: Analysis must verify maximum contact pressure against bearing capacity, maximum settlement against allowable limits, differential settlement, and angular distortion ($\Delta S / L_{span}$) against structural distortion limits (e.g. 1/500).
 
 ## Decision
-We implemented `WinklerSubgradeEngine` in `@beamlab/foundation-engine`:
+We implemented `WinklerSubgradeEngine` in `@beamstudio/foundation-engine`:
 1. **Subgrade Modulus Formulations**:
    - Implemented Bowles, Vesic, and Terzaghi methods with user overrides.
 2. **2D Spring Mesh Generation**:

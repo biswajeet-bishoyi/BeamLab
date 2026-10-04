@@ -45,7 +45,7 @@ import {
   StoryDisplacement,
   TorsionalIrregularityAuditor,
   DiaphragmStoryDisplacement,
-} from '@beamlab/seismic-engine';
+} from '@beamstudio/seismic-engine';
 
 interface SeismicStudioProps {
   onClose: () => void;

@@ -1,1 +1,1 @@
-export * from '@beamlab/resource-manager';
+export * from '@beamstudio/resource-manager';

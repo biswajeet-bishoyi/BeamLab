@@ -14,16 +14,16 @@ BeamLab is architected as a robust pnpm workspace monorepo managed by TurboRepo.
 
 ### Packages (Shared Libraries)
 
-- **`@beamlab/types`**: Global TypeScript interfaces (DTOs, domain models).
-- **`@beamlab/validation`**: Zod schemas used by the gateway to strictly validate all incoming data.
-- **`@beamlab/utils`**: Pure helper functions, error classes, and the global Pino logger instance.
-- **`@beamlab/events`**: Standardized definitions for event-driven architecture payloads.
+- **`@beamstudio/types`**: Global TypeScript interfaces (DTOs, domain models).
+- **`@beamstudio/validation`**: Zod schemas used by the gateway to strictly validate all incoming data.
+- **`@beamstudio/utils`**: Pure helper functions, error classes, and the global Pino logger instance.
+- **`@beamstudio/events`**: Standardized definitions for event-driven architecture payloads.
 
 ## Dependency Flow
 
 `apps/web` --> `apps/api-gateway`
-`apps/api-gateway` --> `@beamlab/validation`, `@beamlab/utils`, `@beamlab/types`
-`packages/*` --> `@beamlab/types`, `@beamlab/utils`
+`apps/api-gateway` --> `@beamstudio/validation`, `@beamstudio/utils`, `@beamstudio/types`
+`packages/*` --> `@beamstudio/types`, `@beamstudio/utils`
 
 ## CI/CD Pipeline
 

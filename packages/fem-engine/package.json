@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/fem-engine",
+  "name": "@beamstudio/fem-engine",
   "version": "0.1.0",
   "description": "Plate, Shell & 2D/3D Finite Element Continuum Engine: MITC4 Mindlin-Reissner Formulations, Mesh Generators, Wood-Armer Design Moments & Yield Criteria",
   "main": "./dist/index.js",
@@ -18,7 +18,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@beamlab/types": "workspace:*"
+    "@beamstudio/types": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.2",

@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import type { SectionType, SectionDimensions } from '@beamlab/engineering-model';
+import type { SectionType, SectionDimensions } from '@beamstudio/engineering-model';
 
 /**
  * Procedural geometry builder for structural cross-sections.

@@ -1,1 +1,1 @@
-export * from '@beamlab/policy-engine';
+export * from '@beamstudio/policy-engine';

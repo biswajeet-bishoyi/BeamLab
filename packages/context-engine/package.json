@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/context-engine",
+  "name": "@beamstudio/context-engine",
   "version": "0.1.0",
   "private": true,
   "main": "src/index.ts",
@@ -8,13 +8,13 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@beamlab/utils": "workspace:*",
-    "@beamlab/types": "workspace:*",
-    "@beamlab/events": "workspace:*",
+    "@beamstudio/utils": "workspace:*",
+    "@beamstudio/types": "workspace:*",
+    "@beamstudio/events": "workspace:*",
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@beamlab/config": "workspace:*",
+    "@beamstudio/config": "workspace:*",
     "typescript": "^5.3.3",
     "vitest": "^1.2.2"
   }

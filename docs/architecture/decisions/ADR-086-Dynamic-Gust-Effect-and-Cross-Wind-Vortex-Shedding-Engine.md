@@ -15,7 +15,7 @@ Slender and tall structures exhibit dynamic sensitivity to atmospheric wind turb
    - Mass-damping ratio (Scruton number $Sc$) determines the amplitude of cross-wind dynamic forces.
 
 ## Decision
-We implemented `GustResonanceEngine` and `VortexSheddingEngine` in `@beamlab/wind-engine`:
+We implemented `GustResonanceEngine` and `VortexSheddingEngine` in `@beamstudio/wind-engine`:
 - **Along-Wind Gust Factor ($G_f$)**:
   - Automatically identifies whether building is rigid ($G = 0.85$) or flexible ($n_1 < 1.0\text{ Hz}$).
   - Computes integral length scales $L_{\bar{z}}$, turbulence intensity $I_{\bar{z}}$, Davenport/Kaimal spectral factor $R_n$, and resonant magnification $R$.

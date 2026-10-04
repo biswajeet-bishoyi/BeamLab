@@ -16,7 +16,7 @@ Instead of tying the UI directly to a specific backend connection (like a mock o
 
 1. **`ITransport`**: Defines how messages and lifecycle events are streamed. 
 2. **`ArchieClient`**: The primary state container for the SDK. It tracks `messages`, `plan`, `execution`, and `state`, exposing them cleanly to React components.
-3. **`LocalRuntimeTransport`**: Since there is no Node/Express server running yet, this transport directly imports and executes the `ArchieRuntime` from `@beamlab/runtime-gateway` using the Vite bundler. It handles parsing Server-Sent Events (SSE) formatting into structured JSON objects.
+3. **`LocalRuntimeTransport`**: Since there is no Node/Express server running yet, this transport directly imports and executes the `ArchieRuntime` from `@beamstudio/runtime-gateway` using the Vite bundler. It handles parsing Server-Sent Events (SSE) formatting into structured JSON objects.
 
 ### Event Streaming Model
 The `runtime-gateway` now yields highly granular events as the pipeline progresses:

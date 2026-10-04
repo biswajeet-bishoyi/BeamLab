@@ -5,7 +5,7 @@ import type {
   CalculationNoteSection,
   HumanApprovalGate,
   OrchestrationStatus,
-} from '@beamlab/archie-kernel';
+} from '@beamstudio/archie-kernel';
 
 export interface ReasoningLogEntry {
   id: string;

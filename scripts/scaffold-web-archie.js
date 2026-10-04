@@ -10,7 +10,7 @@ if (!fs.existsSync(ARCHIE_DIR)) fs.mkdirSync(ARCHIE_DIR, { recursive: true });
 // 1. ChatTab.tsx
 fs.writeFileSync(path.join(ARCHIE_DIR, 'ChatTab.tsx'), `
 import React, { useState, useRef, useEffect } from 'react';
-import { useArchie } from '@beamlab/archie-client';
+import { useArchie } from '@beamstudio/archie-client';
 import { ChatBubble, PromptComposer } from '@beamworks/design-system';
 import { Bot, Zap, Clock, Star, TerminalSquare } from 'lucide-react';
 
@@ -91,7 +91,7 @@ export const ChatTab: React.FC = () => {
 // 2. PlanTab.tsx
 fs.writeFileSync(path.join(ARCHIE_DIR, 'PlanTab.tsx'), `
 import React from 'react';
-import { useArchie } from '@beamlab/archie-client';
+import { useArchie } from '@beamstudio/archie-client';
 import { CheckCircle2, Circle, Clock, Loader2, AlertCircle } from 'lucide-react';
 import { clsx } from 'clsx';
 
@@ -138,7 +138,7 @@ export const PlanTab: React.FC = () => {
 // 3. ExecutionTab.tsx
 fs.writeFileSync(path.join(ARCHIE_DIR, 'ExecutionTab.tsx'), `
 import React from 'react';
-import { useArchie } from '@beamlab/archie-client';
+import { useArchie } from '@beamstudio/archie-client';
 import { PlayCircle } from 'lucide-react';
 
 export const ExecutionTab: React.FC = () => {

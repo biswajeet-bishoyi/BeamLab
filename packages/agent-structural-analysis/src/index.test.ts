@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { StructuralAnalysisAgent } from './agent/StructuralAnalysisAgent';
-import { ExecutionContext } from '@beamlab/agent-framework';
+import { ExecutionContext } from '@beamstudio/agent-framework';
 
 describe('StructuralAnalysisAgent', () => {
   it('should be instantiable and initialize', async () => {

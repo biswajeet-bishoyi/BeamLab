@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/composite-engine",
+  "name": "@beamstudio/composite-engine",
   "version": "0.1.0",
   "description": "Steel-Concrete Composite Structural Engine: Beams with Metal Deck, Headed Shear Studs, CFT & Encased Columns, P-M Interaction, and AISC DG11 Floor Vibration",
   "main": "./dist/index.js",
@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@beamlab/types": "workspace:*"
+    "@beamstudio/types": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.2",

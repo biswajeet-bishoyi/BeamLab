@@ -12,7 +12,7 @@ Reinforced concrete columns under lateral wind, seismic, and unbalanced gravity 
 - Mandatory structural detailing verification: longitudinal reinforcement limits ($\rho_g \in [0.01, 0.04]$), minimum 4/6 bar counts, tie sizing/spacing limits ($s \le \min(16 d_b, 48 d_{tie}, b)$), and Special Moment Frame (SMF) plastic hinge confinement ($l_o, s_o, A_{sh}$).
 
 ## Decision
-We implement the column engineering core within `@beamlab/concrete-engine`:
+We implement the column engineering core within `@beamstudio/concrete-engine`:
 
 1. **3D Biaxial P-M-M Surface Engine (`BiaxialPMMInteractionEngine`)**:
    - Sweeps radial angle slices around $360^\circ$ and neutral axis depths $c$ from pure tension ($-A_{st} f_y$) to pure compression ($P_0 = 0.85 f'_c (A_g - A_{st}) + f_y A_{st}$).

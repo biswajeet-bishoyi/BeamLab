@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { SchedulerRuntime } from './core/SchedulerRuntime';
-import { ExecutionGraph, ExecutionGraphData } from '@beamlab/execution-graph';
+import { ExecutionGraph, ExecutionGraphData } from '@beamstudio/execution-graph';
 
 describe('SchedulerRuntime', () => {
   let runtime: SchedulerRuntime;

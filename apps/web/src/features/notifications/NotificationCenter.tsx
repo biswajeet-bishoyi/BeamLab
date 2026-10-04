@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { workspace, type WorkspaceNotification } from '@beamlab/workspace-runtime';
+import { workspace, type WorkspaceNotification } from '@beamstudio/workspace-runtime';
 import { X, Info, CheckCircle2, AlertTriangle, AlertCircle } from 'lucide-react';
 
 export const NotificationCenter: React.FC = () => {

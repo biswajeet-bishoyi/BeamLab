@@ -1,5 +1,5 @@
 import { OptimizationCandidate, TradeOffModel } from '../models';
-import { EngineeringDecisionEngine, EvaluationCriteria } from '@beamlab/engineering-reasoning';
+import { EngineeringDecisionEngine, EvaluationCriteria } from '@beamstudio/engineering-reasoning';
 
 export interface ITradeOffAnalyzer {
   analyze(candidates: OptimizationCandidate[]): TradeOffModel[];

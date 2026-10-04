@@ -13,7 +13,7 @@ To evaluate structural safety, prevent plastic deformation, and generate insight
 4. **Nodal Averaging & Gradient Smoothing**: Translating discontinuous element Gauss point stresses into smooth continuous nodal fields for 3D WebGL contour rendering.
 
 ## Decision
-We implement `StressCriteriaEngine` in `@beamlab/fem-engine/src/stress/`:
+We implement `StressCriteriaEngine` in `@beamstudio/fem-engine/src/stress/`:
 
 1. **Exact 2D Mohr's Circle Principal Stresses**:
    - $\sigma_{1,2} = \frac{\sigma_{xx} + \sigma_{yy}}{2} \pm \sqrt{\left(\frac{\sigma_{xx} - \sigma_{yy}}{2}\right)^2 + \tau_{xy}^2}$

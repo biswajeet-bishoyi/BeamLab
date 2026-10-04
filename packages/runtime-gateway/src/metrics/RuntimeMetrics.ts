@@ -1,4 +1,4 @@
-import { logger } from '@beamlab/utils';
+import { logger } from '@beamstudio/utils';
 
 export class RuntimeMetrics {
   public logPipelinePhase(traceId: string, phase: string, durationMs: number, metadata?: any) {

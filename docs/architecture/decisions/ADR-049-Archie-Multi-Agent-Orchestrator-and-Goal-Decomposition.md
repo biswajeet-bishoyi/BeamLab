@@ -12,7 +12,7 @@ Prior to Sprint B5.1, BeamLab contained standalone solvers and agent abstraction
 3. An autonomous multi-agent orchestrator with human-in-the-loop approval gates.
 
 ## Decision
-We implemented the Archie Multi-Agent Coordination Engine in `@beamlab/archie-kernel`:
+We implemented the Archie Multi-Agent Coordination Engine in `@beamstudio/archie-kernel`:
 
 ### 1. Goal Decomposition Engine (`GoalDecompositionEngine.ts`)
 - Evaluates natural language engineering prompts and identifies intent (`WEIGHT_OPTIMIZATION`, `CODE_COMPLIANCE`, `SECOND_ORDER_ANALYSIS`, `PUSHOVER_ASSESSMENT`, `LOAD_GENERATION`, `CALCULATION_REPORT`).

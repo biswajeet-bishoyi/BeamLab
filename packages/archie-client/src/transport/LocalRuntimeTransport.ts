@@ -1,5 +1,5 @@
 import { ITransport, TransportMessagePayload } from './ITransport';
-import { archieRuntime } from '@beamlab/runtime-gateway';
+import { archieRuntime } from '@beamstudio/runtime-gateway';
 
 export class LocalRuntimeTransport implements ITransport {
   private listeners: Set<(event: any) => void> = new Set();

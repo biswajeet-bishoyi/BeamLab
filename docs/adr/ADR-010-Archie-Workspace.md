@@ -7,7 +7,7 @@ Accepted
 BeamLab aims to provide a sophisticated AI "Engineering Intelligence" experience named Archie. Archie is not merely a chatbot, but a persistent workspace offering planning, context-awareness, execution timelines, and conversation history. To support a highly concurrent frontend UI development cycle without being blocked by the backend Runtime Gateway or LLM latency, we need a robust UI architecture that strictly decouples the UI from the AI engine.
 
 ## Decision
-We have decided to introduce the `@beamlab/archie-client` package, serving as an explicit abstraction layer between the UI components (in `apps/web`) and the future intelligence backend.
+We have decided to introduce the `@beamstudio/archie-client` package, serving as an explicit abstraction layer between the UI components (in `apps/web`) and the future intelligence backend.
 
 ### Key Architectural Choices:
 - **`IArchieClient` Interface**: A permanent contract defining all interactions (`sendMessage`, `streamMessage`, `cancel`, `getState`, `getPlan`, etc.). The UI only knows about this interface.

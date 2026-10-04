@@ -12,7 +12,7 @@ Licensed structural engineers must demonstrate verifiable, step-by-step code com
 5. Explicit member classification, Euler flexural column buckling reductions ($\chi$), and lateral-torsional buckling (LTB) critical moments ($M_{cr}, \chi_{LT}$).
 
 ## Decision
-We implemented `CodeComplianceAuditor` in `@beamlab/agent-code-compliance`:
+We implemented `CodeComplianceAuditor` in `@beamstudio/agent-code-compliance`:
 1. **Multi-Standard Clause Evaluation**:
    - **Eurocode 3 (EN 1993-1-1)**: §6.2.3 (Tension), §6.2.4 (Compression), §6.2.5 (Bending), §6.2.6 (Shear), §6.3.1 (Column Buckling with $\chi$), §6.3.2 (LTB with $\chi_{LT}$), and §6.3.3 (Combined $N-M$ interaction).
    - **AISC 360-16**: Chapter D (Tension), Chapter E (Column Buckling with $F_{cr}$), Chapter F (Beam Flexure), Chapter G (Shear), and Chapter H (Bilinear $P-M$ interaction).

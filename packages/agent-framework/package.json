@@ -1,5 +1,5 @@
 {
-  "name": "@beamlab/agent-framework",
+  "name": "@beamstudio/agent-framework",
   "version": "0.1.0",
   "private": true,
   "main": "./dist/index.js",
@@ -18,7 +18,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@beamlab/memory-client": "workspace:*"
+    "@beamstudio/memory-client": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.2",

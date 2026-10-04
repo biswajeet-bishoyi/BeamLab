@@ -1,4 +1,4 @@
-import { ResourceEngine, Resource, SearchOptions, StaticProvider } from '@beamlab/resource-manager';
+import { ResourceEngine, Resource, SearchOptions, StaticProvider } from '@beamstudio/resource-manager';
 
 export class ResourceClient {
   private engine: ResourceEngine;

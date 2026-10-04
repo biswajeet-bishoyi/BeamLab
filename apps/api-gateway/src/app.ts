@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import pinoHttp from 'pino-http';
-import { logger } from '@beamlab/utils';
+import { logger } from '@beamstudio/utils';
 import { errorHandler } from './middleware/errorHandler';
 
 export const app = express();

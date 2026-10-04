@@ -12,7 +12,7 @@ In mid-rise and high-rise construction, steel-concrete composite columns provide
 5. Combined axial compression and biaxial bending via 4-point plastic P-M interaction envelopes (Points A, B, C, D).
 
 ## Decision
-We implemented `@beamlab/composite-engine/src/column`:
+We implemented `@beamstudio/composite-engine/src/column`:
 1. **`CompositeColumnModels.ts`**:
    - Geometrical definitions for `RectangularCftDefinition`, `CircularCftDefinition`, and `EncasedColumnDefinition` with boundary conditions ($L, K$).
 2. **`CompositeAxialBucklingEngine.ts`**:

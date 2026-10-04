@@ -1,5 +1,5 @@
 /**
- * @beamlab/bridge-engine - Müller-Breslau Influence Line & Surface Engine
+ * @beamstudio/bridge-engine - Müller-Breslau Influence Line & Surface Engine
  * Computes exact influence lines for shear, moment, and reactions on single and continuous bridge superstructures
  */
 

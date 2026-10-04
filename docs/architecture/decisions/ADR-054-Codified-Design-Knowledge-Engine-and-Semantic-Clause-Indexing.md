@@ -12,7 +12,7 @@ Engineers and autonomous agents need:
 3. Cross-standard clause mapping enabling direct comparison between EU, US, and Indian structural standards.
 
 ## Decision
-We implemented the Codified Design Knowledge Engine in `@beamlab/knowledge-platform`:
+We implemented the Codified Design Knowledge Engine in `@beamstudio/knowledge-platform`:
 1. **Clause Data Model (`DesignCodeClause.ts`)**:
    - `CodeClause` schema capturing `clauseId`, `standard`, `sectionNumber`, `title`, `limitState` (Ultimate, Serviceability, Stability, Seismic), `applicableActions`, `equations`, `variables`, and `safetyFactors`.
 2. **International Standard Knowledge Bases**:

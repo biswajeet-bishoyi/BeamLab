@@ -52,7 +52,7 @@ This section maps the records ADR-006 through ADR-022 to their respective contex
 ### [ADR-008: Task Scheduler](file:///c:/kanha/college/projects/BeamLab/docs/adr/ADR-008-Task-Scheduler.md)
 *   **Status**: Accepted
 *   **Context**: Processing DAG nodes under strict performance and observability guidelines.
-*   **Decision**: Designed `@beamlab/task-scheduler` with a decoupled State Machine Event Loop, `TracingEngine` context injection, and strict graph-security size validation.
+*   **Decision**: Designed `@beamstudio/task-scheduler` with a decoupled State Machine Event Loop, `TracingEngine` context injection, and strict graph-security size validation.
 
 ### [ADR-009: Workspace Panel Architecture](file:///c:/kanha/college/projects/BeamLab/docs/adr/ADR-009-Workspace-Architecture.md)
 *   **Status**: Accepted
@@ -82,49 +82,49 @@ This section maps the records ADR-006 through ADR-022 to their respective contex
 ### [ADR-014: Workspace Runtime OS Layer](file:///c:/kanha/college/projects/BeamLab/docs/adr/ADR-014-Workspace-Runtime.md)
 *   **Status**: Accepted
 *   **Context**: Coordinating canvas selection, property inspectors, and AI context without nested states.
-*   **Decision**: Established `@beamlab/workspace-runtime` as the UI OS layer with a global event bus (`WorkspaceEventBus`), session persistence, and task profiles.
+*   **Decision**: Established `@beamstudio/workspace-runtime` as the UI OS layer with a global event bus (`WorkspaceEventBus`), session persistence, and task profiles.
 
 ### [ADR-015: Engineering Knowledge Platform (EKP)](file:///c:/kanha/college/projects/BeamLab/docs/adr/ADR-015-Engineering-Knowledge-Platform.md)
 *   **Status**: Accepted
 *   **Context**: Providing Archie with a structured, queryable citation database of structural codes and formulas.
-*   **Decision**: Developed `@beamlab/knowledge-platform` to manage design codes as a graph of related items retrieved via explainable keyword/vector engines.
+*   **Decision**: Developed `@beamstudio/knowledge-platform` to manage design codes as a graph of related items retrieved via explainable keyword/vector engines.
 
 ### [ADR-016: Engineering Policy Engine (EPE)](file:///c:/kanha/college/projects/BeamLab/docs/adr/ADR-016-Engineering-Policy-Engine.md)
 *   **Status**: Accepted
 *   **Context**: Implementing a central validation and approval layer for design decisions.
-*   **Decision**: Built `@beamlab/policy-engine` utilizing strongly typed AST expressions to evaluate structural mutations and return formal `Allow`/`Deny`/`Warning` decisions.
+*   **Decision**: Built `@beamstudio/policy-engine` utilizing strongly typed AST expressions to evaluate structural mutations and return formal `Allow`/`Deny`/`Warning` decisions.
 
 ### [ADR-017: Engineering Resource Manager (ERM)](file:///c:/kanha/college/projects/BeamLab/docs/adr/ADR-017-Engineering-Resource-Manager.md)
 *   **Status**: Accepted
 *   **Context**: Structuring standard steel profiles and concrete material catalog definitions.
-*   **Decision**: Created `@beamlab/resource-manager` to declare strongly typed schemas (Steel, Concrete) loaded through static and dynamic providers.
+*   **Decision**: Created `@beamstudio/resource-manager` to declare strongly typed schemas (Steel, Concrete) loaded through static and dynamic providers.
 
 ### [ADR-018: Multi-Agent Framework](file:///c:/kanha/college/projects/BeamLab/docs/adr/ADR-018-Multi-Agent-Framework.md)
 *   **Status**: Accepted
 *   **Context**: Sandboxing and coordinating specialist AI agents (Analyzer, Designer).
-*   **Decision**: Formulated `@beamlab/agent-framework` handling agent capability negotiation, sandbox environment isolation, and communication bus routing.
+*   **Decision**: Formulated `@beamstudio/agent-framework` handling agent capability negotiation, sandbox environment isolation, and communication bus routing.
 
 ### [ADR-018A: Agent Memory System (AMS)](file:///c:/kanha/college/projects/BeamLab/docs/adr/ADR-018A-Agent-Memory-System.md)
 *   **Status**: Accepted
 *   **Context**: Standardizing memory lifetimes and snapshot capabilities for replay support.
-*   **Decision**: Decoupled memory from the framework into `@beamlab/memory-system`, scoping storage to `session`, `conversation`, `agent_private`, and `agent_shared`.
+*   **Decision**: Decoupled memory from the framework into `@beamstudio/memory-system`, scoping storage to `session`, `conversation`, `agent_private`, and `agent_shared`.
 
 ### [ADR-019: Structural Analysis Agent Core](file:///c:/kanha/college/projects/BeamLab/docs/adr/ADR-019-Structural-Analysis-Agent-Core.md)
 *   **Status**: Accepted
 *   **Context**: Structuring the first specialist agent for solving and explaining engineering models.
-*   **Decision**: Built `@beamlab/agent-structural-analysis` wrapping validation, planning, solver abstraction, and reasoning into a dedicated sequential pipeline.
+*   **Decision**: Built `@beamstudio/agent-structural-analysis` wrapping validation, planning, solver abstraction, and reasoning into a dedicated sequential pipeline.
 
 ### [ADR-020: Solver Integration Framework (SIF)](file:///c:/kanha/college/projects/BeamLab/docs/adr/ADR-020-Solver-Integration-Framework.md)
 *   **Status**: Accepted
 *   **Context**: Standardizing how agents execute external numerical solvers (OpenSees, CalculiX).
-*   **Decision**: Created the Solver Integration Framework (`@beamlab/solver-runtime`) to register adapters and run calculation jobs off the main UI/Agent threads.
+*   **Decision**: Created the Solver Integration Framework (`@beamstudio/solver-runtime`) to register adapters and run calculation jobs off the main UI/Agent threads.
 
 ### [ADR-021: Engineering Intelligence Layer](file:///c:/kanha/college/projects/BeamLab/docs/adr/ADR-021-Engineering-Intelligence-Layer.md)
 *   **Status**: Accepted
 *   **Context**: Reusing reasoning structures across multiple design and analysis agents.
-*   **Decision**: Extracted reasoning into `@beamlab/engineering-reasoning`, defining pluggable strategies, confidence aggregators, and senior-engineer sign-off justifications.
+*   **Decision**: Extracted reasoning into `@beamstudio/engineering-reasoning`, defining pluggable strategies, confidence aggregators, and senior-engineer sign-off justifications.
 
 ### [ADR-022: Structural Design Agent](file:///c:/kanha/college/projects/BeamLab/docs/adr/ADR-022-Structural-Design-Agent.md)
 *   **Status**: Accepted
 *   **Context**: Extending BeamLab to generate structural alternative recommendations without tangling analysis code.
-*   **Decision**: Created the independent Design Agent (`@beamlab/agent-design`) running its own `DesignPipeline`, standardizing agent lifecycles via `IEngineeringPipeline`.
+*   **Decision**: Created the independent Design Agent (`@beamstudio/agent-design`) running its own `DesignPipeline`, standardizing agent lifecycles via `IEngineeringPipeline`.

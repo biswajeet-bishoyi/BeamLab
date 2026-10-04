@@ -10,8 +10,8 @@ It was necessary to establish this architecture decoupled from the UI and Runtim
 
 ## Decision
 We have established two packages to form the EKP:
-- `@beamlab/knowledge-platform`: The core engine, registry, cache, and provider abstractions.
-- `@beamlab/knowledge-client`: A typed transport layer for consumers (like Archie and the UI) to query the EKP.
+- `@beamstudio/knowledge-platform`: The core engine, registry, cache, and provider abstractions.
+- `@beamstudio/knowledge-client`: A typed transport layer for consumers (like Archie and the UI) to query the EKP.
 
 ### 1. IKnowledgeRetrievalEngine over ISearchEngine
 Retrieval is broader than search. We implemented `IKnowledgeRetrievalEngine` to explicitly support future capabilities such as Vector Search (RAG), Graph Traversal, and Agentic Retrieval. The first implementation is an in-memory `KeywordRetrievalEngine`.

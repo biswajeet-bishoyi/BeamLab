@@ -1,5 +1,5 @@
 /**
- * @beamlab/bridge-engine - Moving Load Stepping & Critical Envelope Hunter
+ * @beamstudio/bridge-engine - Moving Load Stepping & Critical Envelope Hunter
  * Traverses vehicular load trains along bridge superstructures to find governing maximum/minimum internal forces
  * and fatigue stress ranges compliant with AASHTO LRFD and Eurocode 1
  */

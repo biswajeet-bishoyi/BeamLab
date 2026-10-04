@@ -7,7 +7,7 @@ Accepted
 Designing structures against blast effects (terrorist explosive threats, accidental petrochemical vapor cloud explosions) requires determining incident and reflected shock wave overpressures, arrival times, durations, and impulses. The empirical formulations of Kingery-Bulmash and UFC 3-340-02 (formerly TM 5-855-1) remain the global standard benchmark for airblast characterization.
 
 ## Decision
-We implemented `KingeryBulmashEngine` in `@beamlab/blast-engine`:
+We implemented `KingeryBulmashEngine` in `@beamstudio/blast-engine`:
 1. **Explosives Catalog & Equivalency**:
    - Built-in equivalency factors for TNT, Composition B (1.11), ANFO (0.82), C-4 (1.30), RDX (1.60), PETN (1.28), and Semtex (1.25).
    - Surface burst reflection factor $1.8 \times$ ground enhancement.

@@ -13,7 +13,7 @@ High-rise buildings and slender towers designed purely for ultimate strength oft
 3. When lateral accelerations exceed allowable thresholds, structural engineers require rapid preliminary sizing for Tuned Mass Dampers (TMDs) or supplemental damping to restore compliance without completely overhauling the core structural frame.
 
 ## Decision
-We implemented `OccupantComfortAuditor` in `@beamlab/wind-engine`:
+We implemented `OccupantComfortAuditor` in `@beamstudio/wind-engine`:
 - **Peak Dynamic Acceleration Calculation**:
   - Along-wind peak acceleration: $a_x = g_R \cdot \frac{F_{dyn}}{M_1}$ with modal generalized mass $M_1 \approx \frac{1}{3} M_{total}$.
   - Cross-wind vortex/wake buffeting acceleration: $a_y$ determined from reduced wind velocity $V_{red} = V_h / (f_y B)$.

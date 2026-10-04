@@ -11,7 +11,7 @@ Structural analysis models historically terminate at superstructure column bases
 4. Immediate elastic settlement ($S_i$) and 1D primary consolidation settlement ($S_c$).
 
 ## Decision
-We created `@beamlab/foundation-engine` implementing:
+We created `@beamstudio/foundation-engine` implementing:
 1. **Soil Stratigraphy Engine** (`SoilStratigraphy.ts`):
    - Multi-layer profiles with automated depth sorting and layer boundary resolution.
    - Hydrostatic pore water pressure $u = (z - z_{wt})\gamma_w$ for $z > z_{wt}$.

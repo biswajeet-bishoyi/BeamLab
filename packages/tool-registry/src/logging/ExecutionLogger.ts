@@ -1,5 +1,5 @@
 import { BaseTool, ToolContext } from '../interfaces/BaseTool';
-import { logger } from '@beamlab/utils';
+import { logger } from '@beamstudio/utils';
 
 export class ExecutionLogger {
   public logExecution(tool: BaseTool<any, any>, context: ToolContext, durationMs: number, status: 'success' | 'failed', error?: any) {

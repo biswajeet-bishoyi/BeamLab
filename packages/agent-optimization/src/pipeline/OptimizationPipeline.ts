@@ -1,4 +1,4 @@
-import { IEngineeringPipeline, ExecutionContext } from '@beamlab/agent-framework';
+import { IEngineeringPipeline, ExecutionContext } from '@beamstudio/agent-framework';
 import { OptimizationSession } from '../models';
 import { ObjectiveManager } from '../objectives/ObjectiveManager';
 import { ConstraintManager } from '../constraints/ConstraintManager';

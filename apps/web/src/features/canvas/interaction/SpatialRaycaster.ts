@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import type { StructuralSystem } from '@beamlab/engineering-model';
+import type { StructuralSystem } from '@beamstudio/engineering-model';
 import type { PlateDefinition } from '../geometry';
 
 export type EntityType = 'node' | 'member' | 'support' | 'plate';

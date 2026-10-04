@@ -1,5 +1,5 @@
 import { app } from './app';
-import { logger } from '@beamlab/utils';
+import { logger } from '@beamstudio/utils';
 
 const PORT = process.env.PORT || 3000;
 

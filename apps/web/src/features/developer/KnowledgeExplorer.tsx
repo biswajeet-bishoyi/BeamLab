@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Search, Network, Database, X, BookOpen, AlertCircle } from 'lucide-react';
 import { knowledgeClient } from '../../store/knowledge';
-import type { ClientRetrievalResult } from '@beamlab/knowledge-client';
+import type { ClientRetrievalResult } from '@beamstudio/knowledge-client';
 
 export const KnowledgeExplorer: React.FC<{ onClose: () => void, isEmbedded?: boolean }> = ({ onClose, isEmbedded }) => {
   const [query, setQuery] = useState('');

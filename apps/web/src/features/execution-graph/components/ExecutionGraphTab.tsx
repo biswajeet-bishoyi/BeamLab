@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { ReactFlow, Background, Controls, MiniMap, useNodesState, useEdgesState } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import { useArchie } from '@beamlab/archie-client';
+import { useArchie } from '@beamstudio/archie-client';
 import { PlanningNode } from './nodes/PlanningNode';
 import { ToolNode } from './nodes/ToolNode';
 import { ContextNode } from './nodes/ContextNode';

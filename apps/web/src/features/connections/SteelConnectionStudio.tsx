@@ -29,7 +29,7 @@ import {
   DesignMethod,
   BoltGrade,
   LimitStateResult,
-} from '@beamlab/connection-engine';
+} from '@beamstudio/connection-engine';
 
 interface SteelConnectionStudioProps {
   onClose: () => void;

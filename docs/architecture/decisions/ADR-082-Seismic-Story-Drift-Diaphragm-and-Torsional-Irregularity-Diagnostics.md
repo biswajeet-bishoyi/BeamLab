@@ -23,7 +23,7 @@ Engineers must adhere to:
    - Accidental eccentricity amplification factor $A_x = \left(\frac{\delta_{max}}{1.2 \delta_{avg}}\right)^2 \le 3.0$.
 
 ## Decision
-We implemented `StoryDriftAuditor` and `TorsionalIrregularityAuditor` in `@beamlab/seismic-engine`:
+We implemented `StoryDriftAuditor` and `TorsionalIrregularityAuditor` in `@beamstudio/seismic-engine`:
 
 1. **StoryDriftAuditor**:
    - Audits elastic and design story drifts $\Delta_i = \delta_i - \delta_{i-1}$, story drift ratios $\theta_i$, allowable drifts $\Delta_a$, and Demand/Capacity (D/C) ratios.

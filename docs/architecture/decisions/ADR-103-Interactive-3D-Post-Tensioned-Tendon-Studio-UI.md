@@ -4,7 +4,7 @@
 Accepted
 
 ## Context
-Following the completion of Sprints B16.1 through B16.4, the algorithmic foundation of `@beamlab/prestressed-engine` is complete:
+Following the completion of Sprints B16.1 through B16.4, the algorithmic foundation of `@beamstudio/prestressed-engine` is complete:
 1. `StrandCatalog.ts` & `TendonProfileEngine.ts` (Prestress strand properties, parabolic/harped/reverse continuous trajectories).
 2. `PrestressLossAuditor.ts` (Curvature friction, wobble, wedge draw-in, elastic shortening, and time-dependent creep/shrinkage/relaxation losses).
 3. `LoadBalancingEngine.ts` & `HyperstaticPrestressEngine.ts` (Equivalent load balancing $w_{bal} = 8 P e / L^2$, anchor moments, secondary hyperstatic moments $M_2$).
@@ -25,7 +25,7 @@ To deliver a world-class structural computer-aided engineering experience, `apps
    - **Tab 5: Load Balancing & Report**: Upward balanced load $w_{bal}$, balanced dead load percentage $\beta_{bal}$, secondary moment $M_2$, ultimate flexural capacity $\phi M_n$ vs $M_u$, and one-click calculation sheet export.
 2. Add `prestressedStudioOpen` and `setPrestressedStudioOpen` to the central Zustand store (`apps/web/src/store/index.ts`).
 3. Add a dedicated "PT Studio" button with `Disc` icon to `TopNav.tsx` and integrate the modal into `WorkspaceLayout.tsx`.
-4. Add `@beamlab/prestressed-engine: workspace:*` dependency to `apps/web/package.json`.
+4. Add `@beamstudio/prestressed-engine: workspace:*` dependency to `apps/web/package.json`.
 
 ## Consequences
 - Successfully completes **Phase B16: Prestressed & Post-Tensioned Concrete Structural Systems Engine & Interactive 3D Tendon Studio UI**.

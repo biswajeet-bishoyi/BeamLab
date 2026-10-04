@@ -1,4 +1,4 @@
-import { ISolverJob, ISolverRequest, ISolverResult } from '@beamlab/solver-client';
+import { ISolverJob, ISolverRequest, ISolverResult } from '@beamstudio/solver-client';
 import { SolverAdapterRegistry } from '../registry/SolverAdapterRegistry';
 
 export class SolverJobManager {
