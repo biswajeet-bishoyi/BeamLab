@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useWorkspaceStore } from '../store/workspace';
-import { MessageSquare, ListTodo, PlayCircle, Database, History, PanelRightClose } from 'lucide-react';
+import { MessageSquare, ListTodo, PlayCircle, Database, History, PanelRightClose, Sparkles } from 'lucide-react';
 import { ArchieProvider, ArchieClient, LocalRuntimeTransport } from '@beamstudio/archie-client';
 import { ChatTab } from '../features/archie/ChatTab';
 import { PlanTab } from '../features/archie/PlanTab';
@@ -29,31 +29,37 @@ export const ArchieSidebar: React.FC = () => {
   return (
     <ArchieProvider client={client}>
       <div className="flex flex-col h-full bg-app border-l border-subtle overflow-hidden relative pb-[48px]">
-        {/* Archie Tabs */}
-        <div className="flex items-center justify-between border-b border-subtle bg-panel shrink-0">
-          <div className="flex items-center overflow-x-auto no-scrollbar">
-            {tabs.map(tab => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveArchieTab(tab.id)}
-                className={`flex items-center gap-1.5 px-3 py-2 text-xs font-medium border-b-2 transition-colors whitespace-nowrap ${
-                  activeArchieTab === tab.id 
-                    ? 'border-accent text-accent' 
-                    : 'border-transparent text-muted hover:text-primary'
-                }`}
-              >
-                <tab.icon className="w-3.5 h-3.5" />
-                <span>{tab.label}</span>
-              </button>
-            ))}
+        {/* Archie Header: Title & Collapse Button */}
+        <div className="h-9 px-3 border-b border-subtle bg-panel flex items-center justify-between shrink-0 select-none">
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+            <span className="text-xs font-semibold text-primary">Archie Assistant</span>
           </div>
           <button
             onClick={() => setRightPanelCollapsed(true)}
-            className="p-1.5 mr-1.5 rounded-md hover:bg-slate-800 text-muted hover:text-primary transition-colors shrink-0"
+            className="p-1 rounded-md hover:bg-slate-800 text-muted hover:text-primary transition-colors"
             title="Collapse Assistant ( ] )"
           >
             <PanelRightClose className="w-3.5 h-3.5" />
           </button>
+        </div>
+
+        {/* Archie Tabs Row */}
+        <div className="flex items-center px-2 py-1.5 border-b border-subtle bg-panel/40 overflow-x-auto no-scrollbar gap-1 shrink-0">
+          {tabs.map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveArchieTab(tab.id)}
+              className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-md transition-all whitespace-nowrap shrink-0 ${
+                activeArchieTab === tab.id 
+                  ? 'bg-purple-600/20 text-purple-300 font-semibold border border-purple-500/30' 
+                  : 'text-muted hover:text-primary hover:bg-panel border border-transparent'
+              }`}
+            >
+              <tab.icon className="w-3.5 h-3.5" />
+              <span>{tab.label}</span>
+            </button>
+          ))}
         </div>
 
         {/* Archie Content Router */}
