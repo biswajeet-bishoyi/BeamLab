@@ -238,20 +238,26 @@ export const WorkspaceLayout: React.FC = () => {
         {leftPanelCollapsed && (
           <button
             onClick={() => setLeftPanelCollapsed(false)}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-40 bg-slate-900/90 hover:bg-slate-800 text-slate-400 hover:text-white border-y border-r border-slate-700/80 rounded-r-lg p-1 py-3 transition-colors shadow-xl"
-            title="Show Project Explorer ( [ )"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-40 bg-slate-900/95 hover:bg-slate-800 text-slate-300 hover:text-white border-y border-r border-slate-700/80 rounded-r-xl px-1.5 py-3 transition-all shadow-2xl flex flex-col items-center gap-1.5 group cursor-pointer"
+            title="Open Project Explorer ( [ )"
           >
-            <ChevronRight className="w-3.5 h-3.5" />
+            <ChevronRight className="w-3.5 h-3.5 text-blue-400 group-hover:translate-x-0.5 transition-transform" />
+            <span className="text-[9px] font-semibold text-slate-400 group-hover:text-slate-200 [writing-mode:vertical-lr] tracking-widest uppercase">
+              Explorer
+            </span>
           </button>
         )}
 
         {rightPanelCollapsed && (
           <button
             onClick={() => setRightPanelCollapsed(false)}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-40 bg-slate-900/90 hover:bg-slate-800 text-slate-400 hover:text-white border-y border-l border-slate-700/80 rounded-l-lg p-1 py-3 transition-colors shadow-xl"
-            title="Show Archie Assistant ( ] )"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-40 bg-slate-900/95 hover:bg-slate-800 text-slate-300 hover:text-white border-y border-l border-slate-700/80 rounded-l-xl px-1.5 py-3 transition-all shadow-2xl flex flex-col items-center gap-1.5 group cursor-pointer"
+            title="Open Archie Assistant ( ] )"
           >
-            <ChevronLeft className="w-3.5 h-3.5" />
+            <ChevronLeft className="w-3.5 h-3.5 text-purple-400 group-hover:-translate-x-0.5 transition-transform" />
+            <span className="text-[9px] font-semibold text-slate-400 group-hover:text-slate-200 [writing-mode:vertical-lr] tracking-widest uppercase">
+              Archie AI
+            </span>
           </button>
         )}
 
