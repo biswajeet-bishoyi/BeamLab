@@ -32,14 +32,14 @@ export const TimelinePanel: React.FC = () => {
   return (
     <div 
       className={clsx(
-        "absolute bottom-0 left-0 right-0 bg-panel border-t border-subtle transition-all duration-300 flex flex-col z-20 shadow-2xl",
-        isExpanded ? "shadow-[0_-10px_40px_rgba(0,0,0,0.15)]" : ""
+        "w-full bg-[#0d121d] border-t border-slate-800 transition-all duration-300 flex flex-col shrink-0 z-20 shadow-2xl overflow-hidden",
+        isExpanded ? "shadow-[0_-10px_40px_rgba(0,0,0,0.5)]" : ""
       )}
-      style={{ height: isExpanded ? panelHeight : '48px' }}
+      style={{ height: isExpanded ? `${panelHeight}px` : '42px' }}
     >
       {/* Header Bar */}
       <div 
-        className="h-12 border-b border-subtle flex items-center justify-between px-4 cursor-pointer hover:bg-subtle/30 transition-colors shrink-0"
+        className="h-[42px] border-b border-slate-800/80 bg-[#0f1523] flex items-center justify-between px-3 cursor-pointer hover:bg-slate-800/60 transition-colors shrink-0 select-none"
         onClick={toggleExpanded}
       >
         <div className="flex items-center gap-3">
