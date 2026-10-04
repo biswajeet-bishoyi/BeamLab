@@ -30,7 +30,7 @@ export const ArchieSidebar: React.FC = () => {
     <ArchieProvider client={client}>
       <div className="flex flex-col h-full bg-app border-l border-subtle overflow-hidden relative pb-[48px]">
         {/* Archie Tabs */}
-        <div className="flex items-center border-b border-subtle bg-panel overflow-x-auto shrink-0">
+        <div className="flex items-center border-b border-subtle bg-panel overflow-x-auto no-scrollbar shrink-0">
           {tabs.map(tab => (
             <button
               key={tab.id}
