@@ -5,13 +5,15 @@ import {
   Hand,
   ArrowDownToLine, 
   FoldHorizontal, 
-  TriangleRight
+  TriangleRight,
+  Box,
 } from 'lucide-react';
 import { toLength, toForce, toForcePerLength } from '@beamworks/core-engine/units/brands';
 
 export function LeftToolbox() {
   const dispatchCommand = useStore(state => state.dispatchCommand);
   const selectObject = useStore(state => state.selectObject);
+  const setAddBeamModalOpen = useStore(state => state.setAddBeamModalOpen);
   
   const handleAddSupport = () => {
     const id = `s-${Date.now()}`;
@@ -69,6 +71,11 @@ export function LeftToolbox() {
       
       <div className="w-8 h-px bg-slate-200 dark:bg-slate-700 my-2"></div>
       
+      <ToolButton 
+        icon={<Box size={19} className="text-blue-400 group-hover:text-blue-300 group-hover:scale-110 transition-transform" />} 
+        tooltip="Add Beam / Member (B)" 
+        onClick={() => setAddBeamModalOpen(true)} 
+      />
       <ToolButton 
         icon={<TriangleRight size={20} className="-rotate-90" />} 
         tooltip="Add Support (S)" 
