@@ -38,6 +38,7 @@ import { PlateShellStudio } from '../features/fem';
 import { EarthStudio } from '../features/earth';
 import { BlastStudio } from '../features/blast';
 import { SolveFarmStudio } from '../features/farm/SolveFarmStudio';
+import { AddBeamModal } from '../components/modeling/AddBeamModal';
 import { AnimatePresence } from 'framer-motion';
 
 export const WorkspaceLayout: React.FC = () => {
@@ -115,7 +116,11 @@ export const WorkspaceLayout: React.FC = () => {
     setBlastStudioOpen,
     solveFarmStudioOpen,
     setSolveFarmStudioOpen,
+    addBeamModalOpen,
+    setAddBeamModalOpen,
   } = useStore(useShallow(state => ({
+    addBeamModalOpen: state.addBeamModalOpen,
+    setAddBeamModalOpen: state.setAddBeamModalOpen,
     envGalleryOpen: state.envGalleryOpen,
     setEnvGalleryOpen: state.setEnvGalleryOpen,
     aiStudioMode: state.aiStudioOpen,
@@ -397,6 +402,12 @@ export const WorkspaceLayout: React.FC = () => {
         <AnimatePresence>
           {solveFarmStudioOpen && (
             <SolveFarmStudio onClose={() => setSolveFarmStudioOpen(false)} />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {addBeamModalOpen && (
+            <AddBeamModal onClose={() => setAddBeamModalOpen(false)} />
           )}
         </AnimatePresence>
 

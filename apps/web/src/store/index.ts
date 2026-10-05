@@ -88,6 +88,8 @@ interface BeamworksState {
   setPresentationMode: (open: boolean) => void;
   setPerformanceMonitorOpen: (open: boolean) => void;
   setExportStudioOpen: (open: boolean) => void;
+  addBeamModalOpen: boolean;
+  setAddBeamModalOpen: (open: boolean) => void;
   activePreset: 'blank' | 'portal_frame' | 'space_truss' | 'building_slabs';
   setActivePreset: (preset: 'blank' | 'portal_frame' | 'space_truss' | 'building_slabs') => void;
 }
@@ -277,6 +279,8 @@ export const useStore = create<BeamworksState>((set, get) => {
     setPresentationMode: (open) => set({ presentationMode: open }),
     setPerformanceMonitorOpen: (open) => set({ performanceMonitorOpen: open }),
     setExportStudioOpen: (open) => set({ exportStudioOpen: open }),
+    addBeamModalOpen: false,
+    setAddBeamModalOpen: (open) => set({ addBeamModalOpen: open }),
     activePreset: 'blank',
     setActivePreset: (preset) => set({ activePreset: preset }),
     

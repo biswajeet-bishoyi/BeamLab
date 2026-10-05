@@ -1,6 +1,7 @@
 
 import { useEffect } from 'react';
 import { useWorkspaceStore } from '../store/workspace';
+import { useStore } from '../store';
 
 export function useKeyboardShortcuts() {
   const { 
@@ -10,6 +11,17 @@ export function useKeyboardShortcuts() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // B: Open Add Beam modal (when not focused in text input)
+      if (!e.ctrlKey && !e.metaKey && !e.altKey && e.key.toLowerCase() === 'b') {
+        const target = e.target as HTMLElement;
+        if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'SELECT')) {
+          return;
+        }
+        e.preventDefault();
+        useStore.getState().setAddBeamModalOpen(true);
+        return;
+      }
+
       // Ctrl+B or Cmd+B: Toggle Left Panel
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'b') {
         e.preventDefault();

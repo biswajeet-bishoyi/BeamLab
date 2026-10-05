@@ -78,6 +78,7 @@ import {
   Compass,
   ChevronDown,
   ChevronUp,
+  Plus,
 } from 'lucide-react';
 
 export type ModelPreset = 'blank' | 'portal_frame' | 'space_truss' | 'building_slabs';
@@ -808,6 +809,17 @@ export const EngineeringCanvas3D: React.FC<EngineeringCanvas3DProps> = ({
               <div className="w-px h-4 bg-slate-800 mx-0.5" />
             </>
           )}
+
+          {/* Primary "Add Beam" Button */}
+          <button
+            onClick={() => useStore.getState().setAddBeamModalOpen(true)}
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-[11px] shadow-md shadow-blue-600/30 transition-all cursor-pointer group"
+            title="Add Structural Beam / Member (B)"
+          >
+            <Plus className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
+            <span>Add Beam</span>
+          </button>
+          <div className="w-px h-4 bg-slate-800 mx-0.5" />
 
           {/* Camera View Orientation & Projection Dropdown */}
           <div className="relative">
